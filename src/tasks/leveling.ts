@@ -157,7 +157,6 @@ const unscaledLeveling: Task[] = [
   {
     name: "Snojo",
     after: getBuffs,
-    ready: () => get("snojoAvailable"),
     priority: () => Priorities.Start,
     prepare: (): void => {
       if (get("snojoSetting") === null) {
@@ -166,7 +165,7 @@ const unscaledLeveling: Task[] = [
       }
       fillHp();
     },
-    completed: () => get("_snojoFreeFights") >= 10 || myLevel() >= 13,
+    completed: () => get("_snojoFreeFights") >= 10 || !get("snojoAvailable"),
     do: $location`The X-32-F Combat Training Snowman`,
     post: (): void => {
       if (get("_snojoFreeFights") === 10) cliExecute("hottub"); // Clean -stat effects
@@ -177,8 +176,33 @@ const unscaledLeveling: Task[] = [
     freecombat: true,
   },
   {
+    name: "Neverending Party",
+    after: getBuffs,
+    priority: () => Priorities.Start,
+    completed: () => get("_neverendingPartyFreeTurns") >= 10 || !get("neverendingPartyAlways"),
+    do: $location`The Neverending Party`,
+    choices: { 1322: 2, 1324: 5 },
+    combat: new CombatStrategy().macro(levelingMacro).killHard(),
+    outfit: levelingOutfit,
+    limit: { tries: 11 },
+    freecombat: true,
+  },
+  {
+    name: "Speakeasy",
+    after: getBuffs,
+    priority: () => Priorities.Start,
+    completed: () => get("_speakeasyFreeFights") >= 3 || !get("ownsSpeakeasy"),
+    do: $location`An Unusually Quiet Barroom Brawl`,
+    choices: { 1322: 2, 1324: 5 },
+    combat: new CombatStrategy().macro(levelingMacro).killHard(),
+    outfit: levelingOutfit,
+    limit: { tries: 3 },
+    freecombat: true,
+  },
+  {
     name: "Shadow Rift",
-    after: ["War/Open Nuns"],
+    after: getBuffs,
+    priority: () => Priorities.Start,
     completed: () =>
       !have($item`closed-circuit pay phone`) ||
       (get("_shadowAffinityToday") &&
