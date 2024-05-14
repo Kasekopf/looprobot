@@ -528,10 +528,10 @@ export const MiscQuest: Quest = {
       priority: () => Priorities.Free,
       completed: () =>
         familiarWeight($familiar`Grey Goose`) >= 9 ||
-        get("_loopsmol_chef_goose") === "true" ||
+        get("_looprobot_chef_goose") === "true" ||
         !have($familiar`Shorter-Order Cook`),
       do: () => {
-        set("_loopsmol_chef_goose", "true");
+        set("_looprobot_chef_goose", "true");
       },
       outfit: { familiar: $familiar`Grey Goose` },
       limit: { tries: 1 },
@@ -541,10 +541,10 @@ export const MiscQuest: Quest = {
       name: "Hermit Clover",
       after: ["Hidden City/Open Temple", "Acquire Red Rocket"],
       ready: () => myMeat() >= meatBuffer + 1000,
-      completed: () => get("_loopsmol_clovers") === "true",
+      completed: () => get("_looprobot_clovers") === "true",
       do: () => {
         hermit($item`11-leaf clover`, 3);
-        set("_loopsmol_clovers", "true");
+        set("_looprobot_clovers", "true");
       },
       outfit: { equip: $items`designer sweatpants` },
       freeaction: true,

@@ -878,7 +878,7 @@ function autosellJunk(): void {
 
 function getExtros(): void {
   // Mafia doesn't always notice the workshed
-  if (!get("_loopsmol_checkworkshed", false)) {
+  if (!get("_looprobot_checkworkshed", false)) {
     const workshed = visitUrl("campground.php?action=workshed");
     if (
       workshed.includes("Cold Medicine Cabinet") &&
@@ -886,7 +886,7 @@ function getExtros(): void {
     ) {
       throw `Mafia is not detecting your cold medicine cabinet; consider visiting manually`;
     }
-    set("_loopsmol_checkworkshed", true);
+    set("_looprobot_checkworkshed", true);
   }
 
   if (get("_coldMedicineConsults") >= 5) return;

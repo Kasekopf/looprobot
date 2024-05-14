@@ -1,7 +1,7 @@
 {
-  "name": "loopsmol",
+  "name": "looprobot",
   "version": "0.1.0",
-  "description": "Shrunken Adventurer script",
+  "description": "You Robot script",
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -41,15 +41,15 @@
   },
   "author": "Kasekopf",
   "license": "ISC",
-  "repository": "https://github.com/Kasekopf/loopsmol",
+  "repository": "https://github.com/Kasekopf/looprobot",
   "keywords": [
     "KoLMafia",
     "JS",
     "TS"
   ],
   "bugs": {
-    "url": "https://github.com/Kasekopf/loopsmol/issues"
+    "url": "https://github.com/Kasekopf/looprobot/issues"
   },
-  "homepage": "https://github.com/Kasekopf/loopsmol",
+  "homepage": "https://github.com/Kasekopf/looprobot",
   "private": true
 }

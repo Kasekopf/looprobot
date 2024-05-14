@@ -71,12 +71,12 @@ const Flyers: Task[] = [
       if (have($item`rock band flyers`)) {
         debug("Mafia tracking was incorrect for rock band flyers; continuing to flyer...");
         set(
-          "_loopsmol_flyeredML_buffer",
-          get("_loopsmol_flyeredML_buffer", 0) + (get("flyeredML") - 9900)
+          "_looprobot_flyeredML_buffer",
+          get("_looprobot_flyeredML_buffer", 0) + (get("flyeredML") - 9900)
         );
         set("flyeredML", 9900);
-      } else if (get("_loopsmol_flyeredML_buffer", 0) > 0) {
-        const real = get("flyeredML") + get("_loopsmol_flyeredML_buffer", 0);
+      } else if (get("_looprobot_flyeredML_buffer", 0) > 0) {
+        const real = get("flyeredML") + get("_looprobot_flyeredML_buffer", 0);
         debug(`Mafia tracking was incorrect for rock band flyers; quest completed at ${real}`);
       }
     },

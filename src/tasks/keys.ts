@@ -181,7 +181,7 @@ function dailyDungeonTask(): Omit<Task, "completed" | "name" | "after"> {
         have($item`eleven-foot pole`)),
     prepare: () => {
       if (have($item`daily dungeon malware`))
-        set("_loopsmol_malware_amount", itemAmount($item`daily dungeon malware`));
+        set("_looprobot_malware_amount", itemAmount($item`daily dungeon malware`));
       if (have($item`Pick-O-Matic lockpicks`)) return;
       if (have($item`Platinum Yendorian Express Card`)) return;
       if (have($item`skeleton bone`) && have($item`loose teeth`) && !have($item`skeleton key`))
@@ -189,7 +189,7 @@ function dailyDungeonTask(): Omit<Task, "completed" | "name" | "after"> {
     },
     do: $location`The Daily Dungeon`,
     post: () => {
-      if (itemAmount($item`daily dungeon malware`) < get("_loopsmol_malware_amount", 0))
+      if (itemAmount($item`daily dungeon malware`) < get("_looprobot_malware_amount", 0))
         set("_dailyDungeonMalwareUsed", true);
       uneffect($effect`Apathy`);
       cliExecute("refresh inv");

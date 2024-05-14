@@ -24,7 +24,7 @@ import { checkRequirements } from "./sim";
 import { lastCommitHash } from "./_git_commit";
 import { args } from "./args";
 
-const time_property = "_loopsmol_first_start";
+const time_property = "_looprobot_first_start";
 const svn_name = "Kasekopf-loop-casual-branches-release";
 
 export function main(command?: string): void {
@@ -112,7 +112,7 @@ export function main(command?: string): void {
     print(`   Pulls used: 0 (Hardcore)`);
   } else {
     print(
-      `   Pulls used: ${get("_loopsmol_pulls_used")} (${pullsRemaining()} remaining)`,
+      `   Pulls used: ${get("_looprobot_pulls_used")} (${pullsRemaining()} remaining)`,
       "purple"
     );
   }
