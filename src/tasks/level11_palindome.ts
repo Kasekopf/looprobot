@@ -25,6 +25,7 @@ import {
   $monsters,
   $phylum,
   $skill,
+  $slot,
   AugustScepter,
   ensureEffect,
   get,
@@ -36,7 +37,7 @@ import { OutfitSpec, step } from "grimoire-kolmafia";
 import { CombatStrategy, killMacro } from "../engine/combat";
 import { ensureWithMPSwaps, fillHp } from "../engine/moods";
 import { globalStateCache } from "../engine/state";
-import { tuneSnapper } from "../lib";
+import { tuneSnapper, YouRobot } from "../lib";
 import { Priorities } from "../engine/priority";
 import { tryPlayApriling } from "../engine/resources";
 
@@ -180,7 +181,9 @@ const Copperhead: Task[] = [
     name: "Hot Snake Precastle",
     after: ["Copperhead Start", "Giant/Ground"],
     ready: () =>
-      shenItem($item`Murphy's Rancid Black Flag`) && !have($item`steam-powered model rocketship`),
+      shenItem($item`Murphy's Rancid Black Flag`) &&
+      !have($item`steam-powered model rocketship`) &&
+      (!have($item`Mohawk wig`) || YouRobot.canUse($slot`hat`)),
     completed: () => step("questL11Shen") === 999 || have($item`Murphy's Rancid Black Flag`),
     do: $location`The Castle in the Clouds in the Sky (Top Floor)`,
     outfit: { equip: $items`Mohawk wig`, modifier: "-combat" },

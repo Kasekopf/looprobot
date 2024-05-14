@@ -8,12 +8,13 @@ import {
   $monster,
   $monsters,
   $skill,
+  $slot,
   get,
   have,
   Macro,
 } from "libram";
 import { CombatStrategy, killMacro } from "../engine/combat";
-import { atLevel } from "../lib";
+import { atLevel, YouRobot } from "../lib";
 import { Quest } from "../engine/task";
 import { step } from "grimoire-kolmafia";
 import { Priorities } from "../engine/priority";
@@ -207,6 +208,7 @@ export const GiantQuest: Quest = {
       name: "Top Floor",
       after: ["Ground"],
       prepare: () => tryPlayApriling("-combat"),
+      ready: () => !have($item`Mohawk wig`) || YouRobot.canUse($slot`hat`),
       completed: () => step("questL10Garbage") >= 10,
       do: $location`The Castle in the Clouds in the Sky (Top Floor)`,
       outfit: { equip: $items`Mohawk wig`, modifier: "-combat" },

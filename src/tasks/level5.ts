@@ -8,6 +8,7 @@ import {
   $monster,
   $monsters,
   $skill,
+  $slot,
   ensureEffect,
   get,
   have,
@@ -17,7 +18,7 @@ import { Quest } from "../engine/task";
 import { OutfitSpec, step } from "grimoire-kolmafia";
 import { Priorities } from "../engine/priority";
 import { CombatStrategy } from "../engine/combat";
-import { atLevel } from "../lib";
+import { atLevel, YouRobot } from "../lib";
 import { councilSafe } from "./level12";
 
 export const KnobQuest: Quest = {
@@ -87,6 +88,7 @@ export const KnobQuest: Quest = {
     {
       name: "Perfume",
       after: ["Harem"],
+      ready: () => YouRobot.canUse($slot`hat`),
       completed: () =>
         have($effect`Knob Goblin Perfume`) ||
         have($item`Knob Goblin perfume`) ||
@@ -98,6 +100,7 @@ export const KnobQuest: Quest = {
     {
       name: "King",
       after: ["Harem", "Perfume"],
+      ready: () => YouRobot.canUse($slot`hat`),
       priority: () => (have($effect`Knob Goblin Perfume`) ? Priorities.Effect : Priorities.None),
       completed: () => step("questL05Goblin") === 999,
       do: $location`Throne Room`,

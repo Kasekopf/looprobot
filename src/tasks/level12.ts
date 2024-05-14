@@ -24,6 +24,7 @@ import {
   $monster,
   $monsters,
   $skill,
+  $slot,
   $stat,
   AutumnAton,
   ensureEffect,
@@ -37,7 +38,7 @@ import { Priority, Quest, Task } from "../engine/task";
 import { Guards, OutfitSpec, step } from "grimoire-kolmafia";
 import { Priorities } from "../engine/priority";
 import { CombatStrategy } from "../engine/combat";
-import { atLevel, debug } from "../lib";
+import { atLevel, debug, YouRobot } from "../lib";
 import { forceItemPossible, yellowRayPossible } from "../engine/resources";
 import { args } from "../args";
 import { customRestoreMp, fillHp } from "../engine/moods";
@@ -51,6 +52,7 @@ const Flyers: Task[] = [
   {
     name: "Flyers Start",
     after: ["Enrage"],
+    ready: () => YouRobot.canUse($slot`hat`),
     completed: () => have($item`rock band flyers`) || get("sidequestArenaCompleted") !== "none",
     outfit: { equip: $items`beer helmet, distressed denim pants, bejeweled pledge pin` },
     do: (): void => {
@@ -63,7 +65,7 @@ const Flyers: Task[] = [
     name: "Flyers End",
     after: ["Flyers Start"],
     priority: () => Priorities.Free,
-    ready: () => flyersDone(), // Buffer for mafia tracking
+    ready: () => flyersDone() && YouRobot.canUse($slot`hat`), // Buffer for mafia tracking
     completed: () => get("sidequestArenaCompleted") !== "none",
     outfit: { equip: $items`beer helmet, distressed denim pants, bejeweled pledge pin` },
     do: (): void => {
@@ -177,6 +179,7 @@ const Lighthouse: Task[] = [
   {
     name: "Lighthouse End",
     after: ["Lighthouse Basic"],
+    ready: () => YouRobot.canUse($slot`hat`),
     completed: () => get("sidequestLighthouseCompleted") !== "none",
     outfit: { equip: $items`beer helmet, distressed denim pants, bejeweled pledge pin` },
     do: (): void => {
@@ -191,6 +194,7 @@ const Junkyard: Task[] = [
   {
     name: "Junkyard Start",
     after: ["Enrage"],
+    ready: () => YouRobot.canUse($slot`hat`),
     completed: () => have($item`molybdenum magnet`) || get("sidequestJunkyardCompleted") !== "none",
     outfit: { equip: $items`beer helmet, distressed denim pants, bejeweled pledge pin` },
     do: (): void => {
@@ -206,6 +210,7 @@ const Junkyard: Task[] = [
       fillHp();
       customRestoreMp(50);
     },
+    ready: () => YouRobot.canUse($slot`hat`),
     completed: () => have($item`molybdenum hammer`) || get("sidequestJunkyardCompleted") !== "none",
     acquire: [{ item: $item`seal tooth` }],
     outfit: {
@@ -245,6 +250,7 @@ const Junkyard: Task[] = [
       fillHp();
       customRestoreMp(50);
     },
+    ready: () => YouRobot.canUse($slot`hat`),
     completed: () =>
       have($item`molybdenum crescent wrench`) || get("sidequestJunkyardCompleted") !== "none",
     acquire: [{ item: $item`seal tooth` }],
@@ -286,6 +292,7 @@ const Junkyard: Task[] = [
       fillHp();
       customRestoreMp(50);
     },
+    ready: () => YouRobot.canUse($slot`hat`),
     completed: () => have($item`molybdenum pliers`) || get("sidequestJunkyardCompleted") !== "none",
     outfit: {
       equip: $items`beer helmet, distressed denim pants, bejeweled pledge pin`,
@@ -324,6 +331,7 @@ const Junkyard: Task[] = [
       fillHp();
       customRestoreMp(50);
     },
+    ready: () => YouRobot.canUse($slot`hat`),
     completed: () =>
       have($item`molybdenum screwdriver`) || get("sidequestJunkyardCompleted") !== "none",
     acquire: [{ item: $item`seal tooth` }],
@@ -360,6 +368,7 @@ const Junkyard: Task[] = [
   {
     name: "Junkyard End",
     after: ["Junkyard Hammer", "Junkyard Wrench", "Junkyard Pliers", "Junkyard Screwdriver"],
+    ready: () => YouRobot.canUse($slot`hat`),
     completed: () => get("sidequestJunkyardCompleted") !== "none",
     outfit: {
       equip: $items`beer helmet, distressed denim pants, bejeweled pledge pin`,
@@ -504,6 +513,7 @@ const Orchard: Task[] = [
   {
     name: "Orchard Finish",
     after: ["Orchard Queen", "Open Orchard"],
+    ready: () => YouRobot.canUse($slot`hat`),
     completed: () => get("sidequestOrchardCompleted") !== "none",
     outfit: { equip: $items`beer helmet, distressed denim pants, bejeweled pledge pin` },
     do: (): void => {
@@ -518,6 +528,7 @@ const Nuns: Task[] = [
   {
     name: "Nuns",
     after: ["Open Nuns"],
+    ready: () => YouRobot.canUse($slot`hat`),
     completed: () => get("sidequestNunsCompleted") !== "none",
     priority: () => (have($effect`Winklered`) ? Priorities.Effect : Priorities.None),
     prepare: () => {
@@ -620,6 +631,7 @@ export const WarQuest: Quest = {
     {
       name: "Outfit Frat",
       after: ["Start", "Outfit Hippy"],
+      ready: () => YouRobot.canUse($slot`hat`),
       completed: () =>
         have($item`beer helmet`) &&
         have($item`distressed denim pants`) &&
@@ -644,7 +656,10 @@ export const WarQuest: Quest = {
     {
       name: "Enrage",
       after: ["Start", "Misc/Unlock Island", "Misc/Unlock Island Submarine", "Outfit Frat"],
-      ready: () => myBasestat($stat`mysticality`) >= 70,
+      ready: () =>
+        myBasestat($stat`mysticality`) >= 70 &&
+        myBasestat($stat`moxie`) >= 70 &&
+        YouRobot.canUse($slot`hat`),
       completed: () => step("questL12War") >= 1,
       prepare: () => {
         // Restore a bit more HP than usual
@@ -678,11 +693,7 @@ export const WarQuest: Quest = {
     {
       name: "Open Orchard",
       after: ["Flyers End", "Lighthouse End", "Junkyard End"],
-      acquire: [
-        { item: $item`beer helmet` },
-        { item: $item`distressed denim pants` },
-        { item: $item`bejeweled pledge pin` },
-      ],
+      ready: () => YouRobot.canUse($slot`hat`),
       completed: () => get("hippiesDefeated") >= 64,
       outfit: () => {
         const jelly = args.minor.jellies ? $familiar`Space Jellyfish` : undefined;
@@ -709,11 +720,7 @@ export const WarQuest: Quest = {
     {
       name: "Open Nuns",
       after: ["Orchard Finish"],
-      acquire: [
-        { item: $item`beer helmet` },
-        { item: $item`distressed denim pants` },
-        { item: $item`bejeweled pledge pin` },
-      ],
+      ready: () => YouRobot.canUse($slot`hat`),
       completed: () => get("hippiesDefeated") >= 192,
       outfit: () =>
         <OutfitSpec>{
@@ -728,11 +735,7 @@ export const WarQuest: Quest = {
     {
       name: "Clear",
       after: ["Nuns"],
-      acquire: [
-        { item: $item`beer helmet` },
-        { item: $item`distressed denim pants` },
-        { item: $item`bejeweled pledge pin` },
-      ],
+      ready: () => YouRobot.canUse($slot`hat`),
       completed: () => get("hippiesDefeated") >= 1000,
       outfit: () => {
         const result = <OutfitSpec>{
@@ -751,6 +754,7 @@ export const WarQuest: Quest = {
     {
       name: "Boss Hippie",
       after: ["Clear"],
+      ready: () => YouRobot.canUse($slot`hat`),
       completed: () => step("questL12War") === 999,
       outfit: () =>
         <OutfitSpec>{
