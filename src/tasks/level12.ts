@@ -524,6 +524,7 @@ const Orchard: Task[] = [
   },
 ];
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const Nuns: Task[] = [
   {
     name: "Nuns",
@@ -731,10 +732,10 @@ export const WarQuest: Quest = {
       combat: new CombatStrategy().kill().macro(Macro.trySkill($skill`Extract Jelly`)),
       limit: { tries: 9 },
     },
-    ...Nuns,
+    // ...Nuns,
     {
       name: "Clear",
-      after: ["Nuns"],
+      after: ["Open Nuns"],
       ready: () => YouRobot.canUse($slot`hat`),
       completed: () => get("hippiesDefeated") >= 1000,
       outfit: () => {
