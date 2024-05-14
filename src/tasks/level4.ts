@@ -1,6 +1,7 @@
 import { itemAmount, myDaycount, numericModifier, use, visitUrl } from "kolmafia";
 import {
   $effect,
+  $familiar,
   $item,
   $items,
   $location,
@@ -15,7 +16,7 @@ import {
 import { Quest } from "../engine/task";
 import { Outfit, step } from "grimoire-kolmafia";
 import { Priorities } from "../engine/priority";
-import { CombatStrategy } from "../engine/combat";
+import { CombatStrategy, killMacro } from "../engine/combat";
 import { atLevel } from "../lib";
 import { councilSafe } from "./level12";
 import { stenchPlanner } from "../engine/outfit";
@@ -36,6 +37,22 @@ export const BatQuest: Quest = {
     {
       name: "Get Sonar 1",
       after: [],
+      priority: () => {
+        const jar_needed =
+          !have($item`killing jar`) &&
+          !have($familiar`Melodramedary`) &&
+          (get("gnasirProgress") & 4) === 0 &&
+          get("desertExploration") < 100;
+        if (
+          jar_needed &&
+          get("lastEncounter") === "banshee librarian" &&
+          have($skill`Emotionally Chipped`) &&
+          get("_feelEnvyUsed") < 3 &&
+          get("_feelNostalgicUsed") < 3
+        )
+          return Priorities.Wanderer;
+        else return Priorities.None;
+      },
       completed: () => step("questL04Bat") + itemAmount($item`sonar-in-a-biscuit`) >= 1,
       do: $location`Guano Junction`,
       ready: () => stenchPlanner.maximumPossible(true) >= 1,
@@ -61,7 +78,21 @@ export const BatQuest: Quest = {
       },
       choices: { 1427: 1 },
       combat: new CombatStrategy()
-        .macro(new Macro().trySkill($skill`Fire Extinguisher: Zone Specific`))
+        .macro(() => {
+          const result = Macro.trySkill($skill`Fire Extinguisher: Zone Specific`);
+          const jar_needed =
+            !have($item`killing jar`) &&
+            !have($familiar`Melodramedary`) &&
+            (get("gnasirProgress") & 4) === 0 &&
+            get("desertExploration") < 100;
+          if (jar_needed && get("lastEncounter") === "banshee librarian") {
+            return result
+              .trySkill($skill`Feel Nostalgic`)
+              .trySkill($skill`Feel Envy`)
+              .step(killMacro());
+          }
+          return result;
+        })
         .kill($monster`screambat`)
         .killItem(),
       limit: { tries: 10 },

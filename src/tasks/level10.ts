@@ -73,7 +73,7 @@ export const GiantQuest: Quest = {
       completed: () => have($item`amulet of extreme plot significance`),
       do: $location`The Penultimate Fantasy Airship`,
       choices: () => {
-        return { 178: 2, 182: have($item`model airship`) ? 1 : 4 };
+        return { 178: 2, 182: have($item`model airship`) ? 1 : 4, 1387: 3 };
       },
       post: () => {
         if (have($effect`Temporary Amnesia`)) cliExecute("uneffect Temporary Amnesia");
@@ -98,15 +98,14 @@ export const GiantQuest: Quest = {
           };
       },
       combat: new CombatStrategy()
-        .macro(
-          () =>
-            have($item`Mohawk wig`) ||
-            !have($skill`Emotionally Chipped`) ||
-            get("_feelEnvyUsed") >= 3
-              ? new Macro()
-              : Macro.skill($skill`Feel Envy`).step(killMacro()),
-          $monster`Burly Sidekick`
-        )
+        .macro(() => {
+          if (have($item`Mohawk wig`)) return new Macro();
+          if (haveEquipped($item`Fourth of May Cosplay Saber`) && get("_saberForceUses") < 5)
+            return Macro.skill($skill`Use the Force`);
+          if (have($skill`Emotionally Chipped`) && get("_feelEnvyUsed") < 3)
+            return Macro.skill($skill`Feel Envy`).step(killMacro());
+          return new Macro();
+        }, $monster`Burly Sidekick`)
         .forceItems($monster`Quiet Healer`),
     },
     {
@@ -121,17 +120,24 @@ export const GiantQuest: Quest = {
         if (have($effect`Temporary Amnesia`)) cliExecute("uneffect Temporary Amnesia");
       },
       orbtargets: () => [],
-      outfit: { modifier: "-combat" },
+      outfit: {
+        modifier: "-combat",
+        weapon:
+          get("_saberForceUses") < 5 && !have($item`Mohawk wig`)
+            ? $item`Fourth of May Cosplay Saber`
+            : undefined,
+      },
       limit: { soft: 50 },
       delay: () =>
         have($item`Plastic Wrap Immateria`) ? 25 : have($item`Gauze Immateria`) ? 20 : 15, // After that, just look for noncombats
-      combat: new CombatStrategy().macro(
-        () =>
-          have($item`Mohawk wig`) || !have($skill`Emotionally Chipped`) || get("_feelEnvyUsed") >= 3
-            ? new Macro()
-            : Macro.skill($skill`Feel Envy`).step(killMacro()),
-        $monster`Burly Sidekick`
-      ),
+      combat: new CombatStrategy().macro(() => {
+        if (have($item`Mohawk wig`)) return new Macro();
+        if (haveEquipped($item`Fourth of May Cosplay Saber`) && get("_saberForceUses") < 5)
+          return Macro.skill($skill`Use the Force`);
+        if (have($skill`Emotionally Chipped`) && get("_feelEnvyUsed") < 3)
+          return Macro.skill($skill`Feel Envy`).step(killMacro());
+        return new Macro();
+      }, $monster`Burly Sidekick`),
     },
     {
       name: "Basement Search",
