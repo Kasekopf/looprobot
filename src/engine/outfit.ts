@@ -42,7 +42,13 @@ import {
 import { Resource } from "./resources";
 import { Keys, keyStrategy } from "../tasks/keys";
 import { Modes, Outfit, OutfitSpec, step } from "grimoire-kolmafia";
-import { atLevel, garboAverageValue, garboValue, haveLoathingLegion } from "../lib";
+import {
+  atLevel,
+  garboAverageValue,
+  garboValue,
+  haveLoathingLegion,
+  levelingStartCompleted,
+} from "../lib";
 import { args } from "../args";
 
 export function canEquipResource(outfit: Outfit, resource: Resource): boolean {
@@ -188,6 +194,10 @@ export function yellowSubmarinePossible(assumePulls = false) {
 }
 
 export function equipInitial(outfit: Outfit): void {
+  if (!levelingStartCompleted()) {
+    if (outfit.equip($familiar`Grey Goose`)) outfit.equip($item`grey down vest`);
+  }
+
   const modifier = getModifiersFrom(outfit);
 
   if (modifier.includes("item")) {

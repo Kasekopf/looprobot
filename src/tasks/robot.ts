@@ -1,9 +1,9 @@
 import { $item, $location, $skill, $slot, $stat, AutumnAton, get, have } from "libram";
 import { Priorities } from "../engine/priority";
 import { Quest } from "../engine/task";
-import { atLevel, YouRobot } from "../lib";
+import { atLevel, levelingStartCompleted, YouRobot } from "../lib";
 import { Guards, step } from "grimoire-kolmafia";
-import { itemAmount, myAdventures, myBasestat, myPrimestat, use } from "kolmafia";
+import { itemAmount, myAdventures, myBasestat, use } from "kolmafia";
 import { flyersDone } from "./level12";
 
 export const RobotQuest: Quest = {
@@ -189,20 +189,6 @@ export const RobotQuest: Quest = {
     },
   ],
 };
-
-export function levelingStartCompleted(): boolean {
-  /**
-   * Start the run by leveling to L11 and leveling needed offstats to 70.
-   * Keep using the Grey Goose familiar for most turns until then.
-   *
-   * @returns true once this leveling is complete.
-   */
-  return (
-    myBasestat(myPrimestat()) >= 104 &&
-    myBasestat($stat`Mysticality`) >= 70 &&
-    myBasestat($stat`Moxie`) >= 70
-  );
-}
 
 function scrapBufferCompleted(): boolean {
   /**

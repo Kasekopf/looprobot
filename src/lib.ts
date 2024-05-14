@@ -4,6 +4,7 @@ import {
   Item,
   Location,
   Monster,
+  myBasestat,
   myFamiliar,
   myLevel,
   myPrimestat,
@@ -237,4 +238,18 @@ export class YouRobot {
       return have($skill`Torso Awareness`) || this.haveUpgrade("robot_shirt");
     return true;
   }
+}
+
+export function levelingStartCompleted(): boolean {
+  /**
+   * Start the run by leveling to L11 and leveling needed offstats to 70.
+   * Keep using the Grey Goose familiar for most turns until then.
+   *
+   * @returns true once this leveling is complete.
+   */
+  return (
+    myBasestat(myPrimestat()) >= 104 &&
+    myBasestat($stat`Mysticality`) >= 70 &&
+    myBasestat($stat`Moxie`) >= 70
+  );
 }
