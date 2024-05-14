@@ -124,11 +124,25 @@ export const RobotQuest: Quest = {
     },
     {
       name: "Equip Bottom Initial",
-      after: ["Equip Top Initial", "Equip Right Initial", "Equip Bottom Initial"],
+      after: ["Equip Top Initial", "Equip Right Initial", "Equip Left Initial"],
       priority: () => Priorities.Free,
       completed: () => YouRobot.canUse($slot`pants`),
       ready: () => YouRobot.scrap() >= 15,
       do: () => YouRobot.doSwitchPart("bottom", 4),
+      limit: { tries: 1 },
+    },
+    {
+      name: "Equip Right Final",
+      after: [
+        "Equip Top Initial",
+        "Equip Right Initial",
+        "Equip Left Initial",
+        "Equip Bottom Initial",
+      ],
+      priority: () => Priorities.Free,
+      completed: () => YouRobot.canUse($slot`off-hand`),
+      ready: () => YouRobot.scrap() >= 15 && scrapBufferCompleted(),
+      do: () => YouRobot.doSwitchPart("right", 4),
       limit: { tries: 1 },
     },
   ],
@@ -156,6 +170,8 @@ function scrapBufferCompleted(): boolean {
    * @return true once this scrap buffer is complete.
    */
   let scrapNeeded = 0;
+
+  if (!YouRobot.canUse($slot`off-hand`)) scrapNeeded += 15;
 
   // We only need scrap to switch to a hat (and back) 3 times.
   if (step("questL10Garbage") < 20) scrapNeeded += 20;
