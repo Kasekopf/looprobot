@@ -15,7 +15,18 @@ import {
   Slot,
   visitUrl,
 } from "kolmafia";
-import { $familiar, $item, $location, $monsters, $skill, $slot, $stat, get, have, Snapper } from "libram";
+import {
+  $familiar,
+  $item,
+  $location,
+  $monsters,
+  $skill,
+  $slot,
+  $stat,
+  get,
+  have,
+  Snapper,
+} from "libram";
 import { makeValue, ValueFunctions } from "garbo-lib";
 
 export function debug(message: string, color?: string): void {
@@ -183,6 +194,14 @@ export class YouRobot {
     return get("youRobotCPUUpgrades").includes(upgrade);
   }
 
+  static doUpgrade(upgrade: Upgrade): boolean {
+    if (this.haveUpgrade(upgrade)) return true;
+    visitUrl("place.php?whichplace=scrapheap&action=sh_configure");
+    visitUrl("choice.php?whichchoice=1445&show=cpus");
+    visitUrl(`choice.php?pwd&whichchoice=1445&part=cpus&show=cpus&option=2&p=${upgrade}`);
+    return this.haveUpgrade(upgrade);
+  }
+
   static getPartId(which: "top" | "left" | "right" | "bottom") {
     switch (which) {
       case "top":
@@ -196,7 +215,7 @@ export class YouRobot {
     }
   }
 
-  static switchPart(which: "top" | "left" | "right" | "bottom", id: number): boolean {
+  static doSwitchPart(which: "top" | "left" | "right" | "bottom", id: number): boolean {
     if (this.getPartId(which) === id) return true;
     visitUrl("place.php?whichplace=scrapheap&action=sh_configure");
     visitUrl(`choice.php?whichchoice=1445&show=${which}`);
