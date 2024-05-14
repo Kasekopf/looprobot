@@ -19,6 +19,7 @@ import { PullQuest } from "./pulls";
 import { DigitalQuest, KeysQuest } from "./keys";
 import { SummonQuest } from "./summons";
 import { RobotQuest } from "./robot";
+import { LevelingQuest } from "./leveling";
 import { Task } from "../engine/task";
 import { getTasks } from "grimoire-kolmafia";
 import { args } from "../args";
@@ -28,6 +29,7 @@ export function all_tasks(): Task[] {
     TootQuest,
     MiscQuest,
     RobotQuest,
+    LevelingQuest,
     PullQuest,
     WandQuest,
     KeysQuest,

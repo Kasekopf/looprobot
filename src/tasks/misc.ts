@@ -4,7 +4,6 @@ import {
   buy,
   cliExecute,
   equippedAmount,
-  familiarWeight,
   fullnessLimit,
   gamedayToInt,
   getCampground,
@@ -42,7 +41,6 @@ import {
   $class,
   $coinmaster,
   $effect,
-  $effects,
   $familiar,
   $item,
   $items,
@@ -54,15 +52,12 @@ import {
   $stat,
   AprilingBandHelmet,
   AsdonMartin,
-  AugustScepter,
   AutumnAton,
   BurningLeaves,
   byClass,
   byStat,
   CinchoDeMayo,
-  ClosedCircuitPayphone,
   CursedMonkeyPaw,
-  DaylightShavings,
   ensureEffect,
   get,
   getSaleValue,
@@ -79,7 +74,7 @@ import { Guards, Outfit, OutfitSpec, step } from "grimoire-kolmafia";
 import { Priorities } from "../engine/priority";
 import { Engine, wanderingNCs } from "../engine/engine";
 import { Keys, keyStrategy } from "./keys";
-import { atLevel, haveLoathingIdolMicrophone, primestatId, underStandard } from "../lib";
+import { atLevel, haveLoathingIdolMicrophone, underStandard } from "../lib";
 import { args } from "../args";
 import { coldPlanner, yellowSubmarinePossible } from "../engine/outfit";
 import {
@@ -523,21 +518,6 @@ export const MiscQuest: Quest = {
       freeaction: true,
     },
     {
-      name: "Goose Exp",
-      after: [],
-      priority: () => Priorities.Free,
-      completed: () =>
-        familiarWeight($familiar`Grey Goose`) >= 9 ||
-        get("_looprobot_chef_goose") === "true" ||
-        !have($familiar`Shorter-Order Cook`),
-      do: () => {
-        set("_looprobot_chef_goose", "true");
-      },
-      outfit: { familiar: $familiar`Grey Goose` },
-      limit: { tries: 1 },
-      freeaction: true,
-    },
-    {
       name: "Hermit Clover",
       after: ["Hidden City/Open Temple", "Acquire Red Rocket"],
       ready: () => myMeat() >= meatBuffer + 1000,
@@ -915,65 +895,10 @@ export const MiscQuest: Quest = {
       freeaction: true,
     },
     {
-      name: "Shadow Rift",
-      after: ["War/Open Nuns"],
-      completed: () =>
-        !have($item`closed-circuit pay phone`) ||
-        (get("_shadowAffinityToday") &&
-          !have($effect`Shadow Affinity`) &&
-          get("encountersUntilSRChoice") !== 0),
-      prepare: () => {
-        if (AugustScepter.canCast(7)) useSkill($skill`Aug. 7th: Lighthouse Day!`);
-        if (CinchoDeMayo.currentCinch() >= 25) ensureEffect($effect`Party Soundtrack`);
-        if (have($item`pocket wish`) && !have($effect`Frosty`)) cliExecute("genie effect frosty");
-        if (haveLoathingIdolMicrophone()) ensureEffect($effect`Spitting Rhymes`);
-        if (!get("_shadowAffinityToday")) ClosedCircuitPayphone.chooseQuest(() => 2);
-      },
-      do: $location`Shadow Rift (The Misspelled Cemetary)`,
-      post: (): void => {
-        if (have(ClosedCircuitPayphone.rufusTarget() as Item)) {
-          use($item`closed-circuit pay phone`);
-        }
-      },
-      choices: { 1498: 1 },
-      combat: new CombatStrategy()
-        .macro((): Macro => {
-          const result = Macro.while_("hasskill 226", Macro.skill($skill`Perpetrate Mild Evil`));
-          // Use all but the last extinguisher uses on polar vortex.
-          const vortex_count = (get("_fireExtinguisherCharge") - 20) / 10;
-          if (vortex_count > 0) {
-            for (let i = 0; i < vortex_count; i++)
-              result.trySkill($skill`Fire Extinguisher: Polar Vortex`);
-          }
-          result.while_("hasskill 7448 && !pastround 25", Macro.skill($skill`Douse Foe`));
-          return result;
-        }, $monster`shadow slab`)
-        .killHard(),
-      outfit: () => {
-        const result: OutfitSpec = {
-          modifier: "item",
-          avoid: $items`broken champagne bottle`,
-          equip: [],
-        };
-        if (
-          have($item`industrial fire extinguisher`) &&
-          get("_fireExtinguisherCharge") >= 30 // Leave some for harem
-        )
-          result.equip?.push($item`industrial fire extinguisher`);
-        else if (DaylightShavings.nextBuff() === $effect`Friendly Chops`)
-          result.equip?.push($item`Daylight Shavings Helmet`);
-        if (have($item`Flash Liquidizer Ultra Dousing Accessory`) && get("_douseFoeUses") < 3)
-          result.equip?.push($item`Flash Liquidizer Ultra Dousing Accessory`);
-        return result;
-      },
-      boss: true,
-      freecombat: true,
-      limit: { tries: 12 },
-    },
-    {
       name: "Shadow Lodestone",
-      after: ["Misc/Shadow Rift"],
+      after: ["Leveling/Shadow Rift"],
       completed: () => have($effect`Shadow Waters`) || !have($item`Rufus's shadow lodestone`),
+      ready: () => false,
       do: $location`Shadow Rift (The Misspelled Cemetary)`,
       choices: {
         1500: 2,
@@ -992,99 +917,6 @@ export const MiscQuest: Quest = {
       },
       combat: new CombatStrategy().killHard(),
       limit: { tries: 1 },
-    },
-    {
-      name: "Cloud Talk",
-      after: [],
-      priority: () => Priorities.Free,
-      ready: () => get("getawayCampsiteUnlocked"),
-      completed: () =>
-        have($effect`That's Just Cloud-Talk, Man`) || get("_campAwayCloudBuffs", 0) > 0,
-      do: () => visitUrl("place.php?whichplace=campaway&action=campaway_sky"),
-      freeaction: true,
-      limit: { tries: 1 },
-    },
-    {
-      name: "LOV Tunnel",
-      after: [],
-      priority: () => Priorities.Start,
-      ready: () => get("loveTunnelAvailable"),
-      completed: () => get("_loveTunnelUsed"),
-      do: $location`The Tunnel of L.O.V.E.`,
-      choices: { 1222: 1, 1223: 1, 1224: primestatId(), 1225: 1, 1226: 2, 1227: 1, 1228: 3 },
-      combat: new CombatStrategy()
-        .macro(
-          () => Macro.externalIf(haveEquipped($item`June cleaver`), Macro.attack().repeat()),
-          $monster`LOV Enforcer`
-        )
-        .macro(Macro.skill($skill`Saucestorm`).repeat(), $monster`LOV Engineer`)
-        .killHard(),
-      outfit: {
-        equip: $items`June cleaver`,
-      },
-      limit: { tries: 1 },
-      freecombat: true,
-    },
-    {
-      name: "Daycare",
-      after: [],
-      priority: () => Priorities.Start,
-      ready: () => get("daycareOpen"),
-      completed: () => get("_daycareGymScavenges") !== 0,
-      do: (): void => {
-        if ((get("daycareOpen") || get("_daycareToday")) && !get("_daycareSpa")) {
-          switch (myPrimestat()) {
-            case $stat`Muscle`:
-              cliExecute("daycare muscle");
-              break;
-            case $stat`Mysticality`:
-              cliExecute("daycare myst");
-              break;
-            case $stat`Moxie`:
-              cliExecute("daycare moxie");
-              break;
-          }
-        }
-        visitUrl("place.php?whichplace=town_wrong&action=townwrong_boxingdaycare");
-        runChoice(3);
-        runChoice(2);
-      },
-      outfit: {
-        modifier: "exp",
-      },
-      limit: { tries: 1 },
-      freeaction: true,
-    },
-    {
-      name: "Bastille",
-      after: [],
-      priority: () => Priorities.Start,
-      ready: () => have($item`Bastille Battalion control rig`),
-      completed: () => get("_bastilleGames") !== 0,
-      do: () =>
-        cliExecute(`bastille ${myPrimestat() === $stat`Mysticality` ? "myst" : myPrimestat()}`),
-      limit: { tries: 1 },
-      freeaction: true,
-      outfit: {
-        modifier: "exp",
-      },
-    },
-    {
-      name: "Leaflet",
-      after: [],
-      priority: () => Priorities.Free,
-      ready: () => myLevel() >= 9,
-      completed: () => get("leafletCompleted"),
-      do: (): void => {
-        visitUrl("council.php");
-        cliExecute("leaflet");
-        set("leafletCompleted", true);
-      },
-      freeaction: true,
-      limit: { tries: 1 },
-      outfit: {
-        modifier: "exp",
-      },
     },
     {
       name: "Horsery",
@@ -1157,56 +989,6 @@ export const MiscQuest: Quest = {
       do: () => useSkill($skill`Prevent Scurvy and Sobriety`),
       freeaction: true,
       limit: { tries: 1 },
-    },
-    {
-      name: "Snojo",
-      after: [],
-      ready: () =>
-        get("snojoAvailable") &&
-        have($familiar`Frumious Bandersnatch`) &&
-        have($item`Greatest American Pants`) &&
-        have($skill`Flavour of Magic`) &&
-        have($skill`Cannelloni Cannon`) &&
-        have($skill`Saucegeyser`),
-      priority: () => Priorities.Start,
-      prepare: (): void => {
-        if (get("snojoSetting") === null) {
-          visitUrl("place.php?whichplace=snojo&action=snojo_controller");
-          runChoice(primestatId());
-        }
-        if (equippedAmount($item`Greatest American Pants`) > 0 && get("_gapBuffs") < 5) {
-          ensureEffect($effect`Super Skill`); // after GAP are equipped
-        }
-        cliExecute("uneffect ode to booze");
-        fillHp();
-      },
-      completed: () => get("_snojoFreeFights") >= 10 || myLevel() >= 13,
-      do: $location`The X-32-F Combat Training Snowman`,
-      post: (): void => {
-        if (get("_snojoFreeFights") === 10) cliExecute("hottub"); // Clean -stat effects
-      },
-      combat: new CombatStrategy()
-        .macro(
-          new Macro()
-            .trySkill($skill`Curse of Weaksauce`)
-            .trySkill($skill`Stuffed Mortar Shell`)
-            .while_(
-              "!pastround 27 && !hpbelow 100 && !mpbelow 8",
-              new Macro().skill($skill`Cannelloni Cannon`)
-            )
-            .while_("!mpbelow 24", new Macro().skill($skill`Saucegeyser`))
-            .attack()
-            .repeat()
-        )
-        .killHard(),
-      outfit: {
-        familiar: $familiar`Frumious Bandersnatch`,
-        equip: $items`Greatest American Pants, familiar scrapbook, June cleaver, sea salt scrubs`,
-        modifier: "mainstat, 4exp, HP",
-      },
-      effects: $effects`Spirit of Peppermint`,
-      limit: { tries: 10 },
-      freecombat: true,
     },
     {
       name: "Cowboy Boots",
