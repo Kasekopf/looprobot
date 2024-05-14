@@ -147,7 +147,7 @@ export const pulls: PullSpec[] = [
       storageAmount($item`Space Trip safety headphones`) === 0 &&
       !have($item`protonic accelerator pack`),
   },
-  { pull: $item`antique machete` },
+  { pull: $item`muculent machete` },
   {
     pull: $item`book of matches`,
     useful: () =>
@@ -177,7 +177,7 @@ export const pulls: PullSpec[] = [
     useful: () => !have($item`designer sweatpants`),
   },
   { pull: $item`deck of lewd playing cards`, optional: true },
-  { pull: $item`gravy boat`, useful: () => !underStandard() },
+  // { pull: $item`gravy boat`, useful: () => !underStandard() },  // need hat to use
   {
     pull: $item`Mohawk wig`,
     useful: () => {

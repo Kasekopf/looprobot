@@ -34,7 +34,7 @@ import {
 import { Priority, Quest, Task } from "../engine/task";
 import { OutfitSpec, step } from "grimoire-kolmafia";
 import { CombatStrategy } from "../engine/combat";
-import { atLevel, haveFlorest, haveLoathingIdolMicrophone } from "../lib";
+import { atLevel, haveFlorest, haveLoathingIdolMicrophone, YouRobot } from "../lib";
 import { Priorities } from "../engine/priority";
 import { councilSafe } from "./level12";
 import { ensureWithMPSwaps, fillHp } from "../engine/moods";
@@ -63,6 +63,7 @@ const Alcove: Task[] = [
   {
     name: "Alcove",
     after: ["Start"],
+    priority: () => (have($effect`Gull-Wing Moustache`) ? Priorities.MinorEffect : Priorities.None),
     prepare: () => {
       tuneCape();
       if (haveLoathingIdolMicrophone()) ensureEffect($effect`Poppy Performance`);
@@ -85,7 +86,7 @@ const Alcove: Task[] = [
         visitUrl("runskillz.php?action=Skillz&whichskill=7419&targetplayer=0&pwd&quantity=1");
       }
     },
-    ready: () => myBasestat($stat`Muscle`) >= 62,
+    ready: () => myBasestat($stat`Muscle`) >= 15,
     completed: () => get("cyrptAlcoveEvilness") <= 13,
     do: $location`The Defiled Alcove`,
     post: () => {
@@ -98,6 +99,7 @@ const Alcove: Task[] = [
         $item`gravy boat`,
         $item`backup camera`,
         $item`rocket boots`,
+        $item`spring shoes`,
         $item`Lord Spookyraven's ear trumpet`,
         $item`Jurassic Parka`,
       ];
@@ -105,7 +107,7 @@ const Alcove: Task[] = [
         items.push($item`Daylight Shavings Helmet`);
       }
       return {
-        equip: tryCape($item`antique machete`, ...items),
+        equip: tryCape($item`muculent machete`, ...items),
         modifier: "init 850max",
         modes: {
           backupcamera: "init",
@@ -134,7 +136,7 @@ const Cranny: Task[] = [
   {
     name: "Cranny",
     after: ["Start"],
-    ready: () => myBasestat($stat`Muscle`) >= 62,
+    ready: () => myBasestat($stat`Muscle`) >= 15,
     completed: () => get("cyrptCrannyEvilness") <= 13,
     prepare: () => {
       tuneCape();
@@ -152,7 +154,7 @@ const Cranny: Task[] = [
     outfit: (): OutfitSpec => {
       return {
         equip: tryCape(
-          $item`antique machete`,
+          $item`muculent machete`,
           $item`gravy boat`,
           $item`old patched suit-pants`,
           $item`unbreakable umbrella`,
@@ -199,12 +201,14 @@ const Niche: Task[] = [
     name: "Niche",
     after: ["Start"],
     prepare: tuneCape,
-    ready: () => myBasestat($stat`Muscle`) >= 62,
+    ready: () => myBasestat($stat`Muscle`) >= 15,
     completed: () => get("cyrptNicheEvilness") <= 13,
     priority: () => {
       if (have($familiar`Patriotic Eagle`)) {
-        if (!have($effect`Everything Looks Red, White and Blue`))
-          return { score: 8, reason: "Launch RWB" };
+        if (!have($effect`Everything Looks Red, White and Blue`)) {
+          if (YouRobot.canUseFamiliar()) return { score: 8, reason: "Launch RWB" };
+          else return { score: -80, reason: "Wait to launch RWB with Eagle" };
+        }
         if (get("rwbMonsterCount") > 1 || get("cyrptNicheEvilness") <= 16)
           return { score: 0.1, reason: "Kill RWB monster" };
         if (have($effect`Everything Looks Red, White and Blue`))
@@ -215,7 +219,7 @@ const Niche: Task[] = [
     do: $location`The Defiled Niche`,
     choices: { 157: 4 },
     outfit: (): OutfitSpec => {
-      const result = { equip: tryCape($item`antique machete`, $item`gravy boat`) } as OutfitSpec;
+      const result = { equip: tryCape($item`muculent machete`, $item`gravy boat`) } as OutfitSpec;
       if (get("rwbMonsterCount") !== 0) {
         result.avoid = $items`miniature crystal ball`;
       }
@@ -269,7 +273,7 @@ const Nook: Task[] = [
       }
       return Priorities.None;
     },
-    ready: () => myBasestat($stat`Muscle`) >= 62,
+    ready: () => myBasestat($stat`Muscle`) >= 15,
     completed: () => get("cyrptNookEvilness") <= 13,
     do: $location`The Defiled Nook`,
     post: () => {
@@ -289,7 +293,7 @@ const Nook: Task[] = [
         };
       else
         return {
-          equip: tryCape($item`antique machete`, $item`gravy boat`),
+          equip: tryCape($item`muculent machete`, $item`gravy boat`),
           modifier: "item 500max",
         };
     },

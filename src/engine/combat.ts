@@ -138,7 +138,8 @@ export function killMacro(target?: Monster | Location, hard?: boolean): Macro {
       result.step(attemptDartThrows(dartParts["Mysticality"]));
     if (myPrimestat() !== $stat`Moxie` && myBasestat($stat`Moxie`) < 70)
       result.step(attemptDartThrows(dartParts["Moxie"]));
-
+    if (myPrimestat() !== $stat`Muscle` && myBasestat($stat`Muscle`) < 15)
+      result.step(attemptDartThrows(dartParts["Muscle"]));
     result.step(attemptDartThrows("butt"));
     result.step(attemptDartThrows("torso"));
     if (get("_dartsLeft") >= 2) result.trySkill($skill`Darts: Throw at %part1`);
