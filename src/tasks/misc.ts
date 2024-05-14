@@ -7,7 +7,6 @@ import {
   fullnessLimit,
   gamedayToInt,
   getCampground,
-  getWorkshed,
   haveEquipped,
   hermit,
   hippyStoneBroken,
@@ -21,7 +20,6 @@ import {
   myFullness,
   myFury,
   myHp,
-  myLevel,
   myMaxhp,
   myMaxmp,
   myMeat,
@@ -51,13 +49,11 @@ import {
   $slots,
   $stat,
   AprilingBandHelmet,
-  AsdonMartin,
   AutumnAton,
   BurningLeaves,
   byClass,
   byStat,
   CinchoDeMayo,
-  CursedMonkeyPaw,
   ensureEffect,
   get,
   getSaleValue,
@@ -77,14 +73,7 @@ import { Keys, keyStrategy } from "./keys";
 import { atLevel, haveLoathingIdolMicrophone, underStandard } from "../lib";
 import { args } from "../args";
 import { coldPlanner, yellowSubmarinePossible } from "../engine/outfit";
-import {
-  getTrainsetConfiguration,
-  getTrainsetPositionsUntilConfigurable,
-  setTrainsetConfiguration,
-  TrainsetPiece,
-} from "./trainrealm";
 import { ROUTE_WAIT_TO_NCFORCE } from "../route";
-import { fillHp } from "../engine/moods";
 
 const meatBuffer = 1000;
 
@@ -584,45 +573,6 @@ export const MiscQuest: Quest = {
       freeaction: true,
     },
     {
-      name: "Workshed",
-      after: [],
-      priority: () => Priorities.Free,
-      completed: () =>
-        getWorkshed() !== $item`none` || !have(args.major.workshed) || myTurncount() >= 1000,
-      do: () => use(args.major.workshed),
-      limit: { tries: 1 },
-      freeaction: true,
-    },
-    {
-      name: "Swap Workshed",
-      after: [],
-      priority: () => Priorities.Free,
-      ready: () =>
-        get("_coldMedicineConsults") >= 5 && getWorkshed() === $item`cold medicine cabinet`,
-      completed: () =>
-        !have(args.major.swapworkshed) || get("_workshedItemUsed") || myTurncount() >= 1000,
-      do: () => use(args.major.swapworkshed),
-      limit: { tries: 1 },
-      freeaction: true,
-    },
-    {
-      name: "Bugbear Outfit",
-      after: ["Acquire Red Rocket"],
-      priority: () => Priorities.Free,
-      ready: () => myMeat() >= meatBuffer + 140,
-      completed: () =>
-        (!have($item`Asdon Martin keyfob (on ring)`) && !AsdonMartin.installed()) ||
-        !knollAvailable() ||
-        (have($item`bugbear beanie`) && have($item`bugbear bungguard`)) ||
-        myAscensions() >= 10,
-      do: () => {
-        retrieveItem($item`bugbear beanie`);
-        retrieveItem($item`bugbear bungguard`);
-      },
-      limit: { tries: 1 },
-      freeaction: true,
-    },
-    {
       name: "Break Stone",
       after: [],
       priority: () => Priorities.Free,
@@ -755,26 +705,6 @@ export const MiscQuest: Quest = {
       },
       outfit: { familiar: $familiar`Robortender` },
       limit: { tries: 1 },
-      freeaction: true,
-    },
-    {
-      name: "Trainset",
-      after: [],
-      priority: () => Priorities.Free,
-      ready: () =>
-        getWorkshed() === $item`model train set` && getTrainsetPositionsUntilConfigurable() === 0,
-      completed: () => {
-        const config = getTrainsetConfiguration();
-        const desiredConfig = getDesiredTrainsetConfig();
-        for (let i = 0; i < 8; i++) {
-          if (config[i] !== desiredConfig[i]) return false;
-        }
-        return true;
-      },
-      do: () => {
-        setTrainsetConfiguration(getDesiredTrainsetConfig());
-      },
-      limit: { tries: 20, unready: true },
       freeaction: true,
     },
     {
@@ -1023,55 +953,6 @@ export const MiscQuest: Quest = {
       limit: { tries: 15 },
     },
     {
-      name: "Blood Bubble",
-      after: [],
-      priority: () => Priorities.Free,
-      ready: () => myMeat() >= meatBuffer + 500,
-      completed: () =>
-        !have($skill`Blood Bubble`) || step("questL13Final") > 10 || have($effect`Blood Bubble`),
-      do: () => {
-        useSkill($skill`Blood Bubble`, Math.floor((myHp() - 1) / 30));
-        fillHp();
-        useSkill($skill`Blood Bubble`, Math.floor((myHp() - 1) / 30));
-      },
-      outfit: { modifier: "HP" },
-      freeaction: true,
-      limit: { tries: 10 },
-    },
-    {
-      name: "Blood Bond",
-      after: [],
-      priority: () => Priorities.Free,
-      ready: () => myMeat() >= meatBuffer + 500,
-      completed: () =>
-        !have($skill`Blood Bond`) || step("questL13Final") > 10 || have($effect`Blood Bond`),
-      do: () => {
-        useSkill($skill`Blood Bond`, Math.floor((myHp() - 1) / 30));
-        fillHp();
-        useSkill($skill`Blood Bond`, Math.floor((myHp() - 1) / 30));
-      },
-      outfit: { modifier: "HP" },
-      freeaction: true,
-      limit: { tries: 10 },
-    },
-    {
-      name: "Limit Stats",
-      priority: () => Priorities.Free,
-      after: ["Tower/Start"],
-      completed: () =>
-        get("nsContestants2") > -1 ||
-        have($effect`Feeling Insignificant`) ||
-        !have($item`pocket wish`) ||
-        !CursedMonkeyPaw.have() ||
-        CursedMonkeyPaw.wishes() === 0,
-      do: () => {
-        if (have($item`pocket wish`)) cliExecute("genie effect Feeling Insignificant");
-        else CursedMonkeyPaw.wishFor($effect`Feeling Insignificant`);
-      },
-      limit: { tries: 1 },
-      freeaction: true,
-    },
-    {
       name: "Leaf Resin",
       priority: () => Priorities.Free,
       ready: () =>
@@ -1259,49 +1140,6 @@ export function haveOre() {
   );
 }
 
-function willWorkshedSwap() {
-  return false; // Cold medicine cabinet does not currently finish
-}
-
 export function trainSetAvailable() {
-  if (getWorkshed() === $item`model train set`) return true;
-  if (!have($item`model train set`)) return false;
-  if (getWorkshed() === $item`none` && args.major.workshed === $item`model train set`) return true;
-  if (args.major.swapworkshed === $item`model train set` && willWorkshedSwap()) return true;
   return false;
-}
-
-function getDesiredTrainsetConfig(): TrainsetPiece[] {
-  const statPiece = byStat({
-    Muscle: TrainsetPiece.MUS_STATS,
-    Mysticality: TrainsetPiece.MYS_STATS,
-    Moxie: TrainsetPiece.MOXIE_STATS,
-  });
-
-  const config: TrainsetPiece[] = [];
-  config.push(TrainsetPiece.DOUBLE_NEXT_STATION);
-  if (!have($item`designer sweatpants`)) {
-    config.push(TrainsetPiece.EFFECT_MP);
-  } else if (myLevel() < 5) {
-    config.push(statPiece);
-  }
-
-  config.push(TrainsetPiece.SMUT_BRIDGE_OR_STATS);
-  config.push(TrainsetPiece.GAIN_MEAT);
-
-  if (myLevel() < 12 && !config.includes(statPiece)) {
-    config.push(statPiece);
-  }
-
-  if (!config.includes(TrainsetPiece.EFFECT_MP)) {
-    config.push(TrainsetPiece.EFFECT_MP);
-  }
-  if (!haveOre()) config.push(TrainsetPiece.ORE);
-
-  config.push(TrainsetPiece.HOT_RES_COLD_DMG);
-  config.push(TrainsetPiece.STENCH_RES_SPOOKY_DMG);
-  config.push(TrainsetPiece.DROP_LAST_FOOD_OR_RANDOM);
-  config.push(TrainsetPiece.RANDOM_BOOZE);
-  config.push(TrainsetPiece.CANDY);
-  return config.slice(0, 8);
 }
