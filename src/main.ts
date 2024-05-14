@@ -47,8 +47,8 @@ export function main(command?: string): void {
   printVersionInfo();
   if (args.version) return;
 
-  if (myPath() !== $path`A Shrunken Adventurer am I` && !args.debug.list)
-    throw `You are not currently in a Shrunken Adventurer run. Please start one.`;
+  if (myPath() !== $path`You, Robot` && !args.debug.list)
+    throw `You are not currently in a You Robot run. Please start one.`;
 
   const set_time_now = get(time_property, -1) === -1;
   if (set_time_now) set(time_property, gametimeToInt());
@@ -92,7 +92,7 @@ export function main(command?: string): void {
   }
 
   if (step("questL13Final") > 11) {
-    print("Shrunken Adventurer complete!", "purple");
+    print("You Robot complete!", "purple");
   }
   print(`   Adventures used: ${turnsPlayed()}`, "purple");
   print(`   Adventures remaining: ${myAdventures()}`, "purple");
@@ -119,12 +119,12 @@ export function main(command?: string): void {
 }
 
 function runComplete(): boolean {
-  return step("questL13Final") > 11 || myPath() !== $path`A Shrunken Adventurer am I`;
+  return step("questL13Final") > 11 || myPath() !== $path`You, Robot`;
 }
 
 function printVersionInfo(): void {
   debug(
-    `Running loopsmol version [${lastCommitHash ?? "custom-built"}] in KoLmafia r${getRevision()}`
+    `Running looprobot version [${lastCommitHash ?? "custom-built"}] in KoLmafia r${getRevision()}`
   );
   if (lastCommitHash !== undefined) {
     if (svnExists(svn_name) && !svnAtHead(svn_name))

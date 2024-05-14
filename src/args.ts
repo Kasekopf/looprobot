@@ -11,7 +11,7 @@ const worksheds = [
 
 export const args = Args.create(
   "looprobot",
-  'This is a script to complete Shrunken Adventurer Softcore runs. Run "looprobot sim" without quotes to check if this script will work for you.\n\nYou must ascend manually into a Shrunken Adventurer Softcore run before running the script. Seal Clubber under a Vole sign is recommended for now. Astral mask or astral belt are both useful, but neither is required.\n\nThe arguments accepted by the script are listed below. Note that you can combine multiple options; for example "looprobot pulls=18 fax=false" will save 2 pulls and avoid using a faxbot. Most options also have an associated setting to set an option permanently; for example "set looprobot_pulls=18" will cause the script to always save 2 pulls (unless overriden by using the pulls option at runtime).',
+  'This is a script to complete You Robot Softcore runs. Run "looprobot sim" without quotes to check if this script will work for you.\n\nYou must ascend manually into a You Robot Softcore run before running the script. Seal Clubber under a Vole sign is recommended for now. Astral mask or astral belt are both useful, but neither is required.\n\nThe arguments accepted by the script are listed below. Note that you can combine multiple options; for example "looprobot pulls=18 fax=false" will save 2 pulls and avoid using a faxbot. Most options also have an associated setting to set an option permanently; for example "set looprobot_pulls=18" will cause the script to always save 2 pulls (unless overriden by using the pulls option at runtime).',
   {
     sim: Args.flag({ help: "Check if you have the requirements to run this script.", setting: "" }),
     version: Args.flag({ help: "Show script version and exit.", setting: "" }),
