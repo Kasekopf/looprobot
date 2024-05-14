@@ -7,11 +7,15 @@ import {
   myFamiliar,
   myLevel,
   myPrimestat,
+  myRobotEnergy,
+  myRobotScraps,
   Phylum,
   print,
+  round,
+  Slot,
   visitUrl,
 } from "kolmafia";
-import { $familiar, $item, $location, $monsters, $stat, get, have, Snapper } from "libram";
+import { $familiar, $item, $location, $monsters, $skill, $slot, $stat, get, have, Snapper } from "libram";
 import { makeValue, ValueFunctions } from "garbo-lib";
 
 export function debug(message: string, color?: string): void {
@@ -141,4 +145,77 @@ export function garboValue(item: Item, useHistorical = false): number {
 
 export function garboAverageValue(...items: Item[]): number {
   return garboValueFunctions().averageValue(...items);
+}
+
+type Upgrade = "robot_shirt" | "robot_energy" | "robot_potions";
+
+export class YouRobot {
+  static scrap(): number {
+    return myRobotScraps();
+  }
+
+  static doScavenge(): void {
+    visitUrl("place.php?whichplace=scrapheap&action=sh_scrounge");
+  }
+
+  static energy(): number {
+    return myRobotEnergy();
+  }
+
+  static doCollectEnergy(): void {
+    visitUrl("place.php?whichplace=scrapheap&action=sh_getpower");
+  }
+
+  static expectedEnergyNextCollect(): number {
+    const raw = (25 + get("youRobotPoints")) * 0.85 ** get("_energyCollected");
+    return round(raw);
+  }
+
+  static doChronolith(): void {
+    visitUrl("place.php?whichplace=scrapheap&action=sh_chronobo");
+  }
+
+  static expectedChronolithCost(): number {
+    return get("_chronolithNextCost");
+  }
+
+  static haveUpgrade(upgrade: Upgrade): boolean {
+    return get("youRobotCPUUpgrades").includes(upgrade);
+  }
+
+  static getPartId(which: "top" | "left" | "right" | "bottom") {
+    switch (which) {
+      case "top":
+        return get("youRobotTop");
+      case "left":
+        return get("youRobotLeft");
+      case "right":
+        return get("youRobotRight");
+      case "bottom":
+        return get("youRobotBottom");
+    }
+  }
+
+  static switchPart(which: "top" | "left" | "right" | "bottom", id: number): boolean {
+    if (this.getPartId(which) === id) return true;
+    visitUrl("place.php?whichplace=scrapheap&action=sh_configure");
+    visitUrl(`choice.php?whichchoice=1445&show=${which}`);
+    visitUrl(`choice.php?whichchoice=1445&part=${which}&show=${which}&option=1&p=${id}`);
+    return this.getPartId(which) === id;
+  }
+
+  static canUseFamiliar(): boolean {
+    return this.getPartId("top") === 2;
+  }
+
+  static canUse(slot: Slot): boolean {
+    if (slot === $slot`familiar`) return this.getPartId("top") === 2;
+    if (slot === $slot`hat`) return this.getPartId("top") === 4;
+    if (slot === $slot`weapon`) return this.getPartId("left") === 4;
+    if (slot === $slot`off-hand`) return this.getPartId("right") === 4;
+    if (slot === $slot`pants`) return this.getPartId("bottom") === 4;
+    if (slot === $slot`shirt`)
+      return have($skill`Torso Awareness`) || this.haveUpgrade("robot_shirt");
+    return true;
+  }
 }
