@@ -118,9 +118,6 @@ export const routing: string[] = [
   "Macguffin/Oasis Drum", // Get drum as soon as pages are gathered
   "Macguffin/Desert", // charge camel for protestors
 
-  // Finish remaining quests
-  "Crypt/Alcove",
-
   // Hidden City
   "Hidden City/Office Files", // Banish janitors under delay
   "Hidden City/Apartment",
@@ -138,10 +135,10 @@ export const routing: string[] = [
   // Setup for +meat/+item set
   "Digital/Vanya",
   "Digital/Megalo",
-  "Hidden City/Office Boss", // Get Eagle dude banish
   "Macguffin/Upper Chamber",
   "Orc Chasm/Start Peaks",
   "Orc Chasm/ABoo Carto",
+  "Hidden City/Office Boss", // Get Eagle dude banish
 
   // Bulk +meat/+item tasks
   "Misc/Shadow Lodestone",
@@ -152,6 +149,7 @@ export const routing: string[] = [
   "Macguffin/Middle Chamber", // Avoid Eagle beast banish!
   "Orc Chasm/Twin Init Search",
   "Orc Chasm/Twin Init", // Use Eagle dude banish
+  "Crypt/Alcove",
   "Digital/Key",
 
   "Keys/Star Key", // Allow for better use of orb

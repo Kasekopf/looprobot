@@ -467,13 +467,13 @@ export class Engine extends BaseEngine<CombatActions, ActiveTask> {
       }
 
       // Set up a free kill if needed, or if no free kills will ever be needed again
-      // (after Nuns, when we have expensive buffs running)
+      // (when we have expensive buffs running)
       if (
         combat.can("killFree") ||
         ((combat.can("kill") || combat.can("killItem")) &&
           !task.boss &&
           this.tasks.every((t) => t.completed() || !t.combat?.can("killFree")) &&
-          get("sidequestNunsCompleted") !== "none")
+          haveEffect($effect`Shadow Waters`))
       ) {
         resources.provide("killFree", equipFirst(outfit, freekillSources));
       }
