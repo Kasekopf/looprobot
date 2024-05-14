@@ -1,7 +1,7 @@
 import { $item, $location, $skill, $slot, $stat, AutumnAton, get, have } from "libram";
 import { Priorities } from "../engine/priority";
 import { Quest } from "../engine/task";
-import { YouRobot } from "../lib";
+import { atLevel, YouRobot } from "../lib";
 import { Guards, step } from "grimoire-kolmafia";
 import { itemAmount, myAdventures, myBasestat, myPrimestat, use } from "kolmafia";
 import { flyersDone } from "./level12";
@@ -152,20 +152,19 @@ export const RobotQuest: Quest = {
       priority: () => Priorities.Free,
       ready: () =>
         step("questL11Shen") >= 5 &&
+        atLevel(12) &&
         myBasestat($stat`Moxie`) >= 70 &&
         myBasestat($stat`Mysticality`) >= 70,
       completed: () =>
         YouRobot.canUse($slot`hat`) ||
         (step("questL10Garbage") >= 10 &&
-          (have($item`rock band flyers`) || get("sidequestArenaCompleted") !== "none") &&
-          ($location`Sonofa Beach`.turnsSpent >= 1 || !AutumnAton.have())),
+          (have($item`rock band flyers`) || get("sidequestArenaCompleted") !== "none")),
       do: () => YouRobot.doSwitchPart("top", 4),
       limit: { tries: 1 },
     },
     {
       name: "Unequip Hat Phase 1",
       after: ["Equip Hat Phase 1", "Giant/Top Floor", "War/Flyers Start"],
-      ready: () => $location`Sonofa Beach`.turnsSpent >= 1 || !AutumnAton.have(),
       completed: () => YouRobot.canUseFamiliar() || flyersDone(),
       do: () => YouRobot.doSwitchPart("top", 2),
       limit: { tries: 1 },

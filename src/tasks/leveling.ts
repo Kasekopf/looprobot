@@ -275,6 +275,15 @@ export const LevelingQuest: Quest = {
         modifier: "exp",
       },
     },
+    {
+      name: "All",
+      after: unscaledLeveling.map((t) => t.name),
+      completed: () => true,
+      do: (): void => {
+        throw `Should never run`;
+      },
+      limit: { tries: 0 },
+    },
   ],
 };
 

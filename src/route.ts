@@ -17,44 +17,72 @@ export const routing: string[] = [
   "Misc/Acquire Birch Battery",
   "Keys/Deck",
 
-  // Level up
-  "Misc/Cloud Talk",
-  "Summon/War Frat 151st Infantryman", // Summon before leaving level 1
-  "Misc/LOV Tunnel",
-  "Misc/Daycare",
-  "Misc/Bastille",
-  "Misc/Snojo",
+  // Get initial energy
+  "Robot/CPU Potions",
+  "Robot/Absorb AAA Battery",
+  "Robot/Absorb Robo Battery",
+  "Robot/CPU Energy",
+  "Robot/Chronolith",
+
+  // Equip initial limbs
+  "Robot/Equip Top Initial",
+  "Robot/Equip Right Initial",
 
   // Start quests when able
   "Knob/Start",
   "McLargeHuge/Trapper Request",
 
-  // Unlock island to start YRing
+  // Level up with goose
+  "Leveling/LOV Tunnel",
+  "Leveling/All",
+
+  // Use YRs
+  "Summon/Mountain Man",
+
+  // Use Video Games buff to clear pool
+  "Manor/Billiards",
+
+  // Some generic combat tasks for exp buffs
+  "Manor/Library",
+  "Manor/Bedroom",
+  // "Digital/Vanya",
+  // "Digital/Megalo",
+
+  // Prepare snakes with continued -combat
+  "Giant/Basement",
+  "McLargeHuge/Trapper Return",
+  "Bat/Use Sonar 1",
+
+  // Get through ninjas ASAP with +combat
+  "Macguffin/Diary",
+  "Palindome/Copperhead",
+  "Palindome/Bat Snake",
+  "Palindome/Cold Snake",
+  "McLargeHuge/Ninja",
+
+  // Prepare for first hat phase
+  "Giant/Ground",
+  "Summon/War Frat 151st Infantryman",
   "Misc/Unlock Island Submarine",
   "Misc/Unlock Island",
 
-  // Grind tasks until level 11
-  "Manor/Kitchen",
-  "Mosquito/Burn Delay",
-  "Macguffin/Compass", // Unlock desert for ultrahydrated use
+  // First hat phase
+  "Robot/Equip Hat Phase 1",
+  "War/Enrage",
+  "War/Flyers Start",
+  "Palindome/Hot Snake Precastle",
+  "Giant/Top Floor",
+  "Robot/Unequip Hat Phase 2",
 
   // First -combat group
-  "War/Enrage", // Open the War ASAP for Yellow rays
-  "War/Flyers Start", // Start the war and get flyers
-  "War/Flyers End", // End the flyers quest ASAP in case of tracking errors
+  "Mosquito/Burn Delay",
   "Hidden City/Forest Coin", // First to get meat
   "Hidden City/Forest Map",
   "Hidden City/Forest Fertilizer",
   "Hidden City/Forest Sapling", // Last to sell bar skins
-  "Manor/Billiards",
   "Friar/Finish",
 
-  // Open delay
-  "Manor/Start Floor2",
-  "Palindome/Copperhead",
-
   // Do summons when ready
-  "Summon/Mountain Man",
   "Summon/Astrologer Of Shub-Jigguwatt",
   "Summon/Astronomer",
   "Summon/Camel's Toe",
@@ -71,9 +99,6 @@ export const routing: string[] = [
   // Setup additional -combats
   "Manor/Bedroom",
   "Palindome/Bat Snake",
-  "Giant/Grow Beanstalk",
-  "Bat/Use Sonar 3", // Reveal more delay
-  "Palindome/Cold Snake",
   "McLargeHuge/Climb",
 
   // Get and use clovers
@@ -85,9 +110,9 @@ export const routing: string[] = [
   "Hidden City/Banish Janitors",
   "Mosquito/Finish",
   "Crypt/Cranny",
-  "Giant/Basement Finish",
   "Giant/Unlock HITS",
 
+  "Macguffin/Compass", // Unlock desert for ultrahydrated use
   // The following 3 tasks should always stay in this order
   "Macguffin/Oasis", // Get ultrahydrated as soon as needed
   "Macguffin/Oasis Drum", // Get drum as soon as pages are gathered
@@ -108,8 +133,6 @@ export const routing: string[] = [
   "Palindome/Talisman",
   "Palindome/Palindome Dudes", // Use Eagle beast banish
   "Crypt/Niche",
-  "War/Junkyard End",
-
   "Tavern/Finish",
 
   // Setup for +meat/+item set
@@ -119,12 +142,9 @@ export const routing: string[] = [
   "Macguffin/Upper Chamber",
   "Orc Chasm/Start Peaks",
   "Orc Chasm/ABoo Carto",
-  "War/Open Nuns",
 
   // Bulk +meat/+item tasks
-  "Misc/Shadow Rift",
   "Misc/Shadow Lodestone",
-  "War/Nuns",
   "Crypt/Nook",
   "Orc Chasm/ABoo Clues",
   "Digital/Hero",
@@ -137,13 +157,19 @@ export const routing: string[] = [
   "Keys/Star Key", // Allow for better use of orb
   "Macguffin/Finish",
   "Crypt/Finish",
-  "War/Boss Hippie",
   "Orc Chasm/Finish",
 
-  // Finish up with last delay
-  "Bat/Finish",
-  "Misc/Eldritch Tentacle",
+  // Setup for second hat phase
+  "Knob/Harem",
+  "Robot/Equip Hat Phase 2",
+  "War/Junkyard",
+  "War/Boss Hippie",
   "Knob/King",
+  "Robot/Unequip Hat Phase 2",
+
+  // Finish up with last delay
+  "Misc/Eldritch Tentacle",
+  "Bat/Finish",
 
   // Finish last keys
   "Keys/All Heroes",
