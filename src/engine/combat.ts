@@ -1,6 +1,16 @@
-import { haveEquipped, Location, Monster, myAdventures } from "kolmafia";
-import { $item, $skill, Macro } from "libram";
+import {
+  familiarWeight,
+  haveEquipped,
+  Location,
+  Monster,
+  myBasestat,
+  myFamiliar,
+  myPrimestat,
+  Stat,
+} from "kolmafia";
+import { $familiar, $item, $skill, $slot, $stat, byStat, get, Macro, Switch } from "libram";
 import { ActionDefaults, CombatStrategy as BaseCombatStrategy } from "grimoire-kolmafia";
+import { atLevel, YouRobot } from "../lib";
 
 const myActions = [
   "ignore", // Task doesn't care what happens
@@ -23,16 +33,15 @@ export class MyActionDefaults implements ActionDefaults<CombatActions> {
   }
 
   ignoreSoftBanish(target?: Monster | Location) {
-    return this.kill(target);
+    return this.ignore(target);
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   kill(target?: Monster | Location) {
-    return killMacro();
+    return killMacro(target);
   }
 
   killHard(target?: Monster | Location) {
-    return this.kill(target);
+    return killMacro(target, true);
   }
 
   ignoreNoBanish(target?: Monster | Location) {
@@ -44,7 +53,7 @@ export class MyActionDefaults implements ActionDefaults<CombatActions> {
   } // Abort if no resource provided
 
   banish(target?: Monster | Location) {
-    return this.kill(target);
+    return this.ignore(target);
   }
 
   abort() {
@@ -64,60 +73,80 @@ export class MyActionDefaults implements ActionDefaults<CombatActions> {
   }
 }
 
-export function killMacro(): Macro {
-  if (haveEquipped($item`June cleaver`)) {
-    // eslint-disable-next-line libram/verify-constants
-    if (haveEquipped($item`Everfull Dart Holster`)) {
-      if (myAdventures() > 50) {
-        return (
-          new Macro()
-            // eslint-disable-next-line libram/verify-constants
-            .trySkill($skill`Darts: Aim for the Bullseye`)
-            // eslint-disable-next-line libram/verify-constants
-            .trySkill($skill`Darts: Throw at %part1`)
-            .attack()
-            .repeat()
-        );
-      } else {
-        return (
-          new Macro()
-            // eslint-disable-next-line libram/verify-constants
-            .trySkill($skill`Darts: Throw at %part1`)
-            .attack()
-            .repeat()
-        );
-      }
+function statToLevel(): Stat {
+  if (myBasestat(myPrimestat()) < 104) return myPrimestat();
+  if (myBasestat($stat`Mysticality`) < 70) return $stat`Mysticality`;
+  if (myBasestat($stat`Moxie`) < 70) return $stat`Moxie`;
+  return Stat.none;
+}
+
+const dartParts: Switch<string, string[]> = {
+  Muscle: ["Wing", "Tentacle", "Face", "Handle", "Mouth", "Fin", "Ear"],
+  Mysticality: [
+    "Stem",
+    "Tail",
+    "Beak",
+    "Shell",
+    "Nothing",
+    "Stern",
+    "Foot",
+    "Wall",
+    "Ear",
+    "Body",
+    "Trunk",
+  ],
+  Moxie: ["Arm", "Wheel", "Eye"],
+  default: [],
+};
+
+function attemptDartThrows(part: undefined | string | string[]): Macro {
+  const result = new Macro();
+  if (part === undefined) return result;
+
+  const partList = typeof part === "string" ? [part] : part;
+  for (const p of partList) {
+    result.step(`while hasskill Darts: Throw at ${p}; skill Darts: Throw at ${p}; endwhile;`);
+  }
+  return result;
+}
+
+export function killMacro(target?: Monster | Location, hard?: boolean): Macro {
+  const result = new Macro();
+
+  // Level with the Grey Goose if available
+  if (myFamiliar() === $familiar`Grey Goose` && familiarWeight($familiar`Grey Goose`) >= 20) {
+    switch (statToLevel()) {
+      case $stat`Muscle`:
+        result.trySkill($skill`Convert Matter to Protein`);
+        break;
+      case $stat`Mysticality`:
+        result.trySkill($skill`Convert Matter to Energy`);
+        break;
+      case $stat`Moxie`:
+        result.trySkill($skill`Convert Matter to Pomade`);
+        break;
+      case Stat.none:
+        break;
     }
-    return new Macro().attack().repeat();
   }
 
-  // eslint-disable-next-line libram/verify-constants
   if (haveEquipped($item`Everfull Dart Holster`)) {
-    if (myAdventures() > 50) {
-      return (
-        new Macro()
-          // eslint-disable-next-line libram/verify-constants
-          .trySkill($skill`Darts: Aim for the Bullseye`)
-          // eslint-disable-next-line libram/verify-constants
-          .trySkill($skill`Darts: Throw at %part1`)
-          .while_("!mpbelow 6", new Macro().skill($skill`Saucestorm`))
-          .attack()
-          .repeat()
-      );
-    } else {
-      return (
-        new Macro()
-          // eslint-disable-next-line libram/verify-constants
-          .trySkill($skill`Darts: Throw at %part1`)
-          .while_("!mpbelow 6", new Macro().skill($skill`Saucestorm`))
-          .attack()
-          .repeat()
-      );
-    }
+    if (!hard) result.trySkill($skill`Darts: Aim for the Bullseye`);
+
+    if (!atLevel(12)) result.step(attemptDartThrows(byStat(dartParts)));
+    if (myPrimestat() !== $stat`Mysticality` && myBasestat($stat`Mysticality`) < 70)
+      result.step(attemptDartThrows(dartParts["Mysticality"]));
+    if (myPrimestat() !== $stat`Moxie` && myBasestat($stat`Moxie`) < 70)
+      result.step(attemptDartThrows(dartParts["Moxie"]));
+
+    result.step(attemptDartThrows("butt"));
+    result.step(attemptDartThrows("torso"));
+    if (get("_dartsLeft") >= 2) result.trySkill($skill`Darts: Throw at %part1`);
   }
 
-  return new Macro()
-    .while_("!mpbelow 6", new Macro().skill($skill`Saucestorm`))
-    .attack()
-    .repeat();
+  if (haveEquipped($item`June cleaver`)) return result.attack().repeat();
+  else if (YouRobot.getPartId("bottom") === 1) return result.trySkill($skill`Crotch Burn`).repeat();
+  else if (YouRobot.canUse($slot`weapon`)) return result.attack().repeat();
+
+  throw `Unable to plan to kill this monster; try equipping a weapon`;
 }

@@ -1,14 +1,11 @@
 import { CombatStrategy } from "../engine/combat";
 import {
   cliExecute,
-  familiarWeight,
   Item,
-  myBasestat,
   myLevel,
   myPrimestat,
   myTurncount,
   runChoice,
-  Stat,
   use,
   visitUrl,
 } from "kolmafia";
@@ -105,7 +102,7 @@ const unscaledLeveling: Task[] = [
     completed: () => get("_loveTunnelUsed"),
     do: $location`The Tunnel of L.O.V.E.`,
     choices: { 1222: 1, 1223: 1, 1224: primestatId(), 1225: 1, 1226: 2, 1227: 1, 1228: 3 },
-    combat: new CombatStrategy().macro(levelingMacro).killHard(),
+    combat: new CombatStrategy().killHard(),
     outfit: levelingOutfit,
     limit: { tries: 1 },
     freecombat: true,
@@ -170,7 +167,7 @@ const unscaledLeveling: Task[] = [
     post: (): void => {
       if (get("_snojoFreeFights") === 10) cliExecute("hottub"); // Clean -stat effects
     },
-    combat: new CombatStrategy().macro(levelingMacro).killHard(),
+    combat: new CombatStrategy().killHard(),
     outfit: levelingOutfit,
     limit: { tries: 10 },
     freecombat: true,
@@ -182,7 +179,7 @@ const unscaledLeveling: Task[] = [
     completed: () => get("_neverendingPartyFreeTurns") >= 10 || !get("neverendingPartyAlways"),
     do: $location`The Neverending Party`,
     choices: { 1322: 2, 1324: 5 },
-    combat: new CombatStrategy().macro(levelingMacro).killHard(),
+    combat: new CombatStrategy().killHard(),
     outfit: levelingOutfit,
     limit: { tries: 11 },
     freecombat: true,
@@ -194,7 +191,7 @@ const unscaledLeveling: Task[] = [
     completed: () => get("_speakeasyFreeFights") >= 3 || !get("ownsSpeakeasy"),
     do: $location`An Unusually Quiet Barroom Brawl`,
     choices: { 1322: 2, 1324: 5 },
-    combat: new CombatStrategy().macro(levelingMacro).killHard(),
+    combat: new CombatStrategy().killHard(),
     outfit: levelingOutfit,
     limit: { tries: 3 },
     freecombat: true,
@@ -230,7 +227,6 @@ const unscaledLeveling: Task[] = [
         result.while_("hasskill 7448 && !pastround 25", Macro.skill($skill`Douse Foe`));
         return result;
       }, $monster`shadow slab`)
-      .macro(levelingMacro)
       .killHard(),
     outfit: () => {
       const result: OutfitSpec = {
@@ -287,33 +283,9 @@ export const LevelingQuest: Quest = {
   ],
 };
 
-function statToLevel(): Stat {
-  if (myBasestat(myPrimestat()) < 104) return myPrimestat();
-  if (myBasestat($stat`Mysticality`) < 70) return $stat`Mysticality`;
-  if (myBasestat($stat`Moxie`) < 70) return $stat`Moxie`;
-  return Stat.none;
-}
-
-function levelingMacro(): Macro {
-  const result = new Macro();
-  if (familiarWeight($familiar`Grey Goose`) >= 20) {
-    switch (statToLevel()) {
-      case $stat`Muscle`:
-        result.trySkill($skill`Convert Matter to Protein`);
-        break;
-      case $stat`Mysticality`:
-        result.trySkill($skill`Convert Matter to Energy`);
-        break;
-      case $stat`Moxie`:
-        result.trySkill($skill`Convert Matter to Pomade`);
-        break;
-    }
-  }
-  return result;
-}
-
 function levelingOutfit(): OutfitSpec & { equip: Item[] } {
   return {
     equip: [],
+    familiar: $familiar`Grey Goose`,
   };
 }
