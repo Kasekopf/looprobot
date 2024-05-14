@@ -1,9 +1,10 @@
-import { $item, $skill, $slot, $stat, get, have } from "libram";
+import { $item, $location, $skill, $slot, $stat, AutumnAton, get, have } from "libram";
 import { Priorities } from "../engine/priority";
 import { Quest } from "../engine/task";
 import { YouRobot } from "../lib";
 import { Guards, step } from "grimoire-kolmafia";
 import { itemAmount, myAdventures, myBasestat, myPrimestat, use } from "kolmafia";
+import { flyersDone } from "./level12";
 
 export const RobotQuest: Quest = {
   name: "Robot",
@@ -101,7 +102,7 @@ export const RobotQuest: Quest = {
       priority: () => Priorities.Free,
       completed: () => YouRobot.canUseFamiliar() || levelingStartCompleted(),
       ready: () => YouRobot.scrap() >= 5,
-      do: () => YouRobot.doSwitchPart("top", 4),
+      do: () => YouRobot.doSwitchPart("top", 2),
       limit: { tries: 1 },
     },
     {
@@ -145,6 +146,48 @@ export const RobotQuest: Quest = {
       do: () => YouRobot.doSwitchPart("right", 4),
       limit: { tries: 1 },
     },
+    {
+      name: "Equip Hat Phase 1",
+      after: ["Giant/Ground", "War/Outfit Frat"],
+      priority: () => Priorities.Free,
+      ready: () =>
+        step("questL11Shen") >= 5 &&
+        myBasestat($stat`Moxie`) >= 70 &&
+        myBasestat($stat`Mysticality`) >= 70,
+      completed: () =>
+        YouRobot.canUse($slot`hat`) ||
+        (step("questL10Garbage") >= 10 &&
+          (have($item`rock band flyers`) || get("sidequestArenaCompleted") !== "none") &&
+          ($location`Sonofa Beach`.turnsSpent >= 1 || !AutumnAton.have())),
+      do: () => YouRobot.doSwitchPart("top", 4),
+      limit: { tries: 1 },
+    },
+    {
+      name: "Unequip Hat Phase 1",
+      after: ["Equip Hat Phase 1", "Giant/Top Floor", "War/Flyers Start"],
+      ready: () => $location`Sonofa Beach`.turnsSpent >= 1 || !AutumnAton.have(),
+      completed: () => YouRobot.canUseFamiliar() || flyersDone(),
+      do: () => YouRobot.doSwitchPart("top", 2),
+      limit: { tries: 1 },
+    },
+    {
+      name: "Equip Hat Phase 2",
+      after: ["Unequip Hat Phase 1", "Knob/Harem", "Flyers/Finish"],
+      ready: () => flyersDone(),
+      completed: () =>
+        YouRobot.canUse($slot`hat`) ||
+        (step("questL12War") === 999 && step("questL05Goblin") === 999),
+      do: () => YouRobot.doSwitchPart("top", 4),
+      limit: { tries: 1 },
+    },
+    {
+      name: "Unequip Hat Phase 2",
+      after: ["Equip Hat Phase 2", "War/Boss Hippie", "Knob/King"],
+      ready: () => $location`Sonofa Beach`.turnsSpent >= 1 || !AutumnAton.have(),
+      completed: () => YouRobot.canUseFamiliar(),
+      do: () => YouRobot.doSwitchPart("top", 2),
+      limit: { tries: 1 },
+    },
   ],
 };
 
@@ -174,8 +217,10 @@ function scrapBufferCompleted(): boolean {
   if (!YouRobot.canUse($slot`off-hand`)) scrapNeeded += 15;
 
   // We only need scrap to switch to a hat (and back) 3 times.
-  if (step("questL10Garbage") < 20) scrapNeeded += 20;
-  if (!have($item`rock band flyers`) && get("sidequestArenaCompleted") === "none")
+  if (
+    step("questL10Garbage") < 20 ||
+    (!have($item`rock band flyers`) && get("sidequestArenaCompleted") === "none")
+  )
     scrapNeeded += 20;
   if (step("questL12War") < 999) scrapNeeded += 20;
 

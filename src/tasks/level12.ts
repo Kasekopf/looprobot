@@ -43,7 +43,8 @@ import { args } from "../args";
 import { customRestoreMp, fillHp } from "../engine/moods";
 
 export function flyersDone(): boolean {
-  return get("flyeredML") >= 10000;
+  const buffer = 1000;
+  return get("flyeredML") >= 10000 + buffer;
 }
 
 const Flyers: Task[] = [
