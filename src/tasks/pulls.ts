@@ -5,10 +5,6 @@ import {
   isUnrestricted,
   Item,
   itemAmount,
-  myAdventures,
-  myDaycount,
-  myFullness,
-  myInebriety,
   myMeat,
   myTurncount,
   pullsRemaining,
@@ -44,52 +40,6 @@ type PullSpec = {
 } & ({ pull: Item } | { pull: Item[] | (() => Item | Item[] | undefined); name: string });
 
 export const pulls: PullSpec[] = [
-  // Food
-  {
-    name: "Cookbookbat Food of Legend",
-    pull: () => {
-      const result: Item[] = [];
-      if (!get("calzoneOfLegendEaten")) result.push($item`Calzone of Legend`);
-      if (!get("pizzaOfLegendEaten")) result.push($item`Pizza of Legend`);
-      if (!get("deepDishOfLegendEaten")) result.push($item`Deep Dish of Legend`);
-      return result;
-    },
-    useful: () => {
-      if (myFullness() >= 1) return false;
-      if (myDaycount() > 1 && myAdventures() > 5) return undefined;
-      return true;
-    },
-  },
-  {
-    pull: $item`Ol' Scratch's salad fork`,
-    useful: () => {
-      if (args.minor.skipfork) return false;
-      if (myFullness() >= 1) return false;
-      if (myDaycount() > 1 && myAdventures() > 5) return undefined;
-      return true;
-    },
-    price: 300000,
-  },
-  {
-    pull: $item`Frosty's frosty mug`,
-    useful: () => {
-      if (args.minor.skipmug) return false;
-      if (myInebriety() >= 1) return false;
-      if (myDaycount() > 1 && myAdventures() > 5) return undefined;
-      return true;
-    },
-    price: 200000,
-  },
-  {
-    pull: $item`milk of magnesium`,
-    useful: () => {
-      if (args.minor.skipmilk) return false;
-      if (get("_milkOfMagnesiumUsed")) return false;
-      if (myFullness() >= 1) return false;
-      if (myDaycount() > 1 && myAdventures() > 5) return undefined;
-      return true;
-    },
-  },
   // Hero keys
   {
     pull: $item`daily dungeon malware`,
@@ -115,18 +65,6 @@ export const pulls: PullSpec[] = [
   {
     pull: $item`carnivorous potted plant`,
     optional: true,
-  },
-  // Survivability pulls
-  {
-    pull: $item`nurse's hat`,
-  },
-  {
-    pull: $item`sea salt scrubs`,
-    useful: () => have($skill`Torso Awareness`),
-  },
-  {
-    pull: $item`hopping socks`, // +max MP item
-    useful: () => !have($skill`Torso Awareness`) && !have($item`SpinMaster™ lathe`),
   },
   // General pulls
   {
