@@ -203,7 +203,9 @@ export class Engine extends BaseEngine<CombatActions, ActiveTask> {
       else backup_outfit.equip = [$item`backup camera`];
 
       const possible_locations = available_tasks.filter(
-        (task) => this.hasDelay(task) && this.createOutfit(task).canEquip(backup_outfit)
+        (task) =>
+          (this.hasDelay(task) || task.killdelayzone) &&
+          this.createOutfit(task).canEquip(backup_outfit)
       );
       if (possible_locations.length > 0) {
         if (args.debug.verbose) {
@@ -235,7 +237,9 @@ export class Engine extends BaseEngine<CombatActions, ActiveTask> {
     const wanderer = wandererSources.find((source) => source.available() && source.chance() === 1);
     if (wanderer) {
       const possible_locations = available_tasks.filter(
-        (task) => this.hasDelay(task) && canEquipResource(this.createOutfit(task), wanderer)
+        (task) =>
+          (this.hasDelay(task) || task.killdelayzone) &&
+          canEquipResource(this.createOutfit(task), wanderer)
       );
       if (possible_locations.length > 0) {
         if (args.debug.verbose) {

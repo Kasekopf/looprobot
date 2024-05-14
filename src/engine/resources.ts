@@ -851,6 +851,12 @@ export const backupTargets: BackupTarget[] = [
     limit_tries: 2,
   },
   {
+    monster: $monster`sausage goblin`,
+    completed: () => itemAmount($item`magical sausage casing`) >= 11 || myTurncount() > 10,
+    outfit: { familiar: $familiar`Grey Goose` },
+    limit_tries: 6,
+  },
+  {
     monster: $monster`Eldritch Tentacle`,
     completed: () => args.minor.skipbackups,
     limit_tries: 11,

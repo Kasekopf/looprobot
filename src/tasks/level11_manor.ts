@@ -47,6 +47,7 @@ const Manor1: Task[] = [
     choices: { 893: 2 },
     combat: new CombatStrategy().kill(),
     limit: { soft: 21 },
+    killdelayzone: true,
   },
   {
     name: "Billiards",
