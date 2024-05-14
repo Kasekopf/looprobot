@@ -148,6 +148,7 @@ export const pulls: PullSpec[] = [
       !have($item`protonic accelerator pack`),
   },
   { pull: $item`muculent machete` },
+  { pull: $item`Space Trip safety headphones`, optional: true },
   {
     pull: $item`book of matches`,
     useful: () =>

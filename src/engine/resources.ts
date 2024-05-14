@@ -328,7 +328,10 @@ export const wandererSources: WandererSource[] = [
   },
   {
     name: "Kramco",
-    available: () => have($item`Kramco Sausage-o-Matic™`) && atLevel(2),
+    available: () =>
+      have($item`Kramco Sausage-o-Matic™`) &&
+      // Start when there will be no waste from the goose for backups
+      (myTurncount() > 5 || familiarWeight($familiar`Grey Goose`) === 6),
     equip: [
       { equip: $items`Kramco Sausage-o-Matic™, Space Trip safety headphones` },
       {
