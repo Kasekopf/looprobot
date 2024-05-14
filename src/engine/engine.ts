@@ -8,11 +8,13 @@ import {
   Effect,
   equip,
   equippedItem,
+  Familiar,
   familiarEquippedEquipment,
   getWorkshed,
   haveEffect,
   haveEquipped,
   inMultiFight,
+  Item,
   Location,
   logprint,
   myAdventures,
@@ -49,6 +51,7 @@ import {
   $path,
   $skill,
   $slot,
+  $slots,
   get,
   getTodaysHolidayWanderers,
   have,
@@ -78,7 +81,7 @@ import {
   getModifiersFrom,
 } from "./outfit";
 import { cliExecute, equippedAmount, itemAmount, runChoice } from "kolmafia";
-import { debug } from "../lib";
+import { debug, YouRobot } from "../lib";
 import {
   BackupTarget,
   backupTargets,
@@ -592,6 +595,13 @@ export class Engine extends BaseEngine<CombatActions, ActiveTask> {
   createOutfit(task: Task): Outfit {
     const spec = undelay(task.outfit);
     const outfit = new Outfit();
+
+    // Block equipment slots that we cannot actually use
+    if (!YouRobot.canUseFamiliar()) outfit.equip(Familiar.none);
+    for (const slot of $slots`hat, weapon, off-hand, pants, shirt`) {
+      if (!YouRobot.canUse(slot)) outfit.equip(Item.none, slot);
+    }
+
     if (spec !== undefined) outfit.equip(spec); // no error on failure
     return outfit;
   }
