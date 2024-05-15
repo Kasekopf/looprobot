@@ -289,6 +289,7 @@ const Door: Task[] = [
   },
 ];
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const wand: Task[] = [
   {
     name: "Wand W",
@@ -540,11 +541,10 @@ export const TowerQuest: Quest = {
       boss: true,
       limit: { tries: 1 },
     },
-    ...wand,
+    // ...wand,
     {
       name: "Mirror",
-      after: ["Wall of Bones", "Wand"],
-      acquire: [{ item: $item`Wand of Nagamar` }],
+      after: ["Wall of Bones"],
       completed: () => step("questL13Final") > 9,
       do: $location`Tower Level 4`,
       choices: { 1015: 2 },

@@ -870,12 +870,6 @@ function autosellJunk(): void {
     if (have(item)) autosell(item, itemAmount(item));
   }
 
-  // Sell all but one of a few items
-  const partial_junk = $items`ruby W, metallic A, lowercase N, heavy D`;
-  for (const item of partial_junk) {
-    if (itemAmount(item) > 1) autosell(item, itemAmount(item) - 1);
-  }
-
   // Use wallets
   const wallets = $items`ancient vinyl coin purse, black pension check, old leather wallet, Gathered Meat-Clip, old coin purse`;
   for (const item of wallets) {
