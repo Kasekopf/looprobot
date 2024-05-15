@@ -171,7 +171,7 @@ export const RobotQuest: Quest = {
     },
     {
       name: "Equip Hat Phase 2",
-      after: ["Unequip Hat Phase 1", "Knob/Harem", "Flyers/Finish"],
+      after: ["Unequip Hat Phase 1", "Knob/Harem", "War/Flyers End"],
       ready: () => flyersDone(),
       completed: () =>
         YouRobot.canUse($slot`hat`) ||

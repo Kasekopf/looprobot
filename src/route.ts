@@ -12,8 +12,6 @@ export const routing: string[] = [
   "Toot/Finish",
 
   // Get basic gear
-  "Misc/Workshed",
-  "Misc/Goose Exp",
   "Misc/Acquire Birch Battery",
   "Keys/Deck",
 
@@ -49,7 +47,7 @@ export const routing: string[] = [
   // "Digital/Megalo",
 
   // Prepare snakes with continued -combat
-  "Giant/Basement",
+  "Giant/Basement Finish",
   "McLargeHuge/Trapper Return",
   "Bat/Use Sonar 1",
 
@@ -160,7 +158,7 @@ export const routing: string[] = [
   // Setup for second hat phase
   "Knob/Harem",
   "Robot/Equip Hat Phase 2",
-  "War/Junkyard",
+  "War/Junkyard End",
   "War/Boss Hippie",
   "Knob/King",
   "Robot/Unequip Hat Phase 2",
