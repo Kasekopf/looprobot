@@ -1,4 +1,4 @@
-import { Item, itemAmount, numericModifier, use, visitUrl } from "kolmafia";
+import { familiarWeight, Item, itemAmount, numericModifier, use, visitUrl } from "kolmafia";
 import {
   $effect,
   $familiar,
@@ -158,6 +158,12 @@ export const McLargeHugeQuest: Quest = {
       name: "Peak",
       after: ["Climb"],
       completed: () => step("questL08Trapper") >= 5,
+      priority: () => {
+        if ($location`Mist-Shrouded Peak`.turnsSpent < 3) return Priorities.None;
+        if (!have($familiar`Grey Goose`)) return Priorities.None;
+        if (familiarWeight($familiar`Grey Goose`) < 6) return Priorities.BadGoose;
+        return Priorities.GoodGoose;
+      },
       ready: () => coldPlanner.maximumPossible(true) >= 5,
       prepare: () => {
         if (numericModifier("cold resistance") < 5) ensureEffect($effect`Red Door Syndrome`);
@@ -165,12 +171,24 @@ export const McLargeHugeQuest: Quest = {
           throw `Unable to ensure cold res for The Icy Peak`;
       },
       do: $location`Mist-Shrouded Peak`,
-      outfit: () => coldPlanner.outfitFor(5, { familiar: $familiar`Patriotic Eagle` }),
-      combat: new CombatStrategy().killHard().macro(() => {
+      outfit: () => {
         if (!get("banishedPhyla").includes("beast"))
-          return Macro.trySkill($skill`%fn, Release the Patriotic Screech!`);
-        return new Macro();
-      }),
+          return coldPlanner.outfitFor(5, { familiar: $familiar`Patriotic Eagle` });
+        if (
+          $location`Mist-Shrouded Peak`.turnsSpent >= 3 &&
+          familiarWeight($familiar`Grey Goose`) >= 6
+        )
+          return coldPlanner.outfitFor(5, { familiar: $familiar`Grey Goose` });
+        return coldPlanner.outfitFor(5);
+      },
+      combat: new CombatStrategy()
+        .killHard()
+        .macro(Macro.trySkill($skill`Emit Matter Duplicating Drones`), $monster`Groarbot`)
+        .macro(() => {
+          if (!get("banishedPhyla").includes("beast"))
+            return Macro.trySkill($skill`%fn, Release the Patriotic Screech!`);
+          return new Macro();
+        }),
       boss: true,
       limit: { tries: 4 },
     },

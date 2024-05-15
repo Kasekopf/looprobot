@@ -2,6 +2,7 @@ import {
   changeMcd,
   create,
   currentMcd,
+  familiarWeight,
   myDaycount,
   myInebriety,
   myLevel,
@@ -423,9 +424,17 @@ export const ManorQuest: Quest = {
     {
       name: "Boss",
       after: ["Blow Wall"],
+      priority: () => {
+        if (!have($familiar`Grey Goose`)) return Priorities.None;
+        if (familiarWeight($familiar`Grey Goose`) < 6) return Priorities.BadGoose;
+        return Priorities.GoodGoose;
+      },
       completed: () => step("questL11Manor") >= 999,
+      outfit: { familiar: $familiar`Grey Goose` },
       do: () => visitUrl("place.php?whichplace=manor4&action=manor4_chamberboss"),
-      combat: new CombatStrategy().killHard(),
+      combat: new CombatStrategy()
+        .macro(Macro.trySkill($skill`Emit Matter Duplicating Drones`))
+        .killHard(),
       limit: { tries: 1 },
       boss: true,
     },

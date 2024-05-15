@@ -3,6 +3,7 @@ import {
   changeMcd,
   cliExecute,
   currentMcd,
+  familiarWeight,
   Item,
   myBasestat,
   myClass,
@@ -375,14 +376,22 @@ export const CryptQuest: Quest = {
     {
       name: "Bonerdagon",
       after: ["Start", "Alcove Boss", "Cranny Boss", "Niche Boss", "Nook Boss"],
+      priority: () => {
+        if (!have($familiar`Grey Goose`)) return Priorities.None;
+        if (familiarWeight($familiar`Grey Goose`) < 6) return Priorities.BadGoose;
+        return Priorities.GoodGoose;
+      },
       completed: () => step("questL07Cyrptic") >= 1,
       do: () => {
         adv1($location`Haert of the Cyrpt`, -1, "");
         if (get("lastEncounter") !== "The Bonerdagon")
           visitUrl(toUrl($location`The Defiled Cranny`));
       },
+      outfit: { familiar: $familiar`Grey Goose` },
       choices: { 527: 1 },
-      combat: new CombatStrategy().killHard(),
+      combat: new CombatStrategy()
+        .macro(Macro.trySkill($skill`Emit Matter Duplicating Drones`))
+        .killHard(),
       boss: true,
       limit: { tries: 2 },
     },

@@ -1,4 +1,4 @@
-import { itemAmount, myDaycount, numericModifier, use, visitUrl } from "kolmafia";
+import { familiarWeight, itemAmount, myDaycount, numericModifier, use, visitUrl } from "kolmafia";
 import {
   $effect,
   $familiar,
@@ -186,9 +186,22 @@ export const BatQuest: Quest = {
     {
       name: "Boss Bat",
       after: ["Bat/Use Sonar 3", "Lobsterfrogman Drop"],
+      priority: () => {
+        if ($location`The Boss Bat's Lair`.turnsSpent < 4) return Priorities.None;
+        if (!have($familiar`Grey Goose`)) return Priorities.None;
+        if (familiarWeight($familiar`Grey Goose`) < 6) return Priorities.BadGoose;
+        return Priorities.GoodGoose;
+      },
       completed: () => step("questL04Bat") >= 4,
       do: $location`The Boss Bat's Lair`,
-      combat: new CombatStrategy().killHard($monster`Boss Bat`).ignore(),
+      outfit: () => {
+        if ($location`The Boss Bat's Lair`.turnsSpent < 4) return {};
+        return { familiar: $familiar`Grey Goose` };
+      },
+      combat: new CombatStrategy()
+        .macro(Macro.trySkill($skill`Emit Matter Duplicating Drones`), $monster`Boss Bot`)
+        .killHard($monster`Boss Bot`)
+        .ignore(),
       limit: { soft: 10 },
       delay: 6,
     },

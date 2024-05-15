@@ -2,6 +2,7 @@ import {
   canEquip,
   cliExecute,
   create,
+  familiarWeight,
   haveEquipped,
   Item,
   itemAmount,
@@ -545,14 +546,21 @@ export const PalindomeQuest: Quest = {
     {
       name: "Boss",
       after: ["Open Alarm"],
+      priority: () => {
+        if (!have($familiar`Grey Goose`)) return Priorities.None;
+        if (familiarWeight($familiar`Grey Goose`) < 6) return Priorities.BadGoose;
+        return Priorities.GoodGoose;
+      },
       completed: () => step("questL11Palindome") === 999,
       do: (): void => {
         visitUrl("place.php?whichplace=palindome&action=pal_drlabel");
         runChoice(-1);
       },
-      outfit: { equip: $items`Talisman o' Namsilat, Mega Gem` },
+      outfit: { equip: $items`Talisman o' Namsilat, Mega Gem`, familiar: $familiar`Grey Goose` },
       choices: { 131: 1 },
-      combat: new CombatStrategy().killHard(),
+      combat: new CombatStrategy()
+        .macro(Macro.trySkill($skill`Emit Matter Duplicating Drones`))
+        .killHard(),
       limit: { tries: 1 },
       boss: true,
     },

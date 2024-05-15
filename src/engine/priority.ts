@@ -39,6 +39,7 @@ export class Priorities {
   static GoodAutumnaton: Priority = { score: 4, reason: "Setup Autumnaton" };
   static GoodCamel: Priority = { score: 3, reason: "Melodramedary is ready" };
   static MinorEffect: Priority = { score: 2, reason: "Useful minor effect" };
+  static GoodGoose: Priority = { score: 1, reason: "Goose is ready" };
   static GoodBanish3: Priority = { score: 0.7, reason: "3+ banishes committed" };
   static GoodBanish2: Priority = { score: 0.6, reason: "2 banishes committed" };
   static GoodBanish: Priority = { score: 0.5, reason: "1 banish committed" };
@@ -48,6 +49,7 @@ export class Priorities {
   static BadAutumnaton: Priority = { score: -2, reason: "Autumnaton in use here" };
   static BadTrain: Priority = { score: -3, reason: "Use Trainset" };
   static BadOrb: Priority = { score: -4, reason: "Avoid orb monster" };
+  static BadGoose: Priority = { score: -4.5, reason: "Waiting for Goose" };
   static BadCamel: Priority = { score: -5, reason: "Waiting for Melodramedary" };
   static BadHoliday: Priority = { score: -10 };
   static BadYR: Priority = { score: -16, reason: "Too early for yellow ray" };

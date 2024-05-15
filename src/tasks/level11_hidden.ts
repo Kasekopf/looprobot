@@ -531,13 +531,27 @@ export const HiddenQuest: Quest = {
       after: ["Finish Office", "Finish Apartment", "Finish Hospital", "Finish Bowling"],
       completed: () => step("questL11Worship") === 999,
       do: $location`A Massive Ziggurat`,
-      outfit: {
-        equip: $items`antique machete`,
+      priority: () => {
+        if ($location`A Massive Ziggurat`.turnsSpent < 3) return Priorities.None;
+        if (!have($familiar`Grey Goose`)) return Priorities.None;
+        if (familiarWeight($familiar`Grey Goose`) < 6) return Priorities.BadGoose;
+        return Priorities.GoodGoose;
+      },
+      outfit: () => {
+        if ($location`A Massive Ziggurat`.turnsSpent < 3)
+          return {
+            equip: $items`antique machete`,
+          };
+        return { familiar: $familiar`Grey Goose` };
       },
       choices: { 791: 1 },
       combat: new CombatStrategy()
         .killHard($monster`dense liana`)
-        .killHard($monster`Protector Spectre`),
+        .macro(
+          Macro.trySkill($skill`Emit Matter Duplicating Drones`),
+          $monster`Protector S. P. E. C. T. R. E.`
+        )
+        .killHard($monster`Protector S. P. E. C. T. R. E.`),
       limit: { tries: 4 },
       acquire: [{ item: $item`antique machete` }],
       boss: true,
