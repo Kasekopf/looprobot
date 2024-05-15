@@ -147,6 +147,7 @@ export const pulls: PullSpec[] = [
       storageAmount($item`Space Trip safety headphones`) === 0 &&
       !have($item`protonic accelerator pack`),
   },
+  { pull: $item`defective Game Grid token` },
   { pull: $item`muculent machete` },
   { pull: $item`Space Trip safety headphones`, optional: true },
   {
@@ -163,12 +164,9 @@ export const pulls: PullSpec[] = [
   {
     pull: $item`killing jar`,
     useful: () => {
+      if (have($familiar`Melodramedary`)) return false;
       if (step("questM20Necklace") < 4) return undefined;
-      return (
-        !have($familiar`Melodramedary`) &&
-        (get("gnasirProgress") & 4) === 0 &&
-        get("desertExploration") < 100
-      );
+      return (get("gnasirProgress") & 4) === 0 && get("desertExploration") < 100;
     },
   },
   { pull: $item`old patched suit-pants`, optional: true },
