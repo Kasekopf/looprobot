@@ -11,9 +11,7 @@ import {
 } from "kolmafia";
 import {
   $effect,
-  $familiar,
   $item,
-  $items,
   $location,
   $monster,
   $skill,
@@ -104,7 +102,6 @@ const unscaledLeveling: Task[] = [
     do: $location`The Tunnel of L.O.V.E.`,
     choices: { 1222: 1, 1223: 1, 1224: primestatId(), 1225: 1, 1226: 2, 1227: 1, 1228: 3 },
     combat: new CombatStrategy().killHard(),
-    outfit: levelingOutfit,
     limit: { tries: 1 },
     freecombat: true,
   },
@@ -169,7 +166,6 @@ const unscaledLeveling: Task[] = [
       if (get("_snojoFreeFights") === 10) cliExecute("hottub"); // Clean -stat effects
     },
     combat: new CombatStrategy().killHard(),
-    outfit: levelingOutfit,
     limit: { tries: 10 },
     freecombat: true,
   },
@@ -181,7 +177,6 @@ const unscaledLeveling: Task[] = [
     do: $location`The Neverending Party`,
     choices: { 1322: 2, 1324: 5 },
     combat: new CombatStrategy().killHard(),
-    outfit: levelingOutfit,
     limit: { tries: 11 },
     freecombat: true,
   },
@@ -193,7 +188,6 @@ const unscaledLeveling: Task[] = [
     do: $location`An Unusually Quiet Barroom Brawl`,
     choices: { 1322: 2, 1324: 5 },
     combat: new CombatStrategy().killHard(),
-    outfit: levelingOutfit,
     limit: { tries: 3 },
     freecombat: true,
   },
@@ -231,7 +225,6 @@ const unscaledLeveling: Task[] = [
       .killHard(),
     outfit: () => {
       const result: OutfitSpec = {
-        ...levelingOutfit(),
         modifier: "item",
       };
       //TODO: plan how many fire extinguishers need to be saved
@@ -283,10 +276,3 @@ export const LevelingQuest: Quest = {
     },
   ],
 };
-
-function levelingOutfit(): OutfitSpec & { equip: Item[] } {
-  return {
-    equip: $items`LOV Eardigan, LOV Epaulettes, LOV Earrings`,
-    familiar: $familiar`Grey Goose`,
-  };
-}

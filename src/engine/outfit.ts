@@ -197,7 +197,7 @@ export function yellowSubmarinePossible(assumePulls = false) {
 export function equipInitial(outfit: Outfit): void {
   if (!levelingStartCompleted()) {
     if (outfit.equip($familiar`Grey Goose`)) outfit.equip($item`grey down vest`);
-    if (myBasestat(myPrimestat()) < 104) {
+    if (myBasestat(myPrimestat()) < 104 && familiarWeight($familiar`Grey Goose`) === 20) {
       // We only have the primestat one
       outfit.equip($item`LOV Eardigan`);
       outfit.equip($item`LOV Epaulettes`);
