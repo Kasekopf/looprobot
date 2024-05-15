@@ -82,7 +82,7 @@ export const MiscQuest: Quest = {
   tasks: [
     {
       name: "Unlock Beach",
-      after: ["Sewer Accordion", "Sewer Saucepan", "Sewer Totem"],
+      after: [],
       priority: () => Priorities.Free,
       ready: () => myMeat() >= meatBuffer + (knollAvailable() ? 538 : 5000),
       completed: () => have($item`bitchin' meatcar`) || have($item`Desert Bus pass`),
@@ -96,7 +96,7 @@ export const MiscQuest: Quest = {
     },
     {
       name: "Island Scrip",
-      after: ["Unlock Beach", "Acquire Red Rocket"],
+      after: ["Unlock Beach"],
       ready: () =>
         (myMeat() >= 6000 || (step("questL11Black") >= 4 && myMeat() >= meatBuffer + 500)) &&
         myAdventures() >= 20 &&
@@ -455,25 +455,8 @@ export const MiscQuest: Quest = {
       freeaction: true,
     },
     {
-      name: "Acquire Firework Hat",
-      after: ["Acquire Red Rocket"],
-      priority: () => Priorities.Free,
-      ready: () => myMeat() >= meatBuffer + 500,
-      completed: () =>
-        have($item`sombrero-mounted sparkler`) ||
-        get("_fireworksShopHatBought") ||
-        !have($item`Clan VIP Lounge key`),
-      do: () => {
-        visitUrl("clan_viplounge.php");
-        visitUrl("clan_viplounge.php?action=fwshop&whichfloor=2");
-        cliExecute("acquire sombrero-mounted sparkler");
-      },
-      limit: { tries: 1 },
-      freeaction: true,
-    },
-    {
       name: "Acquire Rocket Boots",
-      after: ["Acquire Red Rocket"],
+      after: [],
       priority: () => Priorities.Free,
       ready: () => myMeat() >= meatBuffer + 1000,
       completed: () =>
@@ -489,26 +472,8 @@ export const MiscQuest: Quest = {
       freeaction: true,
     },
     {
-      name: "Acquire Red Rocket",
-      after: ["Sewer Accordion", "Sewer Totem", "Sewer Saucepan"],
-      priority: () => Priorities.Free,
-      ready: () => myMeat() >= meatBuffer + 250,
-      completed: () =>
-        have($item`red rocket`) ||
-        !have($item`Clan VIP Lounge key`) ||
-        have($effect`Ready to Eat`) ||
-        myFullness() > 0,
-      do: () => {
-        visitUrl("clan_viplounge.php");
-        visitUrl("clan_viplounge.php?action=fwshop&whichfloor=2");
-        cliExecute("acquire red rocket");
-      },
-      limit: { tries: 1 },
-      freeaction: true,
-    },
-    {
       name: "Hermit Clover",
-      after: ["Hidden City/Open Temple", "Acquire Red Rocket"],
+      after: ["Hidden City/Open Temple"],
       ready: () => myMeat() >= meatBuffer + 1000,
       completed: () => get("_looprobot_clovers") === "true",
       do: () => {
@@ -520,22 +485,56 @@ export const MiscQuest: Quest = {
       limit: { tries: 1 },
     },
     {
-      name: "Amulet Coin",
+      name: "Grey Down Vest",
       after: [],
       completed: () =>
-        have($item`amulet coin`) ||
+        have($item`grey down vest`) ||
         !have($skill`Summon Clip Art`) ||
         get("tomeSummons") >= 3 ||
-        !have($familiar`Cornbeefadon`),
+        !have($familiar`Grey Goose`),
       priority: () => Priorities.Free,
       do: () => {
         retrieveItem($item`box of Familiar Jacks`);
         use($item`box of Familiar Jacks`);
       },
-      outfit: { familiar: $familiar`Cornbeefadon` },
+      outfit: { familiar: $familiar`Grey Goose` },
       freeaction: true,
       limit: { tries: 1 },
     },
+    {
+      name: "Grey Goose Vest",
+      after: [],
+      completed: () =>
+        have($item`dromedary drinking helmet`) ||
+        !have($skill`Summon Clip Art`) ||
+        get("tomeSummons") >= 3 ||
+        !have($familiar`Melodramedary`),
+      priority: () => Priorities.Free,
+      do: () => {
+        retrieveItem($item`box of Familiar Jacks`);
+        use($item`box of Familiar Jacks`);
+      },
+      outfit: { familiar: $familiar`Melodramedary` },
+      freeaction: true,
+      limit: { tries: 1 },
+    },
+    // {
+    //   name: "Amulet Coin",
+    //   after: [],
+    //   completed: () =>
+    //     have($item`amulet coin`) ||
+    //     !have($skill`Summon Clip Art`) ||
+    //     get("tomeSummons") >= 3 ||
+    //     !have($familiar`Cornbeefadon`),
+    //   priority: () => Priorities.Free,
+    //   do: () => {
+    //     retrieveItem($item`box of Familiar Jacks`);
+    //     use($item`box of Familiar Jacks`);
+    //   },
+    //   outfit: { familiar: $familiar`Cornbeefadon` },
+    //   freeaction: true,
+    //   limit: { tries: 1 },
+    // },
     {
       name: "Boombox",
       after: [],
