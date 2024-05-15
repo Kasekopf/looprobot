@@ -243,6 +243,10 @@ export function equipCharging(
     outfit.equip($item`protonic accelerator pack`);
   }
 
+  if (familiarWeight($familiar`Grey Goose`) < 6 && mightKillSomething) {
+    outfit.equip($familiar`Grey Goose`);
+  }
+
   if (yellowSubmarinePossible() && itemAmount($item`yellow pixel`) < 50) {
     outfit.equip($familiar`Puck Man`);
     outfit.equip($familiar`Ms. Puck Man`);
@@ -266,6 +270,10 @@ export function equipCharging(
     outfit.equip($familiar`Melodramedary`);
   }
 
+  if (get("screechCombats") > 0 && !get("banishedPhyla").includes("dude") && !noFightingFamiliars) {
+    outfit.equip($familiar`Patriotic Eagle`);
+  }
+
   if (
     (!have($item`eleven-foot pole`) ||
       !have($item`ring of Detect Boring Doors`) ||
@@ -273,18 +281,6 @@ export function equipCharging(
     keyStrategy.useful(Keys.Dungeon) !== false
   ) {
     outfit.equip($familiar`Gelatinous Cubeling`);
-  }
-
-  if (
-    get("screechCombats") > 0 &&
-    !get("banishedPhyla").includes("hippy") &&
-    !noFightingFamiliars
-  ) {
-    outfit.equip($familiar`Patriotic Eagle`);
-  }
-
-  if (familiarWeight($familiar`Grey Goose`) < 6 && mightKillSomething) {
-    outfit.equip($familiar`Grey Goose`);
   }
 }
 
@@ -343,13 +339,6 @@ export function equipDefaults(outfit: Outfit, noFightingFamiliars: boolean): voi
   if (get("sweat") < 15) outfit.equip($item`designer sweatpants`);
 
   if (
-    !have($item`Jurassic Parka`) ||
-    !have($skill`Torso Awareness`) ||
-    (!modifier.includes("-combat") && !modifier.includes("meat") && !modifier.includes("ML"))
-  ) {
-    outfit.equip($item`sea salt scrubs`);
-  }
-  if (
     (outfit.haveEquipped($item`sea salt scrubs`) || outfit.haveEquipped($item`Jurassic Parka`)) &&
     myTurncount() > 10 &&
     DaylightShavings.buffAvailable() &&
@@ -381,7 +370,6 @@ export function equipDefaults(outfit: Outfit, noFightingFamiliars: boolean): voi
     outfit.equip($item`warbear long johns`);
     outfit.equip($item`square sponge pants`);
     outfit.equip($item`Cargo Cultist Shorts`);
-    outfit.equip($item`lucky gold ring`);
     // eslint-disable-next-line libram/verify-constants
     outfit.equip($item`Everfull Dart Holster`);
 
