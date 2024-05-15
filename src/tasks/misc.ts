@@ -1056,7 +1056,7 @@ export function teleportitisTask(engine: Engine, tasks: Task[]): Task {
       if (get("lastEncounter") === "Too Much Humanity" && step("questL11Ron") < 1)
         set("questL11Ron", "step1");
     },
-    outfit: { equip: $items`antique machete` },
+    outfit: { equip: $items`muculent machete` },
     combat: combat,
     choices: choices,
     limit: { soft: 20 },

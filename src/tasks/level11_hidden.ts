@@ -175,13 +175,13 @@ const Apartment: Task[] = [
     completed: () => get("hiddenApartmentProgress") >= 1,
     do: $location`An Overgrown Shrine (Northwest)`,
     outfit: {
-      equip: $items`antique machete`,
+      equip: $items`muculent machete`,
     },
     combat: new CombatStrategy().killHard(),
     choices: { 781: 1 },
     limit: { tries: 4 },
     freecombat: true,
-    acquire: [{ item: $item`antique machete` }],
+    acquire: [{ item: $item`muculent machete` }],
   },
   {
     name: "Apartment Files", // Get the last McClusky files here if needed, as a backup plan
@@ -258,12 +258,12 @@ const Office: Task[] = [
     do: $location`An Overgrown Shrine (Northeast)`,
     combat: new CombatStrategy().killHard(),
     outfit: {
-      equip: $items`antique machete`,
+      equip: $items`muculent machete`,
     },
     choices: { 785: 1 },
     limit: { tries: 4 },
     freecombat: true,
-    acquire: [{ item: $item`antique machete` }],
+    acquire: [{ item: $item`muculent machete` }],
   },
   {
     name: "Office Files",
@@ -348,12 +348,12 @@ const Hospital: Task[] = [
     do: $location`An Overgrown Shrine (Southwest)`,
     combat: new CombatStrategy().killHard(),
     outfit: {
-      equip: $items`antique machete`,
+      equip: $items`muculent machete`,
     },
     choices: { 783: 1 },
     limit: { tries: 4 },
     freecombat: true,
-    acquire: [{ item: $item`antique machete` }],
+    acquire: [{ item: $item`muculent machete` }],
   },
   {
     name: "Hospital",
@@ -398,12 +398,12 @@ const Bowling: Task[] = [
     do: $location`An Overgrown Shrine (Southeast)`,
     combat: new CombatStrategy().killHard(),
     outfit: {
-      equip: $items`antique machete`,
+      equip: $items`muculent machete`,
     },
     choices: { 787: 1 },
     limit: { tries: 4 },
     freecombat: true,
-    acquire: [{ item: $item`antique machete` }],
+    acquire: [{ item: $item`muculent machete` }],
   },
   {
     name: "Bowling",
@@ -506,7 +506,7 @@ export const HiddenQuest: Quest = {
     {
       name: "Get Machete",
       after: ["Open City"],
-      completed: () => have($item`antique machete`),
+      completed: () => have($item`muculent machete`),
       do: $location`The Hidden Park`,
       outfit: { modifier: "-combat" },
       choices: { 789: 2 },
@@ -540,7 +540,7 @@ export const HiddenQuest: Quest = {
       outfit: () => {
         if ($location`A Massive Ziggurat`.turnsSpent < 3)
           return {
-            equip: $items`antique machete`,
+            equip: $items`muculent machete`,
           };
         return { familiar: $familiar`Grey Goose` };
       },
@@ -553,7 +553,7 @@ export const HiddenQuest: Quest = {
         )
         .killHard($monster`Protector S. P. E. C. T. R. E.`),
       limit: { tries: 4 },
-      acquire: [{ item: $item`antique machete` }],
+      acquire: [{ item: $item`muculent machete` }],
       boss: true,
     },
   ],
