@@ -13,6 +13,7 @@ import {
   $effect,
   $familiar,
   $item,
+  $items,
   $location,
   $monster,
   $skill,
@@ -285,7 +286,7 @@ export const LevelingQuest: Quest = {
 
 function levelingOutfit(): OutfitSpec & { equip: Item[] } {
   return {
-    equip: [],
+    equip: $items`LOV Eardigan, LOV Epaulettes, LOV Earrings`,
     familiar: $familiar`Grey Goose`,
   };
 }
