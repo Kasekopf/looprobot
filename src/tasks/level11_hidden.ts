@@ -31,7 +31,7 @@ import {
 import { Quest, Task } from "../engine/task";
 import { OutfitSpec, step } from "grimoire-kolmafia";
 import { Priorities } from "../engine/priority";
-import { CombatStrategy } from "../engine/combat";
+import { CombatStrategy, dartMacro } from "../engine/combat";
 import { cosmicBowlingBallReady } from "../lib";
 import { fillHp } from "../engine/moods";
 import { tryForceNC, tryPlayApriling } from "../engine/resources";
@@ -177,7 +177,7 @@ const Apartment: Task[] = [
     outfit: {
       equip: $items`muculent machete`,
     },
-    combat: new CombatStrategy().killHard(),
+    combat: new CombatStrategy().killHard().autoattack(() => dartMacro(false)),
     choices: { 781: 1 },
     limit: { tries: 4 },
     freecombat: true,
@@ -256,7 +256,7 @@ const Office: Task[] = [
     after: ["Get Machete", "Open City"],
     completed: () => get("hiddenOfficeProgress") >= 1,
     do: $location`An Overgrown Shrine (Northeast)`,
-    combat: new CombatStrategy().killHard(),
+    combat: new CombatStrategy().killHard().autoattack(() => dartMacro(false)),
     outfit: {
       equip: $items`muculent machete`,
     },
@@ -346,7 +346,7 @@ const Hospital: Task[] = [
     after: ["Get Machete", "Open City"],
     completed: () => get("hiddenHospitalProgress") >= 1,
     do: $location`An Overgrown Shrine (Southwest)`,
-    combat: new CombatStrategy().killHard(),
+    combat: new CombatStrategy().killHard().autoattack(() => dartMacro(false)),
     outfit: {
       equip: $items`muculent machete`,
     },
@@ -396,7 +396,7 @@ const Bowling: Task[] = [
     after: ["Get Machete", "Open City"],
     completed: () => get("hiddenBowlingAlleyProgress") >= 1,
     do: $location`An Overgrown Shrine (Southeast)`,
-    combat: new CombatStrategy().killHard(),
+    combat: new CombatStrategy().killHard().autoattack(() => dartMacro(false)),
     outfit: {
       equip: $items`muculent machete`,
     },
@@ -506,7 +506,7 @@ export const HiddenQuest: Quest = {
     {
       name: "Get Machete",
       after: ["Open City"],
-      completed: () => have($item`muculent machete`),
+      completed: () => have($item`muculent machete`) || have($item`antique machete`),
       do: $location`The Hidden Park`,
       outfit: { modifier: "-combat" },
       choices: { 789: 2 },
@@ -547,6 +547,7 @@ export const HiddenQuest: Quest = {
       choices: { 791: 1 },
       combat: new CombatStrategy()
         .killHard($monster`dense liana`)
+        .autoattack(() => dartMacro(false), $monster`dense liana`)
         .macro(
           Macro.trySkill($skill`Emit Matter Duplicating Drones`),
           $monster`Protector S. P. E. C. T. R. E.`

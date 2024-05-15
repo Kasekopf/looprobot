@@ -110,6 +110,25 @@ function attemptDartThrows(part: undefined | string | string[]): Macro {
   return result;
 }
 
+export function dartMacro(hard?: boolean): Macro {
+  const result = new Macro();
+  if (haveEquipped($item`Everfull Dart Holster`)) {
+    if (!hard) result.trySkill($skill`Darts: Aim for the Bullseye`);
+
+    if (!atLevel(12)) result.step(attemptDartThrows(byStat(dartParts)));
+    if (myPrimestat() !== $stat`Mysticality` && myBasestat($stat`Mysticality`) < 70)
+      result.step(attemptDartThrows(dartParts["Mysticality"]));
+    if (myPrimestat() !== $stat`Moxie` && myBasestat($stat`Moxie`) < 70)
+      result.step(attemptDartThrows(dartParts["Moxie"]));
+    if (myPrimestat() !== $stat`Muscle` && myBasestat($stat`Muscle`) < 15)
+      result.step(attemptDartThrows(dartParts["Muscle"]));
+    result.step(attemptDartThrows("butt"));
+    result.step(attemptDartThrows("torso"));
+    if (get("_dartsLeft") >= 2) result.trySkill($skill`Darts: Throw at %part1`);
+  }
+  return result;
+}
+
 export function killMacro(target?: Monster | Location, hard?: boolean): Macro {
   const result = new Macro();
 
@@ -130,20 +149,7 @@ export function killMacro(target?: Monster | Location, hard?: boolean): Macro {
     }
   }
 
-  if (haveEquipped($item`Everfull Dart Holster`)) {
-    if (!hard) result.trySkill($skill`Darts: Aim for the Bullseye`);
-
-    if (!atLevel(12)) result.step(attemptDartThrows(byStat(dartParts)));
-    if (myPrimestat() !== $stat`Mysticality` && myBasestat($stat`Mysticality`) < 70)
-      result.step(attemptDartThrows(dartParts["Mysticality"]));
-    if (myPrimestat() !== $stat`Moxie` && myBasestat($stat`Moxie`) < 70)
-      result.step(attemptDartThrows(dartParts["Moxie"]));
-    if (myPrimestat() !== $stat`Muscle` && myBasestat($stat`Muscle`) < 15)
-      result.step(attemptDartThrows(dartParts["Muscle"]));
-    result.step(attemptDartThrows("butt"));
-    result.step(attemptDartThrows("torso"));
-    if (get("_dartsLeft") >= 2) result.trySkill($skill`Darts: Throw at %part1`);
-  }
+  result.step(dartMacro(hard));
 
   if (haveEquipped($item`June cleaver`)) return result.attack().repeat();
   else if (YouRobot.getPartId("bottom") === 1) return result.trySkill($skill`Crotch Burn`).repeat();
