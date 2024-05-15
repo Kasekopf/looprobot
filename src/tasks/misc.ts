@@ -793,6 +793,7 @@ export const MiscQuest: Quest = {
           visitUrl("campground.php?action=rest");
         }
       },
+      outfit: { modifier: "exp" },
       limit: {
         tries: 26, // Total unrestricted free rests
         guard: Guards.create(
