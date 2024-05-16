@@ -1,6 +1,5 @@
 import {
   cliExecute,
-  closetAmount,
   Effect,
   equip,
   outfit as equipOutfit,
@@ -257,16 +256,16 @@ export function equipCharging(
     }
   }
 
-  const need_bowling_balls =
-    get("hiddenBowlingAlleyProgress") +
-      itemAmount($item`bowling ball`) +
-      closetAmount($item`bowling ball`) <
-    5;
+  // const need_bowling_balls =
+  //   get("hiddenBowlingAlleyProgress") +
+  //     itemAmount($item`bowling ball`) +
+  //     closetAmount($item`bowling ball`) <
+  //   5;
   const need_star_key =
     (itemAmount($item`star`) < 8 || itemAmount($item`line`) < 7) &&
     !have($item`Richard's star key`) &&
     !get("nsTowerDoorKeysUsed").includes("Richard's star key");
-  if (get("camelSpit") < 100 && (need_bowling_balls || need_star_key)) {
+  if (get("camelSpit") < 100 && need_star_key) {
     outfit.equip($familiar`Melodramedary`);
   }
 

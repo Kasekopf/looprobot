@@ -437,10 +437,6 @@ const Bowling: Task[] = [
       .killHard($monster`ancient protector spirit (The Hidden Bowling Alley)`)
       .killItem($monster`pygmy bowler`)
       .macro(() => {
-        if (myFamiliar() === $familiar`Melodramedary` && get("camelSpit") === 100)
-          return Macro.trySkill($skill`Summon Love Gnats`)
-            .trySkill($skill`%fn, spit on them!`)
-            .tryItem($item`cosmic bowling ball`);
         return Macro.tryItem($item`Spooky VHS Tape`).trySkill(
           $skill`Emit Matter Duplicating Drones`
         );
@@ -453,9 +449,7 @@ const Bowling: Task[] = [
         modifier: "item",
         avoid: $items`broken champagne bottle`,
       };
-      if (have($familiar`Melodramedary`) && get("camelSpit") === 100) {
-        result.familiar = $familiar`Melodramedary`;
-      } else if (have($familiar`Grey Goose`) && familiarWeight($familiar`Grey Goose`) >= 6) {
+      if (have($familiar`Grey Goose`) && familiarWeight($familiar`Grey Goose`) >= 6) {
         result.familiar = $familiar`Grey Goose`;
       }
 
@@ -465,16 +459,6 @@ const Bowling: Task[] = [
       return result;
     },
     ignore_banishes: () => bowlingBallsGathered(),
-    map_the_monster: () => {
-      if (
-        itemAmount($item`bowling ball`) === 0 &&
-        have($familiar`Melodramedary`) &&
-        get("camelSpit") === 100 &&
-        cosmicBowlingBallReady()
-      )
-        return $monster`pygmy bowler`;
-      return $monster`none`;
-    },
     choices: { 788: 1 },
     limit: { soft: 25 },
   },
