@@ -169,7 +169,6 @@ export const pulls: PullSpec[] = [
       return (get("gnasirProgress") & 4) === 0 && get("desertExploration") < 100;
     },
   },
-  { pull: $item`old patched suit-pants`, optional: true },
   { pull: $item`deck of lewd playing cards`, optional: true },
   { pull: $item`grey down vest` },
   // { pull: $item`gravy boat`, useful: () => !underStandard() },  // need hat to use

@@ -3,6 +3,7 @@ import {
   create,
   currentMcd,
   familiarWeight,
+  Item,
   myLevel,
   numericModifier,
   restoreMp,
@@ -18,7 +19,6 @@ import {
   $location,
   $monster,
   $monsters,
-  $phylum,
   $skill,
   get,
   getActiveEffects,
@@ -29,7 +29,6 @@ import { Quest, Task } from "../engine/task";
 import { Modes, OutfitSpec, step } from "grimoire-kolmafia";
 import { CombatStrategy, killMacro } from "../engine/combat";
 import { Priorities } from "../engine/priority";
-import { tuneSnapper } from "../lib";
 import { tryPlayApriling } from "../engine/resources";
 
 const Manor1: Task[] = [
@@ -341,7 +340,6 @@ const ManorBasement: Task[] = [
     completed: () => have($item`wine bomb`) || step("questL11Manor") >= 3,
     prepare: () => {
       if (numericModifier("Monster Level") < 81) changeMcd(10);
-      tuneSnapper($phylum`constructs`);
       restoreMp(200);
     },
     post: () => {
@@ -349,10 +347,9 @@ const ManorBasement: Task[] = [
     },
     do: $location`The Haunted Boiler Room`,
     outfit: (): OutfitSpec => {
-      const result = {
+      const result = <OutfitSpec & { equip: Item[]; modes: Modes }>{
         equip: [$item`unstable fulminate`],
         modes: <Modes>{},
-        familiar: $familiar`Red-Nosed Snapper`,
       };
       let ml_needed = 81 - 10; // -10 from MCD
 
@@ -371,9 +368,10 @@ const ManorBasement: Task[] = [
         result.modes.parka = "spikolodon";
         ml_needed -= Math.min(3 * myLevel(), 33);
       }
-      if (ml_needed > 0 && have($item`old patched suit-pants`)) {
-        result.equip.push($item`old patched suit-pants`);
-        ml_needed -= 40;
+      if (ml_needed > 0 && have($item`barrel lid`) && have($familiar`Left-Hand Man`)) {
+        result.equip.push($item`barrel lid`);
+        result.familiar = $familiar`Left-Hand Man`;
+        ml_needed -= 50;
       }
       if (ml_needed > 0 && have($item`backup camera`)) {
         result.equip.push($item`backup camera`);
