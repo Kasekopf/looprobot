@@ -362,6 +362,8 @@ export const ChasmQuest: Quest = {
         if (get("smutOrcNoncombatProgress") >= 15 && step("questL11Black") >= 2) {
           ensureEffect($effect`Red Door Syndrome`);
           ensureEffect($effect`Butt-Rock Hair`);
+          if (have($item`Powerful Glove`) && get("_powerfulGloveBatteryPowerUsed") === 0)
+            ensureEffect($effect`Triple-Sized`);
         }
       },
       do: $location`The Smut Orc Logging Camp`,

@@ -70,6 +70,9 @@ const Challenges: Task[] = [
     after: ["Start"],
     ready: () => get("nsChallenge1") === $stat`Moxie`,
     completed: () => get("nsContestants2") > -1,
+    prepare: () => {
+      if (have($item`Powerful Glove`)) ensureEffect($effect`Triple-Sized`);
+    },
     do: (): void => {
       visitUrl("place.php?whichplace=nstower&action=ns_01_contestbooth");
       runChoice(2);
@@ -84,6 +87,9 @@ const Challenges: Task[] = [
     after: ["Start"],
     ready: () => get("nsChallenge1") === $stat`Muscle`,
     completed: () => get("nsContestants2") > -1,
+    prepare: () => {
+      if (have($item`Powerful Glove`)) ensureEffect($effect`Triple-Sized`);
+    },
     do: (): void => {
       visitUrl("place.php?whichplace=nstower&action=ns_01_contestbooth");
       runChoice(2);
@@ -98,6 +104,9 @@ const Challenges: Task[] = [
     after: ["Start"],
     ready: () => get("nsChallenge1") === $stat`Mysticality`,
     completed: () => get("nsContestants2") > -1,
+    prepare: () => {
+      if (have($item`Powerful Glove`)) ensureEffect($effect`Triple-Sized`);
+    },
     do: (): void => {
       visitUrl("place.php?whichplace=nstower&action=ns_01_contestbooth");
       runChoice(2);
