@@ -383,6 +383,10 @@ export const DigitalQuest: Quest = {
     {
       name: "Vanya",
       after: ["Open"],
+      priority: () =>
+        have($effect`Frosty`) || have($effect`Shadow Waters`)
+          ? Priorities.BadMood
+          : Priorities.None,
       completed: () => getScore() >= 10000,
       prepare: () => {
         if (numericModifier("Initiative") < 600 && have($skill`Silent Hunter`)) {
