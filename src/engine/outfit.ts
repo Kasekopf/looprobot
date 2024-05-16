@@ -242,7 +242,11 @@ export function equipCharging(
     outfit.equip($item`protonic accelerator pack`);
   }
 
-  if (familiarWeight($familiar`Grey Goose`) < 6 && mightKillSomething && !have($item`Ghost Dog Chow`)) {
+  if (
+    familiarWeight($familiar`Grey Goose`) < 6 &&
+    mightKillSomething &&
+    !have($item`Ghost Dog Chow`)
+  ) {
     outfit.equip($familiar`Grey Goose`);
   }
 

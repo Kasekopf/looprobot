@@ -829,9 +829,8 @@ export const MiscQuest: Quest = {
     },
     {
       name: "Shadow Lodestone",
-      after: ["Leveling/Shadow Rift"],
+      after: ["Leveling/Shadow Rift", "Macguffin/Upper Chamber"],
       completed: () => have($effect`Shadow Waters`) || !have($item`Rufus's shadow lodestone`),
-      ready: () => false,
       do: $location`Shadow Rift (The Misspelled Cemetary)`,
       choices: {
         1500: 2,

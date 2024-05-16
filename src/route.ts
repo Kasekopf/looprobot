@@ -87,14 +87,6 @@ export const routing: string[] = [
   "Summon/Camel's Toe",
   "Summon/Baa'baa'bu'ran",
 
-  // Start Hidden city
-  "Hidden City/Open Temple",
-  "Hidden City/Open City",
-  "Hidden City/Open Bowling",
-  "Hidden City/Open Office",
-  "Hidden City/Open Hospital",
-  "Hidden City/Open Apartment",
-
   // Setup additional -combats
   "Manor/Bedroom",
   "Palindome/Bat Snake",
@@ -102,8 +94,12 @@ export const routing: string[] = [
 
   // Get and use clovers
   "Misc/Hermit Clover",
-  "McLargeHuge/Trapper Return",
   "Palindome/Protesters",
+
+  "McLargeHuge/Peak", // Get Eagle beast banish
+  "Giant/Finish",
+  "Palindome/Talisman",
+  "Palindome/Palindome Dudes", // Use Eagle beast banish
 
   // Second -combat group
   "Hidden City/Banish Janitors",
@@ -114,7 +110,15 @@ export const routing: string[] = [
   // The following 3 tasks should always stay in this order
   "Macguffin/Oasis", // Get ultrahydrated as soon as needed
   "Macguffin/Oasis Drum", // Get drum as soon as pages are gathered
-  "Macguffin/Desert", // charge camel for protestors
+  "Macguffin/Desert",
+
+  // Start Hidden city
+  "Hidden City/Open Temple",
+  "Hidden City/Open City",
+  "Hidden City/Open Bowling",
+  "Hidden City/Open Office",
+  "Hidden City/Open Hospital",
+  "Hidden City/Open Apartment",
 
   // Hidden City
   "Hidden City/Office Files", // Banish janitors under delay
@@ -122,36 +126,31 @@ export const routing: string[] = [
   "Hidden City/Hospital",
   "Hidden City/Bowling",
 
+  // Setup for +meat/+item set
   "Manor/Boss",
-  "McLargeHuge/Finish", // Get Eagle beast banish
-  "Giant/Finish",
-  "Palindome/Talisman",
-  "Palindome/Palindome Dudes", // Use Eagle beast banish
   "Crypt/Niche",
   "Tavern/Finish",
-
-  // Setup for +meat/+item set
   "Digital/Vanya",
   "Digital/Megalo",
-  "Macguffin/Upper Chamber",
   "Orc Chasm/Start Peaks",
   "Orc Chasm/ABoo Carto",
   "Knob/Open Knob",
   "Hidden City/Office Boss", // Get Eagle dude banish
+  "Macguffin/Upper Chamber",
 
   // Bulk +meat/+item tasks
   "Misc/Shadow Lodestone",
-  "Crypt/Nook",
+  "Orc Chasm/Oil Jar",
   "Crypt/Alcove",
   "Bat/Get Sonar 3",
   "Orc Chasm/ABoo Clues",
   "Digital/Hero",
-  "Orc Chasm/Oil Jar",
   "Macguffin/Middle Chamber", // Avoid Eagle beast banish!
   "Digital/Key",
   "Orc Chasm/Twin Init Search",
   "Orc Chasm/Twin Init", // Use Eagle dude banish
   "Knob/Harem",
+  "Crypt/Nook",
 
   "Keys/Star Key", // Allow for better use of orb
   "Macguffin/Finish",

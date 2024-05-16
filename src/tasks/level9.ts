@@ -186,7 +186,7 @@ const Oil: Task[] = [
         };
       else return { modifier: "ML, 0.1 item" };
     },
-    combat: new CombatStrategy().killItem(),
+    combat: new CombatStrategy().macro(Macro.tryItem($item`shadow brick`)).killItem(),
     limit: { soft: 5 },
     orbtargets: () => undefined,
   },
