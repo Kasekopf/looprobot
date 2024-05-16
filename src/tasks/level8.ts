@@ -82,9 +82,17 @@ export const McLargeHugeQuest: Quest = {
         Counter.get("Spooky VHS Tape Monster") === 0 ||
         get("spookyVHSTapeMonster") !== $monster`dairy goat`,
       completed: () => itemAmount($item`goat cheese`) >= 3 || step("questL08Trapper") >= 2,
+      prepare: () => {
+        if (
+          myFamiliar() === $familiar`Grey Goose` &&
+          familiarWeight($familiar`Grey Goose`) < 6 &&
+          have($item`Ghost Dog Chow`)
+        )
+          use($item`Ghost Dog Chow`);
+      },
       do: $location`The Goatlet`,
       outfit: {
-        modifier: "item",
+        modifier: "item, food drop",
         avoid: $items`broken champagne bottle`,
         familiar: $familiar`Grey Goose`,
       },
@@ -94,6 +102,14 @@ export const McLargeHugeQuest: Quest = {
             return Macro.trySkill($skill`Emit Matter Duplicating Drones`).tryItem(
               $item`Spooky VHS Tape`
             );
+          if (itemAmount($item`goat cheese`) === 1) {
+            if (
+              myFamiliar() === $familiar`Grey Goose` &&
+              familiarWeight($familiar`Grey Goose`) >= 6
+            )
+              return Macro.trySkill($skill`Emit Matter Duplicating Drones`);
+            else return Macro.tryItem($item`Spooky VHS Tape`);
+          }
           return new Macro();
         }, $monster`dairy goat`)
         .killItem($monster`dairy goat`)
