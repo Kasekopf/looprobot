@@ -598,11 +598,11 @@ export const WarQuest: Quest = {
     {
       name: "Outfit Hippy",
       after: ["Misc/Unlock Island"],
-      ready: () => false,
-      // ready: () =>
-      //   get("skillLevel144") === 0 ||
-      //   atLevel(12) ||
-      //   get("_universeCalculated") >= get("skillLevel144"),
+      ready: () =>
+        (get("skillLevel144") === 0 ||
+          atLevel(12) ||
+          get("_universeCalculated") >= get("skillLevel144")) &&
+        myTurncount() >= 150,
       completed: () =>
         (have($item`filthy corduroys`) && have($item`filthy knitted dread sack`)) ||
         (have($item`beer helmet`) &&
