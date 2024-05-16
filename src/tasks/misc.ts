@@ -921,6 +921,22 @@ export const MiscQuest: Quest = {
       limit: { tries: 1 },
       freeaction: true,
     },
+    {
+      name: "Power Plant",
+      priority: () => Priorities.Free,
+      completed: () =>
+        !have($item`potted power plant`) || get("_pottedPowerPlant") === "0,0,0,0,0,0,0",
+      do: () => {
+        use($item`potted power plant`);
+        get("_pottedPowerPlant")
+          .split(",")
+          .forEach((v, i) => {
+            if (v === "1") runChoice(1, `pp=${i + 1}`);
+          });
+      },
+      limit: { tries: 1 },
+      freeaction: true,
+    },
   ],
 };
 
