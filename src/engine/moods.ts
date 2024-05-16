@@ -83,6 +83,9 @@ function getRelevantEffects(): { [modifier: string]: Effect[] } {
   if (have($skill`Emotionally Chipped`) && get("_feelLonelyUsed") < 3)
     result["-combat"].push($effect`Feeling Lonely`);
 
+  if (have($item`ultra-soft ferns`)) result["-combat"].push($effect`Ultra-Soft Steps`);
+  if (have($item`crunchy brush`)) result["+combat"].push($effect`Crunchy Steps`);
+
   if (myClass() !== $class`Pastamancer`) {
     result["init"].push($effect`Whispering Strands`);
   }
@@ -140,14 +143,19 @@ export function moodCompatible(modifier: string | undefined): boolean {
   // while under -combat effects, and vice-versa.
   if (modifier === undefined) return true;
   if (modifier.includes("+combat") || modifier.includes(" combat")) {
-    return !have($effect`Smooth Movements`) && !have($effect`The Sonata of Sneakiness`);
+    return (
+      !have($effect`Smooth Movements`) &&
+      !have($effect`The Sonata of Sneakiness`) &&
+      !have($effect`Ultra-Soft Steps`)
+    );
   }
   if (modifier.includes("-combat")) {
     return (
       !have($effect`Musk of the Moose`) &&
       !have($effect`Carlweather's Cantata of Confrontation`) &&
       !have($effect`Romantically Roused`) &&
-      !have($effect`Fresh Breath`)
+      !have($effect`Fresh Breath`) &&
+      !have($effect`Crunchy Steps`)
     );
   }
   return true;
