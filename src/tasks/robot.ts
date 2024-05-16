@@ -188,7 +188,7 @@ export const RobotQuest: Quest = {
     },
     {
       name: "Unequip Hat Phase 1",
-      after: ["Equip Hat Phase 1", "Giant/Top Floor", "War/Flyers Start"],
+      after: ["Equip Hat Phase 1", "Giant/Top Floor", "War/Flyers Start", "War/Junkyard End"],
       completed: () => YouRobot.canUseFamiliar() || flyersDone(),
       do: () => YouRobot.doSwitchPart("top", 2),
       limit: { tries: 1 },

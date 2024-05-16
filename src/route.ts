@@ -71,6 +71,7 @@ export const routing: string[] = [
   "War/Flyers Start",
   "Palindome/Hot Snake Precastle",
   "Giant/Top Floor",
+  "War/Junkyard End",
   "Robot/Unequip Hat Phase 1",
 
   // First -combat group
@@ -159,7 +160,6 @@ export const routing: string[] = [
 
   // Setup for second hat phase
   "Robot/Equip Hat Phase 2",
-  "War/Junkyard End",
   "War/Boss Hippie",
   "Knob/King",
   "Robot/Unequip Hat Phase 2",
