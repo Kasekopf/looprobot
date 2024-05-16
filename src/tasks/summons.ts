@@ -161,7 +161,7 @@ const summonTargets: SummonTarget[] = [
   },
   {
     target: $monster`ninja snowman assassin`,
-    after: ["Trapper Return", "Palindome/Cold Snake"],
+    after: ["McLargeHuge/Trapper Return", "Palindome/Cold Snake"],
     completed: () =>
       (have($item`ninja rope`) && have($item`ninja carabiner`) && have($item`ninja crampons`)) ||
       step("questL08Trapper") >= 3,

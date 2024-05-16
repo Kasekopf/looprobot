@@ -967,16 +967,15 @@ export const MiscQuest: Quest = {
       completed: () => !MayamCalendar.have() || MayamCalendar.remainingUses() === 0,
       do: () => {
         MayamCalendar.submit("chair", "wood", "cheese", "clock");
-        if (have($item`yamtility belt`))
-          MayamCalendar.submit("fur", "meat", "eyepatch", "yam4");
-        else
-          MayamCalendar.submit("yam1", "meat", "eyepatch", "yam4");
+        // eslint-disable-next-line libram/verify-constants
+        if (have($item`Yamtility belt`)) MayamCalendar.submit("fur", "meat", "eyepatch", "yam4");
+        else MayamCalendar.submit("yam1", "meat", "eyepatch", "yam4");
         MayamCalendar.submit("eye", "lightning", "wall", "explosion");
       },
-      outfit: { familiar: $familiar`chest mimic` },
+      outfit: { familiar: $familiar`Chest Mimic` },
       limit: { tries: 2 },
       freeaction: true,
-    }
+    },
   ],
 };
 
