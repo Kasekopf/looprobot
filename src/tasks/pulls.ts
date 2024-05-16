@@ -149,7 +149,7 @@ export const pulls: PullSpec[] = [
   },
   { pull: $item`defective Game Grid token` },
   { pull: $item`muculent machete` },
-  { pull: $item`Space Trip safety headphones`, optional: true },
+  { pull: $item`Space Trip safety headphones` },
   {
     pull: $item`book of matches`,
     useful: () =>

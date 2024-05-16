@@ -543,7 +543,10 @@ export const HiddenQuest: Quest = {
           return {
             equip: $items`muculent machete`,
           };
-        return { familiar: $familiar`Grey Goose` };
+        return {
+          equip: $items`Space Trip safety headphones, June cleaver`,
+          familiar: $familiar`Grey Goose`,
+        };
       },
       choices: { 791: 1 },
       combat: new CombatStrategy()
