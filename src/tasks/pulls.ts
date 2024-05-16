@@ -12,7 +12,7 @@ import {
   toInt,
   visitUrl,
 } from "kolmafia";
-import { $familiar, $item, $items, $skill, byStat, get, have, set } from "libram";
+import { $familiar, $item, $items, $monster, $skill, byStat, get, have, set } from "libram";
 import { args } from "../args";
 import { Priorities } from "../engine/priority";
 import { Quest, Task } from "../engine/task";
@@ -21,6 +21,7 @@ import { Keys, keyStrategy } from "./keys";
 import { trainSetAvailable } from "./misc";
 import { yellowSubmarinePossible } from "../engine/outfit";
 import { underStandard } from "../lib";
+import { summonStrategy } from "./summons";
 
 /**
  * optional: If true, only pull this if there is one in storage (i.e., no mall buy).
@@ -190,15 +191,24 @@ export const pulls: PullSpec[] = [
   },
   {
     pull: $item`ninja rope`,
-    useful: () => step("questL08Trapper") < 3 && step("questL11Shen") > 3,
+    useful: () =>
+      step("questL08Trapper") < 3 &&
+      step("questL11Shen") > 3 &&
+      !summonStrategy.sourceReadyFor($monster`ninja snowman assassin`),
   },
   {
     pull: $item`ninja carabiner`,
-    useful: () => step("questL08Trapper") < 3 && step("questL11Shen") > 3,
+    useful: () =>
+      step("questL08Trapper") < 3 &&
+      step("questL11Shen") > 3 &&
+      !summonStrategy.sourceReadyFor($monster`ninja snowman assassin`),
   },
   {
     pull: $item`ninja crampons`,
-    useful: () => step("questL08Trapper") < 3 && step("questL11Shen") > 3,
+    useful: () =>
+      step("questL08Trapper") < 3 &&
+      step("questL11Shen") > 3 &&
+      !summonStrategy.sourceReadyFor($monster`ninja snowman assassin`),
   },
   {
     pull: $item`Flash Liquidizer Ultra Dousing Accessory`,

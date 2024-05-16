@@ -724,8 +724,19 @@ export const backupTargets: BackupTarget[] = [
     limit_tries: 6,
   },
   {
+    monster: $monster`ninja snowman assassin`,
+    completed: () =>
+      (have($item`ninja rope`) && have($item`ninja carabiner`) && have($item`ninja crampons`)) ||
+      step("questL08Trapper") >= 3,
+    outfit: {
+      equip: $items`June cleaver, Space Trip safety headphones, Jurassic Parka, unwrapped knock-off retro superhero cape`,
+      modes: { retrocape: ["heck", "hold"] },
+    },
+    limit_tries: 2,
+  },
+  {
     monster: $monster`Eldritch Tentacle`,
     completed: () => args.minor.skipbackups,
-    limit_tries: 11,
+    limit_tries: 16,
   },
 ];

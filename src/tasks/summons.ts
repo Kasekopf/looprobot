@@ -98,7 +98,7 @@ const summonTargets: SummonTarget[] = [
     outfit: { equip: $items`June cleaver, Space Trip safety headphones` },
     combat: new CombatStrategy()
       .macro(Macro.trySkill($skill`Micrometeorite`).trySkill($skill`Curse of Weaksauce`))
-      .kill(),
+      .killHard(),
   },
   {
     target: $monster`Astronomer`,
@@ -158,6 +158,18 @@ const summonTargets: SummonTarget[] = [
       step("questL11Worship") >= 3,
     outfit: { modifier: "item" },
     combat: new CombatStrategy().killItem(),
+  },
+  {
+    target: $monster`ninja snowman assassin`,
+    after: ["Trapper Return", "Palindome/Cold Snake"],
+    completed: () =>
+      (have($item`ninja rope`) && have($item`ninja carabiner`) && have($item`ninja crampons`)) ||
+      step("questL08Trapper") >= 3,
+    outfit: {
+      equip: $items`June cleaver, Space Trip safety headphones, Jurassic Parka, unwrapped knock-off retro superhero cape`,
+      modes: { retrocape: ["heck", "hold"] },
+    },
+    combat: new CombatStrategy().kill(),
   },
 ];
 
