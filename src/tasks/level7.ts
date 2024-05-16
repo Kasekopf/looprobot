@@ -245,7 +245,6 @@ const Niche: Task[] = [
       }, $monster`dirty old lihc`)
       .macro(slay_macro, $monsters`dirty old lihc, basic lihc, senile lihc, slick lihc`)
       .kill(),
-    // Don't persist banishes while we are eagle repeating
     ignore_banishes: () => have($familiar`Patriotic Eagle`) && myTurncount() < 200,
     orbtargets: () => {
       if (get("rwbMonsterCount") === 0) return [$monster`dirty old lihc`];
@@ -326,6 +325,10 @@ const Nook: Task[] = [
             Macro.trySkill($skill`Feel Nostalgic`)
           ),
         $monster`spiny skelelton`
+      )
+      .macro(
+        () => ($location`The Defiled Nook`.turnsSpent === 0 ? slay_macro : new Macro()),
+        $monster`party skelteon`
       )
       .macro(slay_macro, $monsters`spiny skelelton, toothy sklelton`)
       .kill($monsters`spiny skelelton, toothy sklelton`)
