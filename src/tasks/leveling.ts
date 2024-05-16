@@ -82,18 +82,18 @@ const buffTasks: Task[] = [
     freeaction: true,
     limit: { tries: 1 },
   },
-  // {
-  //   name: "Wish Shortly Hydrated",
-  //   after: robotSetup,
-  //   completed: () =>
-  //     have($effect`Shortly Hydrated`) ||
-  //     (!have($item`pocket wish`) && (!have($item`genie bottle`) || get("_genieWishesUsed") >= 3)) ||
-  //     myTurncount() >= 20,
-  //   priority: () => Priorities.Free,
-  //   do: () => cliExecute("genie effect shortly hydrated"),
-  //   freeaction: true,
-  //   limit: { tries: 1 },
-  // },
+  {
+    name: "Wish Blue Swayed",
+    after: robotSetup,
+    completed: () =>
+      have($effect`Blue Swayed`) ||
+      (!have($item`pocket wish`) && (!have($item`genie bottle`) || get("_genieWishesUsed") >= 3)) ||
+      myTurncount() >= 20,
+    priority: () => Priorities.Free,
+    do: () => cliExecute("genie effect blue swayed"),
+    freeaction: true,
+    limit: { tries: 1 },
+  },
 ];
 const getBuffsPreLOV = buffTasks.map((t) => t.name);
 const getBuffs = [...getBuffsPreLOV, "LOV Tunnel"];
