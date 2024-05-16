@@ -221,6 +221,7 @@ const Desert: Task[] = [
     outfit: (): OutfitSpec => {
       if (
         !have($skill`Just the Facts`) &&
+        !have($item`survival knife`) &&
         have($item`industrial fire extinguisher`) &&
         get("_fireExtinguisherCharge") >= 20 &&
         !get("fireExtinguisherDesertUsed") &&
