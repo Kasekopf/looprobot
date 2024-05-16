@@ -337,6 +337,13 @@ const Pyramid: Task[] = [
           return result.while_("!mpbelow 24", Macro.skill($skill`Saucegeyser`));
         return result;
       }, $monster`tomb rat`)
+      .macro(
+        () =>
+          get("banishedPhyla").includes("beast")
+            ? Macro.trySkill($skill`%fn, Release the Patriotic Screech!`)
+            : new Macro(),
+        $monster`tomb servant`
+      )
       .killItem([$monster`tomb rat`, $monster`tomb rat king`])
       .banish([$monster`tomb asp`, $monster`tomb servant`]),
     outfit: () => {
@@ -345,6 +352,9 @@ const Pyramid: Task[] = [
         result.equip?.push($item`Lil' Doctor™ bag`);
       if (DaylightShavings.nextBuff() === $effect`Spectacle Moustache`)
         result.equip?.push($item`Daylight Shavings Helmet`);
+      // Last ditch removal of this phylum banish, if we need to
+      if (get("banishedPhyla").includes("beast") && get("screechCombats") === 0)
+        result.familiar = $familiar`Patriotic Eagle`;
       return result;
     },
     delay: 9,
