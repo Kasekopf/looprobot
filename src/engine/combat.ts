@@ -81,7 +81,7 @@ function statToLevel(): Stat {
 }
 
 const dartParts: Switch<string, string[]> = {
-  Muscle: [], // ["Wing", "Tentacle", "Face", "Handle", "Mouth", "Fin", "Ear"],
+  Muscle: ["Wing", "Tentacle", "Face", "Handle", "Mouth", "Fin", "Ear"],
   Mysticality: [
     "Stem",
     "Tail",
@@ -95,7 +95,7 @@ const dartParts: Switch<string, string[]> = {
     "Body",
     "Trunk",
   ],
-  Moxie: [], // ["Arm", "Wheel", "Eye"],
+  Moxie: ["Arm", "Wheel", "Eye"],
   default: [],
 };
 
@@ -116,12 +116,6 @@ export function dartMacro(hard?: boolean): Macro {
     if (!hard) result.trySkill($skill`Darts: Aim for the Bullseye`);
 
     if (!atLevel(12)) result.step(attemptDartThrows(byStat(dartParts)));
-    if (myPrimestat() !== $stat`Mysticality` && myBasestat($stat`Mysticality`) < 70)
-      result.step(attemptDartThrows(dartParts["Mysticality"]));
-    if (myPrimestat() !== $stat`Moxie` && myBasestat($stat`Moxie`) < 70)
-      result.step(attemptDartThrows(dartParts["Moxie"]));
-    if (myPrimestat() !== $stat`Muscle` && myBasestat($stat`Muscle`) < 15)
-      result.step(attemptDartThrows(dartParts["Muscle"]));
     result.step(attemptDartThrows("butt"));
     result.step(attemptDartThrows("torso"));
     if (get("_dartsLeft") >= 2) result.trySkill($skill`Darts: Throw at %part1`);
