@@ -1,5 +1,6 @@
 import {
   changeMcd,
+  cliExecute,
   council,
   currentMcd,
   getWorkshed,
@@ -328,7 +329,10 @@ export const ChasmQuest: Quest = {
       after: [],
       ready: () => atLevel(9),
       completed: () => step("questL09Topping") !== -1,
-      do: () => visitUrl("council.php"),
+      do: () => {
+        visitUrl("council.php");
+        cliExecute("refresh all");
+      },
       limit: { tries: 1 },
       priority: () => (councilSafe() ? Priorities.Free : Priorities.BadMood),
       freeaction: true,

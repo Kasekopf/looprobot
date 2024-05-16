@@ -419,7 +419,10 @@ export const MacguffinQuest: Quest = {
       ready: () => atLevel(11),
       priority: () => Priorities.Free, // Always start this quest ASAP, it is key for routing
       completed: () => step("questL11MacGuffin") !== -1,
-      do: () => visitUrl("council.php"),
+      do: () => {
+        visitUrl("council.php");
+        cliExecute("refresh all");
+      },
       limit: { tries: 1 },
       freeaction: true,
     },

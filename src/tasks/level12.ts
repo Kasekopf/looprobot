@@ -770,6 +770,7 @@ export const WarQuest: Quest = {
       do: (): void => {
         visitUrl("bigisland.php?place=camp&whichcamp=1&confirm7=1");
         visitUrl("bigisland.php?action=bossfight&pwd");
+        cliExecute("refresh all");
       },
       combat: new CombatStrategy().killHard().macro(Macro.trySkill($skill`Extract Jelly`)),
       limit: { tries: 1 },
