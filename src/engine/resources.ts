@@ -645,7 +645,10 @@ export const forceNCSources: ForceNCSorce[] = [
 ];
 
 export function forceNCPossible(): boolean {
-  return forceNCSources.find((s) => s.available()) !== undefined;
+  return (
+    forceNCSources.find((s) => s.available()) !== undefined ||
+    noncombatForceNCSources.find((s) => s.available()) !== undefined
+  );
 }
 
 type ForceNCSource = {

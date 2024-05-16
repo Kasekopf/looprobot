@@ -202,7 +202,7 @@ const Manor2: Task[] = [
         $monsters`animated mahogany nightstand, animated rustic nightstand, Wardröb nightstand`
       )
       .ignore($monster`tumbleweed`),
-    outfit: { avoid: $items`Everfull Dart Holster` },  // caused macro crash
+    outfit: { avoid: $items`Everfull Dart Holster` }, // caused macro crash
     delay: () => (have($item`Lord Spookyraven's spectacles`) ? 5 : 0),
     limit: { soft: 20 },
   },

@@ -34,7 +34,7 @@ import { Priorities } from "../engine/priority";
 import { CombatStrategy, dartMacro } from "../engine/combat";
 import { cosmicBowlingBallReady } from "../lib";
 import { fillHp } from "../engine/moods";
-import { tryForceNC, tryPlayApriling } from "../engine/resources";
+import { tryPlayApriling } from "../engine/resources";
 
 function manualChoice(whichchoice: number, option: number) {
   return visitUrl(`choice.php?whichchoice=${whichchoice}&pwd=${myHash()}&option=${option}`);
@@ -45,7 +45,6 @@ const Temple: Task[] = [
     name: "Forest Coin",
     after: ["Mosquito/Burn Delay"],
     prepare: () => {
-      tryForceNC();
       tryPlayApriling("-combat");
     },
     completed: () =>
@@ -61,7 +60,6 @@ const Temple: Task[] = [
     name: "Forest Map",
     after: ["Forest Coin"],
     prepare: () => {
-      tryForceNC();
       tryPlayApriling("-combat");
     },
     completed: () => have($item`Spooky Temple map`) || step("questM16Temple") === 999,
@@ -69,12 +67,12 @@ const Temple: Task[] = [
     choices: { 502: 3, 506: 3, 507: 1, 334: 1 },
     outfit: { modifier: "-combat" },
     limit: { soft: 10 },
+    ncforce: true,
   },
   {
     name: "Forest Fertilizer",
     after: ["Mosquito/Burn Delay"],
     prepare: () => {
-      tryForceNC();
       tryPlayApriling("-combat");
     },
     completed: () => have($item`Spooky-Gro fertilizer`) || step("questM16Temple") === 999,
@@ -82,12 +80,12 @@ const Temple: Task[] = [
     choices: { 502: 3, 506: 2, 507: 1, 334: 1 },
     outfit: { modifier: "-combat" },
     limit: { soft: 10 },
+    ncforce: true,
   },
   {
     name: "Forest Sapling",
     after: ["Mosquito/Burn Delay"],
     prepare: () => {
-      tryForceNC();
       tryPlayApriling("-combat");
     },
     completed: () => have($item`spooky sapling`) || step("questM16Temple") === 999,
@@ -95,6 +93,7 @@ const Temple: Task[] = [
     choices: { 502: 1, 503: 3, 504: 3, 334: 1 },
     outfit: { modifier: "-combat" },
     limit: { soft: 10 },
+    ncforce: true,
   },
   {
     name: "Open Temple",

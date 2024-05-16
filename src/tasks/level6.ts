@@ -6,7 +6,7 @@ import { Priorities } from "../engine/priority";
 import { councilSafe } from "./level12";
 import { Quest } from "../engine/task";
 import { step } from "grimoire-kolmafia";
-import { tryForceNC, tryPlayApriling } from "../engine/resources";
+import { tryPlayApriling } from "../engine/resources";
 
 export const FriarQuest: Quest = {
   name: "Friar",
@@ -24,6 +24,9 @@ export const FriarQuest: Quest = {
     {
       name: "Heart",
       after: ["Start"],
+      prepare: () => {
+        tryPlayApriling("-combat");
+      },
       priority: () => {
         if (
           get("noncombatForcerActive") &&
@@ -48,7 +51,6 @@ export const FriarQuest: Quest = {
       name: "Neck",
       after: ["Start"],
       prepare: () => {
-        tryForceNC();
         tryPlayApriling("-combat");
       },
       completed: () => have($item`dodecagram`) || step("questL06Friar") === 999,
@@ -61,6 +63,9 @@ export const FriarQuest: Quest = {
     {
       name: "Elbow",
       after: ["Start"],
+      prepare: () => {
+        tryPlayApriling("-combat");
+      },
       priority: () => {
         if (
           get("noncombatForcerActive") &&

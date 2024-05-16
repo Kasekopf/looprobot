@@ -5,7 +5,7 @@ import { Priorities } from "../engine/priority";
 import { councilSafe } from "./level12";
 import { Quest } from "../engine/task";
 import { step } from "grimoire-kolmafia";
-import { tryForceNC, tryPlayApriling } from "../engine/resources";
+import { tryPlayApriling } from "../engine/resources";
 
 export const MosquitoQuest: Quest = {
   name: "Mosquito",
@@ -37,7 +37,6 @@ export const MosquitoQuest: Quest = {
       name: "Mosquito",
       after: ["Burn Delay"],
       prepare: () => {
-        tryForceNC();
         tryPlayApriling("-combat");
       },
       completed: () => step("questL02Larva") >= 1,
@@ -45,6 +44,7 @@ export const MosquitoQuest: Quest = {
       choices: { 502: 2, 505: 1, 334: 1 },
       outfit: { modifier: "-combat" },
       limit: { soft: 20 },
+      ncforce: true,
     },
     {
       name: "Finish",

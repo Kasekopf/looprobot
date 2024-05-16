@@ -75,11 +75,11 @@ export const routing: string[] = [
 
   // First -combat group
   "Mosquito/Burn Delay",
+  "Friar/Finish",
   "Hidden City/Forest Coin", // First to get meat
   "Hidden City/Forest Map",
   "Hidden City/Forest Fertilizer",
   "Hidden City/Forest Sapling", // Last to sell bar skins
-  "Friar/Finish",
 
   // Do summons when ready
   "Summon/Astrologer Of Shub-Jigguwatt",

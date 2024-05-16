@@ -753,6 +753,7 @@ export const MiscQuest: Quest = {
         (get("timesRested") >= totalFreeRests() && CinchoDeMayo.currentCinch() < 60),
       ready: () =>
         myTurncount() >= ROUTE_WAIT_TO_NCFORCE &&
+        atLevel(6) &&
         have($item`Cincho de Mayo`) &&
         CinchoDeMayo.currentCinch() >= 60 &&
         !get("noncombatForcerActive"),
@@ -919,6 +920,20 @@ export const MiscQuest: Quest = {
       completed: () => have($item`Apriling band tuba`),
       do: () => AprilingBandHelmet.joinSection($item`Apriling band tuba`),
       limit: { tries: 1 },
+      freeaction: true,
+    },
+    {
+      name: "Force Tuba",
+      after: ["Acquire Tuba"],
+      priority: () => Priorities.Free,
+      ready: () =>
+        have($item`Apriling band tuba`) &&
+        myTurncount() >= ROUTE_WAIT_TO_NCFORCE &&
+        atLevel(6) &&
+        !get("noncombatForcerActive"),
+      completed: () => $item`Apriling band tuba`.dailyusesleft > 0,
+      do: () => AprilingBandHelmet.play($item`Apriling band tuba`, true),
+      limit: { tries: 3, unready: true },
       freeaction: true,
     },
     {
