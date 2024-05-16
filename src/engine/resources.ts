@@ -214,6 +214,34 @@ export interface WandererSource extends Resource {
 
 export const wandererSources: WandererSource[] = [
   {
+    name: "VHS Tape (ML)",
+    available: () =>
+      Counter.get("Spooky VHS Tape Monster") <= 0 &&
+      get("spookyVHSTapeMonster") === $monster`giant swarm of ghuol whelps`,
+    equip: [
+      {
+        offhand: $item`barrel lid`,
+        equip: $items`unbreakable umbrella, Jurassic Parka, backup camera`,
+        modes: {
+          parka: "spikolodon",
+          backupcamera: "ml",
+          umbrella: "broken",
+        },
+      },
+      {
+        equip: $items`unbreakable umbrella, Jurassic Parka, backup camera`,
+        modes: {
+          parka: "spikolodon",
+          backupcamera: "ml",
+          umbrella: "broken",
+        },
+      },
+    ],
+    monsters: () => [get("spookyVHSTapeMonster") ?? $monster`none`],
+    chance: () => 1,
+    possible: () => Counter.get("Spooky VHS Tape Monster") <= 0,
+  },
+  {
     name: "VHS Tape",
     available: () => Counter.get("Spooky VHS Tape Monster") <= 0,
     equip: [{}],

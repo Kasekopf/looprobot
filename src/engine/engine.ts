@@ -347,7 +347,7 @@ export class Engine extends BaseEngine<CombatActions, ActiveTask> {
 
     // Use rock-band flyers if needed (300 extra as a buffer for mafia tracking)
     const blacklist = new Set<Location>(
-      $locations`The Copperhead Club, The Black Forest, Oil Peak`
+      $locations`The Copperhead Club, The Black Forest, Oil Peak, The Defiled Cranny`
     );
     const monster_blacklist = [
       ...getTodaysHolidayWanderers(),

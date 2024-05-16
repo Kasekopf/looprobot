@@ -5,6 +5,7 @@ import {
   currentMcd,
   familiarWeight,
   Item,
+  itemAmount,
   myBasestat,
   myClass,
   myFamiliar,
@@ -145,7 +146,9 @@ const Cranny: Task[] = [
   {
     name: "Cranny",
     after: ["Start"],
-    ready: () => myBasestat($stat`Muscle`) >= 15,
+    ready: () =>
+      myBasestat($stat`Muscle`) >= 15 &&
+      get("spookyVHSTapeMonster") !== $monster`giant swarm of ghuol whelps`,
     completed: () => get("cyrptCrannyEvilness") <= 13,
     prepare: () => {
       tuneCape();
@@ -178,14 +181,8 @@ const Cranny: Task[] = [
     combat: new CombatStrategy()
       .macro(slay_macro)
       .macro(() => {
-        const macro = new Macro();
-        if (have($skill`Garbage Nova`))
-          macro.while_("!mpbelow 50", Macro.skill($skill`Garbage Nova`));
-        if (have($skill`Splattersmash`))
-          macro.while_("!mpbelow 25", Macro.skill($skill`Splattersmash`));
-        if (have($skill`Saucegeyser`))
-          macro.while_("!mpbelow 24", Macro.skill($skill`Saucegeyser`));
-        return macro;
+        if (itemAmount($item`Spooky VHS Tape`) === 2) return Macro.tryItem($item`Spooky VHS Tape`);
+        return new Macro();
       }, $monsters`swarm of ghuol whelps, big swarm of ghuol whelps, giant swarm of ghuol whelps`)
       .kill(
         $monsters`swarm of ghuol whelps, big swarm of ghuol whelps, giant swarm of ghuol whelps, huge ghuol`
