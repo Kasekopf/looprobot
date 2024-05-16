@@ -406,7 +406,14 @@ export class Engine extends BaseEngine<CombatActions, ActiveTask> {
       if (combat.can("banish") && !banish_state.isFullyBanished(task)) {
         const available_tasks = this.tasks.filter((task) => this.available(task));
         const banishSources = unusedBanishes(banish_state, available_tasks);
-        resources.provide("banish", equipFirst(outfit, banishSources));
+        if (task.name === "Hidden City/Bowling") {
+          // VERY HARDCODED BACK HACK to make sure we don't allocate the bowling ball
+          // when we are about to throw it.
+          const nonBowlingBanishSources = banishSources.filter((b) => b.name !== "Bowl Curveball");
+          resources.provide("banish", equipFirst(outfit, nonBowlingBanishSources));
+        } else {
+          resources.provide("banish", equipFirst(outfit, banishSources));
+        }
         debug(
           `Banish targets: ${combat
             .where("banish")

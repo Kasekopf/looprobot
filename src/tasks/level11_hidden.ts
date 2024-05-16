@@ -33,7 +33,6 @@ import { OutfitSpec, step } from "grimoire-kolmafia";
 import { Priorities } from "../engine/priority";
 import { CombatStrategy, dartMacro } from "../engine/combat";
 import { cosmicBowlingBallReady } from "../lib";
-import { fillHp } from "../engine/moods";
 import { tryPlayApriling } from "../engine/resources";
 
 function manualChoice(whichchoice: number, option: number) {
@@ -407,10 +406,7 @@ const Bowling: Task[] = [
   {
     name: "Bowling",
     after: ["Open Bowling", "Banish Janitors"],
-    priority: () =>
-      get("camelSpit") === 100 && cosmicBowlingBallReady() && have($skill`Map the Monsters`)
-        ? Priorities.BestCosmicBowlingBall
-        : Priorities.None,
+    priority: () => (cosmicBowlingBallReady() ? Priorities.BestCosmicBowlingBall : Priorities.None),
     ready: () =>
       myMeat() >= 500 &&
       (!bowlingBallsGathered() || get("spookyVHSTapeMonster") !== $monster`pygmy bowler`),
@@ -430,12 +426,18 @@ const Bowling: Task[] = [
         if (closetAmount($item`bowling ball`) > 0)
           takeCloset($item`bowling ball`, closetAmount($item`bowling ball`));
       }
-      if (myFamiliar() === $familiar`Melodramedary` && get("camelSpit") === 100) fillHp();
+      if (
+        myFamiliar() === $familiar`Grey Goose` &&
+        familiarWeight($familiar`Grey Goose`) < 6 &&
+        have($item`Ghost Dog Chow`)
+      )
+        use($item`Ghost Dog Chow`);
     },
     do: $location`The Hidden Bowling Alley`,
     combat: new CombatStrategy()
       .killHard($monster`ancient protector spirit (The Hidden Bowling Alley)`)
       .killItem($monster`pygmy bowler`)
+      .macro(() => Macro.tryItem($item`cosmic bowling ball`))
       .macro(() => {
         return Macro.tryItem($item`Spooky VHS Tape`).trySkill(
           $skill`Emit Matter Duplicating Drones`
