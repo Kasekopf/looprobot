@@ -719,6 +719,15 @@ export const MiscQuest: Quest = {
       freeaction: true,
     },
     {
+      name: "Emotion Chip",
+      after: [],
+      priority: () => Priorities.Free,
+      completed: () => have($skill`Emotionally Chipped`) || !have($item`emotion chip`),
+      do: () => use($item`emotion chip`),
+      limit: { tries: 1 },
+      freeaction: true,
+    },
+    {
       name: "Learn About Bugs",
       after: [],
       priority: () => Priorities.Free,
