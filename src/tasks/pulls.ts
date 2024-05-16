@@ -171,6 +171,7 @@ export const pulls: PullSpec[] = [
   },
   { pull: $item`old patched suit-pants`, optional: true },
   { pull: $item`deck of lewd playing cards`, optional: true },
+  { pull: $item`grey down vest` },
   // { pull: $item`gravy boat`, useful: () => !underStandard() },  // need hat to use
   {
     pull: $item`Mohawk wig`,
@@ -180,7 +181,6 @@ export const pulls: PullSpec[] = [
       return undefined;
     },
   },
-  { pull: $item`11-leaf clover`, duplicate: true, useful: () => get("zeppelinProtestors") < 80 },
   {
     pull: $item`wet stew`,
     useful: () =>
