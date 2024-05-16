@@ -7,6 +7,7 @@ import {
   myClass,
   myMaxhp,
   myMaxmp,
+  myPrimestat,
   myTurncount,
   numericModifier,
   runChoice,
@@ -72,6 +73,12 @@ const Challenges: Task[] = [
     completed: () => get("nsContestants2") > -1,
     prepare: () => {
       if (have($item`Powerful Glove`)) ensureEffect($effect`Triple-Sized`);
+      if (myPrimestat() === $stat`Muscle` && have($item`oil of stability`))
+        ensureEffect($effect`Stabilizing Oiliness`);
+      if (myPrimestat() === $stat`Mysticality` && have($item`oil of expertise`))
+        ensureEffect($effect`Expert Oiliness`);
+      if (myPrimestat() === $stat`Moxie` && have($item`oil of slipperiness`))
+        ensureEffect($effect`Slippery Oiliness`);
     },
     do: (): void => {
       visitUrl("place.php?whichplace=nstower&action=ns_01_contestbooth");
@@ -89,6 +96,12 @@ const Challenges: Task[] = [
     completed: () => get("nsContestants2") > -1,
     prepare: () => {
       if (have($item`Powerful Glove`)) ensureEffect($effect`Triple-Sized`);
+      if (myPrimestat() === $stat`Muscle` && have($item`oil of stability`))
+        ensureEffect($effect`Stabilizing Oiliness`);
+      if (myPrimestat() === $stat`Mysticality` && have($item`oil of expertise`))
+        ensureEffect($effect`Expert Oiliness`);
+      if (myPrimestat() === $stat`Moxie` && have($item`oil of slipperiness`))
+        ensureEffect($effect`Slippery Oiliness`);
     },
     do: (): void => {
       visitUrl("place.php?whichplace=nstower&action=ns_01_contestbooth");
@@ -106,6 +119,12 @@ const Challenges: Task[] = [
     completed: () => get("nsContestants2") > -1,
     prepare: () => {
       if (have($item`Powerful Glove`)) ensureEffect($effect`Triple-Sized`);
+      if (myPrimestat() === $stat`Muscle` && have($item`oil of stability`))
+        ensureEffect($effect`Stabilizing Oiliness`);
+      if (myPrimestat() === $stat`Mysticality` && have($item`oil of expertise`))
+        ensureEffect($effect`Expert Oiliness`);
+      if (myPrimestat() === $stat`Moxie` && have($item`oil of slipperiness`))
+        ensureEffect($effect`Slippery Oiliness`);
     },
     do: (): void => {
       visitUrl("place.php?whichplace=nstower&action=ns_01_contestbooth");

@@ -12,7 +12,7 @@ import {
   toInt,
   visitUrl,
 } from "kolmafia";
-import { $familiar, $item, $items, $skill, get, have, set } from "libram";
+import { $familiar, $item, $items, $skill, byStat, get, have, set } from "libram";
 import { args } from "../args";
 import { Priorities } from "../engine/priority";
 import { Quest, Task } from "../engine/task";
@@ -220,6 +220,15 @@ export const pulls: PullSpec[] = [
       return scripNeeded > 0;
     },
     optional: true,
+  },
+  {
+    name: "Oil",
+    pull: () =>
+      byStat({
+        Muscle: $item`oil of stability`,
+        Mysticality: $item`oil of expertise`,
+        Moxie: $item`oil of slipperiness`,
+      }),
   },
 ];
 
