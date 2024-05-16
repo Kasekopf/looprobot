@@ -60,6 +60,7 @@ import {
   have,
   haveInCampground,
   Macro,
+  MayamCalendar,
   Robortender,
   set,
   undelay,
@@ -960,6 +961,22 @@ export const MiscQuest: Quest = {
       limit: { tries: 1 },
       freeaction: true,
     },
+    {
+      name: "Mayam Calendar",
+      after: [],
+      completed: () => !MayamCalendar.have() || MayamCalendar.remainingUses() === 0,
+      do: () => {
+        MayamCalendar.submit("chair", "wood", "cheese", "clock");
+        if (have($item`yamtility belt`))
+          MayamCalendar.submit("fur", "meat", "eyepatch", "yam4");
+        else
+          MayamCalendar.submit("yam1", "meat", "eyepatch", "yam4");
+        MayamCalendar.submit("eye", "lightning", "wall", "explosion");
+      },
+      outfit: { familiar: $familiar`chest mimic` },
+      limit: { tries: 2 },
+      freeaction: true,
+    }
   ],
 };
 
