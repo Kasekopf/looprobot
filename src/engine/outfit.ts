@@ -308,12 +308,8 @@ export function equipDefaults(outfit: Outfit, noFightingFamiliars: boolean): voi
     }
   }
 
-  // If I figure out how to add to combat macro:
-
-  /* if(modifier.includes("item"))
-    if(get("everfullDartPerks").includes("Butt awareness"))
-      // eslint-disable-next-line libram/verify-constants
-      outfit.addBonus($item`Everfull Dart Holster`, 30) */
+  if (get("everfullDartPerks").includes("Butt awareness"))
+    outfit.addBonus($item`Everfull Dart Holster`, 30);
 
   outfit.avoid.push($item`runed taper candle`);
   outfit.avoid.push($item`broken champagne bottle`);

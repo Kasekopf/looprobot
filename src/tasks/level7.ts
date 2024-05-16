@@ -173,6 +173,7 @@ const Cranny: Task[] = [
           $item`barrel lid`,
           $item`carnivorous potted plant`
         ),
+        avoid: $items`Everfull Dart Holster`,
         modifier: "-combat, ML",
         modes: { umbrella: "cocoon" },
       };

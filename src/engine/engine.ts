@@ -528,6 +528,11 @@ export class Engine extends BaseEngine<CombatActions, ActiveTask> {
       (!resources.has("ignore") && !resources.has("banish"));
     equipCharging(outfit, mightKillSomething ?? false, task.nofightingfamiliars ?? false);
 
+    const mightKillSomethingEasy =
+      task.wanderer === undefined && (task.combat?.can("kill") || task.combat?.can("killItem"));
+    if (mightKillSomethingEasy && !have($effect`Everything Looks Red`))
+      outfit.equip($item`Everfull Dart Holster`);
+
     if (get("noncombatForcerActive")) {
       // Avoid some things that might override the NC and break the tracking
       outfit.equip({ avoid: $items`Kramco Sausage-o-Matic™` });
