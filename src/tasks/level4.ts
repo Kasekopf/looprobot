@@ -1,4 +1,12 @@
-import { familiarWeight, itemAmount, myDaycount, numericModifier, use, visitUrl } from "kolmafia";
+import {
+  familiarWeight,
+  itemAmount,
+  myDaycount,
+  myFamiliar,
+  numericModifier,
+  use,
+  visitUrl,
+} from "kolmafia";
 import {
   $effect,
   $familiar,
@@ -191,11 +199,19 @@ export const BatQuest: Quest = {
       after: ["Bat/Use Sonar 3", "Lobsterfrogman Drop"],
       priority: () => {
         if ($location`The Boss Bat's Lair`.turnsSpent < 4) return Priorities.None;
-        if (!have($familiar`Grey Goose`)) return Priorities.None;
+        if (!have($familiar`Grey Goose`) || have($item`Ghost Dog Chow`)) return Priorities.None;
         if (familiarWeight($familiar`Grey Goose`) < 6) return Priorities.BadGoose;
         return Priorities.GoodGoose;
       },
       completed: () => step("questL04Bat") >= 4,
+      prepare: () => {
+        if (
+          myFamiliar() === $familiar`Grey Goose` &&
+          familiarWeight($familiar`Grey Goose`) < 6 &&
+          have($item`Ghost Dog Chow`)
+        )
+          use($item`Ghost Dog Chow`);
+      },
       do: $location`The Boss Bat's Lair`,
       outfit: () => {
         if ($location`The Boss Bat's Lair`.turnsSpent < 4) return {};

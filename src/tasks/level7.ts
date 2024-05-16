@@ -7,9 +7,11 @@ import {
   Item,
   myBasestat,
   myClass,
+  myFamiliar,
   myTurncount,
   numericModifier,
   toUrl,
+  use,
   visitUrl,
 } from "kolmafia";
 import {
@@ -387,11 +389,26 @@ export const CryptQuest: Quest = {
       name: "Bonerdagon",
       after: ["Start", "Alcove Boss", "Cranny Boss", "Niche Boss", "Nook Boss"],
       priority: () => {
-        if (!have($familiar`Grey Goose`)) return Priorities.None;
+        if (!have($familiar`Grey Goose`) || have($item`Ghost Dog Chow`)) return Priorities.None;
         if (familiarWeight($familiar`Grey Goose`) < 6) return Priorities.BadGoose;
         return Priorities.GoodGoose;
       },
       completed: () => step("questL07Cyrptic") >= 1,
+      prepare: () => {
+        if (
+          myFamiliar() === $familiar`Grey Goose` &&
+          familiarWeight($familiar`Grey Goose`) < 7 &&
+          have($item`Ghost Dog Chow`)
+        )
+          use($item`Ghost Dog Chow`);
+        // Try to get to level 7 to sneak a second drone here (for the goblin king)
+        if (
+          myFamiliar() === $familiar`Grey Goose` &&
+          familiarWeight($familiar`Grey Goose`) < 7 &&
+          have($item`Ghost Dog Chow`)
+        )
+          use($item`Ghost Dog Chow`);
+      },
       do: () => {
         adv1($location`Haert of the Cyrpt`, -1, "");
         if (get("lastEncounter") !== "The Bonerdagon")

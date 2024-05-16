@@ -532,10 +532,25 @@ export const HiddenQuest: Quest = {
       after: ["Finish Office", "Finish Apartment", "Finish Hospital", "Finish Bowling"],
       completed: () => step("questL11Worship") === 999,
       do: $location`A Massive Ziggurat`,
+      prepare: () => {
+        if (
+          myFamiliar() === $familiar`Grey Goose` &&
+          familiarWeight($familiar`Grey Goose`) < 7 &&
+          have($item`Ghost Dog Chow`)
+        )
+          use($item`Ghost Dog Chow`);
+        // try again to get to level 7 if needed (since the battery is the *second* dupable drop)
+        if (
+          myFamiliar() === $familiar`Grey Goose` &&
+          familiarWeight($familiar`Grey Goose`) < 7 &&
+          have($item`Ghost Dog Chow`)
+        )
+          use($item`Ghost Dog Chow`);
+      },
       priority: () => {
         if ($location`A Massive Ziggurat`.turnsSpent < 3) return Priorities.None;
-        if (!have($familiar`Grey Goose`)) return Priorities.None;
-        if (familiarWeight($familiar`Grey Goose`) < 6) return Priorities.BadGoose;
+        if (!have($familiar`Grey Goose`) || have($item`Ghost Dog Chow`)) return Priorities.None;
+        if (familiarWeight($familiar`Grey Goose`) < 7) return Priorities.BadGoose;
         return Priorities.GoodGoose;
       },
       outfit: () => {

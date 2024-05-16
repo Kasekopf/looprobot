@@ -547,11 +547,19 @@ export const PalindomeQuest: Quest = {
       name: "Boss",
       after: ["Open Alarm"],
       priority: () => {
-        if (!have($familiar`Grey Goose`)) return Priorities.None;
+        if (!have($familiar`Grey Goose`) || have($item`Ghost Dog Chow`)) return Priorities.None;
         if (familiarWeight($familiar`Grey Goose`) < 6) return Priorities.BadGoose;
         return Priorities.GoodGoose;
       },
       completed: () => step("questL11Palindome") === 999,
+      prepare: () => {
+        if (
+          myFamiliar() === $familiar`Grey Goose` &&
+          familiarWeight($familiar`Grey Goose`) < 6 &&
+          have($item`Ghost Dog Chow`)
+        )
+          use($item`Ghost Dog Chow`);
+      },
       do: (): void => {
         visitUrl("place.php?whichplace=palindome&action=pal_drlabel");
         runChoice(-1);

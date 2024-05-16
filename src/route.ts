@@ -155,8 +155,8 @@ export const routing: string[] = [
 
   "Keys/Star Key", // Allow for better use of orb
   "Macguffin/Finish",
-  "Crypt/Finish",
   "Orc Chasm/Finish",
+  "Crypt/Finish",
 
   // Setup for second hat phase
   "Robot/Equip Hat Phase 2",

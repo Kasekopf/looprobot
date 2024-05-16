@@ -1,4 +1,12 @@
-import { familiarWeight, Item, itemAmount, numericModifier, use, visitUrl } from "kolmafia";
+import {
+  familiarWeight,
+  Item,
+  itemAmount,
+  myFamiliar,
+  numericModifier,
+  use,
+  visitUrl,
+} from "kolmafia";
 import {
   $effect,
   $familiar,
@@ -160,7 +168,7 @@ export const McLargeHugeQuest: Quest = {
       completed: () => step("questL08Trapper") >= 5,
       priority: () => {
         if ($location`Mist-Shrouded Peak`.turnsSpent < 3) return Priorities.None;
-        if (!have($familiar`Grey Goose`)) return Priorities.None;
+        if (!have($familiar`Grey Goose`) || have($item`Ghost Dog Chow`)) return Priorities.None;
         if (familiarWeight($familiar`Grey Goose`) < 6) return Priorities.BadGoose;
         return Priorities.GoodGoose;
       },
@@ -169,6 +177,12 @@ export const McLargeHugeQuest: Quest = {
         if (numericModifier("cold resistance") < 5) ensureEffect($effect`Red Door Syndrome`);
         if (numericModifier("cold resistance") < 5)
           throw `Unable to ensure cold res for The Icy Peak`;
+        if (
+          myFamiliar() === $familiar`Grey Goose` &&
+          familiarWeight($familiar`Grey Goose`) < 6 &&
+          have($item`Ghost Dog Chow`)
+        )
+          use($item`Ghost Dog Chow`);
       },
       do: $location`Mist-Shrouded Peak`,
       outfit: () => {
