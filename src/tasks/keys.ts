@@ -45,7 +45,7 @@ import { step } from "grimoire-kolmafia";
 import { Priorities } from "../engine/priority";
 import { args } from "../args";
 import { trainSetAvailable } from "./misc";
-import { atLevel, haveFlorest, underStandard } from "../lib";
+import { atLevel, haveFlorest, haveLoathingIdolMicrophone, underStandard } from "../lib";
 import { castWithMpSwaps, ensureWithMPSwaps } from "../engine/moods";
 
 export enum Keys {
@@ -402,6 +402,13 @@ export const DigitalQuest: Quest = {
           // Use visit URL to avoid needing to equip the pants
           visitUrl("runskillz.php?action=Skillz&whichskill=7419&targetplayer=0&pwd&quantity=1");
         }
+
+        if (
+          numericModifier("Initiative") < 600 &&
+          $location`Vanya's Castle`.turnsSpent > 5 &&
+          haveLoathingIdolMicrophone()
+        )
+          ensureEffect($effect`Poppy Performance`);
       },
       ready: () => get("8BitColor", "black") === "black" || get("8BitColor", "black") === "",
       do: $location`Vanya's Castle`,
@@ -459,6 +466,15 @@ export const DigitalQuest: Quest = {
       after: ["Open"],
       completed: () => getScore() >= 10000,
       ready: () => get("8BitColor", "black") === "green",
+      prepare: () => {
+        if (
+          !have($effect`Frosty`) &&
+          have($item`cursed monkey's paw`) &&
+          get("_monkeyPawWishesUsed") < 5
+        )
+          cliExecute("monkeypaw effect frosty");
+        if (haveLoathingIdolMicrophone()) ensureEffect($effect`Spitting Rhymes`);
+      },
       do: $location`Hero's Field`,
       post: () => {
         if (haveFlorest() && FloristFriar.Rutabeggar.available()) {
