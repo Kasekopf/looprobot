@@ -100,6 +100,7 @@ export const BatQuest: Quest = {
     {
       name: "Use Sonar 1",
       after: ["Get Sonar 1"],
+      priority: () => Priorities.Free,
       completed: () => step("questL04Bat") >= 1,
       do: () => use($item`sonar-in-a-biscuit`),
       limit: { tries: 3 },
@@ -131,6 +132,7 @@ export const BatQuest: Quest = {
     {
       name: "Use Sonar 2",
       after: ["Get Sonar 2"],
+      priority: () => Priorities.Free,
       completed: () => step("questL04Bat") >= 2,
       do: () => use($item`sonar-in-a-biscuit`),
       limit: { tries: 3 },
@@ -156,6 +158,7 @@ export const BatQuest: Quest = {
     {
       name: "Use Sonar 3",
       after: ["Get Sonar 3"],
+      priority: () => Priorities.Free,
       completed: () => step("questL04Bat") >= 3,
       do: () => use($item`sonar-in-a-biscuit`),
       limit: { tries: 3 },
