@@ -81,7 +81,7 @@ function statToLevel(): Stat {
 }
 
 const dartParts: Switch<string, string[]> = {
-  Muscle: ["Wing", "Tentacle", "Face", "Handle", "Mouth", "Fin", "Ear"],
+  Muscle: [], // ["Wing", "Tentacle", "Face", "Handle", "Mouth", "Fin", "Ear"],
   Mysticality: [
     "Stem",
     "Tail",
@@ -95,7 +95,7 @@ const dartParts: Switch<string, string[]> = {
     "Body",
     "Trunk",
   ],
-  Moxie: ["Arm", "Wheel", "Eye"],
+  Moxie: [], // ["Arm", "Wheel", "Eye"],
   default: [],
 };
 
@@ -150,10 +150,12 @@ export function killMacro(target?: Monster | Location, hard?: boolean): Macro {
   }
 
   result.step(dartMacro(hard));
+  result.trySkill($skill`Summon Love Mosquito`);
 
   if (haveEquipped($item`June cleaver`)) return result.attack().repeat();
-  else if (YouRobot.getPartId("bottom") === 1) return result.trySkill($skill`Crotch Burn`).repeat();
+  else if (YouRobot.getPartId("bottom") === 2) return result.skill($skill`Crotch Burn`).repeat();
   else if (YouRobot.canUse($slot`weapon`)) return result.attack().repeat();
 
-  throw `Unable to plan to kill this monster; try equipping a weapon`;
+  return result.attack().repeat();
+  // throw `Unable to plan to kill this monster; try equipping a weapon`;
 }

@@ -35,7 +35,13 @@ import {
 import { Priority, Quest, Task } from "../engine/task";
 import { OutfitSpec, step } from "grimoire-kolmafia";
 import { CombatStrategy } from "../engine/combat";
-import { atLevel, haveFlorest, haveLoathingIdolMicrophone, YouRobot } from "../lib";
+import {
+  atLevel,
+  haveFlorest,
+  haveLoathingIdolMicrophone,
+  levelingStartCompleted,
+  YouRobot,
+} from "../lib";
 import { Priorities } from "../engine/priority";
 import { councilSafe } from "./level12";
 import { ensureWithMPSwaps, fillHp } from "../engine/moods";
@@ -80,7 +86,7 @@ const Alcove: Task[] = [
 
       if (
         have($item`designer sweatpants`) &&
-        get("sweat", 0) >= 90 &&
+        get("sweat", 0) >= 15 &&
         numericModifier("Initiative") < 850
       ) {
         // Use visit URL to avoid needing to equip the pants
@@ -207,7 +213,8 @@ const Niche: Task[] = [
     priority: () => {
       if (have($familiar`Patriotic Eagle`)) {
         if (!have($effect`Everything Looks Red, White and Blue`)) {
-          if (YouRobot.canUseFamiliar()) return { score: 8, reason: "Launch RWB" };
+          if (YouRobot.canUseFamiliar() && levelingStartCompleted())
+            return { score: 8, reason: "Launch RWB" };
           else return { score: -80, reason: "Wait to launch RWB with Eagle" };
         }
         if (get("rwbMonsterCount") > 1 || get("cyrptNicheEvilness") <= 16)
@@ -238,7 +245,8 @@ const Niche: Task[] = [
       }, $monster`dirty old lihc`)
       .macro(slay_macro, $monsters`dirty old lihc, basic lihc, senile lihc, slick lihc`)
       .kill($monster`dirty old lihc`)
-      .banish($monsters`basic lihc, senile lihc, slick lihc`),
+      .kill($monsters`basic lihc, senile lihc, slick lihc`)
+      .kill(),
     // Don't persist banishes while we are eagle repeating
     ignore_banishes: () => have($familiar`Patriotic Eagle`) && myTurncount() < 200,
     orbtargets: () => {
@@ -270,7 +278,8 @@ const Nook: Task[] = [
     prepare: tuneCape,
     priority: (): Priority => {
       if (AutumnAton.have()) {
-        if ($location`The Defiled Nook`.turnsSpent === 0) return Priorities.GoodAutumnaton;
+        if ($location`The Defiled Nook`.turnsSpent === 0 && levelingStartCompleted())
+          return Priorities.GoodAutumnaton;
       }
       return Priorities.None;
     },

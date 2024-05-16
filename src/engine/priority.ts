@@ -25,7 +25,6 @@ export class Priorities {
   static Always: Priority = { score: 10000, reason: "Forced" };
   static GoodForceNC: Priority = { score: 8000, reason: "Forcing NC" };
   static Free: Priority = { score: 1000, reason: "Free action" };
-  static Start: Priority = { score: 900, reason: "Initial tasks" };
   static NeedAdv: Priority = { score: 200, reason: "Low on adventures" };
   static LastCopyableMonster: Priority = { score: 100, reason: "Copy last monster" };
   static Effect: Priority = { score: 20, reason: "Useful effect" };
@@ -35,6 +34,7 @@ export class Priorities {
     reason: "Use cosmic bowling ball + Melodramedary",
   };
   static CosmicBowlingBall: Priority = { score: 11, reason: "Use cosmic bowling ball" };
+  static Start: Priority = { score: 10, reason: "Initial tasks" };
   static GoodYR: Priority = { score: 10, reason: "Yellow ray" };
   static GoodAutumnaton: Priority = { score: 4, reason: "Setup Autumnaton" };
   static GoodCamel: Priority = { score: 3, reason: "Melodramedary is ready" };

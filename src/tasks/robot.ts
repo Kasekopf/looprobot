@@ -3,7 +3,7 @@ import { Priorities } from "../engine/priority";
 import { Quest } from "../engine/task";
 import { atLevel, levelingStartCompleted, YouRobot } from "../lib";
 import { Guards, step } from "grimoire-kolmafia";
-import { itemAmount, myAdventures, myBasestat, use } from "kolmafia";
+import { itemAmount, myAdventures, myBasestat, myTurncount, use } from "kolmafia";
 import { flyersDone } from "./level12";
 
 export const RobotQuest: Quest = {
@@ -30,10 +30,25 @@ export const RobotQuest: Quest = {
       freeaction: true,
     },
     {
-      name: "CPU Shirt",
+      name: "First Chronolith",
       after: ["CPU Potions", "CPU Energy"],
       priority: () => Priorities.Free,
-      ready: () => YouRobot.energy() >= 50 && myAdventures() >= 10,
+      completed: () => myAdventures() > 5 || myTurncount() > 5,
+      ready: () => YouRobot.energy() >= YouRobot.expectedChronolithCost(),
+      do: () => YouRobot.doChronolith(),
+      limit: {
+        guard: Guards.create(
+          () => myAdventures(),
+          (adv) => adv < myAdventures()
+        ),
+      },
+      freeaction: true,
+    },
+    {
+      name: "CPU Shirt",
+      after: ["CPU Potions", "CPU Energy", "First Chronolith"],
+      priority: () => Priorities.Free,
+      ready: () => YouRobot.energy() >= 50,
       completed: () => YouRobot.haveUpgrade("robot_shirt") || have($skill`Torso Awareness`),
       do: () => YouRobot.doUpgrade("robot_shirt"),
       limit: { tries: 1 },
@@ -82,10 +97,12 @@ export const RobotQuest: Quest = {
           (adv) => adv < myAdventures()
         ),
       },
+      freeaction: true,
     },
     {
       name: "Scavenge",
       after: [],
+      ready: () => myAdventures() > 0,
       completed: () => {
         // Scavenge just enough to get 10 scrap total for Top-Familiar and Right-Scrap
         let scrapNeeded = 0;
@@ -95,6 +112,7 @@ export const RobotQuest: Quest = {
       },
       do: () => YouRobot.doScavenge(),
       limit: { tries: 3 },
+      freeaction: true,
     },
     {
       name: "Equip Top Initial",
@@ -104,6 +122,7 @@ export const RobotQuest: Quest = {
       ready: () => YouRobot.scrap() >= 5,
       do: () => YouRobot.doSwitchPart("top", 2),
       limit: { tries: 1 },
+      freeaction: true,
     },
     {
       name: "Equip Right Initial",
@@ -113,6 +132,7 @@ export const RobotQuest: Quest = {
       ready: () => YouRobot.scrap() >= 5,
       do: () => YouRobot.doSwitchPart("right", 3),
       limit: { tries: 1 },
+      freeaction: true,
     },
     {
       name: "Equip Left Initial",
@@ -122,6 +142,7 @@ export const RobotQuest: Quest = {
       ready: () => YouRobot.scrap() >= 15,
       do: () => YouRobot.doSwitchPart("left", 4),
       limit: { tries: 1 },
+      freeaction: true,
     },
     {
       name: "Equip Bottom Initial",
@@ -131,6 +152,7 @@ export const RobotQuest: Quest = {
       ready: () => YouRobot.scrap() >= 15,
       do: () => YouRobot.doSwitchPart("bottom", 4),
       limit: { tries: 1 },
+      freeaction: true,
     },
     {
       name: "Equip Right Final",
@@ -145,6 +167,7 @@ export const RobotQuest: Quest = {
       ready: () => YouRobot.scrap() >= 15 && scrapBufferCompleted(),
       do: () => YouRobot.doSwitchPart("right", 4),
       limit: { tries: 1 },
+      freeaction: true,
     },
     {
       name: "Equip Hat Phase 1",
@@ -161,6 +184,7 @@ export const RobotQuest: Quest = {
           (have($item`rock band flyers`) || get("sidequestArenaCompleted") !== "none")),
       do: () => YouRobot.doSwitchPart("top", 4),
       limit: { tries: 1 },
+      freeaction: true,
     },
     {
       name: "Unequip Hat Phase 1",
@@ -168,6 +192,7 @@ export const RobotQuest: Quest = {
       completed: () => YouRobot.canUseFamiliar() || flyersDone(),
       do: () => YouRobot.doSwitchPart("top", 2),
       limit: { tries: 1 },
+      freeaction: true,
     },
     {
       name: "Equip Hat Phase 2",
@@ -178,6 +203,7 @@ export const RobotQuest: Quest = {
         (step("questL12War") === 999 && step("questL05Goblin") === 999),
       do: () => YouRobot.doSwitchPart("top", 4),
       limit: { tries: 1 },
+      freeaction: true,
     },
     {
       name: "Unequip Hat Phase 2",
@@ -186,6 +212,7 @@ export const RobotQuest: Quest = {
       completed: () => YouRobot.canUseFamiliar(),
       do: () => YouRobot.doSwitchPart("top", 2),
       limit: { tries: 1 },
+      freeaction: true,
     },
   ],
 };

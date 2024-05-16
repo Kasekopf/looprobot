@@ -758,6 +758,7 @@ export const MiscQuest: Quest = {
         !get("noncombatForcerActive"),
       outfit: { equip: $items`Cincho de Mayo` },
       do: () => useSkill($skill`Cincho: Fiesta Exit`),
+      freeaction: true,
       limit: { unready: true },
     },
     {
@@ -794,6 +795,7 @@ export const MiscQuest: Quest = {
         }
       },
       outfit: { modifier: "exp" },
+      freeaction: true,
       limit: {
         tries: 26, // Total unrestricted free rests
         guard: Guards.create(

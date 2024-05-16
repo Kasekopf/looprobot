@@ -439,7 +439,9 @@ const Bowling: Task[] = [
       .killItem($monster`pygmy bowler`)
       .macro(() => {
         if (myFamiliar() === $familiar`Melodramedary` && get("camelSpit") === 100)
-          return Macro.trySkill($skill`%fn, spit on them!`).tryItem($item`cosmic bowling ball`);
+          return Macro.trySkill($skill`Summon Love Gnats`)
+            .trySkill($skill`%fn, spit on them!`)
+            .tryItem($item`cosmic bowling ball`);
         return Macro.tryItem($item`Spooky VHS Tape`).trySkill(
           $skill`Emit Matter Duplicating Drones`
         );

@@ -1,5 +1,4 @@
 import {
-  canEquip,
   cliExecute,
   create,
   familiarWeight,
@@ -157,7 +156,7 @@ const Copperhead: Task[] = [
         modifier: "50 combat, init",
         skipDefaults: true,
         familiar: $familiar`Jumpsuited Hound Dog`,
-        avoid: $items`miniature crystal ball`,
+        avoid: $items`miniature crystal ball, Space Trip safety headphones`,
       };
       if (have($familiar`Trick-or-Treating Tot`) && !have($item`li'l ninja costume`))
         spec.familiar = $familiar`Trick-or-Treating Tot`;
@@ -185,7 +184,10 @@ const Copperhead: Task[] = [
       shenItem($item`Murphy's Rancid Black Flag`) &&
       !have($item`steam-powered model rocketship`) &&
       (!have($item`Mohawk wig`) || YouRobot.canUse($slot`hat`)),
-    completed: () => step("questL11Shen") === 999 || have($item`Murphy's Rancid Black Flag`),
+    completed: () =>
+      step("questL11Shen") === 999 ||
+      have($item`Murphy's Rancid Black Flag`) ||
+      step("questL10Garbage") >= 10,
     do: $location`The Castle in the Clouds in the Sky (Top Floor)`,
     outfit: { equip: $items`Mohawk wig`, modifier: "-combat" },
     choices: () => {
@@ -206,8 +208,7 @@ const Copperhead: Task[] = [
   {
     name: "Hot Snake Postcastle",
     after: ["Copperhead Start", "Giant/Ground"],
-    ready: () =>
-      shenItem($item`Murphy's Rancid Black Flag`) && have($item`steam-powered model rocketship`),
+    ready: () => shenItem($item`Murphy's Rancid Black Flag`),
     completed: () => step("questL11Shen") === 999 || have($item`Murphy's Rancid Black Flag`),
     do: $location`The Castle in the Clouds in the Sky (Top Floor)`,
     choices: { 675: 4, 676: 4, 677: 1, 678: 1, 679: 1, 1431: 4 },
@@ -274,10 +275,9 @@ const Zepplin: Task[] = [
     name: "Protesters",
     after: ["Protesters Start", "Misc/Hermit Clover", "McLargeHuge/Clover Ore"],
     ready: () =>
-      canEquip($item`transparent pants`) &&
-      (itemAmount($item`11-leaf clover`) > cloversToSave() ||
-        have($item`Flamin' Whatshisname`) ||
-        step("questL11Shen") === 999),
+      itemAmount($item`11-leaf clover`) > cloversToSave() ||
+      have($item`Flamin' Whatshisname`) ||
+      step("questL11Shen") === 999,
     prepare: () => {
       if (have($item`lynyrd musk`)) ensureEffect($effect`Musky`);
       if (AugustScepter.canCast(2) && !have($effect`Lucky!`))

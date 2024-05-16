@@ -195,7 +195,7 @@ export class Engine extends BaseEngine<CombatActions, ActiveTask> {
 
     // If a backup target is up try to place it in a useful location
     const backup = backupTargets.find(
-      (target) => !target.completed() && target.monster === get("lastCopyableMonster")
+      (target) => !target.completed() && target.monster === get("lastCopyableMonster") && false
     );
     if (backup && have($item`backup camera`)) {
       const backup_outfit = undelay(backup.outfit) ?? {};
@@ -337,7 +337,10 @@ export class Engine extends BaseEngine<CombatActions, ActiveTask> {
         throw `Cannot match equip for backup ${task.backup.monster} on ${task.name}`;
       outfit.equip({ avoid: $items`carnivorous potted plant` });
       combat.startingMacro(
-        Macro.if_("!monsterid 49", Macro.trySkill($skill`Back-Up to your Last Enemy`))
+        Macro.if_(
+          "!monsterid 49",
+          Macro.trySkill($skill`Back-Up to your Last Enemy`).step(task.backup.combat ?? new Macro())
+        )
       );
       combat.action("killHard");
     }
@@ -379,7 +382,7 @@ export class Engine extends BaseEngine<CombatActions, ActiveTask> {
       combat.macro(
         new Macro().if_(
           `!hpbelow 50 && ${monster_blacklist.map((m) => `!monsterid ${m.id}`).join(" && ")}`,
-          new Macro().tryItem($item`rock band flyers`)
+          new Macro().trySkill($skill`Summon Love Gnats`).tryItem($item`rock band flyers`)
         ),
         undefined,
         true
@@ -451,7 +454,6 @@ export class Engine extends BaseEngine<CombatActions, ActiveTask> {
         let runaway = undefined;
         if (combat.can("ignore") || combat.can("ignoreSoftBanish")) {
           runaway = equipFirst(outfit, runawaySources);
-          if (runaway?.effect) task.other_effects = [...(task.other_effects ?? []), runaway.effect];
           resources.provide("ignore", runaway);
           resources.provide("ignoreSoftBanish", runaway);
         }
@@ -464,8 +466,6 @@ export class Engine extends BaseEngine<CombatActions, ActiveTask> {
               runawaySources.filter((source) => !source.banishes)
             );
             resources.provide("ignoreNoBanish", runaway);
-            if (runaway?.effect)
-              task.other_effects = [...(task.other_effects ?? []), runaway.effect];
           }
         }
       }
@@ -662,7 +662,7 @@ export class Engine extends BaseEngine<CombatActions, ActiveTask> {
         hpAutoRecoveryItems: ensureRecovery("hpAutoRecoveryItems", ["relaxing hot tub"], []),
       });
     }
-    if (myHp() < 100 && myHp() < myMaxhp()) restoreHp(myMaxhp() < 100 ? myMaxhp() : 100);
+    if (myHp() < 60 && myHp() < myMaxhp()) restoreHp(myMaxhp() < 60 ? myMaxhp() : 60);
     if (myMp() < 50 && myMaxmp() >= 50) customRestoreMp(50);
     else if (myMp() < 40 && myMaxmp() >= 40) customRestoreMp(40);
     else if (myMp() < 20) customRestoreMp(20);

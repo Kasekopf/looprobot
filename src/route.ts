@@ -20,6 +20,7 @@ export const routing: string[] = [
   "Robot/Absorb AAA Battery",
   "Robot/Absorb Robo Battery",
   "Robot/CPU Energy",
+  "Robot/First Chronolith",
   "Robot/Chronolith",
 
   // Equip initial limbs
@@ -70,7 +71,7 @@ export const routing: string[] = [
   "War/Flyers Start",
   "Palindome/Hot Snake Precastle",
   "Giant/Top Floor",
-  "Robot/Unequip Hat Phase 2",
+  "Robot/Unequip Hat Phase 1",
 
   // First -combat group
   "Mosquito/Burn Delay",
@@ -108,7 +109,6 @@ export const routing: string[] = [
   "Hidden City/Banish Janitors",
   "Mosquito/Finish",
   "Crypt/Cranny",
-  "Giant/Unlock HITS",
 
   "Macguffin/Compass", // Unlock desert for ultrahydrated use
   // The following 3 tasks should always stay in this order
@@ -136,19 +136,22 @@ export const routing: string[] = [
   "Macguffin/Upper Chamber",
   "Orc Chasm/Start Peaks",
   "Orc Chasm/ABoo Carto",
+  "Knob/Open Knob",
   "Hidden City/Office Boss", // Get Eagle dude banish
 
   // Bulk +meat/+item tasks
   "Misc/Shadow Lodestone",
   "Crypt/Nook",
+  "Crypt/Alcove",
+  "Bat/Get Sonar 3",
   "Orc Chasm/ABoo Clues",
   "Digital/Hero",
   "Orc Chasm/Oil Jar",
   "Macguffin/Middle Chamber", // Avoid Eagle beast banish!
+  "Digital/Key",
   "Orc Chasm/Twin Init Search",
   "Orc Chasm/Twin Init", // Use Eagle dude banish
-  "Crypt/Alcove",
-  "Digital/Key",
+  "Knob/Harem",
 
   "Keys/Star Key", // Allow for better use of orb
   "Macguffin/Finish",
@@ -156,12 +159,12 @@ export const routing: string[] = [
   "Orc Chasm/Finish",
 
   // Setup for second hat phase
-  "Knob/Harem",
   "Robot/Equip Hat Phase 2",
   "War/Junkyard End",
   "War/Boss Hippie",
   "Knob/King",
   "Robot/Unequip Hat Phase 2",
+  "Giant/Unlock HITS", // TODO: find better spot
 
   // Finish up with last delay
   "Misc/Eldritch Tentacle",

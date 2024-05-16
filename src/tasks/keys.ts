@@ -9,6 +9,7 @@ import {
   Item,
   itemAmount,
   mallPrice,
+  myAdventures,
   myClass,
   myTurncount,
   numericModifier,
@@ -65,6 +66,7 @@ const heroKeys: KeyTask[] = [
     possible: () => have($item`Deck of Every Card`) && get("_deckCardsDrawn") === 0,
     after: [],
     priority: () => Priorities.Free,
+    ready: () => myAdventures() > 0,
     completed: () => get("_deckCardsDrawn") > 0 || !have($item`Deck of Every Card`),
     do: () => {
       cliExecute("cheat tower");
@@ -390,7 +392,7 @@ export const DigitalQuest: Quest = {
 
         if (
           have($item`designer sweatpants`) &&
-          get("sweat", 0) >= 90 &&
+          get("sweat", 0) >= 15 &&
           numericModifier("Initiative") < 600
         ) {
           // Use visit URL to avoid needing to equip the pants

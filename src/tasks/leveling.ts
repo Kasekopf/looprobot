@@ -12,6 +12,7 @@ import {
 import {
   $effect,
   $item,
+  $items,
   $location,
   $monster,
   $skill,
@@ -28,7 +29,12 @@ import { primestatId } from "../lib";
 import { fillHp } from "../engine/moods";
 import { OutfitSpec } from "grimoire-kolmafia";
 
-const robotSetup = ["Robot/CPU Energy", "Robot/Equip Top Initial", "Robot/Equip Right Initial"];
+const robotSetup = [
+  "Robot/Scavenge",
+  "Robot/CPU Energy",
+  "Robot/Equip Top Initial",
+  "Robot/Equip Right Initial",
+];
 
 const buffTasks: Task[] = [
   {
@@ -45,7 +51,7 @@ const buffTasks: Task[] = [
   },
   {
     name: "Fortune",
-    after: [],
+    after: robotSetup,
     completed: () => get("_clanFortuneBuffUsed") || !have($item`Clan VIP Lounge key`),
     priority: () => Priorities.Free,
     do: () => cliExecute("fortune buff susie"),
@@ -76,18 +82,18 @@ const buffTasks: Task[] = [
     freeaction: true,
     limit: { tries: 1 },
   },
-  {
-    name: "Wish Shortly Hydrated",
-    after: robotSetup,
-    completed: () =>
-      have($effect`Shortly Hydrated`) ||
-      (!have($item`pocket wish`) && (!have($item`genie bottle`) || get("_genieWishesUsed") >= 3)) ||
-      myTurncount() >= 20,
-    priority: () => Priorities.Free,
-    do: () => cliExecute("genie effect shortly hydrated"),
-    freeaction: true,
-    limit: { tries: 1 },
-  },
+  // {
+  //   name: "Wish Shortly Hydrated",
+  //   after: robotSetup,
+  //   completed: () =>
+  //     have($effect`Shortly Hydrated`) ||
+  //     (!have($item`pocket wish`) && (!have($item`genie bottle`) || get("_genieWishesUsed") >= 3)) ||
+  //     myTurncount() >= 20,
+  //   priority: () => Priorities.Free,
+  //   do: () => cliExecute("genie effect shortly hydrated"),
+  //   freeaction: true,
+  //   limit: { tries: 1 },
+  // },
 ];
 const getBuffsPreLOV = buffTasks.map((t) => t.name);
 const getBuffs = [...getBuffsPreLOV, "LOV Tunnel"];
@@ -96,13 +102,13 @@ const unscaledLeveling: Task[] = [
   {
     name: "LOV Tunnel",
     after: getBuffsPreLOV,
-    priority: () => Priorities.Start,
     ready: () => get("loveTunnelAvailable"),
     completed: () => get("_loveTunnelUsed"),
     do: $location`The Tunnel of L.O.V.E.`,
     choices: { 1222: 1, 1223: 1, 1224: primestatId(), 1225: 1, 1226: 2, 1227: 1, 1228: 3 },
     combat: new CombatStrategy().killHard(),
     limit: { tries: 1 },
+    outfit: { equip: $items`Space Trip safety headphones` },
     freecombat: true,
   },
   {
@@ -166,6 +172,7 @@ const unscaledLeveling: Task[] = [
       if (get("_snojoFreeFights") === 10) cliExecute("hottub"); // Clean -stat effects
     },
     combat: new CombatStrategy().killHard(),
+    outfit: { equip: $items`Space Trip safety headphones` },
     limit: { tries: 10 },
     freecombat: true,
   },
@@ -177,6 +184,7 @@ const unscaledLeveling: Task[] = [
     do: $location`The Neverending Party`,
     choices: { 1322: 2, 1324: 5 },
     combat: new CombatStrategy().killHard(),
+    outfit: { equip: $items`Space Trip safety headphones` },
     limit: { tries: 11 },
     freecombat: true,
   },
@@ -188,6 +196,7 @@ const unscaledLeveling: Task[] = [
     do: $location`An Unusually Quiet Barroom Brawl`,
     choices: { 1322: 2, 1324: 5 },
     combat: new CombatStrategy().killHard(),
+    outfit: { equip: $items`Space Trip safety headphones` },
     limit: { tries: 3 },
     freecombat: true,
   },
@@ -214,7 +223,7 @@ const unscaledLeveling: Task[] = [
       .macro((): Macro => {
         const result = Macro.while_("hasskill 226", Macro.skill($skill`Perpetrate Mild Evil`));
         // Use all but the last extinguisher uses on polar vortex.
-        const vortex_count = (get("_fireExtinguisherCharge") - 20) / 10;
+        const vortex_count = (get("_fireExtinguisherCharge") - 40) / 10;
         if (vortex_count > 0) {
           for (let i = 0; i < vortex_count; i++)
             result.trySkill($skill`Fire Extinguisher: Polar Vortex`);
@@ -225,12 +234,14 @@ const unscaledLeveling: Task[] = [
       .killHard(),
     outfit: () => {
       const result: OutfitSpec = {
+        equip: $items`Space Trip safety headphones, June cleaver`,
         modifier: "item",
+        avoid: $items`broken champagne bottle`,
       };
       //TODO: plan how many fire extinguishers need to be saved
       if (
         have($item`industrial fire extinguisher`) &&
-        get("_fireExtinguisherCharge") >= 30 // Leave some for harem
+        get("_fireExtinguisherCharge") >= 50 // Leave some for harem
       )
         result.equip?.push($item`industrial fire extinguisher`);
       if (have($item`Flash Liquidizer Ultra Dousing Accessory`) && get("_douseFoeUses") < 3)

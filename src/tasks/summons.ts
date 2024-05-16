@@ -41,7 +41,7 @@ type SummonTarget = Omit<Task, "do" | "name" | "limit"> & {
 const summonTargets: SummonTarget[] = [
   {
     target: $monster`War Frat 151st Infantryman`,
-    priority: () => Priorities.Start,
+    ready: () => myMeat() >= 1000,
     completed: () =>
       have($item`beer helmet`) &&
       have($item`distressed denim pants`) &&
@@ -56,12 +56,7 @@ const summonTargets: SummonTarget[] = [
   {
     target: $monster`mountain man`,
     after: [],
-    ready: () =>
-      myMeat() >= 1000 &&
-      // YR the War frat first
-      have($item`beer helmet`) &&
-      have($item`distressed denim pants`) &&
-      have($item`bejeweled pledge pin`),
+    ready: () => myMeat() >= 1000,
     completed: () => oresNeeded() === 0,
     priority: () => (have($effect`Everything Looks Yellow`) ? Priorities.BadYR : Priorities.None),
     outfit: () => {
@@ -100,7 +95,7 @@ const summonTargets: SummonTarget[] = [
     prepare: () => {
       fillHp();
     },
-    outfit: { equip: $items`June cleaver` },
+    outfit: { equip: $items`June cleaver, Space Trip safety headphones` },
     combat: new CombatStrategy()
       .macro(Macro.trySkill($skill`Micrometeorite`).trySkill($skill`Curse of Weaksauce`))
       .kill(),
@@ -138,10 +133,21 @@ const summonTargets: SummonTarget[] = [
       have($item`Richard's star key`) ||
       get("nsTowerDoorKeysUsed").includes("Richard's star key"),
     outfit: () => {
-      if (get("camelSpit") === 100) return { modifier: "item", familiar: $familiar`Melodramedary` };
-      return { modifier: "item" };
+      if (get("camelSpit") === 100)
+        return {
+          modifier: "item",
+          equip: $items`June cleaver, Space Trip safety headphones`,
+          familiar: $familiar`Melodramedary`,
+        };
+      return { equip: $items`June cleaver, Space Trip safety headphones`, modifier: "item" };
     },
-    combat: new CombatStrategy().macro(Macro.trySkill($skill`%fn, spit on them!`)).killItem(),
+    combat: new CombatStrategy()
+      .macro(
+        Macro.trySkill($skill`Summon Love Gnats`)
+          .trySkill($skill`%fn, spit on them!`)
+          .trySkill($skill`Feel Envy`)
+      )
+      .killItem(),
   },
   {
     target: $monster`Baa'baa'bu'ran`,

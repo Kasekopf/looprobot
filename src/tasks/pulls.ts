@@ -170,11 +170,6 @@ export const pulls: PullSpec[] = [
     },
   },
   { pull: $item`old patched suit-pants`, optional: true },
-  {
-    pull: $item`transparent pants`,
-    optional: true,
-    useful: () => !have($item`designer sweatpants`),
-  },
   { pull: $item`deck of lewd playing cards`, optional: true },
   // { pull: $item`gravy boat`, useful: () => !underStandard() },  // need hat to use
   {

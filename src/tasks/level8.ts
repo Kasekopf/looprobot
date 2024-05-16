@@ -118,7 +118,7 @@ export const McLargeHugeQuest: Quest = {
           modifier: "50 combat, init",
           skipDefaults: true,
           familiar: $familiar`Jumpsuited Hound Dog`,
-          avoid: $items`miniature crystal ball`,
+          avoid: $items`miniature crystal ball, Space Trip safety headphones`,
         };
         if (have($familiar`Trick-or-Treating Tot`) && !have($item`li'l ninja costume`))
           spec.familiar = $familiar`Trick-or-Treating Tot`;

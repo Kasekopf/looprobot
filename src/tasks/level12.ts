@@ -214,7 +214,7 @@ const Junkyard: Task[] = [
     completed: () => have($item`molybdenum hammer`) || get("sidequestJunkyardCompleted") !== "none",
     acquire: [{ item: $item`seal tooth` }],
     outfit: {
-      equip: $items`beer helmet, distressed denim pants, bejeweled pledge pin`,
+      equip: $items`beer helmet, distressed denim pants, bejeweled pledge pin, Space Trip safety headphones`,
       familiar: have($familiar`Reagnimated Gnome`)
         ? $familiar`Reagnimated Gnome`
         : have($familiar`Cookbookbat`)
@@ -255,7 +255,7 @@ const Junkyard: Task[] = [
       have($item`molybdenum crescent wrench`) || get("sidequestJunkyardCompleted") !== "none",
     acquire: [{ item: $item`seal tooth` }],
     outfit: {
-      equip: $items`beer helmet, distressed denim pants, bejeweled pledge pin`,
+      equip: $items`beer helmet, distressed denim pants, bejeweled pledge pin, Space Trip safety headphones`,
       familiar: have($familiar`Reagnimated Gnome`)
         ? $familiar`Reagnimated Gnome`
         : have($familiar`Cookbookbat`)
@@ -295,7 +295,7 @@ const Junkyard: Task[] = [
     ready: () => YouRobot.canUse($slot`hat`),
     completed: () => have($item`molybdenum pliers`) || get("sidequestJunkyardCompleted") !== "none",
     outfit: {
-      equip: $items`beer helmet, distressed denim pants, bejeweled pledge pin`,
+      equip: $items`beer helmet, distressed denim pants, bejeweled pledge pin, Space Trip safety headphones`,
       familiar: have($familiar`Reagnimated Gnome`)
         ? $familiar`Reagnimated Gnome`
         : have($familiar`Cookbookbat`)
@@ -336,7 +336,7 @@ const Junkyard: Task[] = [
       have($item`molybdenum screwdriver`) || get("sidequestJunkyardCompleted") !== "none",
     acquire: [{ item: $item`seal tooth` }],
     outfit: {
-      equip: $items`beer helmet, distressed denim pants, bejeweled pledge pin`,
+      equip: $items`beer helmet, distressed denim pants, bejeweled pledge pin, Space Trip safety headphones`,
       familiar: have($familiar`Reagnimated Gnome`)
         ? $familiar`Reagnimated Gnome`
         : have($familiar`Cookbookbat`)
@@ -598,10 +598,11 @@ export const WarQuest: Quest = {
     {
       name: "Outfit Hippy",
       after: ["Misc/Unlock Island"],
-      ready: () =>
-        get("skillLevel144") === 0 ||
-        atLevel(12) ||
-        get("_universeCalculated") >= get("skillLevel144"),
+      ready: () => false,
+      // ready: () =>
+      //   get("skillLevel144") === 0 ||
+      //   atLevel(12) ||
+      //   get("_universeCalculated") >= get("skillLevel144"),
       completed: () =>
         (have($item`filthy corduroys`) && have($item`filthy knitted dread sack`)) ||
         (have($item`beer helmet`) &&

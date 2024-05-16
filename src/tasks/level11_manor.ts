@@ -3,8 +3,6 @@ import {
   create,
   currentMcd,
   familiarWeight,
-  myDaycount,
-  myInebriety,
   myLevel,
   numericModifier,
   restoreMp,
@@ -39,6 +37,7 @@ const Manor1: Task[] = [
   {
     name: "Kitchen",
     after: ["Start"],
+    priority: () => Priorities.Start,
     completed: () => step("questM20Necklace") >= 1,
     prepare: () => {
       if (have($item`rainbow glitter candle`)) use($item`rainbow glitter candle`);
@@ -55,7 +54,8 @@ const Manor1: Task[] = [
     after: ["Kitchen"],
     completed: () => step("questM20Necklace") >= 3,
     priority: () =>
-      have($effect`Chalky Hand`) && !have($item`handful of hand chalk`)
+      (have($effect`Chalky Hand`) && !have($item`handful of hand chalk`)) ||
+      have($effect`Video... Games?`)
         ? Priorities.Effect
         : Priorities.None,
     prepare: () => {
@@ -63,7 +63,6 @@ const Manor1: Task[] = [
         ensureEffect($effect`Chalky Hand`);
       tryPlayApriling("-combat");
     },
-    ready: () => myInebriety() <= 15 && (myInebriety() === 1 || myDaycount() > 1), // Nonnegative contribution
     do: $location`The Haunted Billiards Room`,
     choices: { 875: 1, 900: 2, 1436: 1 },
     outfit: () => {
@@ -74,7 +73,7 @@ const Manor1: Task[] = [
     },
     combat: new CombatStrategy()
       .ignore()
-      .killItem($monster`chalkdust wraith`)
+      // .killItem($monster`chalkdust wraith`)
       .kill($monster`pooltergeist (ultra-rare)`),
     limit: {
       soft: 20,

@@ -50,17 +50,18 @@ const Diary: Task[] = [
       if (have($effect`Really Quite Poisoned`)) uneffect($effect`Really Quite Poisoned`);
     },
     outfit: () => {
-      const equip = [$item`blackberry galoshes`];
-      if (have($item`latte lovers member's mug`) && !get("latteUnlocks").includes("cajun")) {
-        equip.push($item`latte lovers member's mug`);
-      }
+      const equip = [$item`blackberry galoshes`, $item`June cleaver`, $item`Jurassic Parka`];
       if (have($item`candy cane sword cane`) && !get("candyCaneSwordBlackForest", false))
         equip.push($item`candy cane sword cane`);
 
       if (have($item`reassembled blackbird`)) {
+        if (have($item`latte lovers member's mug`) && !get("latteUnlocks").includes("cajun")) {
+          equip.push($item`latte lovers member's mug`);
+        }
         return {
           equip: equip,
           modifier: "50 combat 5max, -1ML",
+          modes: { parka: "ghostasaurus" },
         };
       }
 

@@ -312,6 +312,10 @@ export function equipDefaults(outfit: Outfit, noFightingFamiliars: boolean): voi
       // eslint-disable-next-line libram/verify-constants
       outfit.addBonus($item`Everfull Dart Holster`, 30) */
 
+  outfit.avoid.push($item`runed taper candle`);
+  outfit.avoid.push($item`broken champagne bottle`);
+  outfit.equip($item`June cleaver`);
+
   if (outfit.skipDefaults) return;
 
   if (modifier.includes("-combat")) outfit.equip($familiar`Disgeist`); // low priority
@@ -370,8 +374,8 @@ export function equipDefaults(outfit: Outfit, noFightingFamiliars: boolean): voi
     outfit.equip($item`warbear long johns`);
     outfit.equip($item`square sponge pants`);
     outfit.equip($item`Cargo Cultist Shorts`);
-    // eslint-disable-next-line libram/verify-constants
     outfit.equip($item`Everfull Dart Holster`);
+    outfit.equip($item`spring shoes`);
 
     if (
       yellowSubmarinePossible() &&

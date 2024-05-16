@@ -5,7 +5,6 @@ import {
   Familiar,
   familiarWeight,
   getFuel,
-  getProperty,
   getWorkshed,
   haveEquipped,
   Item,
@@ -20,13 +19,11 @@ import {
   myMeat,
   myMp,
   myTurncount,
-  numericModifier,
   retrieveItem,
   Skill,
   toInt,
   totalTurnsPlayed,
   use,
-  useFamiliar,
   useSkill,
   visitUrl,
 } from "kolmafia";
@@ -34,7 +31,6 @@ import {
   $class,
   $effect,
   $familiar,
-  $familiars,
   $item,
   $items,
   $location,
@@ -45,18 +41,15 @@ import {
   CinchoDeMayo,
   Counter,
   get,
-  getActiveEffects,
   getKramcoWandererChance,
   have,
   Macro,
-  Modes,
   set,
   SourceTerminal,
 } from "libram";
 import {
   CombatResource as BaseCombatResource,
   DelayedMacro,
-  Outfit,
   OutfitSpec,
   step,
 } from "grimoire-kolmafia";
@@ -258,6 +251,7 @@ export const wandererSources: WandererSource[] = [
       totalTurnsPlayed() % 11 === 1 &&
       get("lastVoteMonsterTurn") < totalTurnsPlayed() &&
       get("_voteFreeFights") < 3 &&
+      myTurncount() > 2 &&
       atLevel(5),
     equip: $item`"I Voted!" sticker`,
     monsters: [
@@ -331,7 +325,9 @@ export const wandererSources: WandererSource[] = [
     available: () =>
       have($item`Kramco Sausage-o-Matic™`) &&
       // Start when there will be no waste from the goose for backups
-      (myTurncount() > 5 || familiarWeight($familiar`Grey Goose`) === 6),
+      (myTurncount() > 5 ||
+        familiarWeight($familiar`Grey Goose`) === 6 ||
+        familiarWeight($familiar`Grey Goose`) === 7),
     equip: [
       { equip: $items`Kramco Sausage-o-Matic™, Space Trip safety headphones` },
       {
@@ -377,18 +373,7 @@ export const runawayValue =
     ? 0.8 * get("valueOfAdventure")
     : get("valueOfAdventure");
 
-function commaItemFinder(): Item | undefined {
-  const commaItem =
-    $items`aquaviolet jub-jub bird, charpuce jub-jub bird, crimsilion jub-jub bird, stomp box`.find(
-      (f) => have(f)
-    );
-
-  return commaItem;
-}
-
 export function getRunawaySources(location?: Location) {
-  const runawayFamiliarPlan = planRunawayFamiliar();
-
   return [
     {
       name: "Latte (Refill)",
@@ -416,56 +401,6 @@ export function getRunawaySources(location?: Location) {
       do: new Macro().skill($skill`Spring Away`),
       chance: () => 1,
       equip: $item`spring shoes`,
-      banishes: false,
-    },
-    {
-      name: "Bandersnatch",
-      available: () =>
-        runawayFamiliarPlan.available &&
-        runawayFamiliarPlan.outfit.familiar === $familiar`Frumious Bandersnatch`,
-      equip: runawayFamiliarPlan.outfit,
-      do: new Macro().runaway(),
-      chance: () => 1,
-      effect: $effect`Ode to Booze`,
-      banishes: false,
-    },
-    {
-      name: "Stomping Boots",
-      available: () =>
-        runawayFamiliarPlan.available &&
-        runawayFamiliarPlan.outfit.familiar === $familiar`Pair of Stomping Boots`,
-      equip: runawayFamiliarPlan.outfit,
-      do: new Macro().runaway(),
-      chance: () => 1,
-      banishes: false,
-    },
-    {
-      name: "Comma Chameleon",
-      prepare: (): void => {
-        const commaItem = commaItemFinder();
-
-        if (commaItem !== undefined && get("commaFamiliar") === null) {
-          useFamiliar($familiar`Comma Chameleon`);
-          visitUrl(`inv_equip.php?which=2&action=equip&whichitem=${toInt(commaItem)}&pwd`);
-        }
-      },
-      available: (): boolean => {
-        const commaItem = commaItemFinder();
-
-        if (
-          runawayFamiliarPlan.available &&
-          runawayFamiliarPlan.outfit.familiar === $familiar`Comma Chameleon` &&
-          (get("commaFamiliar") === $familiar`Frumious Bandersnatch` ||
-            get("commaFamiliar") === $familiar`Pair of Stomping Boots` ||
-            (commaItem !== undefined && have(commaItem)))
-        )
-          return true;
-        return false;
-      },
-      equip: runawayFamiliarPlan.outfit,
-      do: new Macro().runaway(),
-      chance: () => 1,
-      effect: $effect`Ode to Booze`,
       banishes: false,
     },
     {
@@ -510,83 +445,6 @@ export function getRunawaySources(location?: Location) {
       banishes: false,
     },
   ];
-}
-
-interface RunawayFamiliarSpec {
-  available: boolean;
-  outfit: OutfitSpec;
-}
-
-type FamweightOption = {
-  thing: Item;
-  modes?: Partial<Modes>;
-};
-
-const famweightOptions: FamweightOption[] = [
-  // Fam equip
-  { thing: $item`amulet coin` },
-  { thing: $item`astral pet sweater` },
-  { thing: $item`tiny stillsuit` },
-  // Hats
-  { thing: $item`Daylight Shavings Helmet` },
-  // Hands
-  { thing: $item`Fourth of May Cosplay Saber` },
-  { thing: $item`iFlail` },
-  { thing: $item`familiar scrapbook` },
-  // Accessories
-  { thing: $item`Brutal brogues` },
-  { thing: $item`hewn moon-rune spoon` },
-  { thing: $item`Beach Comb` },
-];
-
-function planRunawayFamiliar(): RunawayFamiliarSpec {
-  const bestFamiliar = $familiars`Frumious Bandersnatch, Pair of Stomping Boots`.find((f) =>
-    have(f)
-  );
-  const altFamiliar =
-    have($familiar`Comma Chameleon`) &&
-    (getProperty("commaFamiliar") === "Frumious Bandersnatch" ||
-      getProperty("commaFamiliar") === "Pair of Stomping Boots" ||
-      getProperty("_commaRunDone"));
-
-  const chosenFamiliar =
-    bestFamiliar !== undefined
-      ? bestFamiliar
-      : altFamiliar === true
-      ? $familiar`Comma Chameleon`
-      : false;
-
-  if (chosenFamiliar) {
-    const goalWeight = 5 * (1 + get("_banderRunaways"));
-    let attainableWeight = familiarWeight(chosenFamiliar);
-
-    // Include passive skills
-    if (have($skill`Crimbo Training: Concierge`)) attainableWeight += 5;
-    if (have($skill`Amphibian Sympathy`)) attainableWeight += 1;
-
-    // Include active effects
-    for (const effect of getActiveEffects())
-      attainableWeight += numericModifier(effect, "Familiar Weight");
-
-    // Include as much equipment as needed
-    const outfit = new Outfit();
-    outfit.equip(chosenFamiliar);
-    for (const option of famweightOptions) {
-      if (attainableWeight >= goalWeight) break;
-      if (outfit.equip(option.thing)) {
-        attainableWeight += numericModifier(option.thing, "Familiar Weight");
-      }
-    }
-
-    return {
-      outfit: outfit.spec(),
-      available: attainableWeight >= goalWeight,
-    };
-  }
-  return {
-    available: false,
-    outfit: {},
-  };
 }
 
 export interface FreekillSource extends CombatResource {
@@ -822,6 +680,7 @@ export function tryPlayApriling(modifier: string): void {
   }
 
   if (modifier.includes("-combat")) {
+    if (get("noncombatForcerActive")) return;
     AprilingBandHelmet.conduct("Apriling Band Patrol Beat");
   }
 
@@ -834,6 +693,7 @@ export type BackupTarget = {
   monster: Monster;
   completed: () => boolean;
   outfit?: OutfitSpec | (() => OutfitSpec);
+  combat?: Macro;
   limit_tries: number;
 };
 export const backupTargets: BackupTarget[] = [
@@ -855,8 +715,9 @@ export const backupTargets: BackupTarget[] = [
   },
   {
     monster: $monster`sausage goblin`,
-    completed: () => itemAmount($item`magical sausage casing`) >= 11 || myTurncount() > 10,
+    completed: () => itemAmount($item`magical sausage casing`) >= 12 || myTurncount() > 10,
     outfit: { familiar: $familiar`Grey Goose` },
+    combat: Macro.trySkill($skill`Emit Matter Duplicating Drones`),
     limit_tries: 6,
   },
   {
