@@ -244,8 +244,6 @@ const Niche: Task[] = [
         return new Macro();
       }, $monster`dirty old lihc`)
       .macro(slay_macro, $monsters`dirty old lihc, basic lihc, senile lihc, slick lihc`)
-      .kill($monster`dirty old lihc`)
-      .kill($monsters`basic lihc, senile lihc, slick lihc`)
       .kill(),
     // Don't persist banishes while we are eagle repeating
     ignore_banishes: () => have($familiar`Patriotic Eagle`) && myTurncount() < 200,

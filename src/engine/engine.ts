@@ -195,7 +195,7 @@ export class Engine extends BaseEngine<CombatActions, ActiveTask> {
 
     // If a backup target is up try to place it in a useful location
     const backup = backupTargets.find(
-      (target) => !target.completed() && target.monster === get("lastCopyableMonster") && false
+      (target) => !target.completed() && target.monster === get("lastCopyableMonster")
     );
     if (backup && have($item`backup camera`)) {
       const backup_outfit = undelay(backup.outfit) ?? {};

@@ -20,7 +20,6 @@ import {
   $monsters,
   $phylum,
   $skill,
-  ensureEffect,
   get,
   getActiveEffects,
   have,
@@ -59,8 +58,6 @@ const Manor1: Task[] = [
         ? Priorities.Effect
         : Priorities.None,
     prepare: () => {
-      if (have($item`handful of hand chalk`) && have($item`pool cue`))
-        ensureEffect($effect`Chalky Hand`);
       tryPlayApriling("-combat");
     },
     do: $location`The Haunted Billiards Room`,
@@ -73,7 +70,10 @@ const Manor1: Task[] = [
     },
     combat: new CombatStrategy()
       .ignore()
-      // .killItem($monster`chalkdust wraith`)
+      .macro(
+        () => (have($effect`Video... Games?`) ? killMacro() : new Macro()),
+        $monster`chalkdust wraith`
+      )
       .kill($monster`pooltergeist (ultra-rare)`),
     limit: {
       soft: 20,

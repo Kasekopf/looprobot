@@ -102,6 +102,7 @@ const unscaledLeveling: Task[] = [
   {
     name: "LOV Tunnel",
     after: getBuffsPreLOV,
+    priority: () => Priorities.Free,
     ready: () => get("loveTunnelAvailable"),
     completed: () => get("_loveTunnelUsed"),
     do: $location`The Tunnel of L.O.V.E.`,
