@@ -384,7 +384,7 @@ export const ChasmQuest: Quest = {
             equip: equip,
             avoid: $items`broken champagne bottle`,
           };
-        } else return { modifier: "sleaze res", equip: $items`combat lover's locket` };
+        } else return { modifier: "200 sleaze res, 1 moxie" };
       },
       combat: new CombatStrategy()
         .macro(new Macro().attack().repeat(), [
