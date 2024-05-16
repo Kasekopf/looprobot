@@ -3,7 +3,7 @@ import { Priorities } from "../engine/priority";
 import { Quest } from "../engine/task";
 import { atLevel, levelingStartCompleted, YouRobot } from "../lib";
 import { Guards, step } from "grimoire-kolmafia";
-import { itemAmount, myAdventures, myBasestat, myTurncount, use } from "kolmafia";
+import { itemAmount, myAdventures, myBasestat, myPrimestat, myTurncount, use } from "kolmafia";
 import { flyersDone } from "./level12";
 
 export const RobotQuest: Quest = {
@@ -89,7 +89,7 @@ export const RobotQuest: Quest = {
       after: ["CPU Potions", "CPU Energy", "CPU Shirt"],
       priority: () => Priorities.Free,
       completed: () => false,
-      ready: () => YouRobot.energy() >= YouRobot.expectedChronolithCost(),
+      ready: () => YouRobot.energy() >= YouRobot.expectedChronolithCost() + statbotEnergyBuffer(),
       do: () => YouRobot.doChronolith(),
       limit: {
         guard: Guards.create(
@@ -214,6 +214,27 @@ export const RobotQuest: Quest = {
       limit: { tries: 1 },
       freeaction: true,
     },
+    {
+      name: "Statbot",
+      after: [
+        "Mosquito/Finish",
+        "Tavern/Finish",
+        "Bat/Finish",
+        "Knob/King",
+        "Friar/Finish",
+        "Crypt/Finish",
+        "McLargeHuge/Finish",
+        "Orc Chasm/Finish",
+        "Giant/Finish",
+        "Macguffin/Finish",
+        "War/Boss Hippie",
+      ],
+      ready: () => YouRobot.energy() >= YouRobot.expectedStatbotCost(),
+      completed: () => atLevel(13),
+      do: () => YouRobot.doStatbotPrimestat(),
+      limit: { tries: 4 },
+      freeaction: true,
+    },
   ],
 };
 
@@ -239,4 +260,13 @@ function scrapBufferCompleted(): boolean {
   if (YouRobot.canUse($slot`hat`)) scrapNeeded -= 15; // we may be in the middle of a phase
 
   return YouRobot.scrap() >= scrapNeeded;
+}
+
+function statbotEnergyBuffer(): number {
+  if (myTurncount() < 300) return 0;
+  if (myBasestat(myPrimestat()) >= 148) return 0;
+  if (myBasestat(myPrimestat()) >= 143) return 10;
+  if (myBasestat(myPrimestat()) >= 138) return 21;
+  if (myBasestat(myPrimestat()) >= 133) return 33;
+  return 46;
 }

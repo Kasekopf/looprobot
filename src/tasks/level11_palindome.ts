@@ -6,6 +6,7 @@ import {
   Item,
   itemAmount,
   myDaycount,
+  myFamiliar,
   myHash,
   myMaxhp,
   restoreHp,

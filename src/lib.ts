@@ -13,6 +13,7 @@ import {
   Phylum,
   print,
   round,
+  runChoice,
   Slot,
   visitUrl,
 } from "kolmafia";
@@ -24,6 +25,7 @@ import {
   $skill,
   $slot,
   $stat,
+  byStat,
   get,
   have,
   Snapper,
@@ -189,6 +191,21 @@ export class YouRobot {
 
   static expectedChronolithCost(): number {
     return get("_chronolithNextCost");
+  }
+
+  static doStatbotPrimestat() {
+    visitUrl("place.php?whichplace=scrapheap&action=sh_upgrade");
+    runChoice(
+      byStat({
+        Muscle: 1,
+        Mysticality: 2,
+        Moxie: 3,
+      })
+    );
+  }
+
+  static expectedStatbotCost(): number {
+    return 10 + get("statbotUses");
   }
 
   static haveUpgrade(upgrade: Upgrade): boolean {

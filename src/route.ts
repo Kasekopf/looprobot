@@ -172,6 +172,7 @@ export const routing: string[] = [
   // Finish last keys
   "Keys/All Heroes",
 
+  "Robot/Statbot",
   "Tower/Naughty Sorceress",
 ];
 
