@@ -144,6 +144,7 @@ export const routing: string[] = [
   "Orc Chasm/Oil Jar",
   "Crypt/Alcove",
   "Digital/Hero",
+  "Misc/Temple High",
   "Orc Chasm/ABoo Clues",
   "Bat/Get Sonar 3",
   "Macguffin/Middle Chamber", // Avoid Eagle beast banish!

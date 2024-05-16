@@ -976,6 +976,16 @@ export const MiscQuest: Quest = {
       limit: { tries: 2 },
       freeaction: true,
     },
+    {
+      name: "Temple High",
+      after: ["Mayam Calendar", "Crypt/Alcove", "Shadow Lodestone"],
+      ready: () => have($effect`Frosty`) && have($effect`Shadow Waters`),
+      completed: () => !have($item`stone wool`) || get("lastTempleAdventures") === myAscensions(),
+      prepare: () => ensureEffect($effect`Stone-Faced`),
+      do: $location`The Hidden Temple`,
+      choices: { 582: 1, 579: 3 },
+      limit: { tries: 1 },
+    },
   ],
 };
 
