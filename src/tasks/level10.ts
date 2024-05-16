@@ -54,6 +54,7 @@ export const GiantQuest: Quest = {
         return $monster`beanbat`;
       },
       combat: new CombatStrategy()
+        .kill($monster`screambat`)
         .banish($monsters`magical fruit bat, musical fruit bat`)
         .killItem($monster`beanbat`),
       limit: { soft: 10 },
