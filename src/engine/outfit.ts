@@ -1,9 +1,7 @@
 import {
-  cliExecute,
   Effect,
   equip,
   outfit as equipOutfit,
-  equippedAmount,
   equippedItem,
   Familiar,
   familiarWeight,
@@ -419,74 +417,63 @@ export function equipDefaults(outfit: Outfit, noFightingFamiliars: boolean): voi
   outfit.equip($item`miniature crystal ball`);
 }
 
-export function fixFoldables(outfit: Outfit) {
+export function setModeables(outfit: Outfit) {
+  /**
+   * Set default values for modeables that were force equipped with no mode.
+   */
   const modifier = getModifiersFrom(outfit);
-
-  // Libram outfit cache may not autofold umbrella, so we need to
-  if (equippedAmount($item`unbreakable umbrella`) > 0 && !outfit.modes["umbrella"]) {
+  if (outfit.haveEquipped($item`unbreakable umbrella`)) {
     if (modifier.includes("-combat")) {
-      if (get("umbrellaState") !== "cocoon") cliExecute("umbrella cocoon");
+      outfit.setModes({ umbrella: "cocoon" });
     } else if (modifier.includes("ML") && !modifier.match("-[\\d .]*ML")) {
-      if (get("umbrellaState") !== "broken") cliExecute("umbrella broken");
+      outfit.setModes({ umbrella: "broken" });
     } else if (modifier.includes("item")) {
-      if (get("umbrellaState") !== "bucket style") cliExecute("umbrella bucket");
+      outfit.setModes({ umbrella: "bucket style" });
     } else {
-      if (get("umbrellaState") !== "forward-facing") cliExecute("umbrella forward");
+      outfit.setModes({ umbrella: "forward-facing" });
     }
   }
 
-  // Libram outfit cache may not autofold camera, so we need to
-  if (equippedAmount($item`backup camera`) > 0 && !outfit.modes["backupcamera"]) {
+  if (outfit.haveEquipped($item`backup camera`)) {
     if (modifier.includes("ML") && !modifier.match("-[\\d .]*ML")) {
-      if (get("backupCameraMode").toLowerCase() !== "ml") cliExecute("backupcamera ml");
+      outfit.setModes({ backupcamera: "ml" });
     } else if (modifier.includes("init") && !modifier.match("-[\\d .]*init")) {
-      if (get("backupCameraMode").toLowerCase() !== "init") cliExecute("backupcamera init");
+      outfit.setModes({ backupcamera: "init" });
     } else {
-      if (get("backupCameraMode").toLowerCase() !== "meat") cliExecute("backupcamera meat");
-    }
-    if (!get("backupCameraReverserEnabled")) {
-      cliExecute("backupcamera reverser on");
+      outfit.setModes({ backupcamera: "meat" });
     }
   }
 
-  // Libram outfit cache may not autofold cape, so we need to
-  if (
-    equippedAmount($item`unwrapped knock-off retro superhero cape`) > 0 &&
-    !outfit.modes["retrocape"]
-  ) {
-    if (
-      (modifier.includes("res") && get("retroCapeSuperhero") !== "vampire") ||
-      get("retroCapeWashingInstructions") !== "hold"
-    ) {
-      cliExecute("retrocape vampire hold");
+  if (outfit.haveEquipped($item`unwrapped knock-off retro superhero cape`)) {
+    if (modifier.includes("res")) {
+      outfit.setModes({ retrocape: ["vampire", "hold"] });
+    } else {
+      outfit.setModes({ retrocape: ["heck", "hold"] });
     }
   }
 
-  // Libram outfit cache may not autofold parka, so we need to
-  if (equippedAmount($item`Jurassic Parka`) > 0 && !outfit.modes["parka"]) {
+  if (outfit.haveEquipped($item`Jurassic Parka`)) {
     if (modifier.includes("cold res")) {
-      if (get("parkaMode").toLowerCase() !== "kachungasaur") cliExecute("parka kachungasaur");
+      outfit.setModes({ parka: "kachungasaur" });
     } else if (modifier.includes("stench res")) {
-      if (get("parkaMode").toLowerCase() !== "dilophosaur") cliExecute("parka dilophosaur");
+      outfit.setModes({ parka: "dilophosaur" });
     } else if (modifier.includes("ML") && !modifier.match("-[\\d .]*ML")) {
-      if (get("parkaMode").toLowerCase() !== "spikolodon") cliExecute("parka spikolodon");
+      outfit.setModes({ parka: "spikolodon" });
     } else if (
       modifier.includes("-combat") ||
       (modifier.includes("init") && !modifier.match("-[\\d .]*init") && !modifier.match("combat"))
     ) {
-      if (get("parkaMode").toLowerCase() !== "pterodactyl") cliExecute("parka pterodactyl");
+      outfit.setModes({ parka: "pterodactyl" });
     } else {
-      // +meat
-      if (get("parkaMode").toLowerCase() !== "kachungasaur") cliExecute("parka kachungasaur");
+      outfit.setModes({ parka: "kachungasaur" });
     }
   }
 
-  // Fold Jil candle
-  if (equippedAmount($item`LED candle`) > 0) {
+  if (outfit.haveEquipped($item`LED candle`)) {
     if (modifier.includes("item") && get("ledCandleMode") !== "disco") {
-      cliExecute("jillcandle disco");
+      outfit.setModes({ jillcandle: "disco" });
     } else if (modifier.includes("meat") && get("ledCandleMode") !== "ultraviolet") {
-      cliExecute("jillcandle ultraviolet");
+      outfit.setModes({ jillcandle: "ultraviolet" });
     }
   }
 }

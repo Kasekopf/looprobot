@@ -64,8 +64,8 @@ import {
   equipFirst,
   equipInitial,
   equipUntilCapped,
-  fixFoldables,
   getModifiersFrom,
+  setModeables,
 } from "./outfit";
 import { cliExecute, equippedAmount, itemAmount, runChoice } from "kolmafia";
 import { debug, YouRobot } from "../lib";
@@ -596,6 +596,7 @@ export class Engine extends BaseEngine<CombatActions, ActiveTask> {
     }
 
     equipDefaults(outfit, task.nofightingfamiliars ?? false);
+    setModeables(outfit);
 
     // Kill wanderers
     for (const wanderer of wanderers) {
@@ -665,7 +666,9 @@ export class Engine extends BaseEngine<CombatActions, ActiveTask> {
       // Do not try and cache-dress
       outfit.dress();
     }
-    fixFoldables(outfit);
+    if (!get("backupCameraReverserEnabled")) {
+      cliExecute("backupcamera reverser on");
+    }
 
     const equipped = [...new Set(Slot.all().map((slot) => equippedItem(slot)))];
     if (args.debug.verboseequip) {
