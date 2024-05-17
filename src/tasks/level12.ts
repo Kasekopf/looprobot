@@ -9,6 +9,7 @@ import {
   myMaxhp,
   myTurncount,
   restoreHp,
+  runCombat,
   sell,
   use,
   visitUrl,
@@ -768,6 +769,7 @@ export const WarQuest: Quest = {
       do: (): void => {
         visitUrl("bigisland.php?place=camp&whichcamp=1&confirm7=1");
         visitUrl("bigisland.php?action=bossfight&pwd");
+        runCombat();
         cliExecute("refresh all");
       },
       combat: new CombatStrategy().killHard().macro(Macro.trySkill($skill`Extract Jelly`)),
