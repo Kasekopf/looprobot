@@ -47,8 +47,6 @@ export const routing: string[] = [
   // "Digital/Vanya",
   // "Digital/Megalo",
 
-  // Prepare snakes with continued -combat
-  "Giant/Basement Finish",
   "McLargeHuge/Trapper Return",
   "Bat/Use Sonar 1",
 
@@ -60,6 +58,7 @@ export const routing: string[] = [
   "McLargeHuge/Ninja",
 
   // Prepare for first hat phase
+  "Giant/Basement Finish",
   "Giant/Ground",
   "Summon/War Frat 151st Infantryman",
   "Misc/Unlock Island Submarine",

@@ -30,7 +30,7 @@ import { Quest, Task } from "../engine/task";
 import { Modes, OutfitSpec, step } from "grimoire-kolmafia";
 import { CombatStrategy, killMacro } from "../engine/combat";
 import { Priorities } from "../engine/priority";
-import { tryPlayApriling } from "../engine/resources";
+import { forceNCPossible, tryForceNC, tryPlayApriling } from "../engine/resources";
 
 const Manor1: Task[] = [
   {
@@ -58,11 +58,14 @@ const Manor1: Task[] = [
         ? Priorities.Effect
         : Priorities.None,
     prepare: () => {
+      if (have($effect`Video... Games?`)) tryForceNC();
       tryPlayApriling("-combat");
     },
     do: $location`The Haunted Billiards Room`,
     choices: { 875: 1, 900: 2, 1436: 1 },
     outfit: () => {
+      // TODO: ForceNCPossible should only be triggerable NC forces
+      if (forceNCPossible() && have($effect`Video... Games?`)) return { equip: $items`pool cue` };
       return {
         equip: $items`pool cue`,
         modifier: "-combat",
