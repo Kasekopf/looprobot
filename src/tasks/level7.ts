@@ -80,6 +80,7 @@ const Alcove: Task[] = [
       if (have($item`old bronzer`)) ensureEffect($effect`Sepia Tan`);
       if (have($item`ant agonist`)) ensureEffect($effect`All Fired Up`);
       if (have($item`Angry Farmer candy`)) ensureEffect($effect`Sugar Rush`);
+      if (have($familiar`Grim Brother`) && !get("_grimBuff")) ensureEffect($effect`Soles of Glass`);
 
       if (numericModifier("Initiative") < 850 && have($skill`Silent Hunter`)) {
         if (myClass() === $class`Seal Clubber`) ensureWithMPSwaps($effects`Silent Hunting`);
