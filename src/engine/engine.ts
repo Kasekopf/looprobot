@@ -19,9 +19,7 @@ import {
   myHp,
   myLevel,
   myMaxhp,
-  myMaxmp,
   myMeat,
-  myMp,
   myPath,
   myTurncount,
   numericModifier,
@@ -96,7 +94,7 @@ import { removeTeleportitis, teleportitisTask } from "../tasks/misc";
 import { summonStrategy } from "../tasks/summons";
 import { pullStrategy } from "../tasks/pulls";
 import { keyStrategy } from "../tasks/keys";
-import { applyEffects, customRestoreMp } from "./moods";
+import { applyEffects } from "./moods";
 import { ROUTE_WAIT_TO_NCFORCE } from "../route";
 
 export const wanderingNCs = new Set<string>([
@@ -395,7 +393,7 @@ export class Engine extends BaseEngine<CombatActions, ActiveTask> {
       $monster`annoyed snake`,
       $monster`slime blob`,
     ];
-    if (get("camelSpit") === 100) monster_blacklist.push($monster`pygmy bowler`); // we will spit
+    if (get("camelSpit") === 100) monster_blacklist.push($monster`Camel's Toe`); // we will spit
     if (
       have($item`rock band flyers`) &&
       !flyersDone() &&
@@ -582,9 +580,7 @@ export class Engine extends BaseEngine<CombatActions, ActiveTask> {
         !modifier.includes("-combat") &&
         !freecombat &&
         ((combat.can("kill") && !resources.has("killFree")) || combat.can("killHard") || task.boss);
-      if (glass_useful && get("_voidFreeFights") < 4)
-        // prioritize a few of these early in the run
-        outfit.equip($item`cursed magnifying glass`);
+      if (glass_useful && get("_voidFreeFights") < 5) outfit.equip($item`cursed magnifying glass`);
       if (!task.boss && !freecombat && !modifier.includes("-combat") && !modifier.includes("ML"))
         outfit.equip($item`carnivorous potted plant`);
       if (glass_useful) outfit.equip($item`cursed magnifying glass`);
@@ -698,9 +694,6 @@ export class Engine extends BaseEngine<CombatActions, ActiveTask> {
       });
     }
     if (myHp() < 60 && myHp() < myMaxhp()) restoreHp(myMaxhp() < 60 ? myMaxhp() : 60);
-    if (myMp() < 50 && myMaxmp() >= 50) customRestoreMp(50);
-    else if (myMp() < 40 && myMaxmp() >= 40) customRestoreMp(40);
-    else if (myMp() < 20) customRestoreMp(20);
 
     // Equip stillsuit
     if (

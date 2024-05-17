@@ -285,6 +285,11 @@ export function equipCharging(
   ) {
     outfit.equip($familiar`Gelatinous Cubeling`);
   }
+
+  // Get to 7 for the double drones when needed
+  if (familiarWeight($familiar`Grey Goose`) < 7 && mightKillSomething) {
+    outfit.equip($familiar`Grey Goose`);
+  }
 }
 
 export function equipDefaults(outfit: Outfit, noFightingFamiliars: boolean): void {
@@ -308,7 +313,7 @@ export function equipDefaults(outfit: Outfit, noFightingFamiliars: boolean): voi
     }
   }
 
-  if (get("everfullDartPerks").includes("Butt awareness"))
+  if (get("everfullDartPerks").includes("Butt awareness") && modifier.includes("item"))
     outfit.addBonus($item`Everfull Dart Holster`, 30);
 
   outfit.avoid.push($item`runed taper candle`);
@@ -409,6 +414,8 @@ export function equipDefaults(outfit: Outfit, noFightingFamiliars: boolean): voi
     outfit.avoid.push($item`cursed magnifying glass`);
   }
 
+  if (outfit.equip($familiar`Grey Goose`) && familiarWeight($familiar`Grey Goose`) < 7)
+    outfit.equip($item`grey down vest`);
   outfit.equip($item`miniature crystal ball`);
 }
 

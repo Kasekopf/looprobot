@@ -6,7 +6,6 @@ import {
   itemAmount,
   Monster,
   myMeat,
-  reverseNumberology,
   runCombat,
   use,
   visitUrl,
@@ -139,7 +138,11 @@ const summonTargets: SummonTarget[] = [
           equip: $items`June cleaver, Space Trip safety headphones`,
           familiar: $familiar`Melodramedary`,
         };
-      return { equip: $items`June cleaver, Space Trip safety headphones`, modifier: "item" };
+      return {
+        equip: $items`June cleaver, Space Trip safety headphones`,
+        modifier: "item",
+        avoid: $items`carnivorous potted plant`,
+      };
     },
     combat: new CombatStrategy()
       .macro(
@@ -164,6 +167,7 @@ const summonTargets: SummonTarget[] = [
     after: ["McLargeHuge/Trapper Return", "Palindome/Cold Snake"],
     completed: () =>
       (have($item`ninja rope`) && have($item`ninja carabiner`) && have($item`ninja crampons`)) ||
+      get("lastCopyableMonster") === $monster`ninja snowman assassin` ||
       step("questL08Trapper") >= 3,
     outfit: {
       equip: $items`June cleaver, Space Trip safety headphones, Jurassic Parka, unwrapped knock-off retro superhero cape`,
@@ -181,17 +185,6 @@ type SummonSource = {
   summon: (mon: Monster) => void;
 };
 const summonSources: SummonSource[] = [
-  {
-    name: "Numberology",
-    available: () => {
-      if (get("skillLevel144") === 0) return 0;
-      if (get("_universeCalculated") === 3) return 0;
-      return get("_universeCalculated") < get("skillLevel144") ? 1 : 0;
-    },
-    ready: () => Object.values(reverseNumberology()).includes(51),
-    canFight: (mon: Monster) => mon === $monster`War Frat 151st Infantryman`, // Only use for war frat
-    summon: () => cliExecute("numberology 51"),
-  },
   {
     name: "White Page",
     available: () => (have($item`white page`) ? 1 : 0),

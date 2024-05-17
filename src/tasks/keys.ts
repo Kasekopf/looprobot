@@ -397,7 +397,8 @@ export const DigitalQuest: Quest = {
         if (
           have($item`designer sweatpants`) &&
           get("sweat", 0) >= 15 &&
-          numericModifier("Initiative") < 600
+          numericModifier("Initiative") < 600 &&
+          !have($effect`Slippery and Speedy`)
         ) {
           // Use visit URL to avoid needing to equip the pants
           visitUrl("runskillz.php?action=Skillz&whichskill=7419&targetplayer=0&pwd&quantity=1");
@@ -424,12 +425,12 @@ export const DigitalQuest: Quest = {
         )
           return {
             modifier: "init",
-            equip: $items`continuum transfunctioner, backup camera`,
+            equip: $items`continuum transfunctioner, backup camera, miniature crystal ball`,
             modes: { backupcamera: "init" },
           };
         return {
           modifier: "init",
-          equip: $items`continuum transfunctioner, backup camera, rocket boots`,
+          equip: $items`continuum transfunctioner, backup camera, rocket boots, miniature crystal ball`,
           modes: { backupcamera: "init" },
         };
       },

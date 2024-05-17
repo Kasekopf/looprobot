@@ -376,7 +376,7 @@ export const wandererSources: WandererSource[] = [
       if (SourceTerminal.have() && SourceTerminal.getDigitizeUses() === 0)
         result.trySkill($skill`Digitize`);
       if (
-        familiarWeight($familiar`Grey Goose`) <= 10 &&
+        familiarWeight($familiar`Grey Goose`) <= 7 &&
         haveEquipped($item`Space Trip safety headphones`)
       )
         result.trySkill($skill`Emit Matter Duplicating Drones`);
@@ -746,7 +746,10 @@ export const backupTargets: BackupTarget[] = [
   },
   {
     monster: $monster`sausage goblin`,
-    completed: () => itemAmount($item`magical sausage casing`) >= 12 || myTurncount() > 10,
+    completed: () =>
+      itemAmount($item`magical sausage casing`) >= 12 ||
+      myTurncount() > 10 ||
+      step("questM20Necklace") >= 1,
     outfit: { familiar: $familiar`Grey Goose` },
     combat: Macro.trySkill($skill`Emit Matter Duplicating Drones`),
     limit_tries: 6,

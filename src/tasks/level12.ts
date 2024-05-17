@@ -109,6 +109,7 @@ const Lighthouse: Task[] = [
     },
     do: $location`Sonofa Beach`,
     outfit: (): OutfitSpec => {
+      if (AutumnAton.have() && $location`Sonofa Beach`.turnsSpent === 0) return {};
       if (AutumnAton.have() || !have($item`Fourth of May Cosplay Saber`))
         return { modifier: "+combat" };
 
@@ -214,7 +215,7 @@ const Junkyard: Task[] = [
     completed: () => have($item`molybdenum hammer`) || get("sidequestJunkyardCompleted") !== "none",
     acquire: [{ item: $item`seal tooth` }],
     outfit: {
-      equip: $items`beer helmet, distressed denim pants, bejeweled pledge pin, Space Trip safety headphones`,
+      equip: $items`beer helmet, distressed denim pants, bejeweled pledge pin, Space Trip safety headphones, autumn debris shield`,
       familiar: have($familiar`Reagnimated Gnome`)
         ? $familiar`Reagnimated Gnome`
         : have($familiar`Cookbookbat`)
@@ -222,6 +223,7 @@ const Junkyard: Task[] = [
         : have($familiar`Nosy Nose`)
         ? $familiar`Nosy Nose`
         : undefined,
+      avoid: $items`carnivorous potted plant`,
     },
     do: $location`Next to that Barrel with Something Burning in it`,
     orbtargets: () => $monsters`batwinged gremlin, batwinged gremlin (tool)`,
@@ -255,7 +257,7 @@ const Junkyard: Task[] = [
       have($item`molybdenum crescent wrench`) || get("sidequestJunkyardCompleted") !== "none",
     acquire: [{ item: $item`seal tooth` }],
     outfit: {
-      equip: $items`beer helmet, distressed denim pants, bejeweled pledge pin, Space Trip safety headphones`,
+      equip: $items`beer helmet, distressed denim pants, bejeweled pledge pin, Space Trip safety headphones, autumn debris shield`,
       familiar: have($familiar`Reagnimated Gnome`)
         ? $familiar`Reagnimated Gnome`
         : have($familiar`Cookbookbat`)
@@ -263,6 +265,7 @@ const Junkyard: Task[] = [
         : have($familiar`Nosy Nose`)
         ? $familiar`Nosy Nose`
         : undefined,
+      avoid: $items`carnivorous potted plant`,
     },
     do: $location`Over Where the Old Tires Are`,
     orbtargets: () => $monsters`erudite gremlin, erudite gremlin (tool)`,
@@ -295,7 +298,7 @@ const Junkyard: Task[] = [
     ready: () => YouRobot.canUse($slot`hat`),
     completed: () => have($item`molybdenum pliers`) || get("sidequestJunkyardCompleted") !== "none",
     outfit: {
-      equip: $items`beer helmet, distressed denim pants, bejeweled pledge pin, Space Trip safety headphones`,
+      equip: $items`beer helmet, distressed denim pants, bejeweled pledge pin, Space Trip safety headphones, autumn debris shield`,
       familiar: have($familiar`Reagnimated Gnome`)
         ? $familiar`Reagnimated Gnome`
         : have($familiar`Cookbookbat`)
@@ -303,6 +306,7 @@ const Junkyard: Task[] = [
         : have($familiar`Nosy Nose`)
         ? $familiar`Nosy Nose`
         : undefined,
+      avoid: $items`carnivorous potted plant`,
     },
     do: $location`Near an Abandoned Refrigerator`,
     orbtargets: () => $monsters`spider gremlin, spider gremlin (tool)`,
@@ -336,7 +340,7 @@ const Junkyard: Task[] = [
       have($item`molybdenum screwdriver`) || get("sidequestJunkyardCompleted") !== "none",
     acquire: [{ item: $item`seal tooth` }],
     outfit: {
-      equip: $items`beer helmet, distressed denim pants, bejeweled pledge pin, Space Trip safety headphones`,
+      equip: $items`beer helmet, distressed denim pants, bejeweled pledge pin, Space Trip safety headphones, autumn debris shield`,
       familiar: have($familiar`Reagnimated Gnome`)
         ? $familiar`Reagnimated Gnome`
         : have($familiar`Cookbookbat`)
@@ -344,6 +348,7 @@ const Junkyard: Task[] = [
         : have($familiar`Nosy Nose`)
         ? $familiar`Nosy Nose`
         : undefined,
+      avoid: $items`carnivorous potted plant`,
     },
     do: $location`Out by that Rusted-Out Car`,
     orbtargets: () => $monsters`vegetable gremlin, vegetable gremlin (tool)`,
@@ -372,13 +377,6 @@ const Junkyard: Task[] = [
     completed: () => get("sidequestJunkyardCompleted") !== "none",
     outfit: {
       equip: $items`beer helmet, distressed denim pants, bejeweled pledge pin`,
-      familiar: have($familiar`Reagnimated Gnome`)
-        ? $familiar`Reagnimated Gnome`
-        : have($familiar`Cookbookbat`)
-        ? $familiar`Cookbookbat`
-        : have($familiar`Nosy Nose`)
-        ? $familiar`Nosy Nose`
-        : undefined,
     },
     do: (): void => {
       visitUrl("bigisland.php?action=junkman&pwd");

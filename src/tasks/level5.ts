@@ -5,6 +5,7 @@ import {
   $item,
   $items,
   $location,
+  $monster,
   $monsters,
   $skill,
   $slot,
@@ -81,7 +82,7 @@ export const KnobQuest: Quest = {
           $monsters`Knob Goblin Harem Guard, Knob Goblin Madam, Knob Goblin Harem Girl`
         )
         .banish($monsters`Knob Goblin Harem Guard, Knob Goblin Madam`)
-        .killItem(),
+        .forceItems($monster`Knob Goblin Harem Girl`),
       limit: { soft: 20 }, // Allow for Cobb's Knob lab key
     },
     {

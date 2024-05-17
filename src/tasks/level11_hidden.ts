@@ -54,6 +54,7 @@ const Temple: Task[] = [
     choices: { 502: 2, 505: 2, 334: 1 },
     outfit: { modifier: "-combat" },
     limit: { soft: 10 },
+    ncforce: true,
   },
   {
     name: "Forest Map",
@@ -310,7 +311,7 @@ const Office: Task[] = [
       .macro(() => {
         const palindome_dudes_done = have(Item.get(7262)) || step("questL11Palindome") >= 3;
         if (
-          get("banishedPhyla").includes("beast") &&
+          (get("banishedPhyla").includes("beast") || get("banishedPhyla") === "") &&
           officeBanishesDone() &&
           palindome_dudes_done
         ) {
@@ -320,7 +321,11 @@ const Office: Task[] = [
       }),
     outfit: () => {
       const palindome_dudes_done = have(Item.get(7262)) || step("questL11Palindome") >= 3;
-      if (get("banishedPhyla").includes("beast") && officeBanishesDone() && palindome_dudes_done)
+      if (
+        (get("banishedPhyla").includes("beast") || get("banishedPhyla") === "") &&
+        officeBanishesDone() &&
+        palindome_dudes_done
+      )
         return { familiar: $familiar`Patriotic Eagle` };
       return {};
     },
@@ -406,7 +411,10 @@ const Bowling: Task[] = [
   {
     name: "Bowling",
     after: ["Open Bowling", "Banish Janitors"],
-    priority: () => (cosmicBowlingBallReady() ? Priorities.BestCosmicBowlingBall : Priorities.None),
+    priority: () =>
+      cosmicBowlingBallReady() && get("hiddenBowlingAlleyProgress") < 2
+        ? Priorities.BestCosmicBowlingBall
+        : Priorities.None,
     ready: () =>
       myMeat() >= 500 &&
       (!bowlingBallsGathered() || get("spookyVHSTapeMonster") !== $monster`pygmy bowler`),
@@ -451,7 +459,10 @@ const Bowling: Task[] = [
         modifier: "item",
         avoid: $items`broken champagne bottle`,
       };
-      if (have($familiar`Grey Goose`) && familiarWeight($familiar`Grey Goose`) >= 6) {
+      if (
+        have($familiar`Grey Goose`) &&
+        (familiarWeight($familiar`Grey Goose`) >= 6 || have($item`Ghost Dog Chow`))
+      ) {
         result.familiar = $familiar`Grey Goose`;
       }
 

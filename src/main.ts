@@ -28,7 +28,7 @@ const time_property = "_looprobot_first_start";
 const svn_name = "Kasekopf-loop-casual-branches-release";
 
 export function main(command?: string): void {
-  sinceKolmafiaRevision(27832);
+  sinceKolmafiaRevision(27944);
 
   Args.fill(args, command);
   if (args.debug.settings) {
@@ -77,7 +77,7 @@ export function main(command?: string): void {
         const next = engine.getNextTask();
         if (next) {
           debug(``);
-          debug(`Next task: ${next.name}`, 'blue');
+          debug(`Next task: ${next.name}`, "blue");
           return;
         }
       }

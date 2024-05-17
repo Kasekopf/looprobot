@@ -21,6 +21,7 @@ import {
   $monster,
   $monsters,
   $skill,
+  ensureEffect,
   get,
   getActiveEffects,
   have,
@@ -31,6 +32,7 @@ import { Modes, OutfitSpec, step } from "grimoire-kolmafia";
 import { CombatStrategy, killMacro } from "../engine/combat";
 import { Priorities } from "../engine/priority";
 import { forceNCPossible, tryForceNC, tryPlayApriling } from "../engine/resources";
+import { haveLoathingIdolMicrophone } from "../lib";
 
 const Manor1: Task[] = [
   {
@@ -55,7 +57,7 @@ const Manor1: Task[] = [
     priority: () =>
       (have($effect`Chalky Hand`) && !have($item`handful of hand chalk`)) ||
       have($effect`Video... Games?`)
-        ? Priorities.Effect
+        ? Priorities.MinorEffect
         : Priorities.None,
     prepare: () => {
       if (have($effect`Video... Games?`)) tryForceNC();
@@ -284,7 +286,12 @@ const ManorBasement: Task[] = [
   {
     name: "Wine Cellar",
     after: ["Learn Recipe"],
-    prepare: () => tryPlayApriling("booze"),
+    prepare: () => {
+      if (haveLoathingIdolMicrophone()) {
+        ensureEffect($effect`Spitting Rhymes`);
+      }
+      tryPlayApriling("booze");
+    },
     completed: () =>
       have($item`bottle of Chateau de Vinegar`) ||
       have($item`unstable fulminate`) ||
@@ -293,6 +300,7 @@ const ManorBasement: Task[] = [
     do: $location`The Haunted Wine Cellar`,
     outfit: () => {
       return {
+        skipDefaults: true,
         modifier: "item, booze drop",
         equip:
           have($item`Lil' Doctor™ bag`) && get("_otoscopeUsed") < 3 ? $items`Lil' Doctor™ bag` : [],
@@ -308,7 +316,12 @@ const ManorBasement: Task[] = [
   {
     name: "Laundry Room",
     after: ["Learn Recipe"],
-    prepare: () => tryPlayApriling("food"),
+    prepare: () => {
+      if (haveLoathingIdolMicrophone()) {
+        ensureEffect($effect`Spitting Rhymes`);
+      }
+      tryPlayApriling("food");
+    },
     completed: () =>
       have($item`blasting soda`) ||
       have($item`unstable fulminate`) ||
@@ -316,10 +329,13 @@ const ManorBasement: Task[] = [
       step("questL11Manor") >= 3,
     do: $location`The Haunted Laundry Room`,
     outfit: () => {
+      const equip = $items`Cargo Cultist Shorts`;
+      if (have($item`Lil' Doctor™ bag`) && get("_otoscopeUsed") < 3)
+        equip.push($item`Lil' Doctor™ bag`);
       return {
+        skipDefaults: true,
         modifier: "item, food drop",
-        equip:
-          have($item`Lil' Doctor™ bag`) && get("_otoscopeUsed") < 3 ? $items`Lil' Doctor™ bag` : [],
+        equip: equip,
       };
     },
     choices: { 891: 2 },
@@ -436,7 +452,13 @@ export const ManorQuest: Quest = {
       prepare: () => {
         if (
           myFamiliar() === $familiar`Grey Goose` &&
-          familiarWeight($familiar`Grey Goose`) < 6 &&
+          familiarWeight($familiar`Grey Goose`) < 7 &&
+          have($item`Ghost Dog Chow`)
+        )
+          use($item`Ghost Dog Chow`);
+        if (
+          myFamiliar() === $familiar`Grey Goose` &&
+          familiarWeight($familiar`Grey Goose`) < 7 &&
           have($item`Ghost Dog Chow`)
         )
           use($item`Ghost Dog Chow`);

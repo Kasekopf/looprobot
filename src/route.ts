@@ -33,6 +33,10 @@ export const routing: string[] = [
 
   // Level up with goose
   "Leveling/LOV Tunnel",
+  "Leveling/Snojo",
+  "Leveling/Neverending Party",
+  "Leveling/Shadow Rift",
+  "Leveling/Speakeasy",
   "Leveling/All",
 
   // Use YRs
@@ -44,7 +48,7 @@ export const routing: string[] = [
   // Some generic combat tasks for exp buffs
   "Manor/Library",
   "Manor/Bedroom",
-  // "Digital/Vanya",
+  "Digital/Vanya",
   // "Digital/Megalo",
 
   "McLargeHuge/Trapper Return",
@@ -55,6 +59,7 @@ export const routing: string[] = [
   "Palindome/Copperhead",
   "Palindome/Bat Snake",
   "Palindome/Cold Snake",
+  "Summon/Ninja Snowman Assassin",
   "McLargeHuge/Ninja",
 
   // Prepare for first hat phase
@@ -68,9 +73,9 @@ export const routing: string[] = [
   "Robot/Equip Hat Phase 1",
   "War/Enrage",
   "War/Flyers Start",
+  "War/Junkyard End",
   "Palindome/Hot Snake Precastle",
   "Giant/Top Floor",
-  "War/Junkyard End",
   "Robot/Unequip Hat Phase 1",
 
   // First -combat group
@@ -130,38 +135,37 @@ export const routing: string[] = [
   "Manor/Boss",
   "Crypt/Niche",
   "Tavern/Finish",
-  "Digital/Vanya",
   "Digital/Megalo",
   "Orc Chasm/Start Peaks",
   "Orc Chasm/ABoo Carto",
-  "Knob/Open Knob",
   "Hidden City/Office Boss", // Get Eagle dude banish
   "Macguffin/Upper Chamber",
+  "Knob/Open Knob",
 
   // Bulk +meat/+item tasks
   "Misc/Shadow Lodestone",
   "Orc Chasm/Oil Jar",
-  "Crypt/Alcove",
   "Digital/Hero",
   "Misc/Temple High",
   "Orc Chasm/ABoo Clues",
   "Bat/Get Sonar 3",
   "Macguffin/Middle Chamber", // Avoid Eagle beast banish!
   "Digital/Key",
+  "Crypt/Nook",
   "Orc Chasm/Twin Init Search",
   "Orc Chasm/Twin Init", // Use Eagle dude banish
+  "Crypt/Alcove",
   "Knob/Harem",
-  "Crypt/Nook",
 
   "Keys/Star Key", // Allow for better use of orb
   "Macguffin/Finish",
   "Orc Chasm/Finish",
-  "Crypt/Finish",
+  "Crypt/Finish", // Right before hat to launch extra drones
 
   // Setup for second hat phase
   "Robot/Equip Hat Phase 2",
-  "War/Boss Hippie",
   "Knob/King",
+  "War/Boss Hippie",
   "Robot/Unequip Hat Phase 2",
   "Giant/Unlock HITS", // TODO: find better spot
 

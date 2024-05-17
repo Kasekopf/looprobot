@@ -21,9 +21,7 @@ import {
   myFury,
   myHp,
   myMaxhp,
-  myMaxmp,
   myMeat,
-  myMp,
   myPrimestat,
   myTurncount,
   numericModifier,
@@ -51,7 +49,6 @@ import {
   AprilingBandHelmet,
   AutumnAton,
   BurningLeaves,
-  byClass,
   byStat,
   CinchoDeMayo,
   ensureEffect,
@@ -474,7 +471,7 @@ export const MiscQuest: Quest = {
     },
     {
       name: "Hermit Clover",
-      after: ["Hidden City/Open Temple"],
+      after: [],
       ready: () => myMeat() >= meatBuffer + 1000,
       completed: () => get("_looprobot_clovers") === "true",
       do: () => {
@@ -723,8 +720,9 @@ export const MiscQuest: Quest = {
       name: "Emotion Chip",
       after: [],
       priority: () => Priorities.Free,
-      completed: () => have($skill`Emotionally Chipped`) || !have($item`emotion chip`),
-      do: () => use($item`emotion chip`),
+      completed: () =>
+        have($skill`Emotionally Chipped`) || !have($item`spinal-fluid-covered emotion chip`),
+      do: () => use($item`spinal-fluid-covered emotion chip`),
       limit: { tries: 1 },
       freeaction: true,
     },
@@ -782,21 +780,6 @@ export const MiscQuest: Quest = {
         get("timesRested") >= totalFreeRests() ||
         get("timesRested") >= 17,
       do: () => {
-        if (myMp() === myMaxmp() && myHp() === myMaxhp()) {
-          // We cannot rest with full HP and MP, so burn 1 MP with a starting skill.
-          useSkill(
-            byClass({
-              "Seal Clubber": $skill`Seal Clubbing Frenzy`,
-              "Turtle Tamer": $skill`Patience of the Tortoise`,
-              Pastamancer: $skill`Manicotti Meditation`,
-              Sauceror: $skill`Sauce Contemplation`,
-              "Disco Bandit": $skill`Disco Aerobics`,
-              "Accordion Thief": $skill`Moxie of the Mariachi`,
-              default: $skill`none`,
-            })
-          );
-        }
-
         if (get("chateauAvailable") && !underStandard()) {
           visitUrl("place.php?whichplace=chateau&action=chateau_restlabelfree");
         } else if (get("getawayCampsiteUnlocked") && !underStandard()) {
@@ -851,7 +834,7 @@ export const MiscQuest: Quest = {
     {
       name: "Eldritch Tentacle",
       after: ["Keys/Star Key", "Crypt/Cranny"],
-      ready: () => get("questL02Larva") !== "unstarted",
+      ready: () => false,
       completed: () => get("_eldritchTentacleFought"),
       do: () => {
         visitUrl("place.php?whichplace=forestvillage&action=fv_scientist", false);
@@ -940,7 +923,7 @@ export const MiscQuest: Quest = {
         myTurncount() >= ROUTE_WAIT_TO_NCFORCE &&
         atLevel(6) &&
         !get("noncombatForcerActive"),
-      completed: () => $item`Apriling band tuba`.dailyusesleft > 0,
+      completed: () => $item`Apriling band tuba`.dailyusesleft === 0,
       do: () => AprilingBandHelmet.play($item`Apriling band tuba`, true),
       limit: { tries: 3, unready: true },
       freeaction: true,
@@ -951,7 +934,7 @@ export const MiscQuest: Quest = {
       completed: () =>
         !have($item`potted power plant`) || get("_pottedPowerPlant") === "0,0,0,0,0,0,0",
       do: () => {
-        use($item`potted power plant`);
+        visitUrl("inv_use.php?pwd&which=3&whichitem=10738");
         get("_pottedPowerPlant")
           .split(",")
           .forEach((v, i) => {
@@ -964,12 +947,13 @@ export const MiscQuest: Quest = {
     {
       name: "Mayam Calendar",
       after: [],
+      priority: () => Priorities.Free,
       completed: () => !MayamCalendar.have() || MayamCalendar.remainingUses() === 0,
       do: () => {
         MayamCalendar.submit("chair", "wood", "cheese", "clock");
         // eslint-disable-next-line libram/verify-constants
         if (have($item`Yamtility belt`)) MayamCalendar.submit("fur", "meat", "eyepatch", "yam4");
-        else MayamCalendar.submit("yam1", "meat", "eyepatch", "yam4");
+        else MayamCalendar.submit("fur", "meat", "eyepatch", "yam4");
         MayamCalendar.submit("eye", "lightning", "wall", "explosion");
       },
       outfit: { familiar: $familiar`Chest Mimic` },
@@ -978,7 +962,7 @@ export const MiscQuest: Quest = {
     },
     {
       name: "Temple High",
-      after: ["Mayam Calendar", "Crypt/Alcove", "Shadow Lodestone"],
+      after: ["Mayam Calendar", "Orc Chasm/Oil Jar", "Shadow Lodestone"],
       ready: () => have($effect`Frosty`) && have($effect`Shadow Waters`),
       completed: () => !have($item`stone wool`) || get("lastTempleAdventures") === myAscensions(),
       prepare: () => ensureEffect($effect`Stone-Faced`),

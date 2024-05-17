@@ -27,15 +27,6 @@ export const FriarQuest: Quest = {
       prepare: () => {
         tryPlayApriling("-combat");
       },
-      priority: () => {
-        if (
-          get("noncombatForcerActive") &&
-          have($item`latte lovers member's mug`) &&
-          !get("latteUnlocks").includes("wing")
-        )
-          return { score: -2, reason: "Still need latte here" };
-        else return Priorities.None;
-      },
       completed: () => have($item`box of birthday candles`) || step("questL06Friar") === 999,
       do: $location`The Dark Heart of the Woods`,
       outfit: () => {
@@ -65,15 +56,6 @@ export const FriarQuest: Quest = {
       after: ["Start"],
       prepare: () => {
         tryPlayApriling("-combat");
-      },
-      priority: () => {
-        if (
-          get("noncombatForcerActive") &&
-          have($item`latte lovers member's mug`) &&
-          !get("latteUnlocks").includes("vitamins")
-        )
-          return { score: -2, reason: "Still need latte here" };
-        else return Priorities.None;
       },
       completed: () => have($item`eldritch butterknife`) || step("questL06Friar") === 999,
       do: $location`The Dark Elbow of the Woods`,

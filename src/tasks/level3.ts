@@ -52,7 +52,7 @@ export const TavernQuest: Quest = {
             equip: $items`June cleaver, old patched suit-pants, unbreakable umbrella, Jurassic Parka, barrel lid, carnivorous potted plant`,
             modes: {
               umbrella: have($item`tangle of rat tails`) ? "cocoon" : "broken",
-              parka: "pterodactyl",
+              parka: "spikolodon",
             },
           };
         return { modifier: "ML, +combat", equip: $items`old patched suit-pants` };

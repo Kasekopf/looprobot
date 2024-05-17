@@ -364,6 +364,9 @@ export const ChasmQuest: Quest = {
           ensureEffect($effect`Butt-Rock Hair`);
           if (have($item`Powerful Glove`) && get("_powerfulGloveBatteryPowerUsed") === 0)
             ensureEffect($effect`Triple-Sized`);
+          if (have($skill`Emotionally Chipped`) && get("_feelPeacefulUsed") < 3)
+            ensureEffect($effect`Feeling Peaceful`);
+          if (have($item`sleaze powder`)) ensureEffect($effect`Sleaze-Resistant Trousers`);
         }
       },
       do: $location`The Smut Orc Logging Camp`,
@@ -384,7 +387,7 @@ export const ChasmQuest: Quest = {
             equip: equip,
             avoid: $items`broken champagne bottle`,
           };
-        } else return { modifier: "200 sleaze res, 1 moxie" };
+        } else return { modifier: "200 sleaze res, 1 moxie", modes: { parka: "spikolodon" } };
       },
       combat: new CombatStrategy()
         .macro(new Macro().attack().repeat(), [

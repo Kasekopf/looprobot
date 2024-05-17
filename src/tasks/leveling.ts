@@ -235,7 +235,7 @@ const unscaledLeveling: Task[] = [
       .killHard(),
     outfit: () => {
       const result: OutfitSpec = {
-        equip: $items`Space Trip safety headphones, June cleaver`,
+        equip: $items`Space Trip safety headphones`,
         modifier: "item",
         avoid: $items`broken champagne bottle`,
       };
@@ -245,6 +245,7 @@ const unscaledLeveling: Task[] = [
         get("_fireExtinguisherCharge") >= 50 // Leave some for harem
       )
         result.equip?.push($item`industrial fire extinguisher`);
+      else result.equip?.push($item`June cleaver`);
       if (have($item`Flash Liquidizer Ultra Dousing Accessory`) && get("_douseFoeUses") < 3)
         result.equip?.push($item`Flash Liquidizer Ultra Dousing Accessory`);
       return result;

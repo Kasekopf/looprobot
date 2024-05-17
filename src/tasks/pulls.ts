@@ -194,21 +194,24 @@ export const pulls: PullSpec[] = [
     useful: () =>
       step("questL08Trapper") < 3 &&
       step("questL11Shen") > 3 &&
-      !summonStrategy.sourceReadyFor($monster`ninja snowman assassin`),
+      !summonStrategy.sourceReadyFor($monster`ninja snowman assassin`) &&
+      get("lastCopyableMonster") !== $monster`ninja snowman assassin`,
   },
   {
     pull: $item`ninja carabiner`,
     useful: () =>
       step("questL08Trapper") < 3 &&
       step("questL11Shen") > 3 &&
-      !summonStrategy.sourceReadyFor($monster`ninja snowman assassin`),
+      !summonStrategy.sourceReadyFor($monster`ninja snowman assassin`) &&
+      get("lastCopyableMonster") !== $monster`ninja snowman assassin`,
   },
   {
     pull: $item`ninja crampons`,
     useful: () =>
       step("questL08Trapper") < 3 &&
       step("questL11Shen") > 3 &&
-      !summonStrategy.sourceReadyFor($monster`ninja snowman assassin`),
+      !summonStrategy.sourceReadyFor($monster`ninja snowman assassin`) &&
+      get("lastCopyableMonster") !== $monster`ninja snowman assassin`,
   },
   {
     pull: $item`Flash Liquidizer Ultra Dousing Accessory`,

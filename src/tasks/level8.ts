@@ -105,7 +105,8 @@ export const McLargeHugeQuest: Quest = {
           if (itemAmount($item`goat cheese`) === 1) {
             if (
               myFamiliar() === $familiar`Grey Goose` &&
-              familiarWeight($familiar`Grey Goose`) >= 6
+              familiarWeight($familiar`Grey Goose`) >= 6 &&
+              familiarWeight($familiar`Grey Goose`) < 10
             )
               return Macro.trySkill($skill`Emit Matter Duplicating Drones`);
             else return Macro.tryItem($item`Spooky VHS Tape`);
@@ -177,6 +178,7 @@ export const McLargeHugeQuest: Quest = {
       },
       outfit: () => coldPlanner.outfitFor(5),
       limit: { tries: 1 },
+      freeaction: true,
     },
     {
       name: "Peak",

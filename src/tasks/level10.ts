@@ -1,4 +1,12 @@
-import { cliExecute, containsText, haveEquipped, itemAmount, use, visitUrl } from "kolmafia";
+import {
+  cliExecute,
+  containsText,
+  haveEquipped,
+  itemAmount,
+  myTurncount,
+  use,
+  visitUrl,
+} from "kolmafia";
 import {
   $effect,
   $familiar,
@@ -239,6 +247,7 @@ export const GiantQuest: Quest = {
     {
       name: "Unlock HITS",
       after: ["Top Floor"],
+      ready: () => myTurncount() > 200,
       completed: () =>
         have($item`steam-powered model rocketship`) ||
         (have($item`star chart`) && itemAmount($item`star`) >= 8 && itemAmount($item`line`) >= 7) ||

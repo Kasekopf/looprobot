@@ -102,6 +102,7 @@ export const RobotQuest: Quest = {
     {
       name: "Scavenge",
       after: [],
+      priority: () => Priorities.Start,
       ready: () => myAdventures() > 0,
       completed: () => {
         // Scavenge just enough to get 10 scrap total for Top-Familiar and Right-Scrap
@@ -196,7 +197,7 @@ export const RobotQuest: Quest = {
     },
     {
       name: "Equip Hat Phase 2",
-      after: ["Unequip Hat Phase 1", "Knob/Harem", "War/Flyers End"],
+      after: ["Unequip Hat Phase 1", "Knob/Harem", "Crypt/Finish"],
       ready: () => flyersDone(),
       completed: () =>
         YouRobot.canUse($slot`hat`) ||

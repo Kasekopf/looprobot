@@ -61,6 +61,7 @@ const Copperhead: Task[] = [
   {
     name: "Copperhead",
     after: ["Copperhead Start"],
+    priority: () => (YouRobot.canUseFamiliar() ? Priorities.None : Priorities.BadMood),
     ready: () =>
       step("questL11Shen") === 2 || step("questL11Shen") === 4 || step("questL11Shen") === 6,
     completed: () => step("questL11Shen") === 999,
@@ -70,10 +71,7 @@ const Copperhead: Task[] = [
     },
     do: $location`The Copperhead Club`,
     combat: new CombatStrategy().kill($monster`Mob Penguin Capo`),
-    orbtargets: () => {
-      if (have($familiar`Robortender`)) return [$monster`Mob Penguin Capo`];
-      return [];
-    },
+    orbtargets: () => [],
     outfit: (): OutfitSpec => {
       if (have($familiar`Robortender`)) {
         const target = globalStateCache.orb().prediction($location`The Copperhead Club`);
@@ -309,18 +307,10 @@ const Zepplin: Task[] = [
       };
     },
     outfit: () => {
-      const sleazeitems = $items`candy cane sword cane, deck of lewd playing cards`;
-      if (have($item`designer sweatpants`)) sleazeitems.push($item`designer sweatpants`);
-      else if (have($item`transparent pants`)) sleazeitems.push($item`transparent pants`);
-
-      if (itemAmount($item`11-leaf clover`) > cloversToSave() || have($effect`Lucky!`))
-        return {
-          modifier: "sleaze dmg, sleaze spell dmg",
-          equip: sleazeitems,
-        };
       return {
         modifier: "-combat, sleaze dmg, sleaze spell dmg",
-        equip: sleazeitems,
+        equip: $items`candy cane sword cane, deck of lewd playing cards, designer sweatpants, Jurassic Parka`,
+        modes: { parka: "dilophosaur" },
       };
     },
     freeaction: () => itemAmount($item`11-leaf clover`) > cloversToSave() || have($effect`Lucky!`),

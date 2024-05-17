@@ -31,7 +31,7 @@ export class Priorities {
   static GoodOrb: Priority = { score: 15, reason: "Target orb monster" };
   static BestCosmicBowlingBall: Priority = {
     score: 14,
-    reason: "Use cosmic bowling ball + Melodramedary",
+    reason: "Use cosmic bowling ball briefly",
   };
   static CosmicBowlingBall: Priority = { score: 11, reason: "Use cosmic bowling ball" };
   static Start: Priority = { score: 10, reason: "Initial tasks" };
@@ -169,7 +169,6 @@ export class Prioritization {
     const location_whitelist = [
       $location`The Haunted Bathroom`,
       $location`The Castle in the Clouds in the Sky (Top Floor)`,
-      $location`Lair of the Ninja Snowmen`,
       $location`The Batrat and Ratbat Burrow`,
     ];
     const location_in_blacklist =

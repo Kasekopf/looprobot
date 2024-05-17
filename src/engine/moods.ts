@@ -174,6 +174,8 @@ function haveEquipmentToCast(effect: Effect): boolean {
 export function applyEffects(modifier: string, other_effects: Effect[]): void {
   const relevantEffects = getRelevantEffects();
 
+  if (get("noncombatForcerActive")) relevantEffects["-combat"] = [];
+
   const useful_effects = [...other_effects];
   for (const key in relevantEffects) {
     if (modifier.includes(key)) {

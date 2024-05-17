@@ -51,7 +51,8 @@ const Challenges: Task[] = [
       if (
         have($item`designer sweatpants`) &&
         get("sweat", 0) >= 90 &&
-        numericModifier("Initiative") < 400
+        numericModifier("Initiative") < 400 &&
+        !have($effect`Slippery and Speedy`)
       ) {
         // Use visit URL to avoid needing to equip the pants
         visitUrl("runskillz.php?action=Skillz&whichskill=7419&targetplayer=0&pwd&quantity=1");

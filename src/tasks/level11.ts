@@ -50,9 +50,10 @@ const Diary: Task[] = [
       if (have($effect`Really Quite Poisoned`)) uneffect($effect`Really Quite Poisoned`);
     },
     outfit: () => {
-      const equip = [$item`blackberry galoshes`, $item`June cleaver`, $item`Jurassic Parka`];
+      const equip = [$item`blackberry galoshes`, $item`Jurassic Parka`];
       if (have($item`candy cane sword cane`) && !get("candyCaneSwordBlackForest", false))
         equip.push($item`candy cane sword cane`);
+      else equip.push($item`June cleaver`);
 
       if (have($item`reassembled blackbird`)) {
         if (have($item`latte lovers member's mug`) && !get("latteUnlocks").includes("cajun")) {
