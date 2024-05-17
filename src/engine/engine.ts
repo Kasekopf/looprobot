@@ -291,7 +291,41 @@ export class Engine extends BaseEngine<CombatActions, ActiveTask> {
     debug(`Executing ${task.name} [${why}]`, "blue");
     this.checkLimits({ ...task, limit: { ...task.limit, unready: false } }, () => true); // ignore unready for this initial check
     if (myAdventures() < args.debug.halt) throw `Running out of adventures!`;
-    super.execute(task);
+
+    // Copied from grimoire, to remove the extra printout
+    // Determine the proper postcondition for after the task executes.
+    const postcondition = task.limit?.guard?.();
+
+    // Acquire any items and effects first, possibly for later execution steps.
+    this.acquireItems(task);
+    this.acquireEffects(task);
+
+    // Prepare the outfit, with resources.
+    const task_combat = task.combat?.clone() ?? new CombatStrategy<CombatActions>();
+    const outfit = this.createOutfit(task);
+
+    const task_resources = new CombatResources<CombatActions>();
+    this.customize(task, outfit, task_combat, task_resources);
+    this.dress(task, outfit);
+
+    // Prepare combat and choices
+    this.setCombat(task, task_combat, task_resources);
+    this.setChoices(task, this.propertyManager);
+
+    // Actually perform the task
+    for (const resource of task_resources.all()) resource.prepare?.();
+    this.prepare(task);
+    this.do(task);
+    while (this.shouldRepeatAdv(task)) {
+      set("lastEncounter", "");
+      this.do(task);
+    }
+    this.post(task);
+
+    // Mark that we tried the task, and apply limits
+    this.markAttempt(task);
+    this.checkLimits(task, postcondition);
+    // End copy
 
     if (task.completed()) {
       debug(`${task.name} completed!`, "blue");

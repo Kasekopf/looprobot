@@ -76,7 +76,8 @@ export function main(command?: string): void {
       if (args.debug.actions !== undefined) {
         const next = engine.getNextTask();
         if (next) {
-          debug(`Next task: ${next.name}`);
+          debug(``);
+          debug(`Next task: ${next.name}`, 'blue');
           return;
         }
       }
