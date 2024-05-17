@@ -1,5 +1,4 @@
 import {
-  cliExecute,
   create,
   familiarWeight,
   haveEquipped,
@@ -283,8 +282,6 @@ const Zepplin: Task[] = [
         useSkill($skill`Aug. 2nd: Find an Eleven-Leaf Clover Day`);
       if (itemAmount($item`11-leaf clover`) > cloversToSave() && !have($effect`Lucky!`))
         use($item`11-leaf clover`);
-      if (have($item`pocket wish`) && !have($effect`Dirty Pear`))
-        cliExecute("genie effect dirty pear");
       if (have($skill`Bend Hell`) && !get("_bendHellUsed"))
         ensureWithMPSwaps([$effect`Bendin' Hell`]);
     },
