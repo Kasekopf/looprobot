@@ -239,6 +239,7 @@ export const MiscQuest: Quest = {
           ["Monster Level: +10", 5],
           [`${myPrimestat()} Percent: +25`, 3],
           [`Experience (${myPrimestat()}): +4`, 2],
+          [`Food Drop: +30`, 1],
           ["Meat Drop: -30", -2],
           ["Item Drop: -15", -2],
           ["Familiar Experience: -2", -2],
@@ -258,10 +259,9 @@ export const MiscQuest: Quest = {
 
         const bestVotes = voteLocalPriorityArr.sort((a, b) => b[1] - a[1]);
         const firstInit = bestVotes[0][0];
-        const secondInit = bestVotes[1][0];
 
         visitUrl(
-          `choice.php?option=1&whichchoice=1331&g=${monsterVote}&local[]=${firstInit}&local[]=${secondInit}`
+          `choice.php?option=1&whichchoice=1331&g=${monsterVote}&local[]=${firstInit}&local[]=${firstInit}`
         );
 
         if (!have($item`"I Voted!" sticker`)) {
