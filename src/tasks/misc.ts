@@ -237,9 +237,9 @@ export const MiscQuest: Quest = {
           ["Familiar Experience: +2", 8],
           ["Adventures: +1", 7],
           ["Monster Level: +10", 5],
-          [`${myPrimestat()} Percent: +25`, 3],
+          [`${myPrimestat()} Percent: +25`, 4],
+          [`Food Drop: +30`, 3],
           [`Experience (${myPrimestat()}): +4`, 2],
-          [`Food Drop: +30`, 1],
           ["Meat Drop: -30", -2],
           ["Item Drop: -15", -2],
           ["Familiar Experience: -2", -2],
@@ -974,10 +974,10 @@ export const MiscQuest: Quest = {
       after: ["Mosquito/Start"],
       priority: () => Priorities.Free,
       completed: () => step("questM01Untinker") > -1,
-      do: () => {
-        visitUrl("place.php?whichplace=forestvillage&action=fv_untinker_quest");
-        runChoice(1);
-      },
+      do: () =>
+        visitUrl(
+          "place.php?whichplace=forestvillage&preaction=screwquest&action=fv_untinker_quest"
+        ),
       freeaction: true,
       limit: { tries: 1 },
     },
@@ -997,7 +997,7 @@ export const MiscQuest: Quest = {
       priority: () => Priorities.Free,
       ready: () => knollAvailable(),
       completed: () => step("questM01Untinker") === 999,
-      do: () => visitUrl("place.php?whichplace=forestvillage&action=fv_untinker_quest"),
+      do: () => visitUrl("place.php?whichplace=forestvillage&action=fv_untinker"),
       freeaction: true,
       limit: { tries: 1 },
     },
