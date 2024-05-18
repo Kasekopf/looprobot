@@ -269,6 +269,7 @@ const Desert: Task[] = [
       cliExecute("use * desert sightseeing pamphlet");
       if (have($item`worm-riding hooks`) && have($item`drum machine`)) use($item`drum machine`);
     },
+    killdelayzone: () => get("desertExploration") > 0, // don't start this with a wanderer
     limit: { soft: 30 },
     choices: { 805: 1 },
   },

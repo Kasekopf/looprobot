@@ -280,7 +280,8 @@ export const wandererSources: WandererSource[] = [
       get("lastVoteMonsterTurn") < totalTurnsPlayed() &&
       get("_voteFreeFights") < 3 &&
       myTurncount() > 2 &&
-      atLevel(5),
+      atLevel(5) &&
+      get("desertExploration") > 0, // wait until the desert starts
     equip: $item`"I Voted!" sticker`,
     monsters: [
       $monster`government bureaucrat`,

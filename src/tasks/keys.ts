@@ -463,6 +463,7 @@ export const DigitalQuest: Quest = {
       combat: new CombatStrategy().kill(),
       limit: { soft: 16 },
       delay: 16,
+      killdelayzone: true,
     },
     {
       name: "Hero",

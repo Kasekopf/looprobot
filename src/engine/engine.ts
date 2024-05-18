@@ -191,7 +191,7 @@ export class Engine extends BaseEngine<CombatActions, ActiveTask> {
 
       const possible_locations = available_tasks.filter(
         (task) =>
-          (this.hasDelay(task) || task.killdelayzone) &&
+          (this.hasDelay(task) || undelay(task.killdelayzone)) &&
           this.createOutfit(task).canEquip(backup_outfit)
       );
       if (possible_locations.length > 0) {
@@ -223,10 +223,29 @@ export class Engine extends BaseEngine<CombatActions, ActiveTask> {
     // If a wanderer is up try to place it in a useful location
     const wanderer = wandererSources.find((source) => source.available() && source.chance() === 1);
     if (wanderer) {
+      // prefer locations where a kill is especially good
+      const best_possible_locations = available_tasks.filter(
+        (task) => undelay(task.killdelayzone) && canEquipResource(this.createOutfit(task), wanderer)
+      );
+      if (best_possible_locations.length > 0) {
+        if (args.debug.verbose) {
+          printHtml(
+            `A wanderer (${wanderer.name}) is available to place in a delay zone. Available kill-preferred zones:`
+          );
+          for (const task of best_possible_locations) {
+            printHtml(`${task.name}`);
+          }
+        }
+        return {
+          ...best_possible_locations[0],
+          active_priority: Prioritization.fixed(Priorities.Wanderer),
+          wanderer: wanderer,
+        };
+      }
+
+      // otherwise, drop the wanderer in a delay location
       const possible_locations = available_tasks.filter(
-        (task) =>
-          (this.hasDelay(task) || task.killdelayzone) &&
-          canEquipResource(this.createOutfit(task), wanderer)
+        (task) => this.hasDelay(task) && canEquipResource(this.createOutfit(task), wanderer)
       );
       if (possible_locations.length > 0) {
         if (args.debug.verbose) {
