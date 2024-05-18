@@ -314,7 +314,7 @@ const Office: Task[] = [
           return Macro.trySkill($skill`%fn, Release the Patriotic Screech!`);
         }
         return new Macro();
-      }),
+      }, $monsters`pygmy headhunter, pygmy janitor, pygmy witch accountant, pygmy witch lawyer`),
     outfit: () => {
       const palindome_dudes_done = have(Item.get(7262)) || step("questL11Palindome") >= 3;
       if (
