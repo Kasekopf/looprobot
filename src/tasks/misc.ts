@@ -969,6 +969,38 @@ export const MiscQuest: Quest = {
       choices: { 582: 1, 579: 3 },
       limit: { tries: 1 },
     },
+    {
+      name: "Untinkerer Start",
+      after: ["Mosquito/Start"],
+      priority: () => Priorities.Free,
+      completed: () => step("questM01Untinker") > -1,
+      do: () => {
+        visitUrl("place.php?whichplace=forestvillage&action=fv_untinker_quest");
+        runChoice(1);
+      },
+      freeaction: true,
+      limit: { tries: 1 },
+    },
+    {
+      name: "Untinkerer Do",
+      after: ["Untinkerer/Start"],
+      priority: () => Priorities.Free,
+      ready: () => knollAvailable(),
+      completed: () => step("questM01Untinker") === 999 || have($item`rusty screwdriver`),
+      do: () => visitUrl("place.php?whichplace=knoll_friendly&action=dk_innabox"),
+      freeaction: true,
+      limit: { tries: 1 },
+    },
+    {
+      name: "Untinkerer Finish",
+      after: ["Untinkerer/Do"],
+      priority: () => Priorities.Free,
+      ready: () => knollAvailable(),
+      completed: () => step("questM01Untinker") === 999,
+      do: () => visitUrl("place.php?whichplace=forestvillage&action=fv_untinker_quest"),
+      freeaction: true,
+      limit: { tries: 1 },
+    },
   ],
 };
 

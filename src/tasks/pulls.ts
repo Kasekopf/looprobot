@@ -5,6 +5,8 @@ import {
   isUnrestricted,
   Item,
   itemAmount,
+  knollAvailable,
+  myAdventures,
   myMeat,
   myTurncount,
   pullsRemaining,
@@ -20,7 +22,7 @@ import { step } from "grimoire-kolmafia";
 import { Keys, keyStrategy } from "./keys";
 import { trainSetAvailable } from "./misc";
 import { yellowSubmarinePossible } from "../engine/outfit";
-import { underStandard } from "../lib";
+import { atLevel, underStandard, YouRobot } from "../lib";
 import { summonStrategy } from "./summons";
 
 /**
@@ -242,6 +244,24 @@ export const pulls: PullSpec[] = [
         Mysticality: $item`oil of expertise`,
         Moxie: $item`oil of slipperiness`,
       }),
+  },
+  {
+    pull: $item`killing jar`,
+  },
+  {
+    pull: $item`battery (car)`,
+    useful: () => {
+      if (!knollAvailable() && step("questM01Untinker") !== 999 && !have($item`rusty screwdriver`))
+        return false;
+      if (myAdventures() < 5 && myTurncount() > 10) return true;
+      if (
+        !atLevel(13) &&
+        step("questL12War") === 999 &&
+        YouRobot.energy() < YouRobot.expectedStatbotCost()
+      )
+        return true;
+      return undefined;
+    },
   },
 ];
 

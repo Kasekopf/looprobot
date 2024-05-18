@@ -1,11 +1,20 @@
-import { $item, $location, $skill, $slot, $stat, AutumnAton, get, have } from "libram";
+import { $item, $items, $location, $skill, $slot, $stat, AutumnAton, get, have } from "libram";
 import { Priorities } from "../engine/priority";
 import { Quest } from "../engine/task";
 import { atLevel, levelingStartCompleted, YouRobot } from "../lib";
 import { Guards, step } from "grimoire-kolmafia";
-import { itemAmount, myAdventures, myBasestat, myPrimestat, myTurncount, use } from "kolmafia";
+import {
+  cliExecute,
+  itemAmount,
+  myAdventures,
+  myBasestat,
+  myPrimestat,
+  myTurncount,
+  use,
+} from "kolmafia";
 import { flyersDone } from "./level12";
 
+const BATTERIES = $items`battery (car), battery (lantern), battery (9-Volt), battery (D), battery (AA)`;
 export const RobotQuest: Quest = {
   name: "Robot",
   tasks: [
@@ -55,10 +64,29 @@ export const RobotQuest: Quest = {
       freeaction: true,
     },
     {
+      name: "Breakdown Batteries",
+      after: ["Misc/Untinkerer Finish"],
+      priority: () => Priorities.Free,
+      completed: () => myTurncount() >= 1000,
+      ready: () => BATTERIES.find((i) => have(i)) !== undefined,
+      do: () => {
+        for (const b of BATTERIES) {
+          if (have(b)) cliExecute(`untinker ${b.name}`);
+        }
+      },
+      limit: {
+        guard: Guards.create(
+          () => BATTERIES.reduce((sum, bat) => sum + itemAmount(bat), 0),
+          (bat) => bat > BATTERIES.reduce((sum, bat) => sum + itemAmount(bat), 0)
+        ),
+      },
+      freeaction: true,
+    },
+    {
       name: "Absorb AAA Battery",
       after: ["CPU Potions"],
       priority: () => Priorities.Free,
-      completed: () => false,
+      completed: () => myTurncount() >= 1000,
       ready: () => have($item`battery (AAA)`) && YouRobot.energy() < 50,
       do: () => use($item`battery (AAA)`),
       limit: {
