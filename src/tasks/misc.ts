@@ -758,7 +758,8 @@ export const MiscQuest: Quest = {
       priority: () => Priorities.Free,
       completed: () =>
         !have($item`Cincho de Mayo`) ||
-        (get("timesRested") >= totalFreeRests() && CinchoDeMayo.currentCinch() < 60),
+        (get("timesRested") >= totalFreeRests() && CinchoDeMayo.currentCinch() < 60) ||
+        !forceNCneeded(),
       ready: () =>
         myTurncount() >= ROUTE_WAIT_TO_NCFORCE &&
         atLevel(6) &&
@@ -1137,5 +1138,13 @@ export function haveOre() {
 }
 
 export function trainSetAvailable() {
+  return false;
+}
+
+function forceNCneeded() {
+  if (step("questL02Larva") < 1) return true;
+  if (!have($item`dodecagram`) && step("questL06Friar") < 999) return true;
+  if (!have($item`box of birthday candles`) && step("questL06Friar") < 999) return true;
+  if (!have($item`eldritch butterknife`) && step("questL06Friar") < 999) return true;
   return false;
 }
