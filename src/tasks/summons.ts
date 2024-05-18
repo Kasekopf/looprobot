@@ -45,6 +45,7 @@ const summonTargets: SummonTarget[] = [
       have($item`beer helmet`) &&
       have($item`distressed denim pants`) &&
       have($item`bejeweled pledge pin`),
+    priority: () => (have($effect`Everything Looks Yellow`) ? Priorities.BadYR : Priorities.None),
     after: [],
     outfit: {
       equip: $items`unwrapped knock-off retro superhero cape`,
