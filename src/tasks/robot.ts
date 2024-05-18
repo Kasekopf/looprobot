@@ -226,6 +226,7 @@ export const RobotQuest: Quest = {
     {
       name: "Equip Hat Phase 2",
       after: ["Unequip Hat Phase 1", "Knob/Harem", "Crypt/Finish"],
+      priority: () => (get("gooseDronesRemaining") > 0 ? Priorities.GoodDrone : Priorities.None),
       ready: () => flyersDone(),
       completed: () =>
         YouRobot.canUse($slot`hat`) ||

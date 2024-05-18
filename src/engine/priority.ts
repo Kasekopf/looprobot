@@ -29,6 +29,7 @@ export class Priorities {
   static Free: Priority = { score: 1000, reason: "Free action" };
   static NeedAdv: Priority = { score: 200, reason: "Low on adventures" };
   static LastCopyableMonster: Priority = { score: 100, reason: "Copy last monster" };
+  static GoodDrone: Priority = { score: 50, reason: "Use the active drones" };
   static Effect: Priority = { score: 20, reason: "Useful effect" };
   static GoodOrb: Priority = { score: 15, reason: "Target orb monster" };
   static BestCosmicBowlingBall: Priority = {

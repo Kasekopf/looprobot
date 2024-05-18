@@ -88,6 +88,7 @@ export const KnobQuest: Quest = {
     {
       name: "Perfume",
       after: ["Harem"],
+      priority: () => (get("gooseDronesRemaining") > 0 ? Priorities.GoodDrone : Priorities.None),
       ready: () => YouRobot.canUse($slot`hat`),
       completed: () =>
         have($effect`Knob Goblin Perfume`) ||
@@ -101,7 +102,11 @@ export const KnobQuest: Quest = {
       name: "King",
       after: ["Harem", "Perfume"],
       ready: () => YouRobot.canUse($slot`hat`),
-      priority: () => (have($effect`Knob Goblin Perfume`) ? Priorities.Effect : Priorities.None),
+      priority: () => {
+        if (have($effect`Knob Goblin Perfume`)) return Priorities.Effect;
+        if (get("gooseDronesRemaining") > 0) return Priorities.GoodDrone;
+        return Priorities.None;
+      },
       completed: () => step("questL05Goblin") === 999,
       do: $location`Throne Room`,
       combat: new CombatStrategy().killHard(),
