@@ -43,23 +43,35 @@ export const GiantQuest: Quest = {
       freeaction: true,
     },
     {
-      name: "Get Bean",
+      // Use the cosplay saber (only) to guarentee the last sonar if we need to
+      name: "Force Bean",
       after: ["Bat/Use Sonar 2"],
-      completed: () => have($item`enchanted bean`) || step("questL10Garbage") >= 1,
+      completed: () =>
+        have($item`enchanted bean`) ||
+        step("questL10Garbage") >= 1 ||
+        step("questL04Bat") + itemAmount($item`sonar-in-a-biscuit`) >= 3 ||
+        !have($item`Fourth of May Cosplay Saber`),
       do: $location`The Beanbat Chamber`,
       outfit: {
         modifier: "item",
         equip: $items`miniature crystal ball`,
         avoid: $items`broken champagne bottle`,
       },
-      map_the_monster: () => {
-        if (
-          have($familiar`Patriotic Eagle`) &&
-          have($skill`Gallapagosian Mating Call`) &&
-          have($skill`Map the Monsters`)
-        )
-          return $monster`none`; // Save for GROPS
-        return $monster`beanbat`;
+      combat: new CombatStrategy()
+        .kill($monster`screambat`)
+        .kill()
+        .forceItems($monsters`magical fruit bat, musical fruit bat, beanbat`),
+      limit: { soft: 10 },
+    },
+    {
+      name: "Get Bean",
+      after: ["Bat/Use Sonar 2", "Force Bean"],
+      completed: () => have($item`enchanted bean`) || step("questL10Garbage") >= 1,
+      do: $location`The Beanbat Chamber`,
+      outfit: {
+        modifier: "item",
+        equip: $items`miniature crystal ball`,
+        avoid: $items`broken champagne bottle`,
       },
       combat: new CombatStrategy()
         .kill($monster`screambat`)
