@@ -983,7 +983,7 @@ export const MiscQuest: Quest = {
     },
     {
       name: "Untinkerer Do",
-      after: ["Untinkerer/Start"],
+      after: ["Untinkerer Start"],
       priority: () => Priorities.Free,
       ready: () => knollAvailable(),
       completed: () => step("questM01Untinker") === 999 || have($item`rusty screwdriver`),
@@ -993,7 +993,7 @@ export const MiscQuest: Quest = {
     },
     {
       name: "Untinkerer Finish",
-      after: ["Untinkerer/Do"],
+      after: ["Untinkerer Do"],
       priority: () => Priorities.Free,
       ready: () => knollAvailable(),
       completed: () => step("questM01Untinker") === 999,
