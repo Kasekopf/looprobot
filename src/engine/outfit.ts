@@ -191,7 +191,7 @@ export function yellowSubmarinePossible(assumePulls = false) {
   // return true;
 }
 
-export function equipInitial(outfit: Outfit): void {
+export function equipInitial(outfit: Outfit, familiarEquipReserved: boolean): void {
   if (!levelingStartCompleted()) {
     if (outfit.equip($familiar`Grey Goose`)) outfit.equip($item`grey down vest`);
     if (myBasestat(myPrimestat()) < 104 && familiarWeight($familiar`Grey Goose`) === 20) {
@@ -205,6 +205,14 @@ export function equipInitial(outfit: Outfit): void {
   const modifier = getModifiersFrom(outfit);
 
   if (modifier.includes("item")) {
+    if (
+      !familiarEquipReserved &&
+      have($familiar`Trick-or-Treating Tot`) &&
+      outfit.canEquip($item`li'l ninja costume`)
+    ) {
+      outfit.equip($familiar`Trick-or-Treating Tot`);
+      outfit.equip($item`li'l ninja costume`);
+    }
     outfit.equip($familiar`Jill-of-All-Trades`);
     if (!modifier.includes("+combat") && !modifier.includes(" combat") && !modifier.includes("res"))
       outfit.equip($item`protonic accelerator pack`);

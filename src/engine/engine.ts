@@ -371,8 +371,20 @@ export class Engine extends BaseEngine<CombatActions, ActiveTask> {
       return;
     }
 
+    // Determine if it is useful to target monsters with an orb (with no predictions).
+    // 0. If we have a good orb prediction to cash in on, then use an orb for it.
+    // 1. If task.orbtargets is undefined, then use an orb if there are absorb targets.
+    // 2. If task.orbtargets() is undefined, an orb is detrimental in this zone, do not use it.
+    // 3. Otherwise, use an orb if task.orbtargets() is nonempty, or if there are absorb targets.
+    const banish_state = globalStateCache.banishes();
+    const orbUsefulFromGoodOrb =
+      wanderers.length === 0 &&
+      task.active_priority?.has(Priorities.GoodOrb) &&
+      (!combat.can("banish") || !banish_state.isFullyBanished(task));
+    const orb_targets = task.orbtargets?.() ?? [];
+    const orbUsefulFromPotential = orb_targets.length > 0 && !outfit.skipDefaults;
     // Equip initial equipment
-    equipInitial(outfit);
+    equipInitial(outfit, (orbUsefulFromGoodOrb || orbUsefulFromPotential) ?? false);
 
     // Prepare combat macro
     if (combat.getDefaultAction() === undefined) combat.action("ignore");
@@ -434,7 +446,6 @@ export class Engine extends BaseEngine<CombatActions, ActiveTask> {
         resources.provide("forceItems", force_item_source);
       }
 
-      const banish_state = globalStateCache.banishes();
       if (combat.can("banish") && !banish_state.isFullyBanished(task)) {
         const available_tasks = this.tasks.filter((task) => this.available(task));
         const banishSources = unusedBanishes(banish_state, available_tasks);
@@ -469,10 +480,7 @@ export class Engine extends BaseEngine<CombatActions, ActiveTask> {
 
       // Equip an orb if we have a good target.
       // (If we have banished all the bad targets, there is no need to force an orb)
-      if (
-        task.active_priority?.has(Priorities.GoodOrb) &&
-        (!combat.can("banish") || !banish_state.isFullyBanished(task))
-      ) {
+      if (orbUsefulFromGoodOrb) {
         outfit.equip($item`miniature crystal ball`);
       }
 
@@ -586,12 +594,7 @@ export class Engine extends BaseEngine<CombatActions, ActiveTask> {
       if (glass_useful) outfit.equip($item`cursed magnifying glass`);
     }
 
-    // Determine if it is useful to target monsters with an orb (with no predictions).
-    // 1. If task.orbtargets is undefined, then use an orb if there are absorb targets.
-    // 2. If task.orbtargets() is undefined, an orb is detrimental in this zone, do not use it.
-    // 3. Otherwise, use an orb if task.orbtargets() is nonempty, or if there are absorb targets.
-    const orb_targets = task.orbtargets?.() ?? [];
-    if (orb_targets.length > 0 && !outfit.skipDefaults) {
+    if (orbUsefulFromPotential) {
       outfit.equip($item`miniature crystal ball`);
     }
 
