@@ -427,11 +427,13 @@ export const DigitalQuest: Quest = {
             modifier: "init",
             equip: $items`continuum transfunctioner, backup camera, miniature crystal ball`,
             modes: { backupcamera: "init" },
+            avoid: $items`"I Voted!" sticker`,
           };
         return {
           modifier: "init",
           equip: $items`continuum transfunctioner, backup camera, rocket boots, miniature crystal ball`,
           modes: { backupcamera: "init" },
+          avoid: $items`"I Voted!" sticker`,
         };
       },
       combat: new CombatStrategy().kill(),
