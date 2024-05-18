@@ -19,6 +19,8 @@ import { Priority, Task } from "./task";
 import { globalStateCache } from "./state";
 import { forceItemSources, forceNCPossible, yellowRaySources } from "./resources";
 import { getModifiersFrom } from "./outfit";
+import { cosmicBowlingBallReady } from "../lib";
+import { step } from "grimoire-kolmafia";
 
 export class Priorities {
   static Wanderer: Priority = { score: 20000, reason: "Wanderer" };
@@ -34,6 +36,7 @@ export class Priorities {
     reason: "Use cosmic bowling ball briefly",
   };
   static CosmicBowlingBall: Priority = { score: 11, reason: "Use cosmic bowling ball" };
+  static SpringShoes: Priority = { score: 11, reason: "Use spring shoes" };
   static Start: Priority = { score: 10, reason: "Initial tasks" };
   static GoodYR: Priority = { score: 10, reason: "Yellow ray" };
   static GoodAutumnaton: Priority = { score: 4, reason: "Setup Autumnaton" };
@@ -175,17 +178,23 @@ export class Prioritization {
       task.do instanceof Location && location_blacklist.includes(task.do);
     const location_in_whitelist =
       task.do instanceof Location && location_whitelist.includes(task.do);
-    if (have($item`cosmic bowling ball`) || get("cosmicBowlingBallReturnCombats") === 0) {
-      if (
-        location_in_whitelist ||
-        (!task.freeaction &&
-          !task.freecombat &&
-          ball_useful &&
-          !ball_may_not_be_useful &&
-          !location_in_blacklist)
-      ) {
-        result.priorities.add(Priorities.CosmicBowlingBall);
-      }
+
+    if (
+      location_in_whitelist ||
+      (!task.freeaction &&
+        !task.freecombat &&
+        ball_useful &&
+        !ball_may_not_be_useful &&
+        !location_in_blacklist)
+    ) {
+      if (cosmicBowlingBallReady()) result.priorities.add(Priorities.CosmicBowlingBall);
+      // In the final phases of the run, use spring shoes ASAP
+      else if (
+        have($item`spring shoes`) &&
+        !have($effect`Everything Looks Green`) &&
+        step("questL05Goblin") === 999
+      )
+        result.priorities.add(Priorities.SpringShoes);
     }
 
     return result;
