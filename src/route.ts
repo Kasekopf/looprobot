@@ -61,9 +61,11 @@ export const routing: string[] = [
   "Palindome/Cold Snake",
   "Summon/Ninja Snowman Assassin",
   "McLargeHuge/Ninja",
+  "McLargeHuge/Climb",
 
   // Prepare for first hat phase
   "Giant/Basement Finish",
+  "McLargeHuge/Peak", // Get Eagle beast banish
   "Giant/Ground",
   "Summon/War Frat 151st Infantryman",
   "Misc/Unlock Island Submarine",
@@ -80,11 +82,12 @@ export const routing: string[] = [
 
   // First -combat group
   "Mosquito/Burn Delay",
-  "Friar/Finish",
   "Hidden City/Forest Coin", // First to get meat
   "Hidden City/Forest Map",
   "Hidden City/Forest Fertilizer",
   "Hidden City/Forest Sapling", // Last to sell bar skins
+  "Crypt/Cranny",
+  "Hidden City/Banish Janitors",
 
   // Do summons when ready
   "Summon/Astrologer Of Shub-Jigguwatt",
@@ -92,30 +95,22 @@ export const routing: string[] = [
   "Summon/Camel's Toe",
   "Summon/Baa'baa'bu'ran",
 
-  // Setup additional -combats
-  "Manor/Bedroom",
-  "Palindome/Bat Snake",
-  "McLargeHuge/Climb",
-
   // Get and use clovers
   "Misc/Hermit Clover",
   "Palindome/Protesters",
 
-  "McLargeHuge/Peak", // Get Eagle beast banish
   "Giant/Finish",
   "Palindome/Talisman",
   "Palindome/Palindome Dudes", // Use Eagle beast banish
-
-  // Second -combat group
-  "Hidden City/Banish Janitors",
-  "Mosquito/Finish",
-  "Crypt/Cranny",
+  "Palindome/Open Alarm", // Get boss ready for goose
 
   "Macguffin/Compass", // Unlock desert for ultrahydrated use
   // The following 3 tasks should always stay in this order
   "Macguffin/Oasis", // Get ultrahydrated as soon as needed
   "Macguffin/Oasis Drum", // Get drum as soon as pages are gathered
   "Macguffin/Desert",
+
+  "Manor/Blow Wall", // Get boss ready for goose
 
   // Start Hidden city
   "Hidden City/Open Temple",
@@ -133,12 +128,15 @@ export const routing: string[] = [
 
   // Setup for +meat/+item set
   "Manor/Boss",
+  "Crypt/Alcove",
   "Crypt/Niche",
+  "Palindome/Boss",
   "Tavern/Finish",
   "Digital/Megalo",
   "Orc Chasm/Start Peaks",
   "Orc Chasm/ABoo Carto",
   "Hidden City/Office Boss", // Get Eagle dude banish
+  "Hidden City/Boss",
   "Macguffin/Upper Chamber",
   "Knob/Open Knob",
 
@@ -154,12 +152,9 @@ export const routing: string[] = [
   "Crypt/Nook",
   "Orc Chasm/Twin Init Search",
   "Orc Chasm/Twin Init", // Use Eagle dude banish
-  "Crypt/Alcove",
   "Knob/Harem",
 
   "Keys/Star Key", // Allow for better use of orb
-  "Macguffin/Finish",
-  "Orc Chasm/Finish",
   "Crypt/Finish", // Right before hat to launch extra drones
 
   // Setup for second hat phase
@@ -173,8 +168,16 @@ export const routing: string[] = [
   "Misc/Eldritch Tentacle",
   "Bat/Finish",
 
+  // Finish off quests
+  "Macguffin/Finish",
+  "Orc Chasm/Finish",
+
   // Finish last keys
   "Keys/All Heroes",
+
+  // Save NC forcers as long as possible (for more rests)
+  "Friar/Finish",
+  "Mosquito/Finish",
 
   "Robot/Statbot",
   "Tower/Naughty Sorceress",

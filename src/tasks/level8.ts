@@ -186,9 +186,10 @@ export const McLargeHugeQuest: Quest = {
       completed: () => step("questL08Trapper") >= 5,
       priority: () => {
         if ($location`Mist-Shrouded Peak`.turnsSpent < 3) return Priorities.None;
-        if (!have($familiar`Grey Goose`) || have($item`Ghost Dog Chow`)) return Priorities.None;
-        if (familiarWeight($familiar`Grey Goose`) < 6) return Priorities.BadGoose;
-        return Priorities.GoodGoose;
+        if (!have($familiar`Grey Goose`)) return Priorities.None;
+        if (familiarWeight($familiar`Grey Goose`) >= 6) return Priorities.GoodGoose;
+        if (!have($item`Ghost Dog Chow`)) return Priorities.BadGoose;
+        return Priorities.None;
       },
       ready: () => coldPlanner.maximumPossible(true) >= 5,
       prepare: () => {
@@ -210,7 +211,10 @@ export const McLargeHugeQuest: Quest = {
           $location`Mist-Shrouded Peak`.turnsSpent >= 3 &&
           familiarWeight($familiar`Grey Goose`) >= 6
         )
-          return coldPlanner.outfitFor(5, { familiar: $familiar`Grey Goose` });
+          return coldPlanner.outfitFor(5, {
+            familiar: $familiar`Grey Goose`,
+            equip: $items`grey down vest`,
+          });
         return coldPlanner.outfitFor(5);
       },
       combat: new CombatStrategy()

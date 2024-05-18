@@ -240,12 +240,19 @@ export function equipCharging(
     outfit.equip($item`protonic accelerator pack`);
   }
 
-  if (
-    familiarWeight($familiar`Grey Goose`) < 6 &&
-    mightKillSomething &&
-    !have($item`Ghost Dog Chow`)
-  ) {
+  if (familiarWeight($familiar`Grey Goose`) < 6 && mightKillSomething) {
     outfit.equip($familiar`Grey Goose`);
+  }
+
+  if (
+    (!have($item`eleven-foot pole`) ||
+      !have($item`ring of Detect Boring Doors`) ||
+      !have($item`Pick-O-Matic lockpicks`)) &&
+    keyStrategy.useful(Keys.Dungeon) !== false &&
+    mightKillSomething &&
+    get("cubelingProgress") < 2 // 7 more from Ed
+  ) {
+    outfit.equip($familiar`Gelatinous Cubeling`);
   }
 
   if (yellowSubmarinePossible() && itemAmount($item`yellow pixel`) < 50) {
@@ -258,6 +265,10 @@ export function equipCharging(
     }
   }
 
+  if (get("screechCombats") > 0 && !get("banishedPhyla").includes("dude") && !noFightingFamiliars) {
+    outfit.equip($familiar`Patriotic Eagle`);
+  }
+
   // const need_bowling_balls =
   //   get("hiddenBowlingAlleyProgress") +
   //     itemAmount($item`bowling ball`) +
@@ -267,26 +278,24 @@ export function equipCharging(
     (itemAmount($item`star`) < 8 || itemAmount($item`line`) < 7) &&
     !have($item`Richard's star key`) &&
     !get("nsTowerDoorKeysUsed").includes("Richard's star key");
-  if (get("camelSpit") < 100 && need_star_key) {
+  if (get("camelSpit") < 100 && need_star_key && mightKillSomething) {
     outfit.equip($familiar`Melodramedary`);
-  }
-
-  if (get("screechCombats") > 0 && !get("banishedPhyla").includes("dude") && !noFightingFamiliars) {
-    outfit.equip($familiar`Patriotic Eagle`);
-  }
-
-  if (
-    (!have($item`eleven-foot pole`) ||
-      !have($item`ring of Detect Boring Doors`) ||
-      !have($item`Pick-O-Matic lockpicks`)) &&
-    keyStrategy.useful(Keys.Dungeon) !== false
-  ) {
-    outfit.equip($familiar`Gelatinous Cubeling`);
   }
 
   // Get to 7 for the double drones when needed
   if (familiarWeight($familiar`Grey Goose`) < 7 && mightKillSomething) {
     outfit.equip($familiar`Grey Goose`);
+  }
+
+  // If nothing else, finish off the cubeling
+  if (
+    (!have($item`eleven-foot pole`) ||
+      !have($item`ring of Detect Boring Doors`) ||
+      !have($item`Pick-O-Matic lockpicks`)) &&
+    mightKillSomething &&
+    keyStrategy.useful(Keys.Dungeon) !== false
+  ) {
+    outfit.equip($familiar`Gelatinous Cubeling`);
   }
 }
 
@@ -358,6 +367,13 @@ export function equipDefaults(outfit: Outfit, noFightingFamiliars: boolean): voi
     outfit.equip($item`nurse's hat`);
   }
 
+  if (outfit.equip($familiar`Grey Goose`) && familiarWeight($familiar`Grey Goose`) < 7) {
+    outfit.equip($item`grey down vest`);
+    outfit.equip($item`ghostly reins`);
+    outfit.equip($item`teacher's pen`);
+    outfit.equip($item`autumn leaf pendant`);
+  }
+
   if (modifier.length === 0) {
     // Default outfit
     outfit.equip($item`sea salt scrubs`);
@@ -412,8 +428,6 @@ export function equipDefaults(outfit: Outfit, noFightingFamiliars: boolean): voi
     outfit.avoid.push($item`cursed magnifying glass`);
   }
 
-  if (outfit.equip($familiar`Grey Goose`) && familiarWeight($familiar`Grey Goose`) < 7)
-    outfit.equip($item`grey down vest`);
   outfit.equip($item`miniature crystal ball`);
 }
 

@@ -535,15 +535,22 @@ export const PalindomeQuest: Quest = {
       name: "Boss",
       after: ["Open Alarm"],
       priority: () => {
-        if (!have($familiar`Grey Goose`) || have($item`Ghost Dog Chow`)) return Priorities.None;
-        if (familiarWeight($familiar`Grey Goose`) < 6) return Priorities.BadGoose;
-        return Priorities.GoodGoose;
+        if (!have($familiar`Grey Goose`)) return Priorities.None;
+        if (familiarWeight($familiar`Grey Goose`) >= 7) return Priorities.GoodGoose;
+        if (!have($item`Ghost Dog Chow`)) return Priorities.BadGoose;
+        return Priorities.None;
       },
       completed: () => step("questL11Palindome") === 999,
       prepare: () => {
         if (
           myFamiliar() === $familiar`Grey Goose` &&
-          familiarWeight($familiar`Grey Goose`) < 6 &&
+          familiarWeight($familiar`Grey Goose`) < 7 &&
+          have($item`Ghost Dog Chow`)
+        )
+          use($item`Ghost Dog Chow`);
+        if (
+          myFamiliar() === $familiar`Grey Goose` &&
+          familiarWeight($familiar`Grey Goose`) < 7 &&
           have($item`Ghost Dog Chow`)
         )
           use($item`Ghost Dog Chow`);
@@ -552,7 +559,10 @@ export const PalindomeQuest: Quest = {
         visitUrl("place.php?whichplace=palindome&action=pal_drlabel");
         runChoice(-1);
       },
-      outfit: { equip: $items`Talisman o' Namsilat, Mega Gem`, familiar: $familiar`Grey Goose` },
+      outfit: {
+        equip: $items`Talisman o' Namsilat, Mega Gem, grey down vest, teacher's pen`,
+        familiar: $familiar`Grey Goose`,
+      },
       choices: { 131: 1 },
       combat: new CombatStrategy()
         .macro(Macro.trySkill($skill`Emit Matter Duplicating Drones`))

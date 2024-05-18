@@ -443,12 +443,13 @@ export const ManorQuest: Quest = {
       name: "Boss",
       after: ["Blow Wall"],
       priority: () => {
-        if (!have($familiar`Grey Goose`) || have($item`Ghost Dog Chow`)) return Priorities.None;
-        if (familiarWeight($familiar`Grey Goose`) < 6) return Priorities.BadGoose;
-        return Priorities.GoodGoose;
+        if (!have($familiar`Grey Goose`)) return Priorities.None;
+        if (familiarWeight($familiar`Grey Goose`) >= 7) return Priorities.GoodGoose;
+        if (!have($item`Ghost Dog Chow`)) return Priorities.BadGoose;
+        return Priorities.None;
       },
       completed: () => step("questL11Manor") >= 999,
-      outfit: { familiar: $familiar`Grey Goose` },
+      outfit: { familiar: $familiar`Grey Goose`, equip: $items`grey down vest, teacher's pen` },
       prepare: () => {
         if (
           myFamiliar() === $familiar`Grey Goose` &&

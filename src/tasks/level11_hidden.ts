@@ -54,7 +54,6 @@ const Temple: Task[] = [
     choices: { 502: 2, 505: 2, 334: 1 },
     outfit: { modifier: "-combat" },
     limit: { soft: 10 },
-    ncforce: true,
   },
   {
     name: "Forest Map",
@@ -67,7 +66,6 @@ const Temple: Task[] = [
     choices: { 502: 3, 506: 3, 507: 1, 334: 1 },
     outfit: { modifier: "-combat" },
     limit: { soft: 10 },
-    ncforce: true,
   },
   {
     name: "Forest Fertilizer",
@@ -80,7 +78,6 @@ const Temple: Task[] = [
     choices: { 502: 3, 506: 2, 507: 1, 334: 1 },
     outfit: { modifier: "-combat" },
     limit: { soft: 10 },
-    ncforce: true,
   },
   {
     name: "Forest Sapling",
@@ -93,7 +90,6 @@ const Temple: Task[] = [
     choices: { 502: 1, 503: 3, 504: 3, 334: 1 },
     outfit: { modifier: "-combat" },
     limit: { soft: 10 },
-    ncforce: true,
   },
   {
     name: "Open Temple",
@@ -546,9 +542,10 @@ export const HiddenQuest: Quest = {
       },
       priority: () => {
         if ($location`A Massive Ziggurat`.turnsSpent < 3) return Priorities.None;
-        if (!have($familiar`Grey Goose`) || have($item`Ghost Dog Chow`)) return Priorities.None;
-        if (familiarWeight($familiar`Grey Goose`) < 7) return Priorities.BadGoose;
-        return Priorities.GoodGoose;
+        if (!have($familiar`Grey Goose`)) return Priorities.None;
+        if (familiarWeight($familiar`Grey Goose`) >= 7) return Priorities.GoodGoose;
+        if (!have($item`Ghost Dog Chow`)) return Priorities.BadGoose;
+        return Priorities.None;
       },
       outfit: () => {
         if ($location`A Massive Ziggurat`.turnsSpent < 3)
@@ -556,7 +553,7 @@ export const HiddenQuest: Quest = {
             equip: $items`muculent machete`,
           };
         return {
-          equip: $items`Space Trip safety headphones, June cleaver`,
+          equip: $items`Space Trip safety headphones, June cleaver, grey down vest, teacher's pen`,
           familiar: $familiar`Grey Goose`,
         };
       },
