@@ -501,6 +501,7 @@ export const DigitalQuest: Quest = {
       },
       outfit: { equip: $items`continuum transfunctioner` },
       limit: { tries: 2 }, // The first time may only set the property
+      freeaction: true,
     },
   ],
 };

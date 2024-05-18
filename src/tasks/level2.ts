@@ -44,7 +44,6 @@ export const MosquitoQuest: Quest = {
       choices: { 502: 2, 505: 1, 334: 1 },
       outfit: { modifier: "-combat" },
       limit: { soft: 20 },
-      ncforce: true,
     },
     {
       name: "Finish",

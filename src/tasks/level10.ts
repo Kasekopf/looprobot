@@ -259,7 +259,10 @@ export const GiantQuest: Quest = {
     {
       name: "Unlock HITS",
       after: ["Top Floor"],
-      ready: () => myTurncount() > 200,
+      ready: () =>
+        myTurncount() > 200 &&
+        !have($item`greasy desk bell`) &&
+        (!have($item`Cargo Cultist Shorts`) || get("_cargoPocketEmptied")),
       completed: () =>
         have($item`steam-powered model rocketship`) ||
         (have($item`star chart`) && itemAmount($item`star`) >= 8 && itemAmount($item`line`) >= 7) ||

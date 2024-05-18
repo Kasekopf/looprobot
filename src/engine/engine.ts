@@ -410,7 +410,7 @@ export class Engine extends BaseEngine<CombatActions, ActiveTask> {
 
     // Use rock-band flyers if needed (300 extra as a buffer for mafia tracking)
     const blacklist = new Set<Location>(
-      $locations`The Copperhead Club, The Black Forest, Oil Peak, The Defiled Cranny`
+      $locations`The Copperhead Club, The Black Forest, Oil Peak, The Defiled Cranny, The Haunted Boiler Room`
     );
     const monster_blacklist = [
       ...getTodaysHolidayWanderers(),
@@ -423,6 +423,7 @@ export class Engine extends BaseEngine<CombatActions, ActiveTask> {
       $monster`angry ghost`,
       $monster`annoyed snake`,
       $monster`slime blob`,
+      $monster`Astrologer of Shub-Jigguwatt`,
     ];
     if (get("camelSpit") === 100) monster_blacklist.push($monster`Camel's Toe`); // we will spit
     if (

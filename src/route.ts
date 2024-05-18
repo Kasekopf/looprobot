@@ -80,18 +80,7 @@ export const routing: string[] = [
   "Giant/Top Floor",
   "Robot/Unequip Hat Phase 1",
 
-  // First -combat group
-  "Mosquito/Burn Delay",
-  "Hidden City/Forest Coin", // First to get meat
-  "Hidden City/Forest Map",
-  "Hidden City/Forest Fertilizer",
-  "Hidden City/Forest Sapling", // Last to sell bar skins
-  "Crypt/Cranny",
-  "Hidden City/Banish Janitors",
-
   // Do summons when ready
-  "Summon/Astrologer Of Shub-Jigguwatt",
-  "Summon/Astronomer",
   "Summon/Camel's Toe",
   "Summon/Baa'baa'bu'ran",
 
@@ -110,11 +99,20 @@ export const routing: string[] = [
   "Macguffin/Oasis Drum", // Get drum as soon as pages are gathered
   "Macguffin/Desert",
 
+  // First -combat group
+  "Mosquito/Burn Delay",
+  "Hidden City/Forest Coin", // First to get meat
+  "Hidden City/Forest Map",
+  "Hidden City/Forest Fertilizer",
+  "Hidden City/Forest Sapling", // Last to sell bar skins
+  "Crypt/Cranny",
+
   "Manor/Blow Wall", // Get boss ready for goose
 
   // Start Hidden city
   "Hidden City/Open Temple",
   "Hidden City/Open City",
+  "Hidden City/Banish Janitors",
   "Hidden City/Open Bowling",
   "Hidden City/Open Office",
   "Hidden City/Open Hospital",
@@ -131,6 +129,7 @@ export const routing: string[] = [
   "Crypt/Alcove",
   "Crypt/Niche",
   "Palindome/Boss",
+  "Mosquito/Finish",
   "Tavern/Finish",
   "Digital/Megalo",
   "Orc Chasm/Start Peaks",
@@ -160,6 +159,8 @@ export const routing: string[] = [
   // Setup for second hat phase
   "Robot/Equip Hat Phase 2",
   "Knob/King",
+  "War/Open Orchard",
+  "War/Orchard Finish",
   "War/Boss Hippie",
   "Robot/Unequip Hat Phase 2",
   "Giant/Unlock HITS", // TODO: find better spot
@@ -177,7 +178,10 @@ export const routing: string[] = [
 
   // Save NC forcers as long as possible (for more rests)
   "Friar/Finish",
-  "Mosquito/Finish",
+
+  // Final harder summons
+  "Summon/Astrologer Of Shub-Jigguwatt",
+  "Summon/Astronomer",
 
   "Robot/Statbot",
   "Tower/Naughty Sorceress",

@@ -441,7 +441,11 @@ const Bowling: Task[] = [
     combat: new CombatStrategy()
       .killHard($monster`ancient protector spirit (The Hidden Bowling Alley)`)
       .killItem($monster`pygmy bowler`)
-      .macro(() => Macro.tryItem($item`cosmic bowling ball`))
+      .macro(() =>
+        get("hiddenBowlingAlleyProgress") < 2
+          ? Macro.tryItem($item`cosmic bowling ball`)
+          : new Macro()
+      )
       .macro(() => {
         return Macro.tryItem($item`Spooky VHS Tape`).trySkill(
           $skill`Emit Matter Duplicating Drones`
@@ -451,7 +455,7 @@ const Bowling: Task[] = [
       .banish($monster`pygmy orderlies`),
     outfit: () => {
       const result: OutfitSpec = {
-        equip: $items`nurse's hat`,
+        equip: $items`Space Trip safety headphones`,
         modifier: "item",
         avoid: $items`broken champagne bottle`,
       };
