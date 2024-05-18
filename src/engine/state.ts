@@ -94,6 +94,10 @@ export class BanishState {
       undefined
     );
   }
+
+  allBanished(monsters: Monster[]): boolean {
+    return monsters.find((monster) => !this.already_banished.has(monster)) === undefined;
+  }
 }
 
 class OrbState {

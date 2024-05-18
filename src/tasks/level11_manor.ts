@@ -33,6 +33,7 @@ import { CombatStrategy, killMacro } from "../engine/combat";
 import { Priorities } from "../engine/priority";
 import { forceNCPossible, tryForceNC, tryPlayApriling } from "../engine/resources";
 import { haveLoathingIdolMicrophone } from "../lib";
+import { globalStateCache } from "../engine/state";
 
 const Manor1: Task[] = [
   {
@@ -299,18 +300,28 @@ const ManorBasement: Task[] = [
       step("questL11Manor") >= 3,
     do: $location`The Haunted Wine Cellar`,
     outfit: () => {
+      const equip = [];
+      if (
+        have($item`Lil' Doctor™ bag`) &&
+        get("_otoscopeUsed") < 3 &&
+        $location`The Haunted Wine Cellar`.turnsSpent > 4
+      )
+        equip.push($item`Lil' Doctor™ bag`);
+      const banishState = globalStateCache.banishes();
+      if (banishState.allBanished($monsters`mad wino, skeletal sommelier`))
+        equip.push($item`broken champagne bottle`);
       return {
         skipDefaults: true,
         modifier: "item, booze drop",
-        equip:
-          have($item`Lil' Doctor™ bag`) && get("_otoscopeUsed") < 3 ? $items`Lil' Doctor™ bag` : [],
+        equip: equip,
       };
     },
     choices: { 901: 2 },
     combat: new CombatStrategy()
       .macro(Macro.trySkill($skill`Otoscope`), $monster`possessed wine rack`)
       .killItem($monster`possessed wine rack`)
-      .banish($monsters`mad wino, skeletal sommelier`),
+      .banish($monsters`mad wino, skeletal sommelier`)
+      .kill(),
     limit: { soft: 15 },
   },
   {
@@ -330,8 +341,15 @@ const ManorBasement: Task[] = [
     do: $location`The Haunted Laundry Room`,
     outfit: () => {
       const equip = $items`Cargo Cultist Shorts`;
-      if (have($item`Lil' Doctor™ bag`) && get("_otoscopeUsed") < 3)
+      if (
+        have($item`Lil' Doctor™ bag`) &&
+        get("_otoscopeUsed") < 3 &&
+        $location`The Haunted Laundry Room`.turnsSpent > 4
+      )
         equip.push($item`Lil' Doctor™ bag`);
+      const banishState = globalStateCache.banishes();
+      if (banishState.allBanished($monsters`plaid ghost, possessed laundry press`))
+        equip.push($item`broken champagne bottle`);
       return {
         skipDefaults: true,
         modifier: "item, food drop",
@@ -342,7 +360,8 @@ const ManorBasement: Task[] = [
     combat: new CombatStrategy()
       .macro(Macro.trySkill($skill`Otoscope`), $monster`cabinet of Dr. Limpieza`)
       .killItem($monster`cabinet of Dr. Limpieza`)
-      .banish($monsters`plaid ghost, possessed laundry press`),
+      .banish($monsters`plaid ghost, possessed laundry press`)
+      .kill(),
     limit: { soft: 15 },
   },
   {

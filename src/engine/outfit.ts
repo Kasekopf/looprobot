@@ -332,7 +332,8 @@ export function equipDefaults(outfit: Outfit, noFightingFamiliars: boolean): voi
     outfit.addBonus($item`Everfull Dart Holster`, 30);
 
   outfit.avoid.push($item`runed taper candle`);
-  outfit.avoid.push($item`broken champagne bottle`);
+  if (!outfit.haveEquipped($item`broken champagne bottle`))
+    outfit.avoid.push($item`broken champagne bottle`);
   outfit.equip($item`June cleaver`);
 
   if (outfit.skipDefaults) return;
