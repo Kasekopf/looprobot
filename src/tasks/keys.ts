@@ -470,15 +470,6 @@ export const DigitalQuest: Quest = {
       after: ["Open"],
       completed: () => getScore() >= 10000,
       ready: () => get("8BitColor", "black") === "green",
-      prepare: () => {
-        if (
-          !have($effect`Frosty`) &&
-          have($item`cursed monkey's paw`) &&
-          get("_monkeyPawWishesUsed") < 5
-        )
-          cliExecute("monkeypaw effect frosty");
-        if (haveLoathingIdolMicrophone()) ensureEffect($effect`Spitting Rhymes`);
-      },
       do: $location`Hero's Field`,
       post: () => {
         if (haveFlorest() && FloristFriar.Rutabeggar.available()) {

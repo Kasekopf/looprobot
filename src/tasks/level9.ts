@@ -1,4 +1,5 @@
 import {
+  ceil,
   changeMcd,
   cliExecute,
   council,
@@ -35,7 +36,7 @@ import {
 import { Priority, Quest, Task } from "../engine/task";
 import { Guards, OutfitSpec, step } from "grimoire-kolmafia";
 import { CombatStrategy } from "../engine/combat";
-import { atLevel } from "../lib";
+import { atLevel, haveLoathingIdolMicrophone } from "../lib";
 import { Priorities } from "../engine/priority";
 import { councilSafe } from "./level12";
 import { customRestoreMp, fillHp } from "../engine/moods";
@@ -123,6 +124,14 @@ const Oil: Task[] = [
     after: ["Start Peaks"],
     completed: () => get("oilPeakProgress") === 0,
     prepare: () => {
+      if (
+        !have($effect`Frosty`) &&
+        have($item`cursed monkey's paw`) &&
+        get("_monkeyPawWishesUsed") < 5
+      )
+        cliExecute("monkeypaw effect frosty");
+      if (haveLoathingIdolMicrophone()) ensureEffect($effect`Spitting Rhymes`);
+
       if (myMp() < 80 && myMaxmp() >= 80) customRestoreMp(80 - myMp());
       if (myHp() < 100 && myMaxhp() >= 100) customRestoreMp(100 - myMp());
       if (numericModifier("Monster Level") < 100) changeMcd(10);
@@ -132,23 +141,20 @@ const Oil: Task[] = [
     },
     do: $location`Oil Peak`,
     outfit: () => {
+      const frostySoon =
+        !have($effect`Frosty`) &&
+        have($item`cursed monkey's paw`) &&
+        get("_monkeyPawWishesUsed") < 5;
+      const mlNeeded = ceil(
+        (frostySoon ? 75 : 100) * (have($item`unbreakable umbrella`) ? 0.8 : 1)
+      );
+
       const spec: OutfitSpec & { equip: Item[] } = {
-        modifier: "ML 100 max, 0.1 item",
-        equip: [],
+        modifier: `ML ${mlNeeded} max, 0.1 item`,
+        equip: $items`unbreakable umbrella, unwrapped knock-off retro superhero cape`,
+        modes: { umbrella: "broken", retrocape: ["heck", "hold"] },
         avoid: $items`Kramco Sausage-o-Matic™`,
       };
-
-      // Use a retro superhero cape to dodge the first hit
-      if (have($item`unwrapped knock-off retro superhero cape`)) {
-        spec.equip.push($item`unwrapped knock-off retro superhero cape`);
-        spec.modes = { retrocape: ["vampire", "hold"] };
-      }
-
-      // The unbreakable umbrella lowers the ML cap; handle it separately.
-      if (have($item`unbreakable umbrella`)) {
-        spec.modifier = "ML 80 max, 0.1 item";
-        spec.equip.push($item`unbreakable umbrella`);
-      }
 
       // Use the Tot for more +item
       if (have($familiar`Trick-or-Treating Tot`) && have($item`li'l ninja costume`)) {
