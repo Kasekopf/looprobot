@@ -378,7 +378,8 @@ export const wandererSources: WandererSource[] = [
         result.trySkill($skill`Digitize`);
       if (
         familiarWeight($familiar`Grey Goose`) <= 7 &&
-        haveEquipped($item`Space Trip safety headphones`)
+        haveEquipped($item`Space Trip safety headphones`) &&
+        itemAmount($item`magical sausage casing`) < 15
       )
         result.trySkill($skill`Emit Matter Duplicating Drones`);
       return result;
