@@ -408,9 +408,9 @@ export class Engine extends BaseEngine<CombatActions, ActiveTask> {
     // Prepare combat macro
     if (combat.getDefaultAction() === undefined) combat.action("ignore");
 
-    // Use rock-band flyers if needed (300 extra as a buffer for mafia tracking)
+    // Use rock-band flyers if needed
     const blacklist = new Set<Location>(
-      $locations`The Copperhead Club, The Black Forest, Oil Peak, The Defiled Cranny, The Haunted Boiler Room`
+      $locations`The Copperhead Club, The Black Forest, Oil Peak, The Defiled Cranny, The Haunted Boiler Room, The Outskirts of Cobb's Knob, The Spooky Forest`
     );
     const monster_blacklist = [
       ...getTodaysHolidayWanderers(),
