@@ -165,13 +165,11 @@ export const routing: string[] = [
   "Robot/Unequip Hat Phase 2",
   "Giant/Unlock HITS", // TODO: find better spot
 
-  // Finish up with last delay
-  "Misc/Eldritch Tentacle",
-  "Bat/Finish",
-
   // Finish off quests
   "Macguffin/Finish",
   "Orc Chasm/Finish",
+  "Misc/Eldritch Tentacle",
+  "Bat/Finish",
 
   // Finish last keys
   "Keys/All Heroes",
