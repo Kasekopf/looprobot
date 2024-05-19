@@ -98,8 +98,10 @@ const summonTargets: SummonTarget[] = [
     prepare: () => {
       fillHp();
     },
-    outfit: { equip: $items`June cleaver, Space Trip safety headphones`,
-    avoid: $items`carnivorous potted plant` },
+    outfit: {
+      equip: $items`June cleaver, Space Trip safety headphones`,
+      avoid: $items`carnivorous potted plant`,
+    },
     combat: new CombatStrategy()
       .macro(Macro.trySkill($skill`Micrometeorite`).trySkill($skill`Curse of Weaksauce`))
       .killHard(),

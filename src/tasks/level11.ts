@@ -22,7 +22,6 @@ import {
   $skill,
   byStat,
   DaylightShavings,
-  ensureEffect,
   get,
   have,
   Macro,
@@ -32,7 +31,7 @@ import { Quest, Task } from "../engine/task";
 import { OutfitSpec, step } from "grimoire-kolmafia";
 import { Priorities } from "../engine/priority";
 import { CombatStrategy } from "../engine/combat";
-import { atLevel, debug, haveLoathingIdolMicrophone } from "../lib";
+import { atLevel, debug } from "../lib";
 import { councilSafe } from "./level12";
 import { customRestoreMp } from "../engine/moods";
 import { tryPlayApriling } from "../engine/resources";
@@ -315,9 +314,6 @@ const Pyramid: Task[] = [
     name: "Middle Chamber",
     after: ["Upper Chamber"],
     prepare: () => {
-      if (haveLoathingIdolMicrophone()) {
-        ensureEffect($effect`Spitting Rhymes`);
-      }
       if (have($item`tangle of rat tails`) && myMaxmp() >= 80) {
         customRestoreMp(80); // Weaksauce + 3x saucegeyser
       }
@@ -364,11 +360,6 @@ const Pyramid: Task[] = [
   {
     name: "Middle Chamber Delay",
     after: ["Upper Chamber", "Middle Chamber"],
-    prepare: () => {
-      if (haveLoathingIdolMicrophone()) {
-        ensureEffect($effect`Spitting Rhymes`);
-      }
-    },
     completed: () => {
       if (!get("controlRoomUnlock")) return false;
       if (get("pyramidBombUsed")) return true;
