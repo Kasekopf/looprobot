@@ -431,6 +431,7 @@ const Bowling: Task[] = [
           takeCloset($item`bowling ball`, closetAmount($item`bowling ball`));
       }
       if (
+        get("gooseDronesRemaining") < 1 &&
         myFamiliar() === $familiar`Grey Goose` &&
         familiarWeight($familiar`Grey Goose`) < 6 &&
         have($item`Ghost Dog Chow`)
