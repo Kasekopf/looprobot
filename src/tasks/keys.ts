@@ -208,7 +208,9 @@ function dailyDungeonTask(): Omit<Task, "completed" | "name" | "after"> {
       return {
         689: 1,
         690: have($item`ring of Detect Boring Doors`) ? 2 : 3,
-        691: 3, // Do not skip the second chest; there is a chance we skip all the monsters
+        // Do not skip the second chest if there is a chance we skip all the malware-able monsters
+        691:
+          have($item`ring of Detect Boring Doors`) && !have($item`daily dungeon malware`) ? 2 : 3,
         692: getDoorSolution(),
         693: have($item`eleven-foot pole`) ? 2 : 1,
       };
