@@ -391,7 +391,6 @@ export const DigitalQuest: Quest = {
         have($effect`Frosty`) || have($effect`Shadow Waters`)
           ? Priorities.BadMood
           : Priorities.None,
-      ready: () => YouRobot.canUseFamiliar(),
       completed: () => getScore() >= 10000,
       prepare: () => {
         if (numericModifier("Initiative") < 600 && have($skill`Silent Hunter`)) {
@@ -423,7 +422,9 @@ export const DigitalQuest: Quest = {
         )
           ensureEffect($effect`Feeling Excited`);
       },
-      ready: () => get("8BitColor", "black") === "black" || get("8BitColor", "black") === "",
+      ready: () =>
+        (get("8BitColor", "black") === "black" || get("8BitColor", "black") === "") &&
+        YouRobot.canUseFamiliar(),
       do: $location`Vanya's Castle`,
       outfit: () => {
         // Hack to make accessory room for the I Voted sticker when it is up

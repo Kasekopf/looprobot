@@ -1005,7 +1005,7 @@ export const MiscQuest: Quest = {
       name: "Range",
       after: [],
       priority: () => Priorities.Free,
-      ready: () => (myMeat() >= 1000 + meatBuffer) || have($item`Dramatic™ range`),
+      ready: () => myMeat() >= 1000 + meatBuffer || have($item`Dramatic™ range`),
       completed: () => get("hasRange"),
       do: () => {
         retrieveItem($item`Dramatic™ range`);
@@ -1013,7 +1013,7 @@ export const MiscQuest: Quest = {
       },
       freeaction: true,
       limit: { tries: 1 },
-    }
+    },
   ],
 };
 
