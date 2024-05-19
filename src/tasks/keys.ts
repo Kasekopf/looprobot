@@ -47,7 +47,7 @@ import { step } from "grimoire-kolmafia";
 import { Priorities } from "../engine/priority";
 import { args } from "../args";
 import { trainSetAvailable } from "./misc";
-import { atLevel, haveFlorest, haveLoathingIdolMicrophone, underStandard } from "../lib";
+import { atLevel, haveFlorest, haveLoathingIdolMicrophone, underStandard, YouRobot } from "../lib";
 import { castWithMpSwaps, ensureWithMPSwaps } from "../engine/moods";
 
 export enum Keys {
@@ -391,6 +391,7 @@ export const DigitalQuest: Quest = {
         have($effect`Frosty`) || have($effect`Shadow Waters`)
           ? Priorities.BadMood
           : Priorities.None,
+      ready: () => YouRobot.canUseFamiliar(),
       completed: () => getScore() >= 10000,
       prepare: () => {
         if (numericModifier("Initiative") < 600 && have($skill`Silent Hunter`)) {
