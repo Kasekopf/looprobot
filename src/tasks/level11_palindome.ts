@@ -205,7 +205,7 @@ const Copperhead: Task[] = [
   },
   {
     name: "Hot Snake Postcastle",
-    after: ["Copperhead Start", "Giant/Ground"],
+    after: ["Copperhead Start", "Giant/Top Floor"],
     ready: () => shenItem($item`Murphy's Rancid Black Flag`),
     completed: () => step("questL11Shen") === 999 || have($item`Murphy's Rancid Black Flag`),
     do: $location`The Castle in the Clouds in the Sky (Top Floor)`,
