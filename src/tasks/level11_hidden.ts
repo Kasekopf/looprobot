@@ -448,15 +448,15 @@ const Bowling: Task[] = [
           : new Macro()
       )
       .macro(() => {
-        return Macro.tryItem($item`Spooky VHS Tape`).trySkill(
-          $skill`Emit Matter Duplicating Drones`
-        );
+        return Macro.tryItem($item`Spooky VHS Tape`)
+          .trySkill($skill`Emit Matter Duplicating Drones`)
+          .trySkill($skill`Otoscope`);
       }, $monster`pygmy bowler`)
       .banish($monster`pygmy janitor`)
       .banish($monster`pygmy orderlies`),
     outfit: () => {
       const result: OutfitSpec = {
-        equip: $items`Space Trip safety headphones`,
+        equip: $items`Space Trip safety headphones, Lil' Doctor™ bag`,
         modifier: "item",
         avoid: $items`broken champagne bottle`,
       };
