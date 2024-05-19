@@ -689,7 +689,8 @@ export const MiscQuest: Quest = {
       priority: () => Priorities.Free,
       ready: () =>
         (((have($item`fish head`) && have($item`boxed wine`)) || have($item`piscatini`)) &&
-          have($item`grapefruit`)) ||
+          have($item`grapefruit`) &&
+          (get("hasCocktailKit") || myMeat() >= 1000 + meatBuffer)) ||
         have($item`drive-by shooting`),
       completed: () =>
         myTurncount() >= 1000 ||
@@ -697,6 +698,10 @@ export const MiscQuest: Quest = {
         !have($familiar`Robortender`) ||
         get("_roboDrinks").toLowerCase().includes("drive-by shooting"),
       do: () => {
+        if (!get("hasCocktailKit")) {
+          retrieveItem($item`Queue Du Coq cocktailcrafting kit`);
+          use($item`Queue Du Coq cocktailcrafting kit`);
+        }
         retrieveItem($item`drive-by shooting`);
         Robortender.feed($item`drive-by shooting`);
       },
