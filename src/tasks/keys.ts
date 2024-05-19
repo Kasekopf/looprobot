@@ -10,6 +10,7 @@ import {
   itemAmount,
   mallPrice,
   myAdventures,
+  myBasestat,
   myClass,
   myTurncount,
   numericModifier,
@@ -31,6 +32,7 @@ import {
   $monsters,
   $skill,
   $slots,
+  $stat,
   ensureEffect,
   FloristFriar,
   get,
@@ -412,6 +414,13 @@ export const DigitalQuest: Quest = {
           haveLoathingIdolMicrophone()
         )
           ensureEffect($effect`Poppy Performance`);
+
+        if (
+          myBasestat($stat`Moxie`) < 70 &&
+          have($skill`Emotionally Chipped`) &&
+          get("_feelExcitementUsed") < 3
+        )
+          ensureEffect($effect`Feeling Excited`);
       },
       ready: () => get("8BitColor", "black") === "black" || get("8BitColor", "black") === "",
       do: $location`Vanya's Castle`,
