@@ -50,6 +50,7 @@ const summonTargets: SummonTarget[] = [
     outfit: {
       equip: $items`unwrapped knock-off retro superhero cape`,
       modes: { retrocape: ["heck", "hold"] },
+      avoid: $items`carnivorous potted plant`,
     },
     combat: new CombatStrategy().yellowRay(),
   },
@@ -64,12 +65,14 @@ const summonTargets: SummonTarget[] = [
         return {
           equip: $items`unwrapped knock-off retro superhero cape`,
           modes: { retrocape: ["heck", "hold"] },
+          avoid: $items`carnivorous potted plant`,
         };
       else
         return {
           equip: $items`unwrapped knock-off retro superhero cape`,
           modes: { retrocape: ["heck", "hold"] },
           modifier: "item",
+          avoid: $items`carnivorous potted plant`,
         };
     },
     combat: new CombatStrategy().yellowRay().macro(() => {
@@ -95,7 +98,8 @@ const summonTargets: SummonTarget[] = [
     prepare: () => {
       fillHp();
     },
-    outfit: { equip: $items`June cleaver, Space Trip safety headphones` },
+    outfit: { equip: $items`June cleaver, Space Trip safety headphones`,
+    avoid: $items`carnivorous potted plant` },
     combat: new CombatStrategy()
       .macro(Macro.trySkill($skill`Micrometeorite`).trySkill($skill`Curse of Weaksauce`))
       .killHard(),
@@ -138,6 +142,7 @@ const summonTargets: SummonTarget[] = [
           modifier: "item",
           equip: $items`June cleaver, Space Trip safety headphones`,
           familiar: $familiar`Melodramedary`,
+          avoid: $items`carnivorous potted plant`,
         };
       return {
         equip: $items`June cleaver, Space Trip safety headphones`,
