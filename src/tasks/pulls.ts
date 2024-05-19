@@ -14,7 +14,18 @@ import {
   toInt,
   visitUrl,
 } from "kolmafia";
-import { $familiar, $item, $items, $monster, $skill, byStat, get, have, set } from "libram";
+import {
+  $familiar,
+  $item,
+  $items,
+  $location,
+  $monster,
+  $skill,
+  byStat,
+  get,
+  have,
+  set,
+} from "libram";
 import { args, toTempPref } from "../args";
 import { Priorities } from "../engine/priority";
 import { Quest, Task } from "../engine/task";
@@ -105,7 +116,13 @@ export const pulls: PullSpec[] = [
         !have($item`forged identification documents`)
       )
         return true;
-      if (step("questL11Black") > 2) return false;
+      if (
+        myMeat() < 5000 &&
+        step("questL11Ron") >= 2 &&
+        $location`The Red Zeppelin`.turnsSpent === 0
+      )
+        return true;
+      if (step("questL11Ron") >= 5) return false;
       return undefined;
     },
   },
