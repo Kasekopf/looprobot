@@ -41,7 +41,7 @@ import { Priorities } from "../engine/priority";
 import { CombatStrategy } from "../engine/combat";
 import { atLevel, debug, YouRobot } from "../lib";
 import { forceItemPossible, yellowRayPossible } from "../engine/resources";
-import { args } from "../args";
+import { args, toTempPref } from "../args";
 import { customRestoreMp, fillHp } from "../engine/moods";
 
 export function flyersDone(): boolean {
@@ -75,12 +75,12 @@ const Flyers: Task[] = [
       if (have($item`rock band flyers`)) {
         debug("Mafia tracking was incorrect for rock band flyers; continuing to flyer...");
         set(
-          "_looprobot_flyeredML_buffer",
-          get("_looprobot_flyeredML_buffer", 0) + (get("flyeredML") - 9900)
+          toTempPref("flyeredML_buffer"),
+          get(toTempPref("flyeredML_buffer"), 0) + (get("flyeredML") - 9900)
         );
         set("flyeredML", 9900);
-      } else if (get("_looprobot_flyeredML_buffer", 0) > 0) {
-        const real = get("flyeredML") + get("_looprobot_flyeredML_buffer", 0);
+      } else if (get(toTempPref("flyeredML_buffer"), 0) > 0) {
+        const real = get("flyeredML") + get(toTempPref("flyeredML_buffer"), 0);
         debug(`Mafia tracking was incorrect for rock band flyers; quest completed at ${real}`);
       }
     },

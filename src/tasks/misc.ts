@@ -69,7 +69,7 @@ import { Priorities } from "../engine/priority";
 import { Engine, wanderingNCs } from "../engine/engine";
 import { Keys, keyStrategy } from "./keys";
 import { atLevel, haveLoathingIdolMicrophone, underStandard } from "../lib";
-import { args } from "../args";
+import { args, toTempPref } from "../args";
 import { coldPlanner, yellowSubmarinePossible } from "../engine/outfit";
 import { ROUTE_WAIT_TO_NCFORCE } from "../route";
 
@@ -176,15 +176,15 @@ export const MiscQuest: Quest = {
       ready: () =>
         have($familiar`Reagnimated Gnome`) &&
         !have($item`gnomish housemaid's kgnee`) &&
-        !get("_loopcasual_checkedGnome", false),
+        !get(toTempPref("checkedGnome"), false),
       completed: () =>
         !have($familiar`Reagnimated Gnome`) ||
         have($item`gnomish housemaid's kgnee`) ||
-        get("_loopcasual_checkedGnome", false),
+        get(toTempPref("checkedGnome"), false),
       do: () => {
         visitUrl("arena.php");
         runChoice(4);
-        set("_loopcasual_checkedGnome", true);
+        set(toTempPref("checkedGnome"), true);
       },
       outfit: { familiar: $familiar`Reagnimated Gnome` },
       freeaction: true,
@@ -473,10 +473,10 @@ export const MiscQuest: Quest = {
       name: "Hermit Clover",
       after: [],
       ready: () => myMeat() >= meatBuffer + 1000,
-      completed: () => get("_looprobot_clovers") === "true",
+      completed: () => toTempPref("clovers") === "true",
       do: () => {
         hermit($item`11-leaf clover`, 3);
-        set("_looprobot_clovers", "true");
+        set(toTempPref("clovers"), "true");
       },
       outfit: { equip: $items`designer sweatpants` },
       freeaction: true,
