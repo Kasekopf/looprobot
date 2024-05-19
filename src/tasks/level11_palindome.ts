@@ -513,7 +513,7 @@ const Dome: Task[] = [
   },
   {
     name: "Open Alarm",
-    after: ["Alarm Gem", "Palindome Nuts", "Grove"],
+    after: ["Alarm Gem", "Palindome Nuts", "Grove", "Misc/Range"],
     completed: () => step("questL11Palindome") >= 5,
     do: () => {
       if (!have($item`wet stunt nut stew`)) create($item`wet stunt nut stew`);
