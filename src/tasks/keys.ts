@@ -447,7 +447,12 @@ export const DigitalQuest: Quest = {
           avoid: $items`"I Voted!" sticker`,
         };
       },
-      combat: new CombatStrategy().kill(),
+      combat: new CombatStrategy()
+        .kill()
+        .macro(
+          Macro.trySkill($skill`Summon Love Gnats`).trySkill($skill`Summon Love Stinkbug`),
+          $monster`fleaman`
+        ),
       limit: { soft: 16 },
       delay: 16,
     },
