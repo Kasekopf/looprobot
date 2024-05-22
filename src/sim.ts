@@ -364,7 +364,7 @@ export function checkRequirements(): void {
     ["Expensive Pulls (Required)", buildPullList(false), true],
     ["Expensive Pulls (Optional)", buildPullList(true), false],
     ["IoTMs (Required)", buildIotmList().filter((r) => r.required), true],
-    ["IoTMs (Required)", buildIotmList().filter((r) => !r.required), false],
+    ["IoTMs (Optional)", buildIotmList().filter((r) => !r.required), false],
     ["Miscellany", buildMiscList(), false],
     ["Combat Lover's Locket Monsters", buildLocketList(), false],
   ];

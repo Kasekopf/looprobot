@@ -108,7 +108,7 @@ IoTMs (Required)
 ✓ Snojo - Leveling with Goose
 ✓ unwrapped knock-off retro superhero cape - Slay the dead in crypt
 
-IoTMs (Required)
+IoTMs (Optional)
 ✓ 2002 Mr. Store Catalog - +item, +init, wanderers
 ✓ august scepter - Protestors, Nuns
 ✓ autumn-aton - Lobsterfrogman
