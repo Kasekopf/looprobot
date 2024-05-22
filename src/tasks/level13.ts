@@ -651,7 +651,7 @@ export const TowerQuest: Quest = {
       after: ["Shadow"],
       completed: () => step("questL13Final") > 11,
       do: $location`The Naughty Sorceress' Chamber`,
-      outfit: { modifier: "muscle", equip: $items`June cleaver` },
+      outfit: { modifier: "muscle", equip: $items`June cleaver, Space Trip safety headphones` },
       combat: new CombatStrategy()
         .macro(() => Macro.externalIf(haveEquipped($item`June cleaver`), Macro.attack().repeat()))
         .kill(),

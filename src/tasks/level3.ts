@@ -6,6 +6,7 @@ import { Priorities } from "../engine/priority";
 import { councilSafe } from "./level12";
 import { Quest } from "../engine/task";
 import { step } from "grimoire-kolmafia";
+import { fillHp } from "../engine/moods";
 
 export const TavernQuest: Quest = {
   name: "Tavern",
@@ -32,6 +33,7 @@ export const TavernQuest: Quest = {
       name: "Basement",
       after: ["Tavernkeep"],
       completed: () => step("questL03Rat") >= 2,
+      prepare: () => fillHp(),
       do: (): void => {
         visitUrl("cellar.php");
         const layout = getProperty("tavernLayout");

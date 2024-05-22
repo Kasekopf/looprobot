@@ -423,8 +423,9 @@ export const DigitalQuest: Quest = {
           ensureEffect($effect`Feeling Excited`);
       },
       ready: () =>
-        (get("8BitColor", "black") === "black" || get("8BitColor", "black") === "") &&
-        YouRobot.canUseFamiliar(),
+        ((get("8BitColor", "black") === "black" || get("8BitColor", "black") === "") &&
+          YouRobot.canUseFamiliar()) ||
+        (get("8BitColor", "black") === "blue" && get("8BitScore") > 5000),
       do: $location`Vanya's Castle`,
       outfit: () => {
         // Hack to make accessory room for the I Voted sticker when it is up
@@ -464,7 +465,7 @@ export const DigitalQuest: Quest = {
       completed: () => getScore() >= 10000,
       prepare: () => {
         // Get the GAP DA buff, saving 1 for after the run
-        if (haveEquipped($item`Greatest American Pants`) && get("_gapBuffs") < 4) {
+        if (haveEquipped($item`Greatest American Pants`) && get("_gapBuffs") < 5) {
           ensureEffect($effect`Super Structure`); // after GAP are equipped
         }
       },

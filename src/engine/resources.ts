@@ -78,7 +78,7 @@ export type BanishSource = CombatResource &
         do: Item | Skill;
       }
     | {
-        do: Macro;
+        do: Macro | DelayedMacro;
         tracker: Item | Skill;
       }
   );
@@ -176,7 +176,7 @@ const banishSources: BanishSource[] = [
     name: "Spring Shoes Kick",
     available: () => have($item`spring shoes`),
     equip: $item`spring shoes`,
-    do: Macro.skill($skill`Spring Kick`).step(killMacro()),
+    do: () => Macro.skill($skill`Spring Kick`).step(killMacro()),
     tracker: $skill`Spring Kick`,
   },
   {

@@ -473,7 +473,7 @@ export const MiscQuest: Quest = {
       name: "Hermit Clover",
       after: [],
       ready: () => myMeat() >= meatBuffer + 1000,
-      completed: () => toTempPref("clovers") === "true",
+      completed: () => get(toTempPref("clovers")) === "true",
       do: () => {
         hermit($item`11-leaf clover`, 3);
         set(toTempPref("clovers"), "true");
