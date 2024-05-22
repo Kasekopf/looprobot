@@ -11,7 +11,7 @@ The script is designed to be run as part of a loop. In particular, it expects th
 To install the script, use the following command in the KoLMafia CLI.
 
 ```
-git checkout https://github.com/Kasekopf/loopsmol release
+git checkout https://github.com/Kasekopf/looprobot release
 ```
 
 ### Usage
