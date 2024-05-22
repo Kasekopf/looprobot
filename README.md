@@ -17,7 +17,7 @@ git checkout https://github.com/Kasekopf/looprobot release
 ### Usage
 
 1. In aftercore, run `looprobot sim` to verify that the script is installed, and to confirm that you meet the requirements (see below for more details). Unlike `loopgyou` and `loopsmol`, the set of requirements to make the script run well is much longer.
-2. Ascend into a You Robot Softcore run. _Your class must be Pastamancer under the Vole sign_. Other classes or signs are not recommended yet; Seal Clubbers will also be supported in the near future.
+2. Ascend into a You Robot Softcore run. **Your class must be Pastamancer under the Vole sign**. Other classes or signs are not recommended yet; Seal Clubbers will also be supported in the near future.
 3. Run `looprobot` and watch it go! If you are more hesitant, you can run `looprobot actions 10` to only do 10 things and stop.
 
 Options can be changed in a few different ways:
