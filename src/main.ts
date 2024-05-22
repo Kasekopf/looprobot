@@ -54,8 +54,8 @@ export function main(command?: string): void {
   if (set_time_now) set(time_property, gametimeToInt());
 
   // Clear intro adventure
-  set("choiceAdventure1507", 1);
-  if (visitUrl("main.php").includes("dense, trackless jungle")) runChoice(-1);
+  set("choiceAdventure1446", 1);
+  if (visitUrl("main.php").includes("one made of rusty metal and scrap wiring")) runChoice(-1);
 
   const tasks = prioritize(all_tasks());
   const engine = new Engine(
