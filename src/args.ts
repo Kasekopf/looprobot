@@ -1,13 +1,5 @@
 import { Args } from "grimoire-kolmafia";
-import { Item } from "kolmafia";
-import { $familiar, $item } from "libram";
-
-const worksheds = [
-  [$item`none`, "Do nothing"],
-  [$item`model train set`, "Swap to model train set"],
-  [$item`cold medicine cabinet`, "Swap to cold medicine cabinet"],
-  [$item`Asdon Martin keyfob (on ring)`, "Swap to asdon martin keyfob"],
-] as [Item, string][];
+import { $familiar } from "libram";
 
 export const args = Args.create(
   "looprobot",
@@ -20,16 +12,6 @@ export const args = Args.create(
         help: "Number of pulls to use. Lower this if you would like to save some pulls to use for in-ronin farming. (Note that this argument is not needed if you pull all your farming items before running the script).",
         default: 20,
       }),
-      workshed: Args.item({
-        help: "Workshed item to place in an empty workshed at the start of the run.",
-        default: $item`model train set`,
-        options: worksheds,
-      }),
-      swapworkshed: Args.item({
-        help: "Workshed item to place in a workshed to replace the cold medicine cabinet.",
-        default: $item`none`,
-        options: worksheds,
-      }),
     }),
     minor: Args.group("Minor Options", {
       fax: Args.boolean({
@@ -38,10 +20,6 @@ export const args = Args.create(
       }),
       lgr: Args.flag({
         help: "Pull a lucky gold ring. If pulled, it will be equipped during many combats.",
-        default: false,
-      }),
-      jellies: Args.flag({
-        help: "Use your Space Jellyfish to get stench jellies during the war (this may reduce your goose familiar exp).",
         default: false,
       }),
       profitFamiliar: Args.flag({
@@ -89,25 +67,6 @@ export const args = Args.create(
         setting: "stillsuitFamiliar",
         default: $familiar`Gelatinous Cubeling`,
       }),
-      skipfork: Args.flag({
-        help: "Skip salad forking; note that this may cause failure due to lack of remaining adventures",
-        default: false,
-      }),
-      skipmug: Args.flag({
-        help: "Skip frosty mug; note that this may cause failure due to lack of remaining adventures",
-        default: false,
-      }),
-      skipmilk: Args.flag({
-        help: "Skip milk of magnesium",
-        default: true,
-      }),
-      delevel: Args.flag({
-        help: "Delevel to level 13 with hot dogs before fighting the NS",
-        default: false,
-      }),
-      tune: Args.string({
-        help: "Use your hewn moon-rune spoon to retune to this sign after dieting.",
-      }),
     }),
     debug: Args.group("Debug Options", {
       actions: Args.number({
@@ -133,10 +92,6 @@ export const args = Args.create(
       settings: Args.flag({
         help: "Show the parsed value for all arguments and exit.",
         setting: "",
-      }),
-      lastasdonbumperturn: Args.number({
-        help: "Set the last usage of Asdon Martin: Spring-Loaded Front Bumper, in case of a tracking issue",
-        hidden: true,
       }),
       ignorekeys: Args.flag({
         help: "Ignore the check that all keys can be obtained. Typically for hardcore, if you plan to get your own keys",

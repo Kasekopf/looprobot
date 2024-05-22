@@ -98,9 +98,6 @@ const banishSources: BanishSource[] = [
   {
     name: "Asdon Martin",
     available: (): boolean => {
-      if (args.debug.lastasdonbumperturn && myTurncount() - args.debug.lastasdonbumperturn > 30)
-        return false;
-
       // From libram
       if (!asdonFualable(50)) return false;
       const banishes = get("banishedMonsters").split(":");

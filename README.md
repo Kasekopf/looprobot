@@ -17,7 +17,7 @@ git checkout https://github.com/Kasekopf/loopsmol release
 ### Usage
 
 1. In aftercore, run `looprobot sim` to verify that the script is installed, and to confirm that you meet the requirements (see below for more details). Unlike `loopgyou` and `loopsmol`, the set of requirements to make the script run well is much longer.
-2. Ascend into a You Robot Softcore run. *Your class must be Pastamancer under the Vole sign*. Other classes or signs are not recommended yet; Seal Clubbers will also be supported in the near future.
+2. Ascend into a You Robot Softcore run. _Your class must be Pastamancer under the Vole sign_. Other classes or signs are not recommended yet; Seal Clubbers will also be supported in the near future.
 3. Run `looprobot` and watch it go! If you are more hesitant, you can run `looprobot actions 10` to only do 10 things and stop.
 
 Options can be changed in a few different ways:
@@ -44,21 +44,10 @@ Commands:
 
 Major Options:
   pulls NUMBER - Number of pulls to use. Lower this if you would like to save some pulls to use for in-ronin farming. (Note that this argument is not needed if you pull all your farming items before running the script). [default: 20] [setting: looprobot_pulls]
-  workshed ITEM - Workshed item to place in an empty workshed at the start of the run. [default: model train set] [setting: looprobot_workshed]
-    workshed none - Do nothing
-    workshed model train set - Swap to model train set
-    workshed cold medicine cabinet - Swap to cold medicine cabinet
-    workshed Asdon Martin keyfob (on ring) - Swap to asdon martin keyfob
-  swapworkshed ITEM - Workshed item to place in a workshed to replace the cold medicine cabinet. [default: none] [setting: looprobot_swapworkshed]
-    swapworkshed none - Do nothing
-    swapworkshed model train set - Swap to model train set
-    swapworkshed cold medicine cabinet - Swap to cold medicine cabinet
-    swapworkshed Asdon Martin keyfob (on ring) - Swap to asdon martin keyfob
 
 Minor Options:
   fax BOOLEAN - Use a fax to summon a monster. Set to false if the faxbots are offline. [default: true] [setting: looprobot_fax]
   lgr - Pull a lucky gold ring. If pulled, it will be equipped during many combats. [default: false] [setting: looprobot_lgr]
-  jellies - Use your Space Jellyfish to get stench jellies during the war (this may reduce your goose familiar exp). [default: false] [setting: looprobot_jellies]
   profitFamiliar - Use free familiar turns for familiar related profits. [default: false] [setting: looprobot_profitFamiliar]
   pvp - Break your hippy stone at the start of the run. [default: false] [setting: looprobot_pvp]
   wand - Always get the zap wand. [default: false] [setting: looprobot_wand]
@@ -70,11 +59,6 @@ Minor Options:
   saveparka NUMBER - Number of spikolodon spikes to save (max 5). [default: 0] [setting: looprobot_saveparka]
   voterbooth - Attempt to use the voter booth if we have access. [default: true] [setting: looprobot_voterbooth]
   stillsuit FAMILIAR - Equip the stillsuit to this familiar during the run [default: Gelatinous Cubeling] [setting: stillsuitFamiliar]
-  skipfork - Skip salad forking; note that this may cause failure due to lack of remaining adventures [default: false] [setting: looprobot_skipfork]
-  skipmug - Skip frosty mug; note that this may cause failure due to lack of remaining adventures [default: false] [setting: looprobot_skipmug]
-  skipmilk - Skip milk of magnesium [default: true] [setting: looprobot_skipmilk]
-  delevel - Delevel to level 13 with hot dogs before fighting the NS [default: false] [setting: looprobot_delevel]
-  tune TEXT - Use your hewn moon-rune spoon to retune to this sign after dieting. [setting: looprobot_tune]
 
 Debug Options:
   actions NUMBER - Maximum number of actions to perform, if given. Can be used to execute just a few steps at a time. [setting: looprobot_actions]

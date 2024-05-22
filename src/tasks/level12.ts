@@ -41,7 +41,7 @@ import { Priorities } from "../engine/priority";
 import { CombatStrategy } from "../engine/combat";
 import { atLevel, debug, YouRobot } from "../lib";
 import { forceItemPossible, yellowRayPossible } from "../engine/resources";
-import { args, toTempPref } from "../args";
+import { toTempPref } from "../args";
 import { customRestoreMp, fillHp } from "../engine/moods";
 
 export function flyersDone(): boolean {
@@ -402,10 +402,7 @@ const Orchard: Task[] = [
       get("sidequestOrchardCompleted") !== "none",
     do: $location`The Hatching Chamber`,
     outfit: () => {
-      if (yellowRayPossible())
-        return {
-          familiar: args.minor.jellies ? $familiar`Space Jellyfish` : undefined,
-        };
+      if (yellowRayPossible()) return {};
       else return { modifier: "item" };
     },
     combat: new CombatStrategy()
@@ -434,10 +431,7 @@ const Orchard: Task[] = [
       get("sidequestOrchardCompleted") !== "none",
     do: $location`The Feeding Chamber`,
     outfit: () => {
-      if (yellowRayPossible())
-        return {
-          familiar: args.minor.jellies ? $familiar`Space Jellyfish` : undefined,
-        };
+      if (yellowRayPossible()) return {};
       else if (have($item`industrial fire extinguisher`) && get("_fireExtinguisherCharge") >= 10)
         return {
           equip: $items`industrial fire extinguisher`,
@@ -470,10 +464,7 @@ const Orchard: Task[] = [
     do: $location`The Royal Guard Chamber`,
     effects: $effects`Filthworm Drone Stench`,
     outfit: () => {
-      if (yellowRayPossible())
-        return {
-          familiar: args.minor.jellies ? $familiar`Space Jellyfish` : undefined,
-        };
+      if (yellowRayPossible()) return {};
       else if (have($item`industrial fire extinguisher`) && get("_fireExtinguisherCharge") >= 10)
         return {
           equip: $items`industrial fire extinguisher`,
@@ -501,10 +492,6 @@ const Orchard: Task[] = [
       have($item`heart of the filthworm queen`) || get("sidequestOrchardCompleted") !== "none",
     do: $location`The Filthworm Queen's Chamber`,
     effects: $effects`Filthworm Guard Stench`,
-    outfit: () =>
-      <OutfitSpec>{
-        familiar: args.minor.jellies ? $familiar`Space Jellyfish` : undefined,
-      },
     combat: new CombatStrategy().kill().macro(Macro.trySkill($skill`Extract Jelly`)),
     limit: { tries: 2 }, // allow wanderer
     boss: true,
@@ -619,12 +606,10 @@ export const WarQuest: Quest = {
         if (forceItemPossible())
           return {
             modifier: "+combat",
-            familiar: args.minor.jellies ? $familiar`Space Jellyfish` : undefined,
           };
         else
           return {
             modifier: "item",
-            // use goose for item instead of jellyfish
           };
       },
       combat: new CombatStrategy().forceItems().macro(Macro.trySkill($skill`Extract Jelly`)),
@@ -668,9 +653,7 @@ export const WarQuest: Quest = {
       },
       outfit: () => {
         const result = <OutfitSpec>{
-          // eslint-disable-next-line libram/verify-constants
           equip: $items`beer helmet, distressed denim pants, bejeweled pledge pin`,
-          familiar: args.minor.jellies ? $familiar`Space Jellyfish` : undefined,
           modifier: "-combat",
         };
         if (!have($skill`Comprehensive Cartography`))
@@ -696,15 +679,8 @@ export const WarQuest: Quest = {
       after: ["Flyers End", "Lighthouse End", "Junkyard End"],
       ready: () => YouRobot.canUse($slot`hat`),
       completed: () => get("hippiesDefeated") >= 64,
-      outfit: () => {
-        const jelly = args.minor.jellies ? $familiar`Space Jellyfish` : undefined;
-        return {
-          equip: $items`beer helmet, distressed denim pants, bejeweled pledge pin`,
-          familiar:
-            !have($effect`Citizen of a Zone`) && have($familiar`Patriotic Eagle`)
-              ? $familiar`Patriotic Eagle`
-              : jelly,
-        };
+      outfit: {
+        equip: $items`beer helmet, distressed denim pants, bejeweled pledge pin`,
       },
       do: $location`The Battlefield (Frat Uniform)`,
       post: dimesForGarters,
@@ -723,11 +699,9 @@ export const WarQuest: Quest = {
       after: ["Orchard Finish"],
       ready: () => YouRobot.canUse($slot`hat`),
       completed: () => get("hippiesDefeated") >= 192,
-      outfit: () =>
-        <OutfitSpec>{
-          equip: $items`beer helmet, distressed denim pants, bejeweled pledge pin`,
-          familiar: args.minor.jellies ? $familiar`Space Jellyfish` : undefined,
-        },
+      outfit: {
+        equip: $items`beer helmet, distressed denim pants, bejeweled pledge pin`,
+      },
       do: $location`The Battlefield (Frat Uniform)`,
       combat: new CombatStrategy().kill().macro(Macro.trySkill($skill`Extract Jelly`)),
       limit: { tries: 9 },
@@ -738,14 +712,8 @@ export const WarQuest: Quest = {
       after: ["Open Nuns"],
       ready: () => YouRobot.canUse($slot`hat`),
       completed: () => get("hippiesDefeated") >= 1000,
-      outfit: () => {
-        const result = <OutfitSpec>{
-          equip: $items`beer helmet, distressed denim pants, bejeweled pledge pin`,
-        };
-        if (args.minor.jellies) {
-          result.familiar = $familiar`Space Jellyfish`;
-        }
-        return result;
+      outfit: {
+        equip: $items`beer helmet, distressed denim pants, bejeweled pledge pin`,
       },
       do: $location`The Battlefield (Frat Uniform)`,
       post: dimesForGarters,
@@ -757,11 +725,9 @@ export const WarQuest: Quest = {
       after: ["Clear"],
       ready: () => YouRobot.canUse($slot`hat`),
       completed: () => step("questL12War") === 999,
-      outfit: () =>
-        <OutfitSpec>{
-          equip: $items`beer helmet, distressed denim pants, bejeweled pledge pin`,
-          familiar: args.minor.jellies ? $familiar`Space Jellyfish` : undefined,
-        },
+      outfit: {
+        equip: $items`beer helmet, distressed denim pants, bejeweled pledge pin`,
+      },
       prepare: () => {
         dimesForGarters();
         fillHp();
