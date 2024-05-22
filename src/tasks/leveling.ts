@@ -198,8 +198,7 @@ const unscaledLeveling: Task[] = [
       visitUrl("campground.php?preaction=leaves");
       visitUrl("choice.php?pwd&whichchoice=1510&option=1&leaves=11");
     },
-    combat: new CombatStrategy().macro(Macro.trySkill($skill`Spring Growth Spurt`).attack().repeat()),
-    outfit: {equip: $items`spring shoes`},
+    combat: new CombatStrategy().killHard(),
     limit: { tries: 5 },
   },
   {
