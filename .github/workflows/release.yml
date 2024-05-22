@@ -1,4 +1,4 @@
-name: Release loopsmol
+name: Release looprobot
 
 on:
   workflow_dispatch:
