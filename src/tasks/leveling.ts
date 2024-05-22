@@ -21,12 +21,14 @@ import {
   $monster,
   $skill,
   $stat,
+  AprilingBandHelmet,
   clamp,
   ClosedCircuitPayphone,
   get,
   getKramcoWandererChance,
   have,
   Macro,
+  MayamCalendar,
   set,
 } from "libram";
 import { Priorities } from "../engine/priority";
@@ -112,6 +114,35 @@ const getBuffsPreLOV = buffTasks.map((t) => t.name);
 const getBuffs = [...getBuffsPreLOV, "LOV Tunnel"];
 
 const unscaledLeveling: Task[] = [
+  {
+    name: "Apriling: Boost a Gooso",
+    after: getBuffs,
+    priority: () => Priorities.Free,
+    ready: () => AprilingBandHelmet.have() && AprilingBandHelmet.canJoinSection(),
+    completed: () => $item`Apriling band piccolo`.dailyusesleft === 0,
+    do: (): void => {
+      useFamiliar($familiar`Grey Goose`);
+      if(!have($item`Apriling band piccolo`))
+        AprilingBandHelmet.joinSection($item`Apriling band piccolo`)
+      while($item`Apriling band piccolo`.dailyusesleft > 0)
+        AprilingBandHelmet.play($item`Apriling band piccolo`);
+    },
+    limit: { tries: 1 },
+    freeaction: true,
+  },
+  {
+    name: "Mayam: Boost a Gooso",
+    after: getBuffs,
+    priority: () => Priorities.Free,
+    ready: () => MayamCalendar.have(),
+    completed: () => get("_mayamSymbolsUsed").includes("fur"),
+    do: (): void => {
+      useFamiliar($familiar`Grey Goose`);
+      cliExecute("Mayam fur wood cheese clock")
+    },
+    limit: { tries: 1 },
+    freeaction: true,
+  },
   {
     name: "LOV Tunnel",
     after: getBuffsPreLOV,
