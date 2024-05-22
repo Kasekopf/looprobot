@@ -3,22 +3,28 @@ import {
   cliExecute,
   Item,
   myLevel,
+  myMaxhp,
   myPrimestat,
   myTurncount,
+  restoreHp,
   runChoice,
   use,
+  useFamiliar,
   visitUrl,
 } from "kolmafia";
 import {
   $effect,
+  $familiar,
   $item,
   $items,
   $location,
   $monster,
   $skill,
   $stat,
+  clamp,
   ClosedCircuitPayphone,
   get,
+  getKramcoWandererChance,
   have,
   Macro,
   set,
@@ -35,6 +41,13 @@ const robotSetup = [
   "Robot/Equip Top Initial",
   "Robot/Equip Right Initial",
 ];
+
+function unbreakableUmbrella(): void {
+  if (have($item`unbreakable umbrella`) && get("umbrellaState") !== "broken")
+    cliExecute("umbrella ml");
+}
+
+const godLobsterChoice = () => (have($item`God Lobster's Ring`) ? 2 : 3);
 
 const buffTasks: Task[] = [
   {
@@ -157,6 +170,54 @@ const unscaledLeveling: Task[] = [
     },
   },
   {
+    name: "Burning Leaves",
+    after: getBuffs,
+    ready: () => !have($effect`Shadow Affinity`),
+    completed: () => get("_leafMonstersFought", 0) >= 5 || !have($item`inflammable leaf`, 11),
+    do: (): void => {
+      visitUrl("campground.php?preaction=leaves");
+      visitUrl("choice.php?pwd&whichchoice=1510&option=1&leaves=11");
+    },
+    combat: new CombatStrategy().macro(Macro.trySkill($skill`Spring Growth Spurt`).attack().repeat()),
+    outfit: {equip: $items`spring shoes`},
+    limit: { tries: 5 },
+  },
+  {
+    name: "God Lobster",
+    after: getBuffs,
+    prepare: (): void => {
+      restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
+      unbreakableUmbrella();
+    },
+    completed: () =>
+      get("_godLobsterFights") >= 3 ||
+      !have($familiar`God Lobster`),
+    do: () => visitUrl("main.php?fightgodlobster=1"),
+    combat: new CombatStrategy().killHard(),
+    choices: { 1310: godLobsterChoice() }, // Get xp on last fight
+    outfit: {
+      famequip: $items`God Lobster's Ring, God Lobster's Scepter`,
+      familiar: $familiar`God Lobster`,
+    },
+    post: () => useFamiliar($familiar`Grey Goose`),
+    limit: { tries: 3 },
+    freecombat: true
+  },
+  {
+    name: "Kramco",
+    after: getBuffs,
+    prepare: (): void => {
+      restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
+    },
+    ready: () => getKramcoWandererChance() >= 1.0,
+    completed: () => getKramcoWandererChance() < 1.0 || !have($item`Kramco Sausage-o-Matic™`),
+    do: $location`The Outskirts of Cobb's Knob`,
+    outfit: { offhand: $item`Kramco Sausage-o-Matic™` },
+    combat: new CombatStrategy().killHard(),
+    limit: { tries: 2 },
+    freecombat: true
+  },
+  {
     name: "Snojo",
     after: getBuffs,
     priority: () => Priorities.Start,
@@ -175,18 +236,6 @@ const unscaledLeveling: Task[] = [
     combat: new CombatStrategy().killHard(),
     outfit: { equip: $items`Space Trip safety headphones` },
     limit: { tries: 10 },
-    freecombat: true,
-  },
-  {
-    name: "Neverending Party",
-    after: getBuffs,
-    priority: () => Priorities.Start,
-    completed: () => get("_neverendingPartyFreeTurns") >= 10 || !get("neverendingPartyAlways"),
-    do: $location`The Neverending Party`,
-    choices: { 1322: 2, 1324: 5 },
-    combat: new CombatStrategy().killHard(),
-    outfit: { equip: $items`Space Trip safety headphones` },
-    limit: { tries: 11 },
     freecombat: true,
   },
   {
@@ -253,6 +302,22 @@ const unscaledLeveling: Task[] = [
     boss: true,
     freecombat: true,
     limit: { tries: 12 },
+  },
+  {
+    name: "Neverending Party",
+    after: getBuffs,
+    priority: () => Priorities.Start,
+    ready: () => get("_shadowAffinityToday") &&
+      !have($effect`Shadow Affinity`) &&
+      (get("_snojoFreeFights") >= 10 || !get("snojoAvailable")) &&
+      get("_loveTunnelUsed"),
+    completed: () => get("_neverendingPartyFreeTurns") >= 10 || !get("neverendingPartyAlways"),
+    do: $location`The Neverending Party`,
+    choices: { 1322: 2, 1324: 5 },
+    combat: new CombatStrategy().killHard(),
+    outfit: { equip: $items`Space Trip safety headphones` },
+    limit: { tries: 11 },
+    freecombat: true,
   },
 ];
 
