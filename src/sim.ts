@@ -1,6 +1,5 @@
 import {
   Familiar,
-  getWorkshed,
   Item,
   mallPrice,
   Monster,
@@ -37,6 +36,7 @@ type Thing = Item | Familiar | Skill | Monster | Hardcoded;
 interface Requirement {
   thing: Thing | Thing[];
   why: string;
+  required?: boolean;
 }
 
 /**
@@ -45,13 +45,6 @@ interface Requirement {
 function buildIotmList(): Requirement[] {
   return [
     { thing: $item`Clan VIP Lounge key`, why: "YRs, +combat" },
-    {
-      thing: new Hardcoded(
-        have($item`cold medicine cabinet`) || getWorkshed() === $item`cold medicine cabinet`,
-        "Cold medicine cabinet"
-      ),
-      why: "Get Extrovermectin for profit",
-    },
     {
       thing: new Hardcoded(have($skill`Summon Clip Art`), "Summon Clip Art"),
       why: "Amulet coin",
@@ -67,14 +60,21 @@ function buildIotmList(): Requirement[] {
     {
       thing: new Hardcoded(get("chateauAvailable"), "Chateau Mantegna"),
       why: "Free rests, +exp",
+      required: true,
     },
     {
       thing: new Hardcoded(get("lovebugsUnlocked"), "Lovebugs"),
       why: "Crypt, Desert",
+      required: true,
     },
     {
       thing: $item`Deck of Every Card`,
       why: "A key for the NS tower, stone wool, ore",
+    },
+    {
+      thing: new Hardcoded(get("snojoAvailable"), "Snojo"),
+      why: "Leveling with Goose",
+      required: true,
     },
     {
       thing: $item`protonic accelerator pack`,
@@ -85,16 +85,18 @@ function buildIotmList(): Requirement[] {
       why: "+item",
     },
     {
-      thing: $familiar`Space Jellyfish`,
-      why: 'Stench jellies for profit; see the argument "jellies"',
-    },
-    {
       thing: new Hardcoded(get("loveTunnelAvailable"), "LOV Tunnel"),
-      why: "+exp",
+      why: "+exp, leveling",
+      required: true,
     },
     {
       thing: $item`Kremlin's Greatest Briefcase`,
       why: "Banishes",
+    },
+    {
+      thing: $item`genie bottle`,
+      why: "Leveling with Goose",
+      required: true,
     },
     {
       thing: $item`January's Garbage Tote`,
@@ -103,6 +105,11 @@ function buildIotmList(): Requirement[] {
     {
       thing: $item`SongBoom™ BoomBox`,
       why: "Meat and special seasonings",
+    },
+    {
+      thing: new Hardcoded(get("neverendingPartyAlways"), "Neverending Party"),
+      why: "Leveling with Goose",
+      required: true,
     },
     {
       thing: $item`Bastille Battalion control rig`,
@@ -135,6 +142,7 @@ function buildIotmList(): Requirement[] {
     {
       thing: new Hardcoded(CampAway.have(), "Distant Woods Getaway Brochure"),
       why: "+exp",
+      required: true,
     },
     {
       thing: $item`Powerful Glove`,
@@ -147,12 +155,9 @@ function buildIotmList(): Requirement[] {
       why: "Mountain man",
     },
     {
-      thing: $skill`Comprehensive Cartography`,
-      why: "Billiards, Friars, Nook, Castle, War start",
-    },
-    {
       thing: $item`unwrapped knock-off retro superhero cape`,
       why: "Slay the dead in crypt",
+      required: true,
     },
     {
       thing: $item`miniature crystal ball`,
@@ -161,6 +166,7 @@ function buildIotmList(): Requirement[] {
     {
       thing: $skill`Emotionally Chipped`,
       why: "Banish, -combat, items",
+      required: true,
     },
     {
       thing: $item`backup camera`,
@@ -177,6 +183,7 @@ function buildIotmList(): Requirement[] {
     {
       thing: $item`industrial fire extinguisher`,
       why: "Harem outfit, Bat hole, stone wool, Crypt, Ultrahydrated, Shadow bricks",
+      required: true,
     },
     {
       thing: $item`Daylight Shavings Helmet`,
@@ -197,7 +204,7 @@ function buildIotmList(): Requirement[] {
       thing: $item`combat lover's locket`,
       why: "Reminiscing",
     },
-    { thing: $familiar`Grey Goose`, why: "Duplication drones" },
+    { thing: $familiar`Grey Goose`, why: "Duplication drones", required: true },
     {
       thing: $item`unbreakable umbrella`,
       why: "-combat modifier, ML",
@@ -205,6 +212,7 @@ function buildIotmList(): Requirement[] {
     {
       thing: $item`June cleaver`,
       why: "Tavern, +adv",
+      required: true,
     },
     {
       thing: $item`designer sweatpants`,
@@ -213,17 +221,11 @@ function buildIotmList(): Requirement[] {
     {
       thing: $item`Jurassic Parka`,
       why: "Meat, ML, -combat forces",
+      required: true,
     },
     {
       thing: new Hardcoded(AutumnAton.have(), "autumn-aton"),
       why: "Lobsterfrogman",
-    },
-    {
-      thing: new Hardcoded(
-        have($item`model train set`) || getWorkshed() === $item`model train set`,
-        "Model train set"
-      ),
-      why: "Meat, MP, Ore, Orc bridge parts, and res",
     },
     {
       thing: $item`S.I.T. Course Completion Certificate`,
@@ -231,7 +233,8 @@ function buildIotmList(): Requirement[] {
     },
     {
       thing: $item`closed-circuit pay phone`,
-      why: "Shadow bricks, +meat",
+      why: "Shadow bricks, +meat, Leveling with Goose",
+      required: true,
     },
     {
       thing: $item`cursed monkey's paw`,
@@ -252,10 +255,6 @@ function buildIotmList(): Requirement[] {
     {
       thing: $item`august scepter`,
       why: "Protestors, Nuns",
-    },
-    {
-      thing: $skill`Just the Facts`,
-      why: "Desert, Wishes",
     },
     {
       thing: $familiar`Jill-of-All-Trades`,
@@ -284,11 +283,11 @@ function buildLocketList(): Requirement[] {
     },
     {
       thing: $monster`mountain man`,
-      why: "Ore (without trainset)",
+      why: "Ore",
     },
     {
       thing: $monster`War Frat 151st Infantryman`,
-      why: "Outfit (without numberology)",
+      why: "Outfit",
     },
   ];
 }
@@ -310,156 +309,6 @@ function buildMiscList(): Requirement[] {
     {
       thing: new Hardcoded(get("poolSharkCount") >= 25, "Permanent pool skill from A Shark's Chum"),
       why: "Haunted billiards room",
-    },
-  ];
-}
-
-function buildRequiredSkillsList(): (Requirement & { thing: Skill })[] {
-  return [
-    {
-      thing: $skill`Saucestorm`,
-      why: "Combat",
-    },
-    {
-      thing: $skill`Cannelloni Cocoon`,
-      why: "Healing",
-    },
-    {
-      thing: $skill`Pizza Lover`,
-      why: "Adv gain, +exp",
-    },
-  ];
-}
-
-function buildRecommendedSkillsList(): (Requirement & { thing: Skill })[] {
-  return [
-    {
-      thing: $skill`Torso Awareness`,
-      why: "Shirts",
-    },
-    {
-      thing: $skill`Curse of Weaksauce`,
-      why: "Combat",
-    },
-    {
-      thing: $skill`Snokebomb`,
-      why: "Banishes",
-    },
-    {
-      thing: $skill`Batter Up!`,
-      why: "Banishes",
-    },
-    {
-      thing: $skill`Ire of the Orca`,
-      why: "Fury",
-    },
-    {
-      thing: $skill`Lock Picking`,
-      why: "Key",
-    },
-    {
-      thing: $skill`Bend Hell`,
-      why: "+sleaze dmg",
-    },
-    {
-      thing: $skill`Smooth Movement`,
-      why: "-combat",
-    },
-    {
-      thing: $skill`The Sonata of Sneakiness`,
-      why: "-combat",
-    },
-    {
-      thing: $skill`Carlweather's Cantata of Confrontation`,
-      why: "+combat",
-    },
-    {
-      thing: $skill`Musk of the Moose`,
-      why: "+combat",
-    },
-    {
-      thing: $skill`Amphibian Sympathy`,
-      why: "Fam weight",
-    },
-    {
-      thing: $skill`Empathy of the Newt`,
-      why: "Fam weight",
-    },
-    {
-      thing: $skill`Leash of Linguini`,
-      why: "Fam weight",
-    },
-    {
-      thing: $skill`Tao of the Terrapin`,
-      why: "QoL, Pixel Key",
-    },
-    {
-      thing: $skill`Walberg's Dim Bulb`,
-      why: "+init",
-    },
-    {
-      thing: $skill`Springy Fusilli`,
-      why: "+init",
-    },
-    {
-      thing: $skill`Cletus's Canticle of Celerity`,
-      why: "+init",
-    },
-    {
-      thing: $skill`Suspicious Gaze`,
-      why: "+init",
-    },
-    {
-      thing: $skill`Song of Slowness`,
-      why: "+init",
-    },
-    {
-      thing: $skill`Ur-Kel's Aria of Annoyance`,
-      why: "ML",
-    },
-    {
-      thing: $skill`Pride of the Puffin`,
-      why: "ML",
-    },
-    {
-      thing: $skill`Drescher's Annoying Noise`,
-      why: "ML",
-    },
-    {
-      thing: $skill`Fat Leon's Phat Loot Lyric`,
-      why: "+item",
-    },
-    {
-      thing: $skill`Singer's Faithful Ocelot`,
-      why: "+item",
-    },
-    {
-      thing: $skill`The Polka of Plenty`,
-      why: "+meat",
-    },
-    {
-      thing: $skill`Disco Leer`,
-      why: "+meat",
-    },
-    {
-      thing: $skill`Garbage Nova`,
-      why: "Wall of bones",
-    },
-    {
-      thing: $skill`Gingerbread Mob Hit`,
-      why: "Free kill",
-    },
-    {
-      thing: $skill`Shattering Punch`,
-      why: "Free kills",
-    },
-    {
-      thing: $skill`Blood Bubble`,
-      why: "QoL",
-    },
-    {
-      thing: $skill`Blood Bond`,
-      why: "Fam weight",
     },
   ];
 }
@@ -512,11 +361,10 @@ export function checkRequirements(): void {
   let missing = 0;
 
   const categories: [string, Requirement[], boolean][] = [
-    ["Skills (Required)", buildRequiredSkillsList(), true],
     ["Expensive Pulls (Required)", buildPullList(false), true],
-    ["Skills (Optional/Recommended)", buildRecommendedSkillsList(), false],
     ["Expensive Pulls (Optional)", buildPullList(true), false],
-    ["IoTMs", buildIotmList(), false],
+    ["IoTMs (Required)", buildIotmList().filter((r) => r.required), true],
+    ["IoTMs (Required)", buildIotmList().filter((r) => !r.required), false],
     ["Miscellany", buildMiscList(), false],
     ["Combat Lover's Locket Monsters", buildLocketList(), false],
   ];

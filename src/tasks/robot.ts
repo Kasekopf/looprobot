@@ -294,9 +294,11 @@ function scrapBufferCompleted(): boolean {
 
 function statbotEnergyBuffer(): number {
   if (myTurncount() < 300) return 0;
+
+  const statbot = YouRobot.expectedStatbotCost();
   if (myBasestat(myPrimestat()) >= 148) return 0;
-  if (myBasestat(myPrimestat()) >= 143) return 10;
-  if (myBasestat(myPrimestat()) >= 138) return 21;
-  if (myBasestat(myPrimestat()) >= 133) return 33;
-  return 46;
+  if (myBasestat(myPrimestat()) >= 143) return statbot;
+  if (myBasestat(myPrimestat()) >= 138) return 2 * statbot + 1;
+  if (myBasestat(myPrimestat()) >= 133) return 3 * statbot + 3;
+  return 4 * statbot + 6;
 }
