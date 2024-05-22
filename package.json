@@ -5,7 +5,7 @@
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "node --no-warnings --loader ts-node/esm/transpile-only ./build.mjs",
+    "build": "node --no-warnings --loader ts-node/esm/transpile-only ./build.mjs && cp src/ash/* dist/KoLmafia/scripts/looprobot",
     "check": "tsc",
     "lint": "eslint src && prettier --check .",
     "lint:fix": "eslint src --fix && prettier --check --write ."
