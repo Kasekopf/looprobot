@@ -214,41 +214,6 @@ const unscaledLeveling: Task[] = [
     limit: { tries: 5 },
   },
   {
-    name: "God Lobster",
-    after: getBuffs,
-    prepare: (): void => {
-      restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
-      unbreakableUmbrella();
-    },
-    completed: () =>
-      get("_godLobsterFights") >= 3 ||
-      !have($familiar`God Lobster`),
-    do: () => visitUrl("main.php?fightgodlobster=1"),
-    combat: new CombatStrategy().killHard(),
-    choices: { 1310: godLobsterChoice() }, // Get xp on last fight
-    outfit: {
-      famequip: $items`God Lobster's Ring, God Lobster's Scepter`,
-      familiar: $familiar`God Lobster`,
-    },
-    post: () => useFamiliar($familiar`Grey Goose`),
-    limit: { tries: 3 },
-    freecombat: true
-  },
-  {
-    name: "Kramco",
-    after: getBuffs,
-    prepare: (): void => {
-      restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
-    },
-    ready: () => getKramcoWandererChance() >= 1.0,
-    completed: () => getKramcoWandererChance() < 1.0 || !have($item`Kramco Sausage-o-Matic™`),
-    do: $location`The Outskirts of Cobb's Knob`,
-    outfit: { offhand: $item`Kramco Sausage-o-Matic™` },
-    combat: new CombatStrategy().killHard(),
-    limit: { tries: 2 },
-    freecombat: true
-  },
-  {
     name: "Snojo",
     after: getBuffs,
     priority: () => Priorities.Start,
