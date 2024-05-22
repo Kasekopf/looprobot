@@ -3,10 +3,8 @@ import {
   cliExecute,
   Item,
   myLevel,
-  myMaxhp,
   myPrimestat,
   myTurncount,
-  restoreHp,
   runChoice,
   use,
   useFamiliar,
@@ -22,10 +20,8 @@ import {
   $skill,
   $stat,
   AprilingBandHelmet,
-  clamp,
   ClosedCircuitPayphone,
   get,
-  getKramcoWandererChance,
   have,
   Macro,
   MayamCalendar,
@@ -43,13 +39,6 @@ const robotSetup = [
   "Robot/Equip Top Initial",
   "Robot/Equip Right Initial",
 ];
-
-function unbreakableUmbrella(): void {
-  if (have($item`unbreakable umbrella`) && get("umbrellaState") !== "broken")
-    cliExecute("umbrella ml");
-}
-
-const godLobsterChoice = () => (have($item`God Lobster's Ring`) ? 2 : 3);
 
 const buffTasks: Task[] = [
   {
@@ -235,6 +224,18 @@ const unscaledLeveling: Task[] = [
     freecombat: true,
   },
   {
+    name: "Neverending Party",
+    after: getBuffs,
+    priority: () => Priorities.Start,
+    completed: () => get("_neverendingPartyFreeTurns") >= 10 || !get("neverendingPartyAlways"),
+    do: $location`The Neverending Party`,
+    choices: { 1322: 2, 1324: 5 },
+    combat: new CombatStrategy().killHard(),
+    outfit: { equip: $items`Space Trip safety headphones` },
+    limit: { tries: 11 },
+    freecombat: true,
+  },
+  {
     name: "Speakeasy",
     after: getBuffs,
     priority: () => Priorities.Start,
@@ -298,22 +299,6 @@ const unscaledLeveling: Task[] = [
     boss: true,
     freecombat: true,
     limit: { tries: 12 },
-  },
-  {
-    name: "Neverending Party",
-    after: getBuffs,
-    priority: () => Priorities.Start,
-    ready: () => get("_shadowAffinityToday") &&
-      !have($effect`Shadow Affinity`) &&
-      (get("_snojoFreeFights") >= 10 || !get("snojoAvailable")) &&
-      get("_loveTunnelUsed"),
-    completed: () => get("_neverendingPartyFreeTurns") >= 10 || !get("neverendingPartyAlways"),
-    do: $location`The Neverending Party`,
-    choices: { 1322: 2, 1324: 5 },
-    combat: new CombatStrategy().killHard(),
-    outfit: { equip: $items`Space Trip safety headphones` },
-    limit: { tries: 11 },
-    freecombat: true,
   },
 ];
 
