@@ -202,6 +202,21 @@ const unscaledLeveling: Task[] = [
     limit: { tries: 5 },
   },
   {
+    name: "God Lobster",
+    completed: () => get("_godLobsterFights") >= 3 || !have($familiar`God Lobster`),
+    do: () => visitUrl("main.php?fightgodlobster=1"),
+    combat: new CombatStrategy().killHard(),
+    choices: { 1310: have($item`God Lobster's Ring`) ? 2 : 3 }, // Get xp on last fight
+    outfit: {
+      famequip: $items`God Lobster's Ring, God Lobster's Scepter`,
+      familiar: $familiar`God Lobster`,
+    },
+    limit: { tries: 3 },
+    post: (): void => {
+      useFamiliar($familiar`Grey Goose`)
+    },
+  },
+  {
     name: "Snojo",
     after: getBuffs,
     priority: () => Priorities.Start,
