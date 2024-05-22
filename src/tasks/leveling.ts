@@ -2,6 +2,7 @@ import { CombatStrategy } from "../engine/combat";
 import {
   cliExecute,
   Item,
+  monkeyPaw,
   myLevel,
   myPrimestat,
   myTurncount,
@@ -39,6 +40,14 @@ const robotSetup = [
   "Robot/Equip Top Initial",
   "Robot/Equip Right Initial",
 ];
+
+function bestWishes(): [boolean, string | undefined] {
+  const genie = have($item`pocket wish`) || (have($item`genie bottle`) && get("_genieWishesUsed") < 3);
+  const paw = have($item`cursed monkey's paw`) && get("_monkeyPawWishesUsed", 0) < 5;
+  const bestWishes = paw ? "paw" : genie ? "genie" : undefined;
+
+  return [!(genie || paw), bestWishes]
+}
 
 const buffTasks: Task[] = [
   {
@@ -79,10 +88,14 @@ const buffTasks: Task[] = [
     after: robotSetup,
     completed: () =>
       have($effect`Warm Shoulders`) ||
-      (!have($item`pocket wish`) && (!have($item`genie bottle`) || get("_genieWishesUsed") >= 3)) ||
+      bestWishes()[0] ||
       myTurncount() >= 20,
     priority: () => Priorities.Free,
-    do: () => cliExecute("genie effect warm shoulders"),
+    do: (): void => {
+      if(bestWishes()[1] === "genie")
+        cliExecute("genie effect warm shoulders");
+      else monkeyPaw($effect`Warm Shoulders`);
+      },
     freeaction: true,
     limit: { tries: 1 },
   },
@@ -91,10 +104,14 @@ const buffTasks: Task[] = [
     after: robotSetup,
     completed: () =>
       have($effect`Blue Swayed`) ||
-      (!have($item`pocket wish`) && (!have($item`genie bottle`) || get("_genieWishesUsed") >= 3)) ||
+      bestWishes()[0]  ||
       myTurncount() >= 20,
     priority: () => Priorities.Free,
-    do: () => cliExecute("genie effect blue swayed"),
+    do: (): void => {
+      if(bestWishes()[1] === "genie")
+        cliExecute("genie effect blue swayed");
+      else monkeyPaw($effect`Blue Swayed`)
+    },
     freeaction: true,
     limit: { tries: 1 },
   },
@@ -127,7 +144,7 @@ const unscaledLeveling: Task[] = [
     completed: () => get("_mayamSymbolsUsed").includes("fur"),
     do: (): void => {
       useFamiliar($familiar`Grey Goose`);
-      cliExecute("Mayam fur wood cheese clock")
+      cliExecute("Mayam rings fur wood cheese clock")
     },
     limit: { tries: 1 },
     freeaction: true,
