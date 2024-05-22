@@ -37,7 +37,7 @@ jobs:
           rm -rf scripts/
           rm -rf ccs/
           rm -rf relay/
-          mv dist/KoLmafia/*
+          mv dist/KoLmafia/* ./
           rm -rf dist
           git add scripts/
           git add relay/
