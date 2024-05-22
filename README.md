@@ -1,6 +1,6 @@
 # Overview
 
-This is a Shrunken Adventurer softcore script, using the [grimoire](https://github.com/Kasekopf/grimoire) framework. It is a fork of [loopgyou](https://github.com/Kasekopf/loop-casual/tree/gyou).
+This is a You Robot softcore script, using the [grimoire](https://github.com/Kasekopf/grimoire) framework. It is a fork of [loopgyou](https://github.com/Kasekopf/loop-casual/tree/gyou).
 
 ### Strategy
 
