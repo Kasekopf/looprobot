@@ -252,6 +252,9 @@ const ChallengeBosses: Task[] = [
     prepare: fillHp,
     do: $location`Fastest Adventurer Contest`,
     combat: new CombatStrategy().killHard(),
+    outfit: {
+      equip: $items`Space Trip safety headphones, unwrapped knock-off retro superhero cape, June cleaver`,
+    },
     limit: { tries: 5 },
     boss: true,
   },
