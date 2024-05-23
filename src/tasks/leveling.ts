@@ -25,7 +25,6 @@ import {
   get,
   have,
   Macro,
-  MayamCalendar,
   set,
 } from "libram";
 import { Priorities } from "../engine/priority";
@@ -137,19 +136,6 @@ const unscaledLeveling: Task[] = [
     freeaction: true,
   },
   {
-    name: "Mayam: Boost a Gooso",
-    after: getBuffs,
-    priority: () => Priorities.Free,
-    ready: () => MayamCalendar.have(),
-    completed: () => get("_mayamSymbolsUsed").includes("fur"),
-    do: (): void => {
-      useFamiliar($familiar`Grey Goose`);
-      cliExecute("Mayam rings fur wood cheese clock")
-    },
-    limit: { tries: 1 },
-    freeaction: true,
-  },
-  {
     name: "LOV Tunnel",
     after: getBuffsPreLOV,
     priority: () => Priorities.Free,
@@ -205,18 +191,6 @@ const unscaledLeveling: Task[] = [
     outfit: {
       modifier: "exp",
     },
-  },
-  {
-    name: "Burning Leaves",
-    after: getBuffs,
-    ready: () => !have($effect`Shadow Affinity`),
-    completed: () => get("_leafMonstersFought", 0) >= 5 || !have($item`inflammable leaf`, 11),
-    do: (): void => {
-      visitUrl("campground.php?preaction=leaves");
-      visitUrl("choice.php?pwd&whichchoice=1510&option=1&leaves=11");
-    },
-    combat: new CombatStrategy().killHard(),
-    limit: { tries: 5 },
   },
   {
     name: "God Lobster",
