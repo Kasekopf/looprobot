@@ -250,9 +250,7 @@ export const RobotQuest: Quest = {
       name: "Statbot L11",
       ready: () => YouRobot.energy() >= YouRobot.expectedStatbotCost() && myTurncount() >= 10,
       completed: () => atLevel(11),
-      do: () => {
-        if (!atLevel(11)) YouRobot.doStatbot(myPrimestat());
-      },
+      do: () => YouRobot.doStatbot(myPrimestat()),
       limit: { tries: 10 },
       freeaction: true,
     },
