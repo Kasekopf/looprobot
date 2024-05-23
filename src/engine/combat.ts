@@ -75,8 +75,9 @@ export class MyActionDefaults implements ActionDefaults<CombatActions> {
 
 function statToLevel(): Stat {
   if (myBasestat(myPrimestat()) < 104) return myPrimestat();
-  if (myBasestat($stat`Mysticality`) < 70) return $stat`Mysticality`;
   if (myBasestat($stat`Moxie`) < 70) return $stat`Moxie`;
+  if (myBasestat($stat`Mysticality`) < 70 && myPrimestat() !== $stat`Muscle`)
+    return $stat`Mysticality`;
   return Stat.none;
 }
 
