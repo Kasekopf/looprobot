@@ -447,7 +447,7 @@ export const TowerQuest: Quest = {
         "Giant/Finish",
         "Macguffin/Finish",
         "War/Boss Hippie",
-        "Robot/Statbot",
+        "Robot/Statbot L13",
       ],
       ready: () => atLevel(13),
       completed: () => step("questL13Final") !== -1,
