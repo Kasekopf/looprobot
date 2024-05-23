@@ -100,7 +100,7 @@ const summonTargets: SummonTarget[] = [
     },
     outfit: {
       equip: $items`June cleaver, Space Trip safety headphones`,
-      avoid: $items`carnivorous potted plant`,
+      avoid: $items`carnivorous potted plant, Everfull Dart Holster`,
     },
     combat: new CombatStrategy()
       .macro(Macro.trySkill($skill`Micrometeorite`).trySkill($skill`Curse of Weaksauce`))
