@@ -46,9 +46,9 @@ export const args = Args.create(
         help: "Number of uses of the combat lover's locket to save.",
         default: 0,
       }),
-      savetuba: Args.flag({
-        help: "Don't use Apriling Band Helmet's Tuba summon.",
-        default: false,
+      saveapril: Args.number({
+        help: "Number of Apriling Band instruments to save.",
+        default: 0,
       }),
       luck: Args.number({
         help: 'Multiply the threshold for stopping execution when "you may just be unlucky". Increasing this can be dangerous and cause the script to waste more adventures; use at your own risk.',
