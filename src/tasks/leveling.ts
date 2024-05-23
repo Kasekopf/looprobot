@@ -77,10 +77,16 @@ const buffTasks: Task[] = [
     after: robotSetup,
     completed: () =>
       have($effect`Warm Shoulders`) ||
-      (!have($item`pocket wish`) && (!have($item`genie bottle`) || get("_genieWishesUsed") >= 3)) ||
+      (!have($item`pocket wish`) &&
+        (!have($item`genie bottle`) || get("_genieWishesUsed") >= 3) &&
+        (!have($item`cursed monkey's paw`) || get("_monkeyPawWishesUsed") >= 5)) ||
       myTurncount() >= 20,
     priority: () => Priorities.Free,
-    do: () => cliExecute("genie effect warm shoulders"),
+    do: () => {
+      if (have($item`pocket wish`) || (have($item`genie bottle`) && get("_genieWishesUsed") < 3))
+        cliExecute("genie effect warm shoulders");
+      else cliExecute("monkeypaw effect warm shoulders");
+    },
     freeaction: true,
     limit: { tries: 1 },
   },
@@ -89,10 +95,16 @@ const buffTasks: Task[] = [
     after: robotSetup,
     completed: () =>
       have($effect`Blue Swayed`) ||
-      (!have($item`pocket wish`) && (!have($item`genie bottle`) || get("_genieWishesUsed") >= 3)) ||
+      (!have($item`pocket wish`) &&
+        (!have($item`genie bottle`) || get("_genieWishesUsed") >= 3) &&
+        (!have($item`cursed monkey's paw`) || get("_monkeyPawWishesUsed") >= 5)) ||
       myTurncount() >= 20,
     priority: () => Priorities.Free,
-    do: () => cliExecute("genie effect blue swayed"),
+    do: () => {
+      if (have($item`pocket wish`) || (have($item`genie bottle`) && get("_genieWishesUsed") < 3))
+        cliExecute("genie effect blue swayed");
+      else cliExecute("monkeypaw effect blue swayed");
+    },
     freeaction: true,
     limit: { tries: 1 },
   },
