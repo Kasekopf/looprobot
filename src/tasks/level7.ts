@@ -226,7 +226,7 @@ const Niche: Task[] = [
       if (have($familiar`Patriotic Eagle`)) {
         if (!have($effect`Everything Looks Red, White and Blue`)) {
           if (YouRobot.canUseFamiliar() && levelingStartCompleted())
-            return { score: 8, reason: "Launch RWB" };
+            return { score: 3.1, reason: "Launch RWB" };
           else return { score: -80, reason: "Wait to launch RWB with Eagle" };
         }
         if (get("rwbMonsterCount") > 1 || get("cyrptNicheEvilness") <= 16)
