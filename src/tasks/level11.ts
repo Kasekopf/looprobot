@@ -307,7 +307,11 @@ const Pyramid: Task[] = [
     after: ["Open Pyramid"],
     completed: () => step("questL11Pyramid") >= 1,
     do: $location`The Upper Chamber`,
-    outfit: { modifier: "+combat" },
+    outfit: {
+      modifier: "+combat",
+      equip: $items`unwrapped knock-off retro superhero cape, Jurassic Parka`,
+      modes: { retrocape: ["heck", "hold"] },
+    },
     limit: { turns: 6 },
   },
   {

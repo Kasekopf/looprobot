@@ -7,7 +7,6 @@ import {
   myFamiliar,
   myLevel,
   numericModifier,
-  restoreMp,
   use,
   visitUrl,
 } from "kolmafia";
@@ -34,6 +33,7 @@ import { Priorities } from "../engine/priority";
 import { forceNCPossible, tryForceNC, tryPlayApriling } from "../engine/resources";
 import { haveLoathingIdolMicrophone } from "../lib";
 import { globalStateCache } from "../engine/state";
+import { fillHp } from "../engine/moods";
 
 const Manor1: Task[] = [
   {
@@ -364,7 +364,7 @@ const ManorBasement: Task[] = [
     completed: () => have($item`wine bomb`) || step("questL11Manor") >= 3,
     prepare: () => {
       if (numericModifier("Monster Level") < 81) changeMcd(10);
-      restoreMp(200);
+      fillHp();
     },
     post: () => {
       if (currentMcd() > 0) changeMcd(0);
@@ -372,8 +372,8 @@ const ManorBasement: Task[] = [
     do: $location`The Haunted Boiler Room`,
     outfit: (): OutfitSpec => {
       const result = <OutfitSpec & { equip: Item[]; modes: Modes }>{
-        equip: [$item`unstable fulminate`],
-        modes: <Modes>{},
+        equip: [$item`unstable fulminate`, $item`unwrapped knock-off retro superhero cape`],
+        modes: { retrocape: ["heck", "hold"] },
       };
       let ml_needed = 81 - 10; // -10 from MCD
 
