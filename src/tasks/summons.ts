@@ -99,12 +99,11 @@ const summonTargets: SummonTarget[] = [
       fillHp();
     },
     outfit: {
-      equip: $items`June cleaver, Space Trip safety headphones`,
+      modifier: "cold dmg",
+      equip: $items`June cleaver, Space Trip safety headphones, industrial fire extinguisher`,
       avoid: $items`carnivorous potted plant, Everfull Dart Holster`,
     },
-    combat: new CombatStrategy()
-      .macro(Macro.trySkill($skill`Micrometeorite`).trySkill($skill`Curse of Weaksauce`))
-      .killHard(),
+    combat: new CombatStrategy().macro(Macro.attack().repeat()).killHard(),
   },
   {
     target: $monster`Astronomer`,
