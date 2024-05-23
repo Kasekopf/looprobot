@@ -410,7 +410,7 @@ export const DigitalQuest: Quest = {
 
         if (
           numericModifier("Initiative") < 600 &&
-          $location`Vanya's Castle`.turnsSpent > 5 &&
+          $location`Vanya's Castle`.turnsSpent > 4 &&
           haveLoathingIdolMicrophone()
         )
           ensureEffect($effect`Poppy Performance`);
@@ -472,7 +472,7 @@ export const DigitalQuest: Quest = {
       ready: () => get("8BitColor", "black") === "blue",
       do: $location`Megalo-City`,
       outfit: () => {
-        if (have($item`Greatest American Pants`) && get("_gapBuffs") < 4)
+        if (have($item`Greatest American Pants`) && get("_gapBuffs") < 5)
           return {
             modifier: "DA",
             equip: $items`continuum transfunctioner, Greatest American Pants`,
