@@ -80,6 +80,10 @@ export const pulls: PullSpec[] = [
     pull: $item`carnivorous potted plant`,
     optional: true,
   },
+  {
+    pull: $item`battery (car)`,
+    useful: () => !have($item`potted power plant`),
+  },
   // General pulls
   {
     pull: $item`lucky gold ring`,
