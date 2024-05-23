@@ -53,6 +53,7 @@ export const routing: string[] = [
 
   "McLargeHuge/Trapper Return",
   "Bat/Use Sonar 1",
+  "Robot/Statbot L11",
 
   // Get through ninjas ASAP with +combat
   "Macguffin/Diary",
@@ -70,6 +71,7 @@ export const routing: string[] = [
   "Summon/War Frat 151st Infantryman",
   "Misc/Unlock Island Submarine",
   "Misc/Unlock Island",
+  "Robot/Statbot L12",
 
   // First hat phase
   "Robot/Equip Hat Phase 1",
@@ -181,7 +183,7 @@ export const routing: string[] = [
   "Summon/Astrologer Of Shub-Jigguwatt",
   "Summon/Astronomer",
 
-  "Robot/Statbot",
+  "Robot/Statbot L13",
   "Tower/Naughty Sorceress",
 ];
 

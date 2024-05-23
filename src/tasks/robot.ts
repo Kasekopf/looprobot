@@ -4,12 +4,14 @@ import { Quest } from "../engine/task";
 import { atLevel, levelingStartCompleted, YouRobot } from "../lib";
 import { Guards, step } from "grimoire-kolmafia";
 import {
+  ceil,
   cliExecute,
   itemAmount,
   myAdventures,
   myBasestat,
   myPrimestat,
   myTurncount,
+  Stat,
   use,
 } from "kolmafia";
 import { flyersDone } from "./level12";
@@ -245,7 +247,31 @@ export const RobotQuest: Quest = {
       freeaction: true,
     },
     {
-      name: "Statbot",
+      name: "Statbot L11",
+      ready: () => YouRobot.energy() >= YouRobot.expectedStatbotCost() && myTurncount() >= 10,
+      completed: () => atLevel(11),
+      do: () => {
+        if (!atLevel(11)) YouRobot.doStatbot(myPrimestat());
+      },
+      limit: { tries: 10 },
+      freeaction: true,
+    },
+    {
+      name: "Statbot L12",
+      after: ["Giant/Ground"],
+      ready: () => YouRobot.energy() >= YouRobot.expectedStatbotCost() && myTurncount() >= 100,
+      completed: () =>
+        atLevel(12) && myBasestat($stat`Moxie`) >= 70 && myBasestat($stat`Mysticality`) >= 70,
+      do: () => {
+        if (!atLevel(12)) YouRobot.doStatbot(myPrimestat());
+        else if (myBasestat($stat`Moxie`) < 70) YouRobot.doStatbot($stat`Moxie`);
+        else if (myBasestat($stat`Mysticality`) < 70) YouRobot.doStatbot($stat`Mysticality`);
+      },
+      limit: { tries: 10 },
+      freeaction: true,
+    },
+    {
+      name: "Statbot L13",
       after: [
         "Mosquito/Finish",
         "Tavern/Finish",
@@ -261,7 +287,7 @@ export const RobotQuest: Quest = {
       ],
       ready: () => YouRobot.energy() >= YouRobot.expectedStatbotCost(),
       completed: () => atLevel(13),
-      do: () => YouRobot.doStatbotPrimestat(),
+      do: () => YouRobot.doStatbot(myPrimestat()),
       limit: { tries: 4 },
       freeaction: true,
     },
@@ -292,13 +318,22 @@ function scrapBufferCompleted(): boolean {
   return YouRobot.scrap() >= scrapNeeded;
 }
 
-function statbotEnergyBuffer(): number {
-  if (myTurncount() < 300) return 0;
+function statbotUsesNeeded(stat: Stat, goal: number) {
+  if (myBasestat(stat) >= goal) return 0;
+  return ceil((goal - myBasestat(stat)) / 5);
+}
 
-  const statbot = YouRobot.expectedStatbotCost();
-  if (myBasestat(myPrimestat()) >= 148) return 0;
-  if (myBasestat(myPrimestat()) >= 143) return statbot;
-  if (myBasestat(myPrimestat()) >= 138) return 2 * statbot + 1;
-  if (myBasestat(myPrimestat()) >= 133) return 3 * statbot + 3;
-  return 4 * statbot + 6;
+function statbotEnergyBuffer(): number {
+  if (myTurncount() >= 300)
+    return YouRobot.expectedStatbotCost(statbotUsesNeeded(myPrimestat(), 148));
+  else if (myAdventures() >= 25) {
+    if (!atLevel(11)) return YouRobot.expectedStatbotCost(statbotUsesNeeded(myPrimestat(), 104));
+    else
+      return YouRobot.expectedStatbotCost(
+        statbotUsesNeeded(myPrimestat(), 125) +
+          statbotUsesNeeded($stat`Mysticality`, 70) +
+          statbotUsesNeeded($stat`Moxie`, 70)
+      );
+  }
+  return 0;
 }

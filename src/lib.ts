@@ -15,6 +15,7 @@ import {
   round,
   runChoice,
   Slot,
+  Stat,
   visitUrl,
 } from "kolmafia";
 import {
@@ -25,7 +26,6 @@ import {
   $skill,
   $slot,
   $stat,
-  byStat,
   get,
   have,
   Snapper,
@@ -193,19 +193,15 @@ export class YouRobot {
     return get("_chronolithNextCost");
   }
 
-  static doStatbotPrimestat() {
+  static doStatbot(stat: Stat) {
     visitUrl("place.php?whichplace=scrapheap&action=sh_upgrade");
-    runChoice(
-      byStat({
-        Muscle: 1,
-        Mysticality: 2,
-        Moxie: 3,
-      })
-    );
+    if (stat === $stat`Muscle`) runChoice(1);
+    else if (stat === $stat`Mysticality`) runChoice(2);
+    else if (stat === $stat`Moxie`) runChoice(3);
   }
 
-  static expectedStatbotCost(): number {
-    return 10 + get("statbotUses");
+  static expectedStatbotCost(uses = 1): number {
+    return (10 + get("statbotUses")) * uses + ((uses - 1) * uses) / 2;
   }
 
   static haveUpgrade(upgrade: Upgrade): boolean {
