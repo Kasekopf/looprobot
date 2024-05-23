@@ -142,8 +142,9 @@ const summonTargets: SummonTarget[] = [
       if (get("camelSpit") === 100)
         return {
           modifier: "item",
-          equip: $items`June cleaver, Space Trip safety headphones`,
+          equip: $items`June cleaver, Space Trip safety headphones, unwrapped knock-off retro superhero cape`,
           familiar: $familiar`Melodramedary`,
+          modes: { retrocape: ["heck", "hold"] },
           avoid: $items`carnivorous potted plant`,
         };
       return {
