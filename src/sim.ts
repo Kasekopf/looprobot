@@ -173,6 +173,10 @@ function buildIotmList(): Requirement[] {
       required: true,
     },
     {
+      thing: $item`potted power plant`,
+      why: "+Adv",
+    },
+    {
       thing: $item`backup camera`,
       why: "ML, init",
     },
@@ -267,6 +271,23 @@ function buildIotmList(): Requirement[] {
     {
       thing: $item`candy cane sword cane`,
       why: "NS key, protestors, black forest, war start, bowling, shore",
+    },
+    {
+      thing: $item`spring shoes`,
+      why: "Runaways, Leveling",
+    },
+    {
+      thing: $item`Everfull Dart Holster`,
+      why: "Free kills",
+    },
+    {
+      thing: $item`Apriling band helmet`,
+      why: "-combat forces",
+    },
+    {
+      // eslint-disable-next-line libram/verify-constants
+      thing: $item`Mayam Calendar`,
+      why: "Free rests, fam exp",
     },
   ];
 }
