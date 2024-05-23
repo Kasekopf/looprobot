@@ -9,6 +9,7 @@ import {
   myBasestat,
   myClass,
   myFamiliar,
+  myMp,
   myTurncount,
   numericModifier,
   toUrl,
@@ -87,6 +88,15 @@ const Alcove: Task[] = [
         else ensureWithMPSwaps($effects`Nearly Silent Hunting`);
       }
       tryPlayApriling("-combat");
+
+      if (
+        myClass() === $class`Seal Clubber` &&
+        have($item`Bird-a-Day calendar`) &&
+        myMp() >= 5 * 2 ** get("_birdsSoughtToday") &&
+        numericModifier("Initiative") < 850
+      ) {
+        ensureEffect($effect`Blessing of the Bird`);
+      }
 
       if (
         have($item`designer sweatpants`) &&

@@ -12,6 +12,7 @@ import {
   myAdventures,
   myBasestat,
   myClass,
+  myMp,
   myTurncount,
   numericModifier,
   pullsRemaining,
@@ -396,6 +397,15 @@ export const DigitalQuest: Quest = {
         if (numericModifier("Initiative") < 600 && have($skill`Silent Hunter`)) {
           if (myClass() === $class`Seal Clubber`) ensureWithMPSwaps($effects`Silent Hunting`);
           else ensureWithMPSwaps($effects`Nearly Silent Hunting`);
+        }
+
+        if (
+          myClass() === $class`Seal Clubber` &&
+          have($item`Bird-a-Day calendar`) &&
+          myMp() >= 5 * 2 ** get("_birdsSoughtToday") &&
+          numericModifier("Initiative") < 600
+        ) {
+          ensureEffect($effect`Blessing of the Bird`);
         }
 
         if (
