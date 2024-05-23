@@ -3,6 +3,7 @@ import {
   adv1,
   buy,
   cliExecute,
+  eat,
   equippedAmount,
   gamedayToInt,
   getCampground,
@@ -1006,6 +1007,20 @@ export const MiscQuest: Quest = {
       },
       freeaction: true,
       limit: { tries: 1 },
+    },
+    {
+      name: "Eat Sausage",
+      after: [],
+      priority: () => Priorities.Free,
+      ready: () =>
+        myTurncount() >= 100 &&
+        myAdventures() === args.debug.halt + 1 &&
+        have($item`magical sausage casing`) &&
+        myMeat() >= (1 + get("_sausagesEaten")) * 111,
+      completed: () => get("_sausagesEaten") >= 23,
+      do: () => eat($item`magical sausage`),
+      freeaction: true,
+      limit: { tries: 23 },
     },
   ],
 };
