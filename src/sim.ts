@@ -103,6 +103,10 @@ function buildIotmList(): Requirement[] {
       why: "+item, +meat",
     },
     {
+      thing: $familiar`God Lobster`,
+      why: "Leveling",
+    },
+    {
       thing: $item`SongBoom™ BoomBox`,
       why: "Meat and special seasonings",
     },

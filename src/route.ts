@@ -37,6 +37,7 @@ export const routing: string[] = [
   "Leveling/Neverending Party",
   "Leveling/Shadow Rift",
   "Leveling/Speakeasy",
+  "Leveling/God Lobster", // when ready
   "Leveling/All",
 
   // Use YRs

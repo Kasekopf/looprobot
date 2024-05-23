@@ -6,11 +6,13 @@ import {
   myPrimestat,
   myTurncount,
   runChoice,
+  runCombat,
   use,
   visitUrl,
 } from "kolmafia";
 import {
   $effect,
+  $familiar,
   $item,
   $items,
   $location,
@@ -277,6 +279,25 @@ export const LevelingQuest: Quest = {
       outfit: {
         modifier: "exp",
       },
+    },
+    {
+      name: "God Lobster",
+      after: [],
+      ready: () => have($familiar`God Lobster`) && myTurncount() >= 90,
+      completed: () => get("_godLobsterFights") >= 3,
+      do: (): void => {
+        visitUrl("main.php?fightgodlobster=1");
+        runCombat();
+        runChoice(3);
+      },
+      combat: new CombatStrategy().killHard(),
+      outfit: {
+        equip: $items`June cleaver, Space Trip safety headphones`,
+        familiar: $familiar`God Lobster`,
+        modifier: "exp",
+      },
+      limit: { tries: 3 },
+      freecombat: true,
     },
     {
       name: "All",
