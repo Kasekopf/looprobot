@@ -33861,7 +33861,7 @@ var MiscQuest = {
         }
       },
       limit: {
-        tries: 1
+        tries: 2
       },
       freeaction: true
     },
@@ -47475,7 +47475,7 @@ function checkRequirements() {
 }
 
 // src/_git_commit.ts
-var lastCommitHash = "2303feb";
+var lastCommitHash = "e0e8d0f";
 
 // src/main.ts
 var _templateObject1190;
