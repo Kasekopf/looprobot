@@ -244,11 +244,16 @@ export function oresNeeded(): number {
   if (step("questL08Trapper") >= 2) return 0;
   if (trainSetAvailable()) return 0;
   let ore_needed = 3;
-  ore_needed -= Math.min(
-    itemAmount($item`asbestos ore`),
-    itemAmount($item`chrome ore`),
-    itemAmount($item`linoleum ore`)
-  );
+  if (get("trapperOre") === "") {
+    ore_needed -= Math.min(
+      itemAmount($item`asbestos ore`),
+      itemAmount($item`chrome ore`),
+      itemAmount($item`linoleum ore`)
+    );
+  } else {
+    ore_needed -= itemAmount(Item.get(get("trapperOre")));
+  }
+
   if (have($item`Deck of Every Card`) && get("_deckCardsDrawn") === 0) ore_needed--;
   const pulled = new Set<Item>(
     get("_roninStoragePulls")
