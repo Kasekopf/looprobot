@@ -356,7 +356,11 @@ const Zepplin: Task[] = [
         !have($effect`Everything Looks Red, White and Blue`) &&
         get("cyrptNicheEvilness") <= 13
       ) {
-        return { familiar: $familiar`Patriotic Eagle`, modifier: "item" };
+        return {
+          familiar: $familiar`Patriotic Eagle`,
+          modifier: "item",
+          equip: $items`Space Trip safety headphones`,
+        };
       }
       return { modifier: "item" };
     },

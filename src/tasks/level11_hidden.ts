@@ -202,7 +202,7 @@ const Apartment: Task[] = [
       else return [$monster`pygmy shaman`, $monster`pygmy witch accountant`];
     },
     post: makeCompleteFile,
-    outfit: { equip: $items`miniature crystal ball` },
+    outfit: { equip: $items`miniature crystal ball, Space Trip safety headphones` },
     limit: { soft: 9 },
     choices: { 780: 1 },
   },
@@ -228,8 +228,10 @@ const Apartment: Task[] = [
     post: makeCompleteFile,
     outfit: () => {
       if (have($effect`Twice-Cursed`) && $location`The Hidden Apartment Building`.turnsSpent === 8)
-        return { equip: $items`candy cane sword cane, miniature crystal ball` };
-      return { equip: $items`miniature crystal ball` };
+        return {
+          equip: $items`candy cane sword cane, miniature crystal ball, Space Trip safety headphones`,
+        };
+      return { equip: $items`miniature crystal ball, Space Trip safety headphones` };
     },
     choices: { 780: 1 },
     limit: { soft: 9 },
@@ -368,7 +370,7 @@ const Hospital: Task[] = [
     outfit: () => {
       const result = <OutfitSpec>{
         shirt: have($skill`Torso Awareness`) ? $item`surgical apron` : undefined,
-        equip: $items`half-size scalpel, head mirror, surgical mask, bloodied surgical dungarees`,
+        equip: $items`half-size scalpel, head mirror, surgical mask, bloodied surgical dungarees, Space Trip safety headphones`,
       };
       if (!have($effect`Citizen of a Zone`) && have($familiar`Patriotic Eagle`)) {
         result.familiar = $familiar`Patriotic Eagle`;
