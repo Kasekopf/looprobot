@@ -14,18 +14,7 @@ import {
   toInt,
   visitUrl,
 } from "kolmafia";
-import {
-  $familiar,
-  $item,
-  $items,
-  $location,
-  $monster,
-  $skill,
-  byStat,
-  get,
-  have,
-  set,
-} from "libram";
+import { $familiar, $item, $items, $monster, $skill, byStat, get, have, set } from "libram";
 import { args, toTempPref } from "../args";
 import { Priorities } from "../engine/priority";
 import { Quest, Task } from "../engine/task";
@@ -122,8 +111,9 @@ export const pulls: PullSpec[] = [
         return true;
       if (
         myMeat() < 5000 &&
-        step("questL11Ron") >= 2 &&
-        $location`The Red Zeppelin`.turnsSpent === 0
+        get("zeppelinProtestors") > 0 &&
+        !have($item`priceless diamond`) &&
+        !have($item`Red Zeppelin ticket`)
       )
         return true;
       if (step("questL11Ron") >= 5) return false;
