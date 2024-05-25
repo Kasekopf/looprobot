@@ -254,6 +254,7 @@ const ChallengeBosses: Task[] = [
     combat: new CombatStrategy().killHard(),
     outfit: {
       equip: $items`Space Trip safety headphones, unwrapped knock-off retro superhero cape, June cleaver`,
+      modes: { retrocape: ["heck", "hold"] },
     },
     limit: { tries: 5 },
     boss: true,
@@ -265,6 +266,10 @@ const ChallengeBosses: Task[] = [
     prepare: fillHp,
     do: $location`A Crowd of (Stat) Adventurers`,
     combat: new CombatStrategy().killHard(),
+    outfit: {
+      equip: $items`Space Trip safety headphones, unwrapped knock-off retro superhero cape, June cleaver`,
+      modes: { retrocape: ["heck", "hold"] },
+    },
     limit: { tries: 10 },
     boss: true,
   },
@@ -281,6 +286,10 @@ const ChallengeBosses: Task[] = [
     prepare: fillHp,
     do: $location`A Crowd of (Element) Adventurers`,
     combat: new CombatStrategy().killHard(),
+    outfit: {
+      equip: $items`Space Trip safety headphones, unwrapped knock-off retro superhero cape, June cleaver`,
+      modes: { retrocape: ["heck", "hold"] },
+    },
     limit: { tries: 10 },
     boss: true,
   },
