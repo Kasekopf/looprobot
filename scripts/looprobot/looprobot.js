@@ -37192,7 +37192,11 @@ function oresNeeded() {
   if (trainSetAvailable())
     return 0;
   var ore_needed = 3;
-  ore_needed -= Math.min((0, import_kolmafia92.itemAmount)($item(_templateObject6218 || (_templateObject6218 = _taggedTemplateLiteral80(["asbestos ore"])))), (0, import_kolmafia92.itemAmount)($item(_templateObject6318 || (_templateObject6318 = _taggedTemplateLiteral80(["chrome ore"])))), (0, import_kolmafia92.itemAmount)($item(_templateObject6417 || (_templateObject6417 = _taggedTemplateLiteral80(["linoleum ore"])))));
+  if (get("trapperOre") === "") {
+    ore_needed -= Math.min((0, import_kolmafia92.itemAmount)($item(_templateObject6218 || (_templateObject6218 = _taggedTemplateLiteral80(["asbestos ore"])))), (0, import_kolmafia92.itemAmount)($item(_templateObject6318 || (_templateObject6318 = _taggedTemplateLiteral80(["chrome ore"])))), (0, import_kolmafia92.itemAmount)($item(_templateObject6417 || (_templateObject6417 = _taggedTemplateLiteral80(["linoleum ore"])))));
+  } else {
+    ore_needed -= (0, import_kolmafia92.itemAmount)(import_kolmafia92.Item.get(get("trapperOre")));
+  }
   if (have($item(_templateObject6516 || (_templateObject6516 = _taggedTemplateLiteral80(["Deck of Every Card"])))) && get("_deckCardsDrawn") === 0)
     ore_needed--;
   var pulled = new Set(get("_roninStoragePulls").split(",").map(function(id) {
@@ -47449,7 +47453,7 @@ function checkRequirements() {
 }
 
 // src/_git_commit.ts
-var lastCommitHash = "7d21329";
+var lastCommitHash = "0a1aaea";
 
 // src/main.ts
 var _templateObject1190;
