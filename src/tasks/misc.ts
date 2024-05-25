@@ -268,7 +268,7 @@ export const MiscQuest: Quest = {
           cliExecute("refresh all");
         }
       },
-      limit: { tries: 1 },
+      limit: { tries: 2 },
       freeaction: true,
     },
     {
