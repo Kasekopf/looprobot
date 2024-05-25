@@ -62,6 +62,8 @@ const Manor1: Task[] = [
         : Priorities.None,
     prepare: () => {
       if (have($effect`Video... Games?`)) tryForceNC();
+      else if (have($item`pool cue`) && have($item`handful of hand chalk`))
+        ensureEffect($effect`Chalky Hand`);
       tryPlayApriling("-combat");
     },
     do: $location`The Haunted Billiards Room`,
