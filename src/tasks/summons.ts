@@ -87,6 +87,29 @@ const summonTargets: SummonTarget[] = [
     tries: 3,
   },
   {
+    target: $monster`Baa'baa'bu'ran`,
+    after: [],
+    completed: () =>
+      itemAmount($item`stone wool`) >= 2 ||
+      (itemAmount($item`stone wool`) === 1 && have($item`the Nostril of the Serpent`)) ||
+      step("questL11Worship") >= 3,
+    outfit: { modifier: "item" },
+    combat: new CombatStrategy().killItem(),
+  },
+  {
+    target: $monster`ninja snowman assassin`,
+    after: ["McLargeHuge/Trapper Return", "Palindome/Cold Snake"],
+    completed: () =>
+      (have($item`ninja rope`) && have($item`ninja carabiner`) && have($item`ninja crampons`)) ||
+      get("lastCopyableMonster") === $monster`ninja snowman assassin` ||
+      step("questL08Trapper") >= 3,
+    outfit: {
+      equip: $items`June cleaver, Space Trip safety headphones, Jurassic Parka, unwrapped knock-off retro superhero cape`,
+      modes: { retrocape: ["heck", "hold"] },
+    },
+    combat: new CombatStrategy().kill(),
+  },
+  {
     target: $monster`Astrologer of Shub-Jigguwatt`,
     after: [],
     completed: () =>
@@ -104,25 +127,6 @@ const summonTargets: SummonTarget[] = [
       avoid: $items`carnivorous potted plant, Everfull Dart Holster`,
     },
     combat: new CombatStrategy().macro(Macro.attack().repeat()).killHard(),
-  },
-  {
-    target: $monster`Astronomer`,
-    after: ["Astrologer Of Shub-Jigguwatt"],
-    completed: () =>
-      have($item`star chart`) ||
-      have($item`Richard's star key`) ||
-      get("nsTowerDoorKeysUsed").includes("Richard's star key"),
-    combat: new CombatStrategy().kill(),
-  },
-  {
-    target: $monster`Astronomer`,
-    after: [],
-    ready: () => !have($item`Cargo Cultist Shorts`) || get("_cargoPocketEmptied"),
-    completed: () =>
-      have($item`star chart`) ||
-      have($item`Richard's star key`) ||
-      get("nsTowerDoorKeysUsed").includes("Richard's star key"),
-    combat: new CombatStrategy().kill(),
   },
   {
     target: $monster`Camel's Toe`,
@@ -161,26 +165,22 @@ const summonTargets: SummonTarget[] = [
       .killItem(),
   },
   {
-    target: $monster`Baa'baa'bu'ran`,
-    after: [],
+    target: $monster`Astronomer`,
+    after: ["Astrologer Of Shub-Jigguwatt"],
     completed: () =>
-      itemAmount($item`stone wool`) >= 2 ||
-      (itemAmount($item`stone wool`) === 1 && have($item`the Nostril of the Serpent`)) ||
-      step("questL11Worship") >= 3,
-    outfit: { modifier: "item" },
-    combat: new CombatStrategy().killItem(),
+      have($item`star chart`) ||
+      have($item`Richard's star key`) ||
+      get("nsTowerDoorKeysUsed").includes("Richard's star key"),
+    combat: new CombatStrategy().kill(),
   },
   {
-    target: $monster`ninja snowman assassin`,
-    after: ["McLargeHuge/Trapper Return", "Palindome/Cold Snake"],
+    target: $monster`Astronomer`,
+    after: [],
+    ready: () => !have($item`Cargo Cultist Shorts`) || get("_cargoPocketEmptied"),
     completed: () =>
-      (have($item`ninja rope`) && have($item`ninja carabiner`) && have($item`ninja crampons`)) ||
-      get("lastCopyableMonster") === $monster`ninja snowman assassin` ||
-      step("questL08Trapper") >= 3,
-    outfit: {
-      equip: $items`June cleaver, Space Trip safety headphones, Jurassic Parka, unwrapped knock-off retro superhero cape`,
-      modes: { retrocape: ["heck", "hold"] },
-    },
+      have($item`star chart`) ||
+      have($item`Richard's star key`) ||
+      get("nsTowerDoorKeysUsed").includes("Richard's star key"),
     combat: new CombatStrategy().kill(),
   },
 ];

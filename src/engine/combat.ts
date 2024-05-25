@@ -124,7 +124,7 @@ export function dartMacro(hard?: boolean): Macro {
   return result;
 }
 
-export function killMacro(target?: Monster | Location, hard?: boolean): Macro {
+export function killMacro(target?: Monster | Location, hard?: boolean, withSlap = false): Macro {
   const result = new Macro();
 
   // Level with the Grey Goose if available
@@ -145,10 +145,13 @@ export function killMacro(target?: Monster | Location, hard?: boolean): Macro {
   }
 
   result.step(dartMacro(hard));
+  if (withSlap) result.trySkill($skill`Monkey Slap`);
   result.trySkill($skill`Summon Love Mosquito`);
 
   if (haveEquipped($item`June cleaver`)) return result.attack().repeat();
   else if (YouRobot.getPartId("bottom") === 2) return result.skill($skill`Crotch Burn`).repeat();
+  else if (YouRobot.getPartId("left") === 1)
+    return result.skill($skill`Swing Pound-O-Tron`).repeat();
   else if (YouRobot.canUse($slot`weapon`)) return result.attack().repeat();
 
   return result.attack().repeat();

@@ -967,7 +967,7 @@ export const MiscQuest: Quest = {
     },
     {
       name: "Mayam Calendar",
-      after: [],
+      after: ["Robot/Equip Top Initial"],
       priority: () => Priorities.Free,
       completed: () => !MayamCalendar.have() || MayamCalendar.remainingUses() === 0,
       do: () => {

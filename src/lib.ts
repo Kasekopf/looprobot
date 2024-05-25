@@ -262,7 +262,7 @@ export function levelingStartCompleted(): boolean {
    */
   return (
     myBasestat(myPrimestat()) >= 104 &&
-    myBasestat($stat`Mysticality`) >= 70 &&
+    (myBasestat($stat`Mysticality`) >= 70 || myPrimestat() === $stat`Muscle`) &&
     myBasestat($stat`Moxie`) >= 70
   );
 }

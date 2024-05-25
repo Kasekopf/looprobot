@@ -1,9 +1,10 @@
-import { CombatStrategy } from "../engine/combat";
+import { CombatStrategy, killMacro } from "../engine/combat";
 import {
+  canEquip,
   cliExecute,
+  haveEquipped,
   Item,
   myLevel,
-  myPrimestat,
   myTurncount,
   runChoice,
   runCombat,
@@ -18,7 +19,6 @@ import {
   $location,
   $monster,
   $skill,
-  $stat,
   ClosedCircuitPayphone,
   get,
   have,
@@ -133,19 +133,8 @@ const unscaledLeveling: Task[] = [
     ready: () => get("daycareOpen"),
     completed: () => get("_daycareGymScavenges") !== 0,
     do: (): void => {
-      if ((get("daycareOpen") || get("_daycareToday")) && !get("_daycareSpa")) {
-        switch (myPrimestat()) {
-          case $stat`Muscle`:
-            cliExecute("daycare muscle");
-            break;
-          case $stat`Mysticality`:
-            cliExecute("daycare myst");
-            break;
-          case $stat`Moxie`:
-            cliExecute("daycare moxie");
-            break;
-        }
-      }
+      if ((get("daycareOpen") || get("_daycareToday")) && !get("_daycareSpa"))
+        cliExecute("daycare myst");
       visitUrl("place.php?whichplace=town_wrong&action=townwrong_boxingdaycare");
       runChoice(3);
       runChoice(2);
@@ -162,8 +151,7 @@ const unscaledLeveling: Task[] = [
     priority: () => Priorities.Free,
     ready: () => have($item`Bastille Battalion control rig`),
     completed: () => get("_bastilleGames") !== 0,
-    do: () =>
-      cliExecute(`bastille ${myPrimestat() === $stat`Mysticality` ? "myst" : myPrimestat()}`),
+    do: () => cliExecute(`bastille myst`),
     limit: { tries: 1 },
     freeaction: true,
     outfit: {
@@ -186,8 +174,12 @@ const unscaledLeveling: Task[] = [
     post: (): void => {
       if (get("_snojoFreeFights") === 10) cliExecute("hottub"); // Clean -stat effects
     },
-    combat: new CombatStrategy().killHard(),
-    outfit: { equip: $items`Space Trip safety headphones` },
+    combat: new CombatStrategy().killHard().macro(() => killMacro(undefined, true, true)),
+    outfit: () => {
+      if (canEquip($item`Space Trip safety headphones`))
+        return { equip: $items`Space Trip safety headphones` };
+      else return { equip: $items`cursed monkey's paw` };
+    },
     limit: { tries: 10 },
     freecombat: true,
   },
@@ -198,8 +190,12 @@ const unscaledLeveling: Task[] = [
     completed: () => get("_neverendingPartyFreeTurns") >= 10 || !get("neverendingPartyAlways"),
     do: $location`The Neverending Party`,
     choices: { 1322: 2, 1324: 5 },
-    combat: new CombatStrategy().killHard(),
-    outfit: { equip: $items`Space Trip safety headphones` },
+    combat: new CombatStrategy().killHard().macro(() => killMacro(undefined, true, true)),
+    outfit: () => {
+      if (canEquip($item`Space Trip safety headphones`))
+        return { equip: $items`Space Trip safety headphones` };
+      else return { equip: $items`cursed monkey's paw` };
+    },
     limit: { tries: 11 },
     freecombat: true,
   },
@@ -210,8 +206,12 @@ const unscaledLeveling: Task[] = [
     completed: () => get("_speakeasyFreeFights") >= 3 || !get("ownsSpeakeasy"),
     do: $location`An Unusually Quiet Barroom Brawl`,
     choices: { 1322: 2, 1324: 5 },
-    combat: new CombatStrategy().killHard(),
-    outfit: { equip: $items`Space Trip safety headphones` },
+    combat: new CombatStrategy().killHard().macro(() => killMacro(undefined, true, true)),
+    outfit: () => {
+      if (canEquip($item`Space Trip safety headphones`))
+        return { equip: $items`Space Trip safety headphones` };
+      else return { equip: $items`cursed monkey's paw` };
+    },
     limit: { tries: 3 },
     freecombat: true,
   },
@@ -243,10 +243,15 @@ const unscaledLeveling: Task[] = [
           for (let i = 0; i < vortex_count; i++)
             result.trySkill($skill`Fire Extinguisher: Polar Vortex`);
         }
-        result.while_("hasskill 7448 && !pastround 20", Macro.skill($skill`Douse Foe`));
+        if (haveEquipped($item`Space Trip safety headphones`))
+          result.while_("hasskill 7448 && !pastround 20", Macro.skill($skill`Douse Foe`));
         return result;
       }, $monster`shadow slab`)
-      .killHard(),
+      .killHard()
+      .macro(() => {
+        if (haveEquipped($item`Space Trip safety headphones`)) return new Macro();
+        return killMacro(undefined, true, true);
+      }),
     outfit: () => {
       const result: OutfitSpec = {
         equip: $items`Space Trip safety headphones`,
@@ -262,6 +267,9 @@ const unscaledLeveling: Task[] = [
       else result.equip?.push($item`June cleaver`);
       if (have($item`Flash Liquidizer Ultra Dousing Accessory`) && get("_douseFoeUses") < 3)
         result.equip?.push($item`Flash Liquidizer Ultra Dousing Accessory`);
+
+      if (!canEquip($item`Space Trip safety headphones`))
+        result.equip?.push($item`cursed monkey's paw`);
       return result;
     },
     boss: true,
