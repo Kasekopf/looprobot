@@ -15,6 +15,7 @@ import {
   Location,
   logprint,
   myAdventures,
+  myBasestat,
   myFullness,
   myHp,
   myLevel,
@@ -45,6 +46,7 @@ import {
   $skill,
   $slot,
   $slots,
+  $stat,
   get,
   getTodaysHolidayWanderers,
   have,
@@ -54,7 +56,13 @@ import {
   undelay,
   uneffect,
 } from "libram";
-import { Engine as BaseEngine, CombatResources, CombatStrategy, Outfit } from "grimoire-kolmafia";
+import {
+  Engine as BaseEngine,
+  CombatResources,
+  CombatStrategy,
+  Outfit,
+  step,
+} from "grimoire-kolmafia";
 import { CombatActions, MyActionDefaults } from "./combat";
 import {
   cacheDress,
@@ -68,7 +76,7 @@ import {
   setModeables,
 } from "./outfit";
 import { cliExecute, equippedAmount, itemAmount, runChoice } from "kolmafia";
-import { debug, YouRobot } from "../lib";
+import { atLevel, debug, YouRobot } from "../lib";
 import {
   BackupTarget,
   backupTargets,
@@ -156,6 +164,8 @@ export class Engine extends BaseEngine<CombatActions, ActiveTask> {
     const available_tasks = this.tasks.filter((task) => this.available(task));
 
     if (myPath() !== $path`You, Robot`) return undefined; // Prism broken
+
+    if (args.debug.flyerby <= myTurncount()) verifyFlyerStarted();
 
     // Teleportitis overrides all
     if (have($effect`Teleportitis`)) {
@@ -1002,4 +1012,35 @@ function logModifiers(outfit: Outfit) {
       logprint(`= ${name}: ${value}`);
     }
   }
+}
+
+function verifyFlyerStarted() {
+  if (have($item`rock band flyers`) || get("sidequestArenaCompleted") !== "none") return;
+
+  const failReasons = [];
+  if (!atLevel(70)) failReasons.push("Not at level 12");
+  if (!myBasestat($stat`Mysticality`)) failReasons.push("Myst is not at 70");
+  if (!myBasestat($stat`Moxie`)) failReasons.push("Moxie is not at 70");
+  if (
+    !have($item`beer helmet`) ||
+    !have($item`distressed denim pants`) ||
+    !have($item`bejeweled pledge pin`)
+  )
+    failReasons.push("No war outfit");
+  if (step("questL10Garbage") >= 9) failReasons.push("Castle top not ready");
+  if (failReasons.length === 0 && !YouRobot.canUse($slot`hat`))
+    failReasons.push("Not switched to hat");
+  if (failReasons.length === 0 && step("questL12War") >= 1)
+    failReasons.push("Not enraging the war");
+  if (
+    (failReasons.length === 0 && have($item`rock band flyers`)) ||
+    get("sidequestArenaCompleted") !== "none"
+  )
+    failReasons.push("Not picking up flyers");
+  if (failReasons.length === 0) failReasons.push("No idea");
+
+  const baseMessage = `You are at turn ${myTurncount()} but you have not started flyering! Flyering is supposed to start around turn 110. Please investigate why.`;
+  const failReasonsMessage = `${failReasons.join(". ")}.`;
+  logprint(`Failed to start war by ${myTurncount()}: ${failReasonsMessage}`);
+  throw `${baseMessage} Problem hint: ${failReasonsMessage}`;
 }

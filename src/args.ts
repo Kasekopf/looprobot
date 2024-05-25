@@ -101,6 +101,10 @@ export const args = Args.create(
         help: "Halt when you have this number of adventures remaining or fewer",
         default: 0,
       }),
+      flyerby: Args.number({
+        help: "Halt when your turncount is above this number and you haven't started flyering",
+        default: 150,
+      }),
     }),
   },
   {
