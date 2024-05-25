@@ -6667,7 +6667,7 @@ var args = Args.create("looprobot", 'This is a script to complete You Robot Soft
       help: "Pull a lucky gold ring. If pulled, it will be equipped during many combats.",
       default: false
     }),
-    profitFamiliar: Args.flag({
+    profitfamiliar: Args.flag({
       help: "Use free familiar turns for familiar related profits.",
       default: false
     }),
@@ -6745,6 +6745,10 @@ var args = Args.create("looprobot", 'This is a script to complete You Robot Soft
     halt: Args.number({
       help: "Halt when you have this number of adventures remaining or fewer",
       default: 0
+    }),
+    flyerby: Args.number({
+      help: "Halt when your turncount is above this number and you haven't started flyering",
+      default: 150
     })
   })
 }, {
