@@ -22,7 +22,7 @@ export const args = Args.create(
         help: "Pull a lucky gold ring. If pulled, it will be equipped during many combats.",
         default: false,
       }),
-      profitFamiliar: Args.flag({
+      profitfamiliar: Args.flag({
         help: "Use free familiar turns for familiar related profits.",
         default: false,
       }),

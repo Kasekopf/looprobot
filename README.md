@@ -48,7 +48,7 @@ Major Options:
 Minor Options:
   fax BOOLEAN - Use a fax to summon a monster. Set to false if the faxbots are offline. [default: true] [setting: looprobot_fax]
   lgr - Pull a lucky gold ring. If pulled, it will be equipped during many combats. [default: false] [setting: looprobot_lgr]
-  profitFamiliar - Use free familiar turns for familiar related profits. [default: false] [setting: looprobot_profitFamiliar]
+  profitfamiliar - Use free familiar turns for familiar related profits. [default: false] [setting: looprobot_profitFamiliar]
   pvp - Break your hippy stone at the start of the run. [default: false] [setting: looprobot_pvp]
   wand - Always get the zap wand. [default: false] [setting: looprobot_wand]
   forcelocket - Always equip the combat lover's locket, in order to get monsters inside quickly. [default: false] [setting: looprobot_forcelocket]
@@ -70,6 +70,7 @@ Debug Options:
   settings - Show the parsed value for all arguments and exit.
   ignorekeys - Ignore the check that all keys can be obtained. Typically for hardcore, if you plan to get your own keys [default: false] [setting: looprobot_ignorekeys]
   halt NUMBER - Halt when you have this number of adventures remaining or fewer [default: 0] [setting: looprobot_halt]
+  flyerby NUMBER - Halt when your turncount is above this number and you haven't started flyering [default: 150] [setting: looprobot_flyerby]
 ```
 
 ### Will this script work for me?
@@ -93,13 +94,12 @@ Expensive Pulls (Optional)
 ✓ Shore Inc. Ship Trip Scrip - Pull
 
 IoTMs (Required)
-✓ Chateau Mantegna - Free rests, +exp
 ✓ closed-circuit pay phone - Shadow bricks, +meat, Leveling with Goose
+✓ combat lover's locket - Reminiscing
 ✓ Distant Woods Getaway Brochure - +exp
 ✓ Emotionally Chipped - Banish, -combat, items
 ✓ genie bottle - Leveling with Goose
 ✓ grey gosling - Duplication drones
-✓ industrial fire extinguisher - Harem outfit, Bat hole, stone wool, Crypt, Ultrahydrated, Shadow bricks
 ✓ June cleaver - Tavern, +adv
 ✓ Jurassic Parka - Meat, ML, -combat forces
 ✓ Lovebugs - Crypt, Desert
@@ -110,6 +110,7 @@ IoTMs (Required)
 
 IoTMs (Optional)
 ✓ 2002 Mr. Store Catalog - +item, +init, wanderers
+✓ Apriling band helmet - -combat forces
 ✓ august scepter - Protestors, Nuns
 ✓ autumn-aton - Lobsterfrogman
 ✓ baby camelCalf - Desert progress
@@ -118,9 +119,9 @@ IoTMs (Optional)
 ✓ Boxing Daycare - +exp
 ✓ candy cane sword cane - NS key, protestors, black forest, war start, bowling, shore
 ✓ Cargo Cultist Shorts - Mountain man
+✓ Chateau Mantegna - Free rests, +exp
 ✓ Cincho de Mayo - -combat forces
 ✓ Clan VIP Lounge key - YRs, +combat
-✓ combat lover's locket - Reminiscing
 ✓ Cosmic bowling ball - Banishes
 ✓ cursed magnifying glass - Wanderers
 ✓ cursed monkey's paw - Banishes
@@ -128,16 +129,21 @@ IoTMs (Optional)
 ✓ Daylight Shavings Helmet - +meat, +item
 ✓ Deck of Every Card - A key for the NS tower, stone wool, ore
 ✓ designer sweatpants - Sleaze damage, +init
+✓ Everfull Dart Holster - Free kills
 ✓ familiar scrapbook - +exp
 ✓ Fourth of May Cosplay Saber - Familiar Weight
+✓ God Lobster Egg - Leveling
+✓ industrial fire extinguisher - Harem outfit, Bat hole, stone wool, Crypt, Ultrahydrated, Shadow bricks
 ✓ January's Garbage Tote - +item, +meat
 ✓ Kramco Sausage-o-Matic™ - Wanderers
 ✓ Kremlin's Greatest Briefcase - Banishes
 ✓ latte lovers member's mug - Banishes
 ✓ li'l orphan tot - +item
 ✓ Lil' Doctor™ bag - Banish, instakill, +item
+✓ Mayam Calendar - Free rests, fam exp
 ✓ miniature crystal ball - Monster prediction
 ✓ Moping Artistic Goth Kid - Wanderers
+✓ potted power plant - +Adv
 ✓ Powerful Glove - Pixels
 ✓ protonic accelerator pack - Wanderers
 ✓ S.I.T. Course Completion Certificate - Profit, +meat
@@ -145,6 +151,7 @@ IoTMs (Optional)
 ✓ sinistral homunculus - Carn plant
 ✓ sleeping patriotic eagle - Niche, Palindome, Twin Paak
 ✓ SongBoom™ BoomBox - Meat and special seasonings
+✓ spring shoes - Runaways, Leveling
 ✓ Summon Clip Art - Amulet coin
 ✓ Unagnimated Gnome - Adv gain
 ✓ unbreakable umbrella - -combat modifier, ML

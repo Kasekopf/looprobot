@@ -60,7 +60,6 @@ function buildIotmList(): Requirement[] {
     {
       thing: new Hardcoded(get("chateauAvailable"), "Chateau Mantegna"),
       why: "Free rests, +exp",
-      required: true,
     },
     {
       thing: new Hardcoded(get("lovebugsUnlocked"), "Lovebugs"),
@@ -191,7 +190,6 @@ function buildIotmList(): Requirement[] {
     {
       thing: $item`industrial fire extinguisher`,
       why: "Harem outfit, Bat hole, stone wool, Crypt, Ultrahydrated, Shadow bricks",
-      required: true,
     },
     {
       thing: $item`Daylight Shavings Helmet`,
@@ -211,6 +209,7 @@ function buildIotmList(): Requirement[] {
     {
       thing: $item`combat lover's locket`,
       why: "Reminiscing",
+      required: true,
     },
     { thing: $familiar`Grey Goose`, why: "Duplication drones", required: true },
     {
