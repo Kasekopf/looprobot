@@ -239,8 +239,9 @@ const unscaledLeveling: Task[] = [
         const result = Macro.while_("hasskill 226", Macro.skill($skill`Perpetrate Mild Evil`));
         // Use all but the last extinguisher uses on polar vortex.
         const vortex_count = (get("_fireExtinguisherCharge") - 40) / 10;
+        const vortex_cap = haveEquipped($item`Space Trip safety headphones`) ? 10 : 3;
         if (vortex_count > 0) {
-          for (let i = 0; i < vortex_count; i++)
+          for (let i = 0; i < vortex_count && i < vortex_cap; i++)
             result.trySkill($skill`Fire Extinguisher: Polar Vortex`);
         }
         if (haveEquipped($item`Space Trip safety headphones`))
