@@ -50,6 +50,7 @@ import { Priorities } from "../engine/priority";
 import { councilSafe } from "./level12";
 import { ensureWithMPSwaps, fillHp } from "../engine/moods";
 import { tryPlayApriling } from "../engine/resources";
+import { flyersDone } from "./level12";
 
 function tuneCape(): void {
   if (
