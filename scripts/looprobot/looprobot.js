@@ -29677,8 +29677,8 @@ function _taggedTemplateLiteral72(strings, raw) {
   }
   return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } }));
 }
-function flyersDone() {
-  var buffer = 1e3;
+function flyersDone2() {
+  var buffer = 50;
   return get("flyeredML") >= 1e4 + buffer;
 }
 var Flyers = [{
@@ -29707,7 +29707,7 @@ var Flyers = [{
     return Priorities.Free;
   },
   ready: function() {
-    return flyersDone() && YouRobot.canUse($slot(_templateObject4105 || (_templateObject4105 = _taggedTemplateLiteral72(["hat"]))));
+    return flyersDone2() && YouRobot.canUse($slot(_templateObject4105 || (_templateObject4105 = _taggedTemplateLiteral72(["hat"]))));
   },
   // Buffer for mafia tracking
   completed: function() {
@@ -32821,7 +32821,7 @@ var Engine2 = /* @__PURE__ */ function(_BaseEngine) {
       var monster_blacklist = [].concat(_toConsumableArray29(getTodaysHolidayWanderers()), [$monster(_templateObject1233 || (_templateObject1233 = _taggedTemplateLiteral76(["sausage goblin"]))), $monster(_templateObject1330 || (_templateObject1330 = _taggedTemplateLiteral76(["ninja snowman assassin"]))), $monster(_templateObject1428 || (_templateObject1428 = _taggedTemplateLiteral76(["Protagonist"]))), $monster(_templateObject1525 || (_templateObject1525 = _taggedTemplateLiteral76(["Quantum Mechanic"]))), $monster(_templateObject1625 || (_templateObject1625 = _taggedTemplateLiteral76(["government bureaucrat"]))), $monster(_templateObject1725 || (_templateObject1725 = _taggedTemplateLiteral76(["terrible mutant"]))), $monster(_templateObject1825 || (_templateObject1825 = _taggedTemplateLiteral76(["angry ghost"]))), $monster(_templateObject1924 || (_templateObject1924 = _taggedTemplateLiteral76(["annoyed snake"]))), $monster(_templateObject2024 || (_templateObject2024 = _taggedTemplateLiteral76(["slime blob"]))), $monster(_templateObject2150 || (_templateObject2150 = _taggedTemplateLiteral76(["Astrologer of Shub-Jigguwatt"])))]);
       if (get("camelSpit") === 100)
         monster_blacklist.push($monster(_templateObject2226 || (_templateObject2226 = _taggedTemplateLiteral76(["Camel's Toe"]))));
-      if (have($item(_templateObject2324 || (_templateObject2324 = _taggedTemplateLiteral76(["rock band flyers"])))) && !flyersDone() && (!(task.do instanceof import_kolmafia87.Location) || !blacklist.has(task.do)) && task.name !== "Misc/Protonic Ghost") {
+      if (have($item(_templateObject2324 || (_templateObject2324 = _taggedTemplateLiteral76(["rock band flyers"])))) && !flyersDone2() && (!(task.do instanceof import_kolmafia87.Location) || !blacklist.has(task.do)) && task.name !== "Misc/Protonic Ghost") {
         var stuncape = {
           back: $item(_templateObject2422 || (_templateObject2422 = _taggedTemplateLiteral76(["unwrapped knock-off retro superhero cape"]))),
           modes: {
@@ -40741,6 +40741,9 @@ var CryptQuest = {
         return Priorities.BadGoose;
       return Priorities.GoodGoose;
     },
+    ready: function() {
+      return flyersDone();
+    },
     completed: function() {
       return step("questL07Cyrptic") >= 1;
     },
@@ -46291,7 +46294,7 @@ var RobotQuest = {
     name: "Unequip Hat Phase 1",
     after: ["Equip Hat Phase 1", "Giant/Top Floor", "War/Flyers Start", "War/Junkyard End"],
     completed: function() {
-      return YouRobot.canUseFamiliar() || flyersDone();
+      return YouRobot.canUseFamiliar() || flyersDone2();
     },
     do: function() {
       return YouRobot.doSwitchPart("top", 2);
@@ -46307,7 +46310,7 @@ var RobotQuest = {
       return get("gooseDronesRemaining") > 0 ? Priorities.GoodDrone : Priorities.None;
     },
     ready: function() {
-      return flyersDone();
+      return flyersDone2();
     },
     completed: function() {
       return YouRobot.canUse($slot(_templateObject1851 || (_templateObject1851 = _taggedTemplateLiteral98(["hat"])))) || step("questL12War") === 999 && step("questL05Goblin") === 999;
@@ -47581,7 +47584,7 @@ function checkRequirements() {
 }
 
 // src/_git_commit.ts
-var lastCommitHash = "1175ccb";
+var lastCommitHash = "84c0e11";
 
 // src/main.ts
 var _templateObject1101;
