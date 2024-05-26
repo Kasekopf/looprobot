@@ -403,6 +403,7 @@ export const CryptQuest: Quest = {
         if (familiarWeight($familiar`Grey Goose`) < 6) return Priorities.BadGoose;
         return Priorities.GoodGoose;
       },
+      ready: () => flyersDone(),
       completed: () => step("questL07Cyrptic") >= 1,
       prepare: () => {
         if (

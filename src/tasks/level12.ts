@@ -45,7 +45,7 @@ import { toTempPref } from "../args";
 import { customRestoreMp, fillHp } from "../engine/moods";
 
 export function flyersDone(): boolean {
-  const buffer = 1000;
+  const buffer = 50;
   return get("flyeredML") >= 10000 + buffer;
 }
 
