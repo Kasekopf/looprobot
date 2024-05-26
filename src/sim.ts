@@ -46,10 +46,6 @@ function buildIotmList(): Requirement[] {
   return [
     { thing: $item`Clan VIP Lounge key`, why: "YRs, +combat" },
     {
-      thing: new Hardcoded(have($skill`Summon Clip Art`), "Summon Clip Art"),
-      why: "Amulet coin",
-    },
-    {
       thing: $familiar`Artistic Goth Kid`,
       why: "Wanderers",
     },
