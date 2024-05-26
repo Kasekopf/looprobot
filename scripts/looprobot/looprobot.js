@@ -30699,8 +30699,8 @@ var summonTargets = [{
     fillHp();
   },
   outfit: {
-    modifier: "cold dmg",
-    equip: $items(_templateObject2420 || (_templateObject2420 = _taggedTemplateLiteral73(["June cleaver, Space Trip safety headphones, industrial fire extinguisher"]))),
+    modifier: "cold dmg, sleaze res",
+    equip: $items(_templateObject2420 || (_templateObject2420 = _taggedTemplateLiteral73(["June cleaver, industrial fire extinguisher"]))),
     avoid: $items(_templateObject2519 || (_templateObject2519 = _taggedTemplateLiteral73(["carnivorous potted plant, Everfull Dart Holster"])))
   },
   combat: new CombatStrategy2().macro(Macro.attack().repeat()).killHard()
@@ -47581,7 +47581,7 @@ function checkRequirements() {
 }
 
 // src/_git_commit.ts
-var lastCommitHash = "003ce97";
+var lastCommitHash = "1175ccb";
 
 // src/main.ts
 var _templateObject1101;
