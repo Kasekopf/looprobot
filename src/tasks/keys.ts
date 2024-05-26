@@ -401,7 +401,7 @@ export const DigitalQuest: Quest = {
 
         if (
           myClass() === $class`Seal Clubber` &&
-          have($item`Bird-a-Day calendar`) &&
+          get("_canSeekBirds") &&
           myMp() >= 5 * 2 ** get("_birdsSoughtToday") &&
           numericModifier("Initiative") < 600
         ) {
