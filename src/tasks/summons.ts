@@ -40,7 +40,7 @@ type SummonTarget = Omit<Task, "do" | "name" | "limit"> & {
 const summonTargets: SummonTarget[] = [
   {
     target: $monster`War Frat 151st Infantryman`,
-    ready: () => myMeat() >= 1000,
+    ready: () => myMeat() >= 200,
     completed: () =>
       have($item`beer helmet`) &&
       have($item`distressed denim pants`) &&
@@ -57,7 +57,7 @@ const summonTargets: SummonTarget[] = [
   {
     target: $monster`mountain man`,
     after: [],
-    ready: () => myMeat() >= 1000,
+    ready: () => myMeat() >= 200,
     completed: () => oresNeeded() === 0,
     priority: () => (have($effect`Everything Looks Yellow`) ? Priorities.BadYR : Priorities.None),
     outfit: () => {
