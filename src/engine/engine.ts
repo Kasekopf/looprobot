@@ -61,6 +61,7 @@ import {
   CombatResources,
   CombatStrategy,
   Outfit,
+  OutfitSpec,
   step,
 } from "grimoire-kolmafia";
 import { CombatActions, MyActionDefaults } from "./combat";
@@ -442,14 +443,21 @@ export class Engine extends BaseEngine<CombatActions, ActiveTask> {
       (!(task.do instanceof Location) || !blacklist.has(task.do)) &&
       task.name !== "Misc/Protonic Ghost"
     ) {
-      combat.macro(
-        new Macro().if_(
-          `!hpbelow 50 && ${monster_blacklist.map((m) => `!monsterid ${m.id}`).join(" && ")}`,
-          new Macro().trySkill($skill`Summon Love Gnats`).tryItem($item`rock band flyers`)
-        ),
-        undefined,
-        true
-      );
+      const stuncape: OutfitSpec = {
+        back: $item`unwrapped knock-off retro superhero cape`,
+        modes: { retrocape: ["heck", "hold"] },
+      };
+      if (get("lovebugsUnlocked") || outfit.canEquip(stuncape)) {
+        if (!get("lovebugsUnlocked")) outfit.equip(stuncape);
+        combat.macro(
+          new Macro().if_(
+            `!hpbelow 50 && ${monster_blacklist.map((m) => `!monsterid ${m.id}`).join(" && ")}`,
+            new Macro().trySkill($skill`Summon Love Gnats`).tryItem($item`rock band flyers`)
+          ),
+          undefined,
+          true
+        );
+      }
     }
 
     // Use red rocket to boost food stats

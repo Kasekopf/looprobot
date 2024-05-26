@@ -113,6 +113,7 @@ const summonTargets: SummonTarget[] = [
       if (get("camelSpit") < 100) return Priorities.BadCamel;
       return Priorities.GoodCamel;
     },
+    ready: () => get("lovebugsUnlocked") || get("sweat") >= 5,
     completed: () =>
       get("lastCopyableMonster") === $monster`Camel's Toe` ||
       (itemAmount($item`star`) >= 8 && itemAmount($item`line`) >= 7) ||
@@ -122,7 +123,7 @@ const summonTargets: SummonTarget[] = [
       if (get("camelSpit") === 100)
         return {
           modifier: "item",
-          equip: $items`June cleaver, Space Trip safety headphones, unwrapped knock-off retro superhero cape`,
+          equip: $items`June cleaver, Space Trip safety headphones, unwrapped knock-off retro superhero cape, designer sweatpants`,
           familiar: $familiar`Melodramedary`,
           modes: { retrocape: ["heck", "hold"] },
           avoid: $items`carnivorous potted plant`,
@@ -134,11 +135,12 @@ const summonTargets: SummonTarget[] = [
       };
     },
     combat: new CombatStrategy()
-      .macro(
-        Macro.trySkill($skill`Summon Love Gnats`)
+      .macro(() => {
+        return Macro.trySkill($skill`Summon Love Gnats`)
+          .externalIf(!get("lovebugsUnlocked"), Macro.trySkill($skill`Sweat Flood`))
           .trySkill($skill`%fn, spit on them!`)
-          .trySkill($skill`Feel Envy`)
-      )
+          .trySkill($skill`Feel Envy`);
+      })
       .killItem(),
   },
   {

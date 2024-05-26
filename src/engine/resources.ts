@@ -667,7 +667,10 @@ export const forceNCSources: ForceNCSorce[] = [
       have($item`Jurassic Parka`) &&
       get("_spikolodonSpikeUses") + args.minor.saveparka < 5,
     equip: { equip: $items`Jurassic Parka`, modes: { parka: "spikolodon" } },
-    do: Macro.trySkill($skill`Summon Love Gnats`).skill($skill`Launch spikolodon spikes`),
+    // Note the externalIf is evaluated only once (at script run)
+    do: Macro.trySkill($skill`Summon Love Gnats`)
+      .externalIf(!get("lovebugsUnlocked"), Macro.trySkill($skill`Sweat Flood`))
+      .skill($skill`Launch spikolodon spikes`),
   },
 ];
 
