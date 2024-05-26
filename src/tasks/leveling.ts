@@ -27,7 +27,7 @@ import {
 } from "libram";
 import { Priorities } from "../engine/priority";
 import { Quest, Task } from "../engine/task";
-import { primestatId } from "../lib";
+import { NO_ADVENTURE_SPENT, primestatId } from "../lib";
 import { fillHp } from "../engine/moods";
 import { OutfitSpec } from "grimoire-kolmafia";
 
@@ -180,7 +180,7 @@ const unscaledLeveling: Task[] = [
         return { equip: $items`Space Trip safety headphones` };
       else return { equip: $items`cursed monkey's paw` };
     },
-    limit: { tries: 10 },
+    limit: { tries: 10, guard: NO_ADVENTURE_SPENT },
     freecombat: true,
   },
   {
@@ -196,7 +196,7 @@ const unscaledLeveling: Task[] = [
         return { equip: $items`Space Trip safety headphones` };
       else return { equip: $items`cursed monkey's paw` };
     },
-    limit: { tries: 11 },
+    limit: { tries: 11, guard: NO_ADVENTURE_SPENT },
     freecombat: true,
   },
   {
@@ -212,7 +212,7 @@ const unscaledLeveling: Task[] = [
         return { equip: $items`Space Trip safety headphones` };
       else return { equip: $items`cursed monkey's paw` };
     },
-    limit: { tries: 3 },
+    limit: { tries: 3, guard: NO_ADVENTURE_SPENT },
     freecombat: true,
   },
   {
@@ -274,7 +274,7 @@ const unscaledLeveling: Task[] = [
     },
     boss: true,
     freecombat: true,
-    limit: { tries: 12 },
+    limit: { tries: 12, guard: NO_ADVENTURE_SPENT },
   },
 ];
 

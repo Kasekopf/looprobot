@@ -1,9 +1,10 @@
-import { step } from "grimoire-kolmafia";
+import { Guards, step } from "grimoire-kolmafia";
 import {
   appearanceRates,
   Item,
   Location,
   Monster,
+  myAdventures,
   myBasestat,
   myFamiliar,
   myLevel,
@@ -266,3 +267,8 @@ export function levelingStartCompleted(): boolean {
     myBasestat($stat`Moxie`) >= 70
   );
 }
+
+export const NO_ADVENTURE_SPENT = Guards.create(
+  () => myAdventures(),
+  (adv) => myAdventures() >= adv
+);

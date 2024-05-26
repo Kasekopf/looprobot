@@ -64,11 +64,11 @@ import {
   uneffect,
 } from "libram";
 import { Quest, Task } from "../engine/task";
-import { Guards, Outfit, OutfitSpec, step } from "grimoire-kolmafia";
+import { Outfit, OutfitSpec, step } from "grimoire-kolmafia";
 import { Priorities } from "../engine/priority";
 import { Engine, wanderingNCs } from "../engine/engine";
 import { Keys, keyStrategy } from "./keys";
-import { atLevel, haveLoathingIdolMicrophone, underStandard } from "../lib";
+import { atLevel, haveLoathingIdolMicrophone, NO_ADVENTURE_SPENT, underStandard } from "../lib";
 import { args, toTempPref } from "../args";
 import { coldPlanner, yellowSubmarinePossible } from "../engine/outfit";
 import { ROUTE_WAIT_TO_NCFORCE } from "../route";
@@ -798,10 +798,7 @@ export const MiscQuest: Quest = {
       freeaction: true,
       limit: {
         tries: 26, // Total unrestricted free rests
-        guard: Guards.create(
-          () => myAdventures(),
-          (adv) => myAdventures() === adv // Assert we did not use an adventure
-        ),
+        guard: NO_ADVENTURE_SPENT,
       },
     },
     {
