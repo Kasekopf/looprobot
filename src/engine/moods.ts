@@ -6,7 +6,6 @@ import {
   equippedAmount,
   equippedItem,
   getInventory,
-  getWorkshed,
   Item,
   itemAmount,
   mpCost,
@@ -38,7 +37,6 @@ import {
   $slot,
   $slots,
   $stat,
-  AsdonMartin,
   ensureEffect,
   freeCrafts,
   get,
@@ -48,7 +46,6 @@ import {
   isSong,
   uneffect,
 } from "libram";
-import { asdonFillTo, asdonFualable } from "./resources";
 import { underStandard } from "../lib";
 import { pullStrategy } from "../tasks/pulls";
 import { step } from "grimoire-kolmafia";
@@ -200,17 +197,6 @@ export function applyEffects(modifier: string, other_effects: Effect[]): void {
   }
 
   ensureWithMPSwaps(useful_effects);
-
-  // Use asdon martin
-  if (getWorkshed() === $item`Asdon Martin keyfob (on ring)` && asdonFualable(37)) {
-    // if (modifier.includes("-combat")) AsdonMartin.drive(AsdonMartin.Driving.Stealthily);
-    // else if (modifier.includes("+combat")) AsdonMartin.drive(AsdonMartin.Driving.Obnoxiously);
-    // else if (modifier.includes("init")) AsdonMartin.drive(AsdonMartin.Driving.Quickly);
-    if (modifier.includes("meat") || modifier.includes("item")) {
-      if (!have($effect`Driving Observantly`)) asdonFillTo(50); // done manually to use all-purpose flower
-      AsdonMartin.drive(AsdonMartin.Driving.Observantly);
-    }
-  }
 }
 
 export function ensureWithMPSwaps(effects: Effect[]) {

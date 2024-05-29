@@ -1,17 +1,13 @@
 import {
-  buy,
   cliExecute,
   Effect,
   Familiar,
   familiarWeight,
-  getFuel,
-  getWorkshed,
   haveEquipped,
   Item,
   itemAmount,
   Location,
   Monster,
-  myAscensions,
   myClass,
   myFamiliar,
   myFury,
@@ -21,11 +17,8 @@ import {
   myTurncount,
   retrieveItem,
   Skill,
-  toInt,
   totalTurnsPlayed,
-  use,
   useSkill,
-  visitUrl,
 } from "kolmafia";
 import {
   $class,
@@ -33,11 +26,9 @@ import {
   $familiar,
   $item,
   $items,
-  $location,
   $monster,
   $skill,
   AprilingBandHelmet,
-  AsdonMartin,
   CinchoDeMayo,
   Counter,
   get,
@@ -94,21 +85,6 @@ const banishSources: BanishSource[] = [
     available: () =>
       have($item`cosmic bowling ball`) || get("cosmicBowlingBallReturnCombats") === 0,
     do: $skill`Bowl a Curveball`,
-  },
-  {
-    name: "Asdon Martin",
-    available: (): boolean => {
-      // From libram
-      if (!asdonFualable(50)) return false;
-      const banishes = get("banishedMonsters").split(":");
-      const bumperIndex = banishes
-        .map((string) => string.toLowerCase())
-        .indexOf("spring-loaded front bumper");
-      if (bumperIndex === -1) return true;
-      return myTurncount() - parseInt(banishes[bumperIndex + 1]) > 30;
-    },
-    prepare: () => asdonFillTo(50),
-    do: $skill`Asdon Martin: Spring-Loaded Front Bumper`,
   },
   {
     name: "Spring Shoes Kick Away",
@@ -400,7 +376,8 @@ export const runawayValue =
     ? 0.8 * get("valueOfAdventure")
     : get("valueOfAdventure");
 
-export function getRunawaySources(location?: Location) {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export function getRunawaySources(_location?: Location) {
   return [
     {
       name: "Latte (Refill)",
@@ -429,24 +406,6 @@ export function getRunawaySources(location?: Location) {
       chance: () => 1,
       equip: $item`spring shoes`,
       banishes: false,
-    },
-    {
-      name: "Asdon Martin",
-      available: (): boolean => {
-        if (!asdonFualable(50)) return false;
-        // The boss bat minions are not banishable, which breaks the tracking
-        if (location === $location`The Boss Bat's Lair`) return false;
-        const banishes = get("banishedMonsters").split(":");
-        const bumperIndex = banishes
-          .map((string) => string.toLowerCase())
-          .indexOf("spring-loaded front bumper");
-        if (bumperIndex === -1) return true;
-        return myTurncount() - parseInt(banishes[bumperIndex + 1]) > 30;
-      },
-      prepare: () => asdonFillTo(50),
-      do: new Macro().skill($skill`Asdon Martin: Spring-Loaded Front Bumper`),
-      chance: () => 1,
-      banishes: true,
     },
     {
       name: "GAP",
@@ -507,12 +466,6 @@ export const freekillSources: FreekillSource[] = [
     equip: $item`The Jokester's gun`,
   },
   {
-    name: "Asdon Martin: Missile Launcher",
-    available: () => asdonFualable(100) && !get("_missileLauncherUsed"),
-    prepare: () => asdonFillTo(100),
-    do: $skill`Asdon Martin: Missile Launcher`,
-  },
-  {
     name: "Shadow Brick",
     available: () => have($item`shadow brick`) && get("_shadowBricksUsed") < 13,
     do: $item`shadow brick`,
@@ -527,57 +480,6 @@ export const freekillSources: FreekillSource[] = [
     do: $skill`Spit jurassic acid`,
   },
 ];
-
-/**
- * Actually fuel the asdon to the required amount.
- */
-export function asdonFillTo(amount: number): boolean {
-  if (getWorkshed() !== $item`Asdon Martin keyfob (on ring)`) return false;
-
-  const remaining = amount - getFuel();
-  const count = Math.ceil(remaining / 5) + 1; // 5 is minimum adv gain from loaf of soda bread, +1 buffer
-  if (!have($item`bugbear bungguard`) || !have($item`bugbear beanie`)) {
-    // Prepare enough wad of dough from all-purpose flower
-    // We must do this ourselves since retrieveItem($item`loaf of soda bread`)
-    // in libram will not consider all-purpose flower
-    if (itemAmount($item`wad of dough`) < count) {
-      buy($item`all-purpose flower`);
-      use($item`all-purpose flower`);
-    }
-  }
-
-  retrieveItem(count, $item`loaf of soda bread`);
-  visitUrl(
-    `campground.php?action=fuelconvertor&pwd&qty=${count}&iid=${toInt(
-      $item`loaf of soda bread`
-    )}&go=Convert%21`
-  );
-  if (getFuel() < amount) {
-    throw new Error("Soda bread did not generate enough fuel");
-  }
-  return true;
-}
-
-/**
- * Return true if we can possibly fuel the asdon to the required amount.
- */
-export function asdonFualable(amount: number): boolean {
-  if (!AsdonMartin.installed()) return false;
-  if (!have($item`forged identification documents`) && step("questL11Black") < 4) return false; // Save early
-  if (amount <= getFuel()) return true;
-
-  // Use wad of dough with the bugbear outfit
-  if (have($item`bugbear bungguard`) && have($item`bugbear beanie`)) {
-    return myMeat() >= (amount - getFuel()) * 24 + 1000; // Save 1k meat as buffer
-  }
-
-  // Use all-purpose flower if we have enough ascensions
-  if (myAscensions() >= 10 && (have($item`bitchin' meatcar`) || have($item`Desert Bus pass`))) {
-    return myMeat() >= 3000 + (amount - getFuel()) * 14; // 2k for all-purpose flower + save 1k meat as buffer + soda water
-  }
-
-  return false;
-}
 
 /**
  * Return true if we have all of our final latte ingredients, but they are not in the latte.
