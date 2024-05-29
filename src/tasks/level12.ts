@@ -403,7 +403,17 @@ const Orchard: Task[] = [
     do: $location`The Hatching Chamber`,
     outfit: () => {
       if (yellowRayPossible()) return {};
-      else return { modifier: "item" };
+      else if (have($item`industrial fire extinguisher`) && get("_fireExtinguisherCharge") >= 10)
+        return {
+          equip: $items`unwrapped knock-off retro superhero cape, industrial fire extinguisher`,
+          modes: { retrocape: ["heck", "hold"] },
+        };
+      else
+        return {
+          equip: $items`unwrapped knock-off retro superhero cape`,
+          modes: { retrocape: ["heck", "hold"] },
+          modifier: "item",
+        };
     },
     combat: new CombatStrategy()
       .yellowRay($monster`larval filthworm`)
@@ -434,9 +444,15 @@ const Orchard: Task[] = [
       if (yellowRayPossible()) return {};
       else if (have($item`industrial fire extinguisher`) && get("_fireExtinguisherCharge") >= 10)
         return {
-          equip: $items`industrial fire extinguisher`,
+          equip: $items`unwrapped knock-off retro superhero cape, industrial fire extinguisher`,
+          modes: { retrocape: ["heck", "hold"] },
         };
-      else return { modifier: "item" };
+      else
+        return {
+          equip: $items`unwrapped knock-off retro superhero cape`,
+          modes: { retrocape: ["heck", "hold"] },
+          modifier: "item",
+        };
     },
     combat: new CombatStrategy()
       .yellowRay($monster`filthworm drone`)
@@ -467,9 +483,15 @@ const Orchard: Task[] = [
       if (yellowRayPossible()) return {};
       else if (have($item`industrial fire extinguisher`) && get("_fireExtinguisherCharge") >= 10)
         return {
-          equip: $items`industrial fire extinguisher`,
+          equip: $items`unwrapped knock-off retro superhero cape, industrial fire extinguisher`,
+          modes: { retrocape: ["heck", "hold"] },
         };
-      else return { modifier: "item" };
+      else
+        return {
+          equip: $items`unwrapped knock-off retro superhero cape`,
+          modes: { retrocape: ["heck", "hold"] },
+          modifier: "item",
+        };
     },
     combat: new CombatStrategy()
       .yellowRay($monster`filthworm royal guard`)
