@@ -202,7 +202,10 @@ const Apartment: Task[] = [
       else return [$monster`pygmy shaman`, $monster`pygmy witch accountant`];
     },
     post: makeCompleteFile,
-    outfit: { equip: $items`miniature crystal ball, Space Trip safety headphones` },
+    outfit: {
+      equip: $items`miniature crystal ball, unwrapped knock-off retro superhero cape`,
+      modes: { retrocape: ["heck", "hold"] },
+    },
     limit: { soft: 9 },
     choices: { 780: 1 },
   },
@@ -229,9 +232,13 @@ const Apartment: Task[] = [
     outfit: () => {
       if (have($effect`Twice-Cursed`) && $location`The Hidden Apartment Building`.turnsSpent === 8)
         return {
-          equip: $items`candy cane sword cane, miniature crystal ball, Space Trip safety headphones`,
+          equip: $items`candy cane sword cane, miniature crystal ball, unwrapped knock-off retro superhero cape`,
+          modes: { retrocape: ["heck", "hold"] },
         };
-      return { equip: $items`miniature crystal ball, Space Trip safety headphones` };
+      return {
+        equip: $items`miniature crystal ball, unwrapped knock-off retro superhero cape`,
+        modes: { retrocape: ["heck", "hold"] },
+      };
     },
     choices: { 780: 1 },
     limit: { soft: 9 },
@@ -370,8 +377,13 @@ const Hospital: Task[] = [
     outfit: () => {
       const result = <OutfitSpec>{
         shirt: have($skill`Torso Awareness`) ? $item`surgical apron` : undefined,
-        equip: $items`half-size scalpel, head mirror, surgical mask, bloodied surgical dungarees, Space Trip safety headphones`,
+        equip: $items`half-size scalpel, head mirror, surgical mask, bloodied surgical dungarees`,
       };
+      if (have($item`half-size scalpel`)) result.equip?.push($item`Space Trip safety headphones`);
+      else {
+        result.equip?.push($item`unwrapped knock-off retro superhero cape`);
+        result.modes = { retrocape: ["heck", "hold"] };
+      }
       if (!have($effect`Citizen of a Zone`) && have($familiar`Patriotic Eagle`)) {
         result.familiar = $familiar`Patriotic Eagle`;
       }
