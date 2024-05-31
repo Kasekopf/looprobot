@@ -222,10 +222,10 @@ export const RobotQuest: Quest = {
       name: "Unequip Hat Phase 1",
       after: ["Equip Hat Phase 1", "Giant/Top Floor", "War/Flyers Start", "War/Junkyard End"],
       completed: () =>
-        YouRobot.canUseFamiliar() || flyersDone() || get(toTempPref("hat_1_swapped")) === "true",
+        YouRobot.canUseFamiliar() || flyersDone() || get(toTempPref("hatSwapped1"), false),
       do: () => {
         YouRobot.doSwitchPart("top", 2);
-        set(toTempPref("hat_1_swapped"), "true");
+        set(toTempPref("hatSwapped1"), true);
       },
       limit: { tries: 1 },
       freeaction: true,
