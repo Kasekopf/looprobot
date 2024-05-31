@@ -1,4 +1,4 @@
-import { $item, $items, $location, $skill, $slot, $stat, AutumnAton, get, have } from "libram";
+import { $item, $items, $location, $skill, $slot, $stat, AutumnAton, get, have, set } from "libram";
 import { Priorities } from "../engine/priority";
 import { Quest } from "../engine/task";
 import { atLevel, levelingStartCompleted, YouRobot } from "../lib";
@@ -15,6 +15,7 @@ import {
   use,
 } from "kolmafia";
 import { flyersDone } from "./level12";
+import { toTempPref } from "../args";
 
 const BATTERIES = $items`battery (car), battery (lantern), battery (9-Volt), battery (D), battery (AA)`;
 export const RobotQuest: Quest = {
@@ -220,8 +221,12 @@ export const RobotQuest: Quest = {
     {
       name: "Unequip Hat Phase 1",
       after: ["Equip Hat Phase 1", "Giant/Top Floor", "War/Flyers Start", "War/Junkyard End"],
-      completed: () => YouRobot.canUseFamiliar() || flyersDone(),
-      do: () => YouRobot.doSwitchPart("top", 2),
+      completed: () =>
+        YouRobot.canUseFamiliar() || flyersDone() || get(toTempPref("hat_1_swapped")) === "true",
+      do: () => {
+        YouRobot.doSwitchPart("top", 2);
+        set(toTempPref("hat_1_swapped"), "true");
+      },
       limit: { tries: 1 },
       freeaction: true,
     },
