@@ -2,13 +2,11 @@ import {
   autosell,
   availableAmount,
   canAdventure,
-  descToItem,
   Effect,
   equip,
   equippedItem,
   Familiar,
   familiarEquippedEquipment,
-  getWorkshed,
   haveEffect,
   haveEquipped,
   Item,
@@ -28,7 +26,6 @@ import {
   printHtml,
   restoreHp,
   Slot,
-  totalTurnsPlayed,
   toUrl,
   use,
   visitUrl,
@@ -96,7 +93,7 @@ import {
   yellowRaySources,
 } from "./resources";
 import { Priorities, Prioritization } from "./priority";
-import { args, toTempPref } from "../args";
+import { args } from "../args";
 import { flyersDone } from "../tasks/level12";
 import { globalStateCache } from "./state";
 import { removeTeleportitis, teleportitisTask } from "../tasks/misc";
@@ -809,8 +806,6 @@ export class Engine extends BaseEngine<CombatActions, ActiveTask> {
 
     super.do(task);
 
-    if (myAdventures() !== start_advs) getExtros();
-
     // Crash if we unexpectedly lost the fight
     if (
       !undelay(task.expectbeatenup) &&
@@ -927,36 +922,6 @@ function autosellJunk(): void {
   for (const item of lastresorts) {
     if (myMeat() >= 1000) return;
     if (have(item)) autosell(item, itemAmount(item));
-  }
-}
-
-function getExtros(): void {
-  // Mafia doesn't always notice the workshed
-  if (!get(toTempPref("checkworkshed"), false)) {
-    const workshed = visitUrl("campground.php?action=workshed");
-    if (
-      workshed.includes("Cold Medicine Cabinet") &&
-      getWorkshed() !== $item`cold medicine cabinet`
-    ) {
-      throw `Mafia is not detecting your cold medicine cabinet; consider visiting manually`;
-    }
-    set(toTempPref("checkworkshed"), true);
-  }
-
-  if (get("_coldMedicineConsults") >= 5) return;
-  if (get("_nextColdMedicineConsult") > totalTurnsPlayed()) return;
-  if (getWorkshed() !== $item`cold medicine cabinet`) return;
-
-  const options = visitUrl("campground.php?action=workshed");
-  let match;
-  const regexp = /descitem\((\d+)\)/g;
-  while ((match = regexp.exec(options)) !== null) {
-    const item = descToItem(match[1]);
-    if (item === $item`Extrovermectin™`) {
-      visitUrl("campground.php?action=workshed");
-      runChoice(5);
-      return;
-    }
   }
 }
 
