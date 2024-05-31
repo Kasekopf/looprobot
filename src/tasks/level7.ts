@@ -5,7 +5,6 @@ import {
   currentMcd,
   familiarWeight,
   Item,
-  itemAmount,
   myBasestat,
   myClass,
   myFamiliar,
@@ -158,9 +157,7 @@ const Cranny: Task[] = [
   {
     name: "Cranny",
     after: ["Start"],
-    ready: () =>
-      myBasestat($stat`Muscle`) >= 15 &&
-      get("spookyVHSTapeMonster") !== $monster`giant swarm of ghuol whelps`,
+    ready: () => myBasestat($stat`Muscle`) >= 15,
     completed: () => get("cyrptCrannyEvilness") <= 13,
     prepare: () => {
       tuneCape();
@@ -193,10 +190,6 @@ const Cranny: Task[] = [
     choices: { 523: 4 },
     combat: new CombatStrategy()
       .macro(slay_macro)
-      .macro(() => {
-        if (itemAmount($item`Spooky VHS Tape`) === 2) return Macro.tryItem($item`Spooky VHS Tape`);
-        return new Macro();
-      }, $monsters`swarm of ghuol whelps, big swarm of ghuol whelps, giant swarm of ghuol whelps`)
       .kill(
         $monsters`swarm of ghuol whelps, big swarm of ghuol whelps, giant swarm of ghuol whelps, huge ghuol`
       ),
