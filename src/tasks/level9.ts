@@ -164,7 +164,7 @@ const Oil: Task[] = [
 
       return spec;
     },
-    combat: new CombatStrategy().killItem(),
+    combat: new CombatStrategy().killItem().macro(Macro.tryItem($item`shadow brick`)),
     limit: { tries: 18 },
     orbtargets: () => undefined,
   },
