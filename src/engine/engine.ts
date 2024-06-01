@@ -223,6 +223,8 @@ export class Engine extends BaseEngine<CombatActions, ActiveTask> {
             name: `Backup ${backup.monster}`,
             completed: () => false,
             do: $location`Noob Cave`,
+            active_priority: Prioritization.fixed(Priorities.Wanderer),
+            backup: backup,
             limit: { tries: backup.limit_tries },
           };
       }
