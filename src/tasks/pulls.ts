@@ -268,9 +268,6 @@ export const pulls: PullSpec[] = [
       }),
   },
   {
-    pull: $item`killing jar`,
-  },
-  {
     pull: $item`battery (car)`,
     useful: () => {
       if (!knollAvailable() && step("questM01Untinker") !== 999 && !have($item`rusty screwdriver`))
@@ -284,6 +281,12 @@ export const pulls: PullSpec[] = [
         return true;
       return undefined;
     },
+  },
+  {
+    pull: $item`star chart`,
+    useful: () =>
+      !have($item`Richard's star key`) &&
+      !get("nsTowerDoorKeysUsed").includes("Richard's star key"),
   },
 ];
 
