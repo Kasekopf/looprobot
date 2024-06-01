@@ -1054,6 +1054,15 @@ export const MiscQuest: Quest = {
       freeaction: true,
       limit: { tries: 23 },
     },
+    {
+      name: "Bird Calendar",
+      after: [],
+      priority: () => Priorities.Free,
+      completed: () => get("_canSeekBirds") || !have($item`Bird-a-Day calendar`),
+      do: () => use($item`Bird-a-Day calendar`),
+      freeaction: true,
+      limit: { tries: 1 },
+    },
   ],
 };
 
