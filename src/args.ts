@@ -67,6 +67,10 @@ export const args = Args.create(
         setting: "stillsuitFamiliar",
         default: $familiar`Gelatinous Cubeling`,
       }),
+      flyer: Args.flag({
+        help: "Always flyer the normal way, instead of wishing for a monster",
+        default: false,
+      }),
     }),
     debug: Args.group("Debug Options", {
       actions: Args.number({

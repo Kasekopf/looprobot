@@ -94,7 +94,7 @@ import {
 } from "./resources";
 import { Priorities, Prioritization } from "./priority";
 import { args } from "../args";
-import { flyersDone } from "../tasks/level12";
+import { fastFlyerPossible, flyersDone } from "../tasks/level12";
 import { globalStateCache } from "./state";
 import { removeTeleportitis, teleportitisTask } from "../tasks/misc";
 import { summonStrategy } from "../tasks/summons";
@@ -436,6 +436,7 @@ export class Engine extends BaseEngine<CombatActions, ActiveTask> {
     if (get("camelSpit") === 100) monster_blacklist.push($monster`Camel's Toe`); // we will spit
     if (
       have($item`rock band flyers`) &&
+      !fastFlyerPossible() &&
       !flyersDone() &&
       (!(task.do instanceof Location) || !blacklist.has(task.do)) &&
       task.name !== "Misc/Protonic Ghost"

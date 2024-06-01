@@ -86,6 +86,7 @@ export const routing: string[] = [
   // Do summons when ready
   "Summon/Camel's Toe",
   "Summon/Baa'baa'bu'ran",
+  "War/Flyers Fast",
 
   // Get and use clovers
   "Misc/Hermit Clover",

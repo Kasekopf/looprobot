@@ -9,6 +9,7 @@ import {
   myMaxhp,
   myTurncount,
   restoreHp,
+  retrieveItem,
   runCombat,
   sell,
   use,
@@ -41,12 +42,18 @@ import { Priorities } from "../engine/priority";
 import { CombatStrategy } from "../engine/combat";
 import { atLevel, debug, YouRobot } from "../lib";
 import { forceItemPossible, yellowRayPossible } from "../engine/resources";
-import { toTempPref } from "../args";
+import { args, toTempPref } from "../args";
 import { customRestoreMp, fillHp } from "../engine/moods";
 
 export function flyersDone(): boolean {
   const buffer = 50;
   return get("flyeredML") >= 10000 + buffer;
+}
+
+export function fastFlyerPossible(): boolean {
+  if (args.minor.flyer) return false;
+  if (!have($item`pocket wish`)) return false;
+  return true;
 }
 
 const Flyers: Task[] = [
@@ -60,6 +67,24 @@ const Flyers: Task[] = [
       visitUrl("bigisland.php?place=concert&pwd");
     },
     freeaction: true,
+    limit: { tries: 1 },
+  },
+  {
+    name: "Flyers Fast",
+    after: ["Flyers Start"],
+    ready: () => fastFlyerPossible() && (YouRobot.canUseFamiliar() || myTurncount() > 200),
+    completed: () => flyersDone(),
+    do: () => {
+      retrieveItem($item`hair spray`);
+      cliExecute(`genie monster ice cube`);
+      visitUrl("main.php");
+    },
+    outfit: {
+      equip: $items`unwrapped knock-off retro superhero cape`,
+    },
+    combat: new CombatStrategy()
+      .macro(Macro.tryItem($item`rock band flyers`).tryItem($item`hair spray`))
+      .kill(),
     limit: { tries: 1 },
   },
   {

@@ -46,7 +46,7 @@ import {
   YouRobot,
 } from "../lib";
 import { Priorities } from "../engine/priority";
-import { councilSafe, flyersDone } from "./level12";
+import { councilSafe, fastFlyerPossible, flyersDone } from "./level12";
 import { ensureWithMPSwaps, fillHp } from "../engine/moods";
 import { tryPlayApriling } from "../engine/resources";
 
@@ -396,7 +396,7 @@ export const CryptQuest: Quest = {
         if (familiarWeight($familiar`Grey Goose`) < 6) return Priorities.BadGoose;
         return Priorities.GoodGoose;
       },
-      ready: () => flyersDone(),
+      ready: () => flyersDone() || fastFlyerPossible(),
       completed: () => step("questL07Cyrptic") >= 1,
       prepare: () => {
         if (
