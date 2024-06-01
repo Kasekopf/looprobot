@@ -22,8 +22,9 @@ import { step } from "grimoire-kolmafia";
 import { Keys, keyStrategy } from "./keys";
 import { trainSetAvailable } from "./misc";
 import { yellowSubmarinePossible } from "../engine/outfit";
-import { atLevel, underStandard, YouRobot } from "../lib";
+import { atLevel, levelingStartCompleted, underStandard, YouRobot } from "../lib";
 import { summonStrategy } from "./summons";
+import { fastFlyerPossible, flyersDone } from "./level12";
 
 /**
  * optional: If true, only pull this if there is one in storage (i.e., no mall buy).
@@ -185,6 +186,16 @@ export const pulls: PullSpec[] = [
   },
   { pull: $item`deck of lewd playing cards`, optional: true },
   { pull: $item`grey down vest` },
+  {
+    pull: $item`pocket wish`,
+    useful: () => {
+      if (!levelingStartCompleted()) return undefined;
+      if (flyersDone()) return false;
+      if (!fastFlyerPossible()) return false;
+      return !have($item`pocket wish`);
+    },
+    duplicate: true, // still need to consider allocating room for it
+  },
   // { pull: $item`gravy boat`, useful: () => !underStandard() },  // need hat to use
   {
     pull: $item`Mohawk wig`,
