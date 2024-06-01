@@ -306,7 +306,7 @@ const Zepplin: Task[] = [
     outfit: () => {
       return {
         modifier: "-combat, sleaze dmg, sleaze spell dmg",
-        equip: $items`candy cane sword cane, deck of lewd playing cards, designer sweatpants, Jurassic Parka`,
+        equip: $items`candy cane sword cane, deck of lewd playing cards, designer sweatpants, Jurassic Parka, June cleaver`,
         modes: { parka: "dilophosaur" },
       };
     },
