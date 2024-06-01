@@ -6711,6 +6711,10 @@ var args = Args.create("looprobot", 'This is a script to complete You Robot Soft
       help: "Equip the stillsuit to this familiar during the run",
       setting: "stillsuitFamiliar",
       default: $familiar(_templateObject64 || (_templateObject64 = _taggedTemplateLiteral5(["Gelatinous Cubeling"])))
+    }),
+    flyer: Args.flag({
+      help: "Always flyer the normal way, instead of wishing for a monster",
+      default: false
     })
   }),
   debug: Args.group("Debug Options", {
@@ -6746,8 +6750,8 @@ var args = Args.create("looprobot", 'This is a script to complete You Robot Soft
       help: "Halt when you have this number of adventures remaining or fewer",
       default: 0
     }),
-    flyerby: Args.number({
-      help: "Halt when your turncount is above this number and you haven't started flyering",
+    warby: Args.number({
+      help: "Halt when your turncount is above this number and you haven't started the war",
       default: 150
     })
   })
