@@ -163,7 +163,7 @@ export class Engine extends BaseEngine<CombatActions, ActiveTask> {
 
     if (myPath() !== $path`You, Robot`) return undefined; // Prism broken
 
-    if (args.debug.flyerby <= myTurncount()) verifyFlyerStarted();
+    if (args.debug.warby <= myTurncount()) verifyWarStarted();
 
     // Teleportitis overrides all
     if (have($effect`Teleportitis`)) {
@@ -987,8 +987,8 @@ function logModifiers(outfit: Outfit) {
   }
 }
 
-function verifyFlyerStarted() {
-  if (have($item`rock band flyers`) || get("sidequestArenaCompleted") !== "none") return;
+function verifyWarStarted() {
+  if (step("questL12War") >= 1) return;
 
   const failReasons = [];
   if (!atLevel(70)) failReasons.push("Not at level 12");
@@ -1005,14 +1005,9 @@ function verifyFlyerStarted() {
     failReasons.push("Not switched to hat");
   if (failReasons.length === 0 && step("questL12War") >= 1)
     failReasons.push("Not enraging the war");
-  if (
-    (failReasons.length === 0 && have($item`rock band flyers`)) ||
-    get("sidequestArenaCompleted") !== "none"
-  )
-    failReasons.push("Not picking up flyers");
   if (failReasons.length === 0) failReasons.push("No idea");
 
-  const baseMessage = `You are at turn ${myTurncount()} but you have not started flyering! Flyering is supposed to start around turn 110. Please investigate why.`;
+  const baseMessage = `You are at turn ${myTurncount()} but you have not started the war! War is supposed to start around turn 110. Please investigate why.`;
   const failReasonsMessage = `${failReasons.join(". ")}.`;
   logprint(`Failed to start war by ${myTurncount()}: ${failReasonsMessage}`);
   throw `${baseMessage} Problem hint: ${failReasonsMessage}`;

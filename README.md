@@ -70,7 +70,7 @@ Debug Options:
   settings - Show the parsed value for all arguments and exit.
   ignorekeys - Ignore the check that all keys can be obtained. Typically for hardcore, if you plan to get your own keys [default: false] [setting: looprobot_ignorekeys]
   halt NUMBER - Halt when you have this number of adventures remaining or fewer [default: 0] [setting: looprobot_halt]
-  flyerby NUMBER - Halt when your turncount is above this number and you haven't started flyering [default: 150] [setting: looprobot_flyerby]
+  war NUMBER - Halt when your turncount is above this number and you haven't started the war [default: 150] [setting: looprobot_war]
 ```
 
 ### Will this script work for me?
