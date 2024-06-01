@@ -27,9 +27,9 @@ import {
 } from "libram";
 import { Priorities } from "../engine/priority";
 import { Quest, Task } from "../engine/task";
-import { NO_ADVENTURE_SPENT, primestatId } from "../lib";
+import { atLevel, NO_ADVENTURE_SPENT, primestatId } from "../lib";
 import { fillHp } from "../engine/moods";
-import { OutfitSpec } from "grimoire-kolmafia";
+import { OutfitSpec, step } from "grimoire-kolmafia";
 
 const robotSetup = [
   "Robot/Scavenge",
@@ -218,7 +218,11 @@ const unscaledLeveling: Task[] = [
   {
     name: "Shadow Rift",
     after: getBuffs,
-    priority: () => Priorities.Start,
+    priority: () => {
+      if (have($effect`Shadow Affinity`)) return [Priorities.Start, Priorities.MinorEffect];
+      else return [Priorities.Start];
+    },
+    ready: () => atLevel(7) && step("questL07Cyrptic") !== -1,
     completed: () =>
       !have($item`closed-circuit pay phone`) ||
       (get("_shadowAffinityToday") &&
@@ -255,8 +259,9 @@ const unscaledLeveling: Task[] = [
       }),
     outfit: () => {
       const result: OutfitSpec = {
-        equip: $items`Space Trip safety headphones`,
+        equip: $items`Space Trip safety headphones, unwrapped knock-off retro superhero cape`,
         modifier: "item",
+        modes: { retrocape: ["heck", "hold"] },
         avoid: $items`broken champagne bottle`,
       };
       //TODO: plan how many fire extinguishers need to be saved

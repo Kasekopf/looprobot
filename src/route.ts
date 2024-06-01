@@ -33,15 +33,13 @@ export const routing: string[] = [
 
   // Level up with goose
   "Leveling/LOV Tunnel",
+  "Summon/Mountain Man",
   "Leveling/Snojo",
   "Leveling/Shadow Rift", // before 5th bowling ball
   "Leveling/Neverending Party",
   "Leveling/Speakeasy",
   "Leveling/God Lobster", // when ready
   "Leveling/All",
-
-  // Use YRs
-  "Summon/Mountain Man",
 
   // Use Video Games buff to clear pool
   "Manor/Billiards",
