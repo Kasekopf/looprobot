@@ -34,8 +34,8 @@ export const routing: string[] = [
   // Level up with goose
   "Leveling/LOV Tunnel",
   "Leveling/Snojo",
+  "Leveling/Shadow Rift", // before 5th bowling ball
   "Leveling/Neverending Party",
-  "Leveling/Shadow Rift",
   "Leveling/Speakeasy",
   "Leveling/God Lobster", // when ready
   "Leveling/All",
