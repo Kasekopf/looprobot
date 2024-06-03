@@ -47323,7 +47323,7 @@ function buildIotmList() {
     why: "Mountain man"
   }, {
     thing: $item(_templateObject21102 || (_templateObject21102 = _taggedTemplateLiteral100(["unwrapped knock-off retro superhero cape"]))),
-    why: "Slay the dead in crypt",
+    why: "Slay the dead in crypt, survivng",
     required: true
   }, {
     thing: $item(_templateObject2250 || (_templateObject2250 = _taggedTemplateLiteral100(["miniature crystal ball"]))),
@@ -47362,21 +47362,21 @@ function buildIotmList() {
     required: true
   }, {
     thing: $familiar(_templateObject3336 || (_templateObject3336 = _taggedTemplateLiteral100(["Grey Goose"]))),
-    why: "Duplication drones",
+    why: "Leveling, duplication drones",
     required: true
   }, {
     thing: $item(_templateObject3434 || (_templateObject3434 = _taggedTemplateLiteral100(["unbreakable umbrella"]))),
     why: "-combat modifier, ML"
   }, {
     thing: $item(_templateObject3533 || (_templateObject3533 = _taggedTemplateLiteral100(["June cleaver"]))),
-    why: "Tavern, +adv",
+    why: "Tavern, +adv, survivng",
     required: true
   }, {
     thing: $item(_templateObject3633 || (_templateObject3633 = _taggedTemplateLiteral100(["designer sweatpants"]))),
     why: "Sleaze damage, +init"
   }, {
     thing: $item(_templateObject3733 || (_templateObject3733 = _taggedTemplateLiteral100(["Jurassic Parka"]))),
-    why: "Meat, ML, -combat forces",
+    why: "Meat, ML, -combat forces, survivng",
     required: true
   }, {
     thing: new Hardcoded(AutumnAton_exports.have(), "autumn-aton"),
@@ -47562,7 +47562,7 @@ function checkRequirements() {
 }
 
 // src/_git_commit.ts
-var lastCommitHash = "a9b0d0c";
+var lastCommitHash = "29bc731";
 
 // src/main.ts
 var _templateObject1101;
