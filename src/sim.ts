@@ -154,7 +154,7 @@ function buildIotmList(): Requirement[] {
     },
     {
       thing: $item`unwrapped knock-off retro superhero cape`,
-      why: "Slay the dead in crypt",
+      why: "Slay the dead in crypt, survivng",
       required: true,
     },
     {
@@ -206,14 +206,14 @@ function buildIotmList(): Requirement[] {
       why: "Reminiscing",
       required: true,
     },
-    { thing: $familiar`Grey Goose`, why: "Duplication drones", required: true },
+    { thing: $familiar`Grey Goose`, why: "Leveling, duplication drones", required: true },
     {
       thing: $item`unbreakable umbrella`,
       why: "-combat modifier, ML",
     },
     {
       thing: $item`June cleaver`,
-      why: "Tavern, +adv",
+      why: "Tavern, +adv, survivng",
       required: true,
     },
     {
@@ -222,7 +222,7 @@ function buildIotmList(): Requirement[] {
     },
     {
       thing: $item`Jurassic Parka`,
-      why: "Meat, ML, -combat forces",
+      why: "Meat, ML, -combat forces, survivng",
       required: true,
     },
     {

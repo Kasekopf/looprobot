@@ -99,13 +99,13 @@ IoTMs (Required)
 ✓ Distant Woods Getaway Brochure - +exp
 ✓ Emotionally Chipped - Banish, -combat, items
 ✓ genie bottle - Leveling with Goose
-✓ grey gosling - Duplication drones
-✓ June cleaver - Tavern, +adv
-✓ Jurassic Parka - Meat, ML, -combat forces
+✓ grey gosling - Leveling, duplication drones
+✓ June cleaver - Tavern, +adv, survivng
+✓ Jurassic Parka - Meat, ML, -combat forces, survivng
 ✓ LOV Tunnel - +exp, leveling
 ✓ Neverending Party - Leveling with Goose
 ✓ Snojo - Leveling with Goose
-✓ unwrapped knock-off retro superhero cape - Slay the dead in crypt
+✓ unwrapped knock-off retro superhero cape - Slay the dead in crypt, survivng
 
 IoTMs (Optional)
 ✓ 2002 Mr. Store Catalog - +item, +init, wanderers
