@@ -60,7 +60,6 @@ function buildIotmList(): Requirement[] {
     {
       thing: new Hardcoded(get("lovebugsUnlocked"), "Lovebugs"),
       why: "Crypt, Desert",
-      required: true,
     },
     {
       thing: $item`Deck of Every Card`,
