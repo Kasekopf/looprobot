@@ -664,7 +664,7 @@ export const backupTargets: BackupTarget[] = [
       (have($item`ninja rope`) && have($item`ninja carabiner`) && have($item`ninja crampons`)) ||
       step("questL08Trapper") >= 3,
     outfit: {
-      equip: $items`June cleaver, Space Trip safety headphones, Jurassic Parka, unwrapped knock-off retro superhero cape`,
+      equip: $items`June cleaver, Jurassic Parka, unwrapped knock-off retro superhero cape`,
       modes: { retrocape: ["heck", "hold"] },
     },
     limit_tries: 2,
