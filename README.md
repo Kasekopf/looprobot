@@ -102,7 +102,6 @@ IoTMs (Required)
 ✓ grey gosling - Duplication drones
 ✓ June cleaver - Tavern, +adv
 ✓ Jurassic Parka - Meat, ML, -combat forces
-✓ Lovebugs - Crypt, Desert
 ✓ LOV Tunnel - +exp, leveling
 ✓ Neverending Party - Leveling with Goose
 ✓ Snojo - Leveling with Goose
@@ -140,6 +139,7 @@ IoTMs (Optional)
 ✓ latte lovers member's mug - Banishes
 ✓ li'l orphan tot - +item
 ✓ Lil' Doctor™ bag - Banish, instakill, +item
+✓ Lovebugs - Crypt, Desert
 ✓ Mayam Calendar - Free rests, fam exp
 ✓ miniature crystal ball - Monster prediction
 ✓ Moping Artistic Goth Kid - Wanderers
