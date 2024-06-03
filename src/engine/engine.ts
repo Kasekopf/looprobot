@@ -216,6 +216,8 @@ export class Engine extends BaseEngine<CombatActions, ActiveTask> {
           active_priority: Prioritization.fixed(Priorities.Wanderer),
           backup: backup,
         };
+      } else if (!new Outfit().canEquip(backup_outfit)) {
+        logprint(`Backup ${backup.monster} is ready but we cannot equip its outfit`);
       } else {
         logprint(`Backup ${backup.monster} is ready but no tasks have delay`);
         if (backup.monster !== $monster`Eldritch Tentacle`)
