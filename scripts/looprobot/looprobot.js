@@ -33206,7 +33206,7 @@ var backupTargets = [{
     return have($item(_templateObject18112 || (_templateObject18112 = _taggedTemplateLiteral76(["ninja rope"])))) && have($item(_templateObject1827 || (_templateObject1827 = _taggedTemplateLiteral76(["ninja carabiner"])))) && have($item(_templateObject1833 || (_templateObject1833 = _taggedTemplateLiteral76(["ninja crampons"])))) || step("questL08Trapper") >= 3;
   },
   outfit: {
-    equip: $items(_templateObject1843 || (_templateObject1843 = _taggedTemplateLiteral76(["June cleaver, Space Trip safety headphones, Jurassic Parka, unwrapped knock-off retro superhero cape"]))),
+    equip: $items(_templateObject1843 || (_templateObject1843 = _taggedTemplateLiteral76(["June cleaver, Jurassic Parka, unwrapped knock-off retro superhero cape"]))),
     modes: {
       retrocape: ["heck", "hold"]
     }
@@ -34152,6 +34152,8 @@ var Engine2 = /* @__PURE__ */ function(_BaseEngine) {
             active_priority: Prioritization.fixed(Priorities.Wanderer),
             backup: backup
           });
+        } else if (!new Outfit().canEquip(backup_outfit)) {
+          (0, import_kolmafia89.logprint)("Backup ".concat(backup.monster, " is ready but we cannot equip its outfit"));
         } else {
           (0, import_kolmafia89.logprint)("Backup ".concat(backup.monster, " is ready but no tasks have delay"));
           if (backup.monster !== $monster(_templateObject671 || (_templateObject671 = _taggedTemplateLiteral78(["Eldritch Tentacle"]))))
@@ -43946,7 +43948,7 @@ var Zepplin = [{
   outfit: function() {
     return {
       modifier: "-combat, sleaze dmg, sleaze spell dmg",
-      equip: $items(_templateObject8614 || (_templateObject8614 = _taggedTemplateLiteral95(["candy cane sword cane, deck of lewd playing cards, designer sweatpants, Jurassic Parka"]))),
+      equip: $items(_templateObject8614 || (_templateObject8614 = _taggedTemplateLiteral95(["candy cane sword cane, deck of lewd playing cards, designer sweatpants, Jurassic Parka, June cleaver"]))),
       modes: {
         parka: "dilophosaur"
       }
@@ -47244,8 +47246,7 @@ function buildIotmList() {
     why: "Free rests, +exp"
   }, {
     thing: new Hardcoded(get("lovebugsUnlocked"), "Lovebugs"),
-    why: "Crypt, Desert",
-    required: true
+    why: "Crypt, Desert"
   }, {
     thing: $item(_templateObject4156 || (_templateObject4156 = _taggedTemplateLiteral100(["Deck of Every Card"]))),
     why: "A key for the NS tower, stone wool, ore"
@@ -47561,7 +47562,7 @@ function checkRequirements() {
 }
 
 // src/_git_commit.ts
-var lastCommitHash = "801263b";
+var lastCommitHash = "a9b0d0c";
 
 // src/main.ts
 var _templateObject1101;
