@@ -1,14 +1,11 @@
 import {
-  buy,
   cliExecute,
   haveEquipped,
-  itemAmount,
   myBuffedstat,
   myClass,
-  myMaxhp,
   myMaxmp,
+  myMp,
   myPrimestat,
-  myTurncount,
   numericModifier,
   runChoice,
   use,
@@ -634,22 +631,35 @@ export const TowerQuest: Quest = {
       after: ["Mirror"],
       prepare: () => {
         fillHp();
+        if (!haveEquipped($item`unwrapped knock-off retro superhero cape`)) {
+          if (
+            myClass() === $class`Seal Clubber` &&
+            get("_canSeekBirds") &&
+            myMp() >= 5 * 2 ** get("_birdsSoughtToday") &&
+            numericModifier("Initiative") < 150
+          ) {
+            ensureEffect($effect`Blessing of the Bird`);
+          }
 
-        // Buy garters here instead of in acquire,
-        // since the amount needed depends on Max HP.
-        const garters_needed =
-          Math.min(20, Math.ceil((100 + myMaxhp() / 6) / 80)) - itemAmount($item`gauze garter`);
-        if (garters_needed > 0 && myTurncount() >= 1000) {
-          buy($item`gauze garter`, garters_needed, 500);
+          if (
+            have($item`designer sweatpants`) &&
+            get("sweat", 0) >= 15 &&
+            numericModifier("Initiative") < 150 &&
+            !have($effect`Slippery and Speedy`)
+          ) {
+            // Use visit URL to avoid needing to equip the pants
+            visitUrl("runskillz.php?action=Skillz&whichskill=7419&targetplayer=0&pwd&quantity=1");
+          }
         }
       },
       completed: () => step("questL13Final") > 10,
       do: $location`Tower Level 5`,
       outfit: () => ({
-        equip: $items`unwrapped knock-off retro superhero cape, Jurassic Parka, attorney's badge`,
+        equip: $items`unwrapped knock-off retro superhero cape, Jurassic Parka, attorney's badge, backup camera`,
         modes: {
           parka: "kachungasaur",
           retrocape: ["heck", "hold"],
+          backupcamera: "init",
         },
         modifier: "HP",
         avoid: $items`extra-wide head candle`,

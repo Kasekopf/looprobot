@@ -883,6 +883,8 @@ export class Engine extends BaseEngine<CombatActions, ActiveTask> {
           "rest at the chateau",
           "rest at your campground",
           "sleep on your clan sofa",
+          "gauze garter",
+          "filthy poultice",
         ]
       ),
     });
