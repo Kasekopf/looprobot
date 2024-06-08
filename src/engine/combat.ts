@@ -156,12 +156,13 @@ export function killMacro(target?: Monster | Location, hard?: boolean, withSlap 
     }
   }
 
+  if (haveEquipped($item`candy cane sword cane`) && have($effect`Shadow Affinity`))
+    result.trySkill($skill`Surprisingly Sweet Slash`);
   result.step(dartMacro(hard));
   if (withSlap) result.trySkill($skill`Monkey Slap`);
-  result.trySkill($skill`Summon Love Mosquito`);
-
   if (haveEquipped($item`candy cane sword cane`) && have($effect`Shadow Affinity`))
-    result.trySkill($skill`Surprisingly Sweet Slash`).trySkill($skill`Surprisingly Sweet Stab`);
+    result.trySkill($skill`Surprisingly Sweet Stab`);
+  result.trySkill($skill`Summon Love Mosquito`);
   if (haveEquipped($item`June cleaver`)) return result.attack().repeat();
   else if (YouRobot.getPartId("bottom") === 2) return result.skill($skill`Crotch Burn`).repeat();
   else if (YouRobot.getPartId("left") === 1)
