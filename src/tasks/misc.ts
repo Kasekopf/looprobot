@@ -1063,6 +1063,15 @@ export const MiscQuest: Quest = {
       freeaction: true,
       limit: { tries: 1 },
     },
+    {
+      name: "Floundry Hatchet",
+      after: ["Orc Chasm/Start"],
+      priority: () => Priorities.Free,
+      completed: () => !have($item`fish hatchet`) || get("_floundryItemUsed"),
+      do: () => use($item`fish hatchet`),
+      freeaction: true,
+      limit: { tries: 1 },
+    },
   ],
 };
 
