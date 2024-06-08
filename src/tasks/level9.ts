@@ -151,7 +151,7 @@ const Oil: Task[] = [
 
       const spec: OutfitSpec & { equip: Item[] } = {
         modifier: `ML ${mlNeeded} max, 0.1 item`,
-        equip: $items`unbreakable umbrella, unwrapped knock-off retro superhero cape`,
+        equip: $items`unbreakable umbrella, unwrapped knock-off retro superhero cape, June cleaver`,
         modes: { umbrella: "broken", retrocape: ["heck", "hold"] },
         avoid: $items`Kramco Sausage-o-Matic™`,
       };
@@ -164,7 +164,11 @@ const Oil: Task[] = [
 
       return spec;
     },
-    combat: new CombatStrategy().killItem().macro(Macro.tryItem($item`shadow brick`)),
+    combat: new CombatStrategy().killItem().macro(
+      Macro.tryItem($item`shadow brick`)
+        .attack()
+        .repeat()
+    ),
     limit: { tries: 18 },
     orbtargets: () => undefined,
   },
