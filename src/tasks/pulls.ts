@@ -105,7 +105,7 @@ export const pulls: PullSpec[] = [
       if (myMeat() < 200 && step("questM05Toot") > 0 && !have($item`letter from King Ralph XI`))
         return true;
       if (
-        myMeat() < 4000 &&
+        myMeat() < 5000 &&
         step("questL11Black") === 2 &&
         !have($item`forged identification documents`)
       )
