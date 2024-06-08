@@ -3,7 +3,7 @@ import {
   containsText,
   haveEquipped,
   itemAmount,
-  myTurncount,
+  myDaycount,
   use,
   visitUrl,
 } from "kolmafia";
@@ -28,6 +28,8 @@ import { step } from "grimoire-kolmafia";
 import { Priorities } from "../engine/priority";
 import { councilSafe } from "./level12";
 import { forceItemPossible, tryForceNC, tryPlayApriling } from "../engine/resources";
+import { summonStrategy } from "./summons";
+import { args } from "../args";
 
 export const GiantQuest: Quest = {
   name: "Giant",
@@ -259,10 +261,7 @@ export const GiantQuest: Quest = {
     {
       name: "Unlock HITS",
       after: ["Top Floor"],
-      ready: () =>
-        myTurncount() > 200 &&
-        !have($item`greasy desk bell`) &&
-        (!have($item`Cargo Cultist Shorts`) || get("_cargoPocketEmptied")),
+      ready: () => !canSkipHITS(),
       completed: () =>
         have($item`steam-powered model rocketship`) ||
         (have($item`star chart`) && itemAmount($item`star`) >= 8 && itemAmount($item`line`) >= 7) ||
@@ -276,3 +275,19 @@ export const GiantQuest: Quest = {
     },
   ],
 };
+
+function canSkipHITS() {
+  if (myDaycount() >= 1 && step("questL11Shen") <= 5) return false;
+  if (have($item`Richard's star key`)) return true;
+  if (get("nsTowerDoorKeysUsed").includes("Richard's star key")) return true;
+
+  if (!have($item`star chart`)) {
+    if (!have($item`Cargo Cultist Shorts`)) return false;
+    if (!have($item`greasy desk bell`) && get("_cargoPocketEmptied")) return false;
+  }
+  if (itemAmount($item`star`) < 8 || itemAmount($item`line`) < 7) {
+    if (summonStrategy.getSourceFor($monster`Camel's Toe`) === undefined) return false;
+    if (!have($familiar`Melodramedary`) && args.minor.skipbackups) return false;
+  }
+  return true;
+}

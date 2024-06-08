@@ -80,6 +80,7 @@ export const routing: string[] = [
   "Palindome/Hot Snake Precastle",
   "Giant/Top Floor",
   "Robot/Unequip Hat Phase 1",
+  "Giant/Unlock HITS",
 
   // Do summons when ready
   "Summon/Camel's Toe",
@@ -165,7 +166,6 @@ export const routing: string[] = [
   "War/Orchard Finish",
   "War/Boss Hippie",
   "Robot/Unequip Hat Phase 2",
-  "Giant/Unlock HITS", // TODO: find better spot
 
   // Finish off quests
   "Macguffin/Finish",
