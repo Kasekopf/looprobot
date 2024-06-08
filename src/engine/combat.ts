@@ -8,7 +8,19 @@ import {
   myPrimestat,
   Stat,
 } from "kolmafia";
-import { $familiar, $item, $skill, $slot, $stat, byStat, get, Macro, Switch } from "libram";
+import {
+  $effect,
+  $familiar,
+  $item,
+  $skill,
+  $slot,
+  $stat,
+  byStat,
+  get,
+  have,
+  Macro,
+  Switch,
+} from "libram";
 import { ActionDefaults, CombatStrategy as BaseCombatStrategy } from "grimoire-kolmafia";
 import { atLevel, YouRobot } from "../lib";
 
@@ -148,6 +160,8 @@ export function killMacro(target?: Monster | Location, hard?: boolean, withSlap 
   if (withSlap) result.trySkill($skill`Monkey Slap`);
   result.trySkill($skill`Summon Love Mosquito`);
 
+  if (haveEquipped($item`candy cane sword cane`) && have($effect`Shadow Affinity`))
+    result.trySkill($skill`Surprisingly Sweet Slash`).trySkill($skill`Surprisingly Sweet Stab`);
   if (haveEquipped($item`June cleaver`)) return result.attack().repeat();
   else if (YouRobot.getPartId("bottom") === 2) return result.skill($skill`Crotch Burn`).repeat();
   else if (YouRobot.getPartId("left") === 1)

@@ -243,6 +243,7 @@ const unscaledLeveling: Task[] = [
         const result = Macro.while_("hasskill 226", Macro.skill($skill`Perpetrate Mild Evil`));
         // Use all but the last extinguisher uses on polar vortex.
         const vortex_count = (get("_fireExtinguisherCharge") - 40) / 10;
+
         const vortex_cap = haveEquipped($item`Space Trip safety headphones`)
           ? 10
           : familiarWeight($familiar`Grey Goose`) === 20
@@ -268,6 +269,12 @@ const unscaledLeveling: Task[] = [
         modes: { retrocape: ["heck", "hold"] },
         avoid: $items`broken champagne bottle`,
       };
+      if (
+        !canEquip($item`Space Trip safety headphones`) &&
+        (!have($item`cursed monkey's paw`) || get("_monkeyPawWishesUsed") > 0)
+      )
+        result.equip?.push($item`candy cane sword cane`);
+
       //TODO: plan how many fire extinguishers need to be saved
       if (
         have($item`industrial fire extinguisher`) &&
