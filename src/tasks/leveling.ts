@@ -2,6 +2,7 @@ import { CombatStrategy, killMacro } from "../engine/combat";
 import {
   canEquip,
   cliExecute,
+  familiarWeight,
   haveEquipped,
   Item,
   myLevel,
@@ -242,7 +243,11 @@ const unscaledLeveling: Task[] = [
         const result = Macro.while_("hasskill 226", Macro.skill($skill`Perpetrate Mild Evil`));
         // Use all but the last extinguisher uses on polar vortex.
         const vortex_count = (get("_fireExtinguisherCharge") - 40) / 10;
-        const vortex_cap = haveEquipped($item`Space Trip safety headphones`) ? 10 : 3;
+        const vortex_cap = haveEquipped($item`Space Trip safety headphones`)
+          ? 10
+          : familiarWeight($familiar`Grey Goose`) === 20
+          ? 2
+          : 3;
         if (vortex_count > 0) {
           for (let i = 0; i < vortex_count && i < vortex_cap; i++)
             result.trySkill($skill`Fire Extinguisher: Polar Vortex`);
@@ -275,6 +280,7 @@ const unscaledLeveling: Task[] = [
 
       if (!canEquip($item`Space Trip safety headphones`))
         result.equip?.push($item`cursed monkey's paw`);
+      if (familiarWeight($familiar`Grey Goose`) !== 20) result.equip?.push($item`Jurassic Parka`);
       return result;
     },
     boss: true,
