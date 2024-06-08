@@ -322,6 +322,7 @@ export const KeysQuest: Quest = {
     {
       name: "Star Key",
       after: ["Giant/Unlock HITS"],
+      ready: () => YouRobot.canUseFamiliar(),
       completed: () =>
         (have($item`star chart`) && itemAmount($item`star`) >= 8 && itemAmount($item`line`) >= 7) ||
         have($item`Richard's star key`) ||
