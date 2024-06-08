@@ -44597,12 +44597,12 @@ var Desert = [{
   outfit: function() {
     if (!have($skill(_templateObject5724 || (_templateObject5724 = _taggedTemplateLiteral96(["Just the Facts"])))) && !have($item(_templateObject5823 || (_templateObject5823 = _taggedTemplateLiteral96(["survival knife"])))) && have($item(_templateObject5922 || (_templateObject5922 = _taggedTemplateLiteral96(["industrial fire extinguisher"])))) && get("_fireExtinguisherCharge") >= 20 && !get("fireExtinguisherDesertUsed") && have($effect(_templateObject6022 || (_templateObject6022 = _taggedTemplateLiteral96(["Ultrahydrated"])))))
       return {
-        equip: $items(_templateObject6132 || (_templateObject6132 = _taggedTemplateLiteral96(["survival knife, industrial fire extinguisher, UV-resistant compass, dromedary drinking helmet"]))),
+        equip: $items(_templateObject6132 || (_templateObject6132 = _taggedTemplateLiteral96(["survival knife, industrial fire extinguisher, UV-resistant compass, dromedary drinking helmet, Space Trip safety headphones"]))),
         familiar: $familiar(_templateObject6227 || (_templateObject6227 = _taggedTemplateLiteral96(["Melodramedary"])))
       };
     else
       return {
-        equip: $items(_templateObject6327 || (_templateObject6327 = _taggedTemplateLiteral96(["survival knife, UV-resistant compass, dromedary drinking helmet"]))),
+        equip: $items(_templateObject6327 || (_templateObject6327 = _taggedTemplateLiteral96(["survival knife, UV-resistant compass, dromedary drinking helmet, Space Trip safety headphones"]))),
         familiar: $familiar(_templateObject6426 || (_templateObject6426 = _taggedTemplateLiteral96(["Melodramedary"])))
       };
   },
@@ -47562,7 +47562,7 @@ function checkRequirements() {
 }
 
 // src/_git_commit.ts
-var lastCommitHash = "29bc731";
+var lastCommitHash = "010d4a1";
 
 // src/main.ts
 var _templateObject1101;
