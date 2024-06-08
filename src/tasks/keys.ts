@@ -49,6 +49,7 @@ import { args, toTempPref } from "../args";
 import { trainSetAvailable } from "./misc";
 import { haveFlorest, haveLoathingIdolMicrophone, underStandard, YouRobot } from "../lib";
 import { castWithMpSwaps, ensureWithMPSwaps } from "../engine/moods";
+import { canSkipHITS } from "./level10";
 
 export enum Keys {
   Deck = "Deck",
@@ -322,7 +323,7 @@ export const KeysQuest: Quest = {
     {
       name: "Star Key",
       after: ["Giant/Unlock HITS"],
-      ready: () => YouRobot.canUseFamiliar(),
+      ready: () => YouRobot.canUseFamiliar() && !canSkipHITS(),
       completed: () =>
         (have($item`star chart`) && itemAmount($item`star`) >= 8 && itemAmount($item`line`) >= 7) ||
         have($item`Richard's star key`) ||

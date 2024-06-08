@@ -276,8 +276,8 @@ export const GiantQuest: Quest = {
   ],
 };
 
-function canSkipHITS() {
-  if (myDaycount() >= 1 && step("questL11Shen") <= 5) return false;
+export function canSkipHITS() {
+  if (myDaycount() > 1 && step("questL11Shen") <= 5) return false;
   if (have($item`Richard's star key`)) return true;
   if (get("nsTowerDoorKeysUsed").includes("Richard's star key")) return true;
 
