@@ -55,11 +55,15 @@ const Manor1: Task[] = [
     name: "Billiards",
     after: ["Kitchen"],
     completed: () => step("questM20Necklace") >= 3,
-    priority: () =>
-      (have($effect`Chalky Hand`) && !have($item`handful of hand chalk`)) ||
-      have($effect`Video... Games?`)
-        ? Priorities.MinorEffect
-        : Priorities.None,
+    priority: () => {
+      if (get("noncombatForcerActive")) return Priorities.GoodForceNC;
+      if (
+        (have($effect`Chalky Hand`) && !have($item`handful of hand chalk`)) ||
+        have($effect`Video... Games?`)
+      )
+        return Priorities.MinorEffect;
+      return Priorities.None;
+    },
     prepare: () => {
       if (have($effect`Video... Games?`)) tryForceNC();
       else if (have($item`pool cue`) && have($item`handful of hand chalk`))
