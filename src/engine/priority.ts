@@ -2,7 +2,7 @@
  * Temporary priorities that override the routing.
  */
 
-import { getCounter, Location, Monster } from "kolmafia";
+import { getCounter, haveEffect, Location, Monster } from "kolmafia";
 import {
   $effect,
   $item,
@@ -185,7 +185,12 @@ export class Prioritization {
         !task.freecombat &&
         ball_useful &&
         !ball_may_not_be_useful &&
-        !location_in_blacklist)
+        !location_in_blacklist &&
+        // Stop trying to use bowling ball when Video Games is running low,
+        // we need to make it through billiards room
+        (!have($effect`Video... Games?`) ||
+          haveEffect($effect`Video... Games?`) >= 3 ||
+          step("questM20Necklace") >= 3))
     ) {
       if (cosmicBowlingBallReady()) result.priorities.add(Priorities.CosmicBowlingBall);
       // In the final phases of the run, use spring shoes ASAP
