@@ -26,6 +26,8 @@ export const routing: string[] = [
   // Equip initial limbs
   "Robot/Equip Top Initial",
   "Robot/Equip Right Initial",
+  "Robot/Equip Left Initial",
+  "Robot/Equip Bottom Initial",
 
   // Start quests when able
   "Knob/Start",
