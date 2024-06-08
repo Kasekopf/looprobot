@@ -11,7 +11,6 @@ import {
   restoreHp,
   runChoice,
   use,
-  useSkill,
   visitUrl,
 } from "kolmafia";
 import {
@@ -26,7 +25,6 @@ import {
   $phylum,
   $skill,
   $slot,
-  AugustScepter,
   ensureEffect,
   get,
   have,
@@ -37,7 +35,7 @@ import { OutfitSpec, step } from "grimoire-kolmafia";
 import { CombatStrategy, killMacro } from "../engine/combat";
 import { ensureWithMPSwaps, fillHp } from "../engine/moods";
 import { globalStateCache } from "../engine/state";
-import { tuneSnapper, YouRobot } from "../lib";
+import { tryEnsureLucky, tuneSnapper, YouRobot } from "../lib";
 import { Priorities } from "../engine/priority";
 import { tryPlayApriling } from "../engine/resources";
 
@@ -273,15 +271,12 @@ const Zepplin: Task[] = [
     name: "Protesters",
     after: ["Protesters Start", "Misc/Hermit Clover", "McLargeHuge/Clover Ore"],
     ready: () =>
-      itemAmount($item`11-leaf clover`) > cloversToSave() ||
+      itemAmount($item`11-leaf clover`) > 0 ||
       have($item`Flamin' Whatshisname`) ||
       step("questL11Shen") === 999,
     prepare: () => {
       if (have($item`lynyrd musk`)) ensureEffect($effect`Musky`);
-      if (AugustScepter.canCast(2) && !have($effect`Lucky!`))
-        useSkill($skill`Aug. 2nd: Find an Eleven-Leaf Clover Day`);
-      if (itemAmount($item`11-leaf clover`) > cloversToSave() && !have($effect`Lucky!`))
-        use($item`11-leaf clover`);
+      tryEnsureLucky();
       if (have($skill`Bend Hell`) && !get("_bendHellUsed"))
         ensureWithMPSwaps([$effect`Bendin' Hell`]);
     },
@@ -310,7 +305,7 @@ const Zepplin: Task[] = [
         modes: { parka: "dilophosaur" },
       };
     },
-    freeaction: () => itemAmount($item`11-leaf clover`) > cloversToSave() || have($effect`Lucky!`),
+    freeaction: () => itemAmount($item`11-leaf clover`) > 0 || have($effect`Lucky!`),
     limit: { soft: 30 },
   },
   {
@@ -576,7 +571,3 @@ export const PalindomeQuest: Quest = {
     },
   ],
 };
-
-function cloversToSave(): number {
-  return 1;
-}

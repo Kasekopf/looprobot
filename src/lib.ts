@@ -1,6 +1,7 @@
 import { Guards, step } from "grimoire-kolmafia";
 import {
   appearanceRates,
+  cliExecute,
   Item,
   Location,
   Monster,
@@ -17,9 +18,12 @@ import {
   runChoice,
   Slot,
   Stat,
+  use,
+  useSkill,
   visitUrl,
 } from "kolmafia";
 import {
+  $effect,
   $familiar,
   $item,
   $location,
@@ -27,6 +31,7 @@ import {
   $skill,
   $slot,
   $stat,
+  AugustScepter,
   get,
   have,
   Snapper,
@@ -272,3 +277,20 @@ export const NO_ADVENTURE_SPENT = Guards.create(
   () => myAdventures(),
   (adv) => myAdventures() >= adv
 );
+
+export function tryEnsureLucky(): boolean {
+  if (have($effect`Lucky!`)) return true;
+  if (have($item`11-leaf clover`)) {
+    use($item`11-leaf clover`);
+    return true;
+  }
+  if (AugustScepter.canCast(2)) {
+    useSkill($skill`Aug. 2nd: Find an Eleven-Leaf Clover Day`);
+    return true;
+  }
+  if (have($item`Eight Days a Week Pill Keeper`) && !get("_freePillKeeperUsed")) {
+    cliExecute("pillkeeper lucky");
+    return true;
+  }
+  return false;
+}
