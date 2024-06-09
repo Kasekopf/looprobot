@@ -24,7 +24,7 @@ import {
   Macro,
 } from "libram";
 import { CombatStrategy } from "../engine/combat";
-import { debug, underStandard } from "../lib";
+import { debug, underStandard, YouRobot } from "../lib";
 import { args } from "../args";
 import { Quest, Task } from "../engine/task";
 import { step } from "grimoire-kolmafia";
@@ -113,7 +113,7 @@ const summonTargets: SummonTarget[] = [
       if (get("camelSpit") < 100) return Priorities.BadCamel;
       return Priorities.GoodCamel;
     },
-    ready: () => get("lovebugsUnlocked") || get("sweat") >= 5,
+    ready: () => (get("lovebugsUnlocked") || get("sweat") >= 5) && YouRobot.canUseFamiliar(),
     completed: () =>
       get("lastCopyableMonster") === $monster`Camel's Toe` ||
       (itemAmount($item`star`) >= 8 && itemAmount($item`line`) >= 7) ||

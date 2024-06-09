@@ -489,40 +489,6 @@ export const MiscQuest: Quest = {
       freeaction: true,
       limit: { tries: 1 },
     },
-    {
-      name: "Grey Down Vest",
-      after: [],
-      completed: () =>
-        have($item`grey down vest`) ||
-        !have($skill`Summon Clip Art`) ||
-        get("tomeSummons") >= 3 ||
-        !have($familiar`Grey Goose`),
-      priority: () => Priorities.Free,
-      do: () => {
-        retrieveItem($item`box of Familiar Jacks`);
-        use($item`box of Familiar Jacks`);
-      },
-      outfit: { familiar: $familiar`Grey Goose` },
-      freeaction: true,
-      limit: { tries: 1 },
-    },
-    {
-      name: "Grey Goose Vest",
-      after: [],
-      completed: () =>
-        have($item`dromedary drinking helmet`) ||
-        !have($skill`Summon Clip Art`) ||
-        get("tomeSummons") >= 3 ||
-        !have($familiar`Melodramedary`),
-      priority: () => Priorities.Free,
-      do: () => {
-        retrieveItem($item`box of Familiar Jacks`);
-        use($item`box of Familiar Jacks`);
-      },
-      outfit: { familiar: $familiar`Melodramedary` },
-      freeaction: true,
-      limit: { tries: 1 },
-    },
     // {
     //   name: "Amulet Coin",
     //   after: [],
@@ -974,6 +940,7 @@ export const MiscQuest: Quest = {
       name: "Mayam Calendar",
       after: ["Robot/Equip Top Initial"],
       priority: () => Priorities.Free,
+      ready: () => YouRobot.canUseFamiliar(),
       completed: () => !MayamCalendar.have() || MayamCalendar.remainingUses() === 0,
       do: () => {
         cliExecute("mayam rings chair wood cheese clock");
