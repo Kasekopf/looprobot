@@ -28,7 +28,7 @@ import {
 } from "libram";
 import { Priorities } from "../engine/priority";
 import { Quest, Task } from "../engine/task";
-import { atLevel, NO_ADVENTURE_SPENT, primestatId } from "../lib";
+import { atLevel, levelingStartCompleted, NO_ADVENTURE_SPENT, primestatId, YouRobot } from "../lib";
 import { fillHp } from "../engine/moods";
 import { OutfitSpec, step } from "grimoire-kolmafia";
 
@@ -169,7 +169,8 @@ const unscaledLeveling: Task[] = [
       }
       fillHp();
     },
-    completed: () => get("_snojoFreeFights") >= 10 || !get("snojoAvailable"),
+    completed: () =>
+      get("_snojoFreeFights") >= 10 || !get("snojoAvailable") || levelingStartCompleted(),
     do: $location`The X-32-F Combat Training Snowman`,
     post: (): void => {
       if (get("_snojoFreeFights") === 10) cliExecute("hottub"); // Clean -stat effects
@@ -187,7 +188,10 @@ const unscaledLeveling: Task[] = [
     name: "Neverending Party",
     after: getBuffs,
     priority: () => Priorities.Start,
-    completed: () => get("_neverendingPartyFreeTurns") >= 10 || !get("neverendingPartyAlways"),
+    completed: () =>
+      get("_neverendingPartyFreeTurns") >= 10 ||
+      !get("neverendingPartyAlways") ||
+      levelingStartCompleted(),
     do: $location`The Neverending Party`,
     choices: { 1322: 2, 1324: 5 },
     combat: new CombatStrategy().killHard().macro(() => killMacro(undefined, true, true)),
@@ -203,7 +207,8 @@ const unscaledLeveling: Task[] = [
     name: "Speakeasy",
     after: getBuffs,
     priority: () => Priorities.Start,
-    completed: () => get("_speakeasyFreeFights") >= 3 || !get("ownsSpeakeasy"),
+    completed: () =>
+      get("_speakeasyFreeFights") >= 3 || !get("ownsSpeakeasy") || levelingStartCompleted(),
     do: $location`An Unusually Quiet Barroom Brawl`,
     choices: { 1322: 2, 1324: 5 },
     combat: new CombatStrategy().killHard().macro(() => killMacro(undefined, true, true)),
@@ -227,7 +232,8 @@ const unscaledLeveling: Task[] = [
       !have($item`closed-circuit pay phone`) ||
       (get("_shadowAffinityToday") &&
         !have($effect`Shadow Affinity`) &&
-        get("encountersUntilSRChoice") !== 0),
+        get("encountersUntilSRChoice") !== 0) ||
+      levelingStartCompleted(),
     prepare: () => {
       if (!get("_shadowAffinityToday")) ClosedCircuitPayphone.chooseQuest(() => 2);
     },
@@ -321,7 +327,7 @@ export const LevelingQuest: Quest = {
     {
       name: "God Lobster",
       after: [],
-      ready: () => have($familiar`God Lobster`) && myTurncount() >= 90,
+      ready: () => have($familiar`God Lobster`) && myTurncount() >= 90 && YouRobot.canUseFamiliar(),
       completed: () => get("_godLobsterFights") >= 3,
       do: (): void => {
         visitUrl("main.php?fightgodlobster=1");
