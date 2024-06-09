@@ -215,7 +215,7 @@ export const BatQuest: Quest = {
       do: $location`The Boss Bat's Lair`,
       outfit: () => {
         if ($location`The Boss Bat's Lair`.turnsSpent < 4) return {};
-        return { familiar: $familiar`Grey Goose` };
+        return { familiar: $familiar`Grey Goose`, avoid: $items`miniature crystal ball` };
       },
       combat: new CombatStrategy()
         .macro(Macro.trySkill($skill`Emit Matter Duplicating Drones`), $monster`Boss Bot`)
