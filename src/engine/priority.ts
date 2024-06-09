@@ -173,6 +173,7 @@ export class Prioritization {
     const location_whitelist = [
       $location`The Haunted Bathroom`,
       $location`The Castle in the Clouds in the Sky (Top Floor)`,
+      $location`The Boss Bat's Lair`,
     ];
     const location_in_blacklist =
       task.do instanceof Location && location_blacklist.includes(task.do);
