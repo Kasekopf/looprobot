@@ -18,6 +18,7 @@ import {
   myAscensions,
   myBasestat,
   myClass,
+  myDaycount,
   myFury,
   myHp,
   myMaxhp,
@@ -878,7 +879,7 @@ export const MiscQuest: Quest = {
       name: "Barrel Lid",
       priority: () => Priorities.Free,
       after: [],
-      completed: () => get("_barrelPrayer") || !get("barrelShrineUnlocked"),
+      completed: () => get("_barrelPrayer") || !get("barrelShrineUnlocked") || myDaycount() > 1,
       do: () => {
         visitUrl("da.php?barrelshrine=1");
         runChoice(-1);
