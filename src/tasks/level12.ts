@@ -787,7 +787,7 @@ export const WarQuest: Quest = {
         cliExecute("refresh all");
       },
       combat: new CombatStrategy().killHard().macro(Macro.trySkill($skill`Extract Jelly`)),
-      limit: { tries: 1 },
+      limit: { tries: 2 }, // Possible cleaver
       boss: true,
     },
   ],
