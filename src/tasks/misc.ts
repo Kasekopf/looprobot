@@ -69,7 +69,13 @@ import { Outfit, OutfitSpec, step } from "grimoire-kolmafia";
 import { Priorities } from "../engine/priority";
 import { Engine, wanderingNCs } from "../engine/engine";
 import { Keys, keyStrategy } from "./keys";
-import { atLevel, haveLoathingIdolMicrophone, NO_ADVENTURE_SPENT, underStandard } from "../lib";
+import {
+  atLevel,
+  haveLoathingIdolMicrophone,
+  NO_ADVENTURE_SPENT,
+  underStandard,
+  YouRobot,
+} from "../lib";
 import { args, toTempPref } from "../args";
 import { coldPlanner, yellowSubmarinePossible } from "../engine/outfit";
 import { ROUTE_WAIT_TO_NCFORCE } from "../route";
@@ -689,10 +695,11 @@ export const MiscQuest: Quest = {
       after: ["Grapefruit"],
       priority: () => Priorities.Free,
       ready: () =>
-        (((have($item`fish head`) && have($item`boxed wine`)) || have($item`piscatini`)) &&
+        ((((have($item`fish head`) && have($item`boxed wine`)) || have($item`piscatini`)) &&
           have($item`grapefruit`) &&
           (get("hasCocktailKit") || myMeat() >= 1000 + meatBuffer)) ||
-        have($item`drive-by shooting`),
+          have($item`drive-by shooting`)) &&
+        YouRobot.canUseFamiliar(),
       completed: () =>
         myTurncount() >= 1000 ||
         get("sidequestNunsCompleted") !== "none" ||
