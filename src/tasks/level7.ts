@@ -73,7 +73,6 @@ const Alcove: Task[] = [
   {
     name: "Alcove",
     after: ["Start"],
-    priority: () => (have($effect`Gull-Wing Moustache`) ? Priorities.MinorEffect : Priorities.None),
     prepare: () => {
       tuneCape();
       if (haveLoathingIdolMicrophone()) ensureEffect($effect`Poppy Performance`);
