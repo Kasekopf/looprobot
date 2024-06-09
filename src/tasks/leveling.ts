@@ -246,20 +246,22 @@ const unscaledLeveling: Task[] = [
     choices: { 1498: 1 },
     combat: new CombatStrategy()
       .macro((): Macro => {
-        const result = Macro.while_("hasskill 226", Macro.skill($skill`Perpetrate Mild Evil`));
+        const result = new Macro();
         // Use all but the last extinguisher uses on polar vortex.
         const vortex_count = (get("_fireExtinguisherCharge") - 40) / 10;
-
         const vortex_cap = haveEquipped($item`Space Trip safety headphones`)
           ? 10
           : familiarWeight($familiar`Grey Goose`) === 20
           ? 2
           : 3;
-        if (vortex_count > 0) {
+        if (vortex_count > 0 && haveEquipped($item`industrial fire extinguisher`)) {
           for (let i = 0; i < vortex_count && i < vortex_cap; i++)
             result.trySkill($skill`Fire Extinguisher: Polar Vortex`);
         }
-        if (haveEquipped($item`Space Trip safety headphones`))
+        if (
+          haveEquipped($item`Space Trip safety headphones`) &&
+          haveEquipped($item`Flash Liquidizer Ultra Dousing Accessory`)
+        )
           result.while_("hasskill 7448 && !pastround 20", Macro.skill($skill`Douse Foe`));
         return result;
       }, $monster`shadow slab`)
@@ -274,6 +276,7 @@ const unscaledLeveling: Task[] = [
         modifier: "item",
         modes: { retrocape: ["heck", "hold"] },
         avoid: $items`broken champagne bottle`,
+        familiar: $familiar`Grey Goose`,
       };
       if (
         !canEquip($item`Space Trip safety headphones`) &&
