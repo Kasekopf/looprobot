@@ -177,9 +177,14 @@ const unscaledLeveling: Task[] = [
     },
     combat: new CombatStrategy().killHard().macro(() => killMacro(undefined, true, true)),
     outfit: () => {
+      const result = <OutfitSpec>{
+        equip: $items`cursed monkey's paw, unwrapped knock-off retro superhero cape`,
+        modes: { retrocape: ["heck", "hold"] },
+      };
       if (canEquip($item`Space Trip safety headphones`))
-        return { equip: $items`Space Trip safety headphones` };
-      else return { equip: $items`cursed monkey's paw` };
+        result.equip?.push($item`Space Trip safety headphones`);
+      else if (get("_monkeyPawWishesUsed") === 0) result.equip?.push($item`cursed monkey's paw`);
+      return result;
     },
     limit: { tries: 10, guard: NO_ADVENTURE_SPENT },
     freecombat: true,
