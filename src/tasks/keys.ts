@@ -363,7 +363,7 @@ export const DigitalQuest: Quest = {
   tasks: [
     {
       name: "Open",
-      after: ["Mosquito/Start"],
+      after: ["Mosquito/Start", "Misc/Check Florist"],
       completed: () => have($item`continuum transfunctioner`),
       priority: () => Priorities.Free,
       do: () => {

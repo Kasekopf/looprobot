@@ -6,6 +6,7 @@ import {
   eat,
   equippedAmount,
   familiarWeight,
+  floristAvailable,
   gamedayToInt,
   getCampground,
   haveEquipped,
@@ -1046,6 +1047,15 @@ export const MiscQuest: Quest = {
       do: () => use($item`fish hatchet`),
       freeaction: true,
       limit: { tries: 1 },
+    },
+    {
+      name: "Check Florist",
+      after: ["Mosquito/Start"],
+      priority: () => Priorities.Free,
+      completed: () => get("floristFriarChecked"),
+      do: () => floristAvailable(),
+      freeaction: true,
+      limit: { completed: true },
     },
   ],
 };
