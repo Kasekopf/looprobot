@@ -288,6 +288,12 @@ export const pulls: PullSpec[] = [
       !have($item`Richard's star key`) &&
       !get("nsTowerDoorKeysUsed").includes("Richard's star key"),
   },
+  {
+    // eslint-disable-next-line libram/verify-constants
+    pull: $item`mini kiwi bikini`,
+    optional: true,
+    useful: () => step("questL11Ron") < 1 || get("zeppelinProtestors") < 80,
+  },
 ];
 
 class Pull {
