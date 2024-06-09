@@ -162,10 +162,15 @@ const Oil: Task[] = [
         spec.equip.push($item`li'l ninja costume`);
       }
 
+      if (!have($item`shadow brick`) && !have($item`unwrapped knock-off retro superhero cape`)) {
+        spec.equip.push($item`Everfull Dart Holster`);
+      }
+
       return spec;
     },
     combat: new CombatStrategy().killItem().macro(
       Macro.tryItem($item`shadow brick`)
+        .step(`if hasskill Darts: Throw at butt; skill Darts: Throw at butt; endif;`)
         .attack()
         .repeat()
     ),
@@ -192,11 +197,16 @@ const Oil: Task[] = [
       if (have($item`unbreakable umbrella`))
         return {
           modifier: "ML 80 max, 0.1 item, monster level percent",
-          equip: $items`unbreakable umbrella`,
+          equip: $items`unbreakable umbrella, Everfull Dart Holster`,
         };
-      else return { modifier: "ML, 0.1 item" };
+      else return { modifier: "ML, 0.1 item", equip: $items`Everfull Dart Holster` };
     },
-    combat: new CombatStrategy().macro(Macro.tryItem($item`shadow brick`)).killItem(),
+    combat: new CombatStrategy().killItem().macro(
+      Macro.tryItem($item`shadow brick`)
+        .step(`if hasskill Darts: Throw at butt; skill Darts: Throw at butt; endif;`)
+        .attack()
+        .repeat()
+    ),
     limit: { soft: 5 },
     orbtargets: () => undefined,
   },
