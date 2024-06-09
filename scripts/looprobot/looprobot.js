@@ -46751,7 +46751,7 @@ var unscaledLeveling = [{
     fillHp();
   },
   completed: function() {
-    return get("_snojoFreeFights") >= 10 || !get("snojoAvailable");
+    return get("_snojoFreeFights") >= 10 || !get("snojoAvailable") || levelingStartCompleted();
   },
   do: $location(_templateObject21101 || (_templateObject21101 = _taggedTemplateLiteral99(["The X-32-F Combat Training Snowman"]))),
   post: function() {
@@ -46783,7 +46783,7 @@ var unscaledLeveling = [{
     return Priorities.Start;
   },
   completed: function() {
-    return get("_neverendingPartyFreeTurns") >= 10 || !get("neverendingPartyAlways");
+    return get("_neverendingPartyFreeTurns") >= 10 || !get("neverendingPartyAlways") || levelingStartCompleted();
   },
   do: $location(_templateObject2544 || (_templateObject2544 = _taggedTemplateLiteral99(["The Neverending Party"]))),
   choices: {
@@ -46815,7 +46815,7 @@ var unscaledLeveling = [{
     return Priorities.Start;
   },
   completed: function() {
-    return get("_speakeasyFreeFights") >= 3 || !get("ownsSpeakeasy");
+    return get("_speakeasyFreeFights") >= 3 || !get("ownsSpeakeasy") || levelingStartCompleted();
   },
   do: $location(_templateObject2936 || (_templateObject2936 = _taggedTemplateLiteral99(["An Unusually Quiet Barroom Brawl"]))),
   choices: {
@@ -46853,7 +46853,7 @@ var unscaledLeveling = [{
     return atLevel(7) && step("questL07Cyrptic") !== -1;
   },
   completed: function() {
-    return !have($item(_templateObject3433 || (_templateObject3433 = _taggedTemplateLiteral99(["closed-circuit pay phone"])))) || get("_shadowAffinityToday") && !have($effect(_templateObject3532 || (_templateObject3532 = _taggedTemplateLiteral99(["Shadow Affinity"])))) && get("encountersUntilSRChoice") !== 0;
+    return !have($item(_templateObject3433 || (_templateObject3433 = _taggedTemplateLiteral99(["closed-circuit pay phone"])))) || get("_shadowAffinityToday") && !have($effect(_templateObject3532 || (_templateObject3532 = _taggedTemplateLiteral99(["Shadow Affinity"])))) && get("encountersUntilSRChoice") !== 0 || levelingStartCompleted();
   },
   prepare: function() {
     if (!get("_shadowAffinityToday"))
@@ -46947,7 +46947,7 @@ var LevelingQuest = {
     name: "God Lobster",
     after: [],
     ready: function() {
-      return have($familiar(_templateObject6024 || (_templateObject6024 = _taggedTemplateLiteral99(["God Lobster"])))) && (0, import_kolmafia111.myTurncount)() >= 90;
+      return have($familiar(_templateObject6024 || (_templateObject6024 = _taggedTemplateLiteral99(["God Lobster"])))) && (0, import_kolmafia111.myTurncount)() >= 90 && YouRobot.canUseFamiliar();
     },
     completed: function() {
       return get("_godLobsterFights") >= 3;
@@ -47640,7 +47640,7 @@ function checkRequirements() {
 }
 
 // src/_git_commit.ts
-var lastCommitHash = "624d557";
+var lastCommitHash = "f65f3a5";
 
 // src/main.ts
 var _templateObject1101;
