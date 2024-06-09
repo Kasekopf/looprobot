@@ -451,7 +451,10 @@ const Bowling: Task[] = [
           : new Macro()
       )
       .macro(() => {
-        return Macro.tryItem($item`Spooky VHS Tape`)
+        return Macro.externalIf(
+          get("spookyVHSTapeMonster") !== $monster`pygmy bowler`,
+          Macro.tryItem($item`Spooky VHS Tape`)
+        )
           .trySkill($skill`Emit Matter Duplicating Drones`)
           .trySkill($skill`Otoscope`);
       }, $monster`pygmy bowler`)
