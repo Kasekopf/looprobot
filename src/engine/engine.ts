@@ -318,7 +318,10 @@ export class Engine extends BaseEngine<CombatActions, ActiveTask> {
     const reason = task.active_priority?.explain() ?? "";
     const why = reason === "" ? "Route" : reason;
     debug(`Executing ${task.name} [${why}]`, "blue");
-    this.checkLimits({ ...task, limit: { ...task.limit, unready: false } }, () => true); // ignore unready for this initial check
+    this.checkLimits(
+      { ...task, limit: { ...task.limit, unready: false, completed: false } },
+      () => true
+    ); // ignore unready for this initial check
     if (myAdventures() < args.debug.halt) throw `Running out of adventures!`;
 
     // Copied from grimoire, to remove the extra printout
