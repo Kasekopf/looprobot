@@ -382,6 +382,7 @@ const Pyramid: Task[] = [
     completed: () =>
       have($item`ancient bronze token`) || have($item`ancient bomb`) || get("pyramidBombUsed"),
     do: () => rotatePyramid(4),
+    freeaction: true,
     limit: { tries: 1 },
   },
   {
@@ -389,6 +390,7 @@ const Pyramid: Task[] = [
     after: ["Get Token"],
     completed: () => have($item`ancient bomb`) || get("pyramidBombUsed"),
     do: () => rotatePyramid(3),
+    freeaction: true,
     limit: { tries: 1 },
   },
   {
@@ -396,6 +398,7 @@ const Pyramid: Task[] = [
     after: ["Get Bomb"],
     completed: () => get("pyramidBombUsed"),
     do: () => rotatePyramid(1),
+    freeaction: true,
     limit: { tries: 1 },
   },
   {
