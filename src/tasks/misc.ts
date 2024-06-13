@@ -184,7 +184,8 @@ export const MiscQuest: Quest = {
       ready: () =>
         have($familiar`Reagnimated Gnome`) &&
         !have($item`gnomish housemaid's kgnee`) &&
-        !get(toTempPref("checkedGnome"), false),
+        !get(toTempPref("checkedGnome"), false) &&
+        YouRobot.canUseFamiliar(),
       completed: () =>
         !have($familiar`Reagnimated Gnome`) ||
         have($item`gnomish housemaid's kgnee`) ||
