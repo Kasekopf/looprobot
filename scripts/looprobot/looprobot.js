@@ -35407,7 +35407,7 @@ var MiscQuest = {
         return Priorities.Free;
       },
       ready: function() {
-        return have($familiar(_templateObject3142 || (_templateObject3142 = _taggedTemplateLiteral79(["Reagnimated Gnome"])))) && !have($item(_templateObject3224 || (_templateObject3224 = _taggedTemplateLiteral79(["gnomish housemaid's kgnee"])))) && !get(toTempPref("checkedGnome"), false);
+        return have($familiar(_templateObject3142 || (_templateObject3142 = _taggedTemplateLiteral79(["Reagnimated Gnome"])))) && !have($item(_templateObject3224 || (_templateObject3224 = _taggedTemplateLiteral79(["gnomish housemaid's kgnee"])))) && !get(toTempPref("checkedGnome"), false) && YouRobot.canUseFamiliar();
       },
       completed: function() {
         return !have($familiar(_templateObject3322 || (_templateObject3322 = _taggedTemplateLiteral79(["Reagnimated Gnome"])))) || have($item(_templateObject3420 || (_templateObject3420 = _taggedTemplateLiteral79(["gnomish housemaid's kgnee"])))) || get(toTempPref("checkedGnome"), false);
@@ -47637,7 +47637,7 @@ function checkRequirements() {
 }
 
 // src/_git_commit.ts
-var lastCommitHash = "ee4c56f";
+var lastCommitHash = "5e00780";
 
 // src/main.ts
 var _templateObject1101;
