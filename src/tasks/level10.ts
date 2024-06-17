@@ -114,7 +114,8 @@ export const GiantQuest: Quest = {
       delay: () =>
         have($item`Plastic Wrap Immateria`) ? 25 : have($item`Gauze Immateria`) ? 20 : 15, // After that, just look for noncombats
       outfit: () => {
-        if (forceItemPossible()) return { modifier: "-combat" };
+        if (forceItemPossible())
+          return { modifier: "-combat", avoid: $items`Kramco Sausage-o-Matic™` };
         else
           return {
             modifier: "-combat, item",
@@ -144,12 +145,18 @@ export const GiantQuest: Quest = {
         if (have($effect`Temporary Amnesia`)) cliExecute("uneffect Temporary Amnesia");
       },
       orbtargets: () => [],
-      outfit: {
-        modifier: "-combat",
-        weapon:
-          get("_saberForceUses") < 5 && !have($item`Mohawk wig`)
-            ? $item`Fourth of May Cosplay Saber`
-            : undefined,
+      outfit: () => {
+        if (get("_saberForceUses") < 5 && !have($item`Mohawk wig`)) {
+          return {
+            modifier: "-combat",
+            weapon: $item`Fourth of May Cosplay Saber`,
+            avoid: $items`Kramco Sausage-o-Matic™`,
+          };
+        } else {
+          return {
+            modifier: "-combat",
+          };
+        }
       },
       limit: { soft: 50 },
       delay: () =>
