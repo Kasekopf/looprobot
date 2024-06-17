@@ -39,6 +39,7 @@ import {
   $location,
   $locations,
   $monster,
+  $monsters,
   $path,
   $skill,
   $slot,
@@ -562,14 +563,15 @@ export class Engine extends BaseEngine<CombatActions, ActiveTask> {
       }
 
       // Use an NC forcer if one is available and another task needs it.
-      const nc_blacklist = new Set<Location>(
+      const ncLocationBanlist = new Set<Location>(
         $locations`The Enormous Greater-Than Sign, The Copperhead Club, The Black Forest`
       );
-      const nc_task_blacklist = new Set<string>(["Misc/Protonic Ghost", "War/Flyers Fast"]);
+      const ncTaskBanlist = new Set<string>(["Misc/Protonic Ghost", "War/Flyers Fast"]);
+      const ncMonsterBanlist = $monsters`Batsnake, Frozen Solid Snake, ninja snowman assassin`;
       if (
         forceNCPossible() &&
-        !(task.do instanceof Location && nc_blacklist.has(task.do)) &&
-        !nc_task_blacklist.has(task.name) &&
+        !(task.do instanceof Location && ncLocationBanlist.has(task.do)) &&
+        !ncTaskBanlist.has(task.name) &&
         !have($effect`Teleportitis`) &&
         force_item_source?.equip !== $item`Fourth of May Cosplay Saber` &&
         !get("noncombatForcerActive")
@@ -586,7 +588,11 @@ export class Engine extends BaseEngine<CombatActions, ActiveTask> {
         ) {
           const ncforcer = equipFirst(outfit, forceNCSources);
           if (ncforcer) {
-            combat.macro(ncforcer.do, undefined, true);
+            const ncForce = Macro.if_(
+              ncMonsterBanlist.map((m) => `!monsterid ${m.id}`).join(" && "),
+              ncforcer.do
+            );
+            combat.macro(ncForce, undefined, true);
           }
         }
       }
