@@ -350,8 +350,14 @@ const Pyramid: Task[] = [
       .banish([$monster`tomb asp`, $monster`tomb servant`]),
     outfit: () => {
       const result: OutfitSpec = { modifier: "item", equip: [] };
-      if (have($item`Lil' Doctor™ bag`) && get("_otoscopeUsed") < 3)
+      if (
+        have($item`Lil' Doctor™ bag`) &&
+        get("_otoscopeUsed") < 3 &&
+        have($item`tangle of rat tails`)
+      ) {
         result.equip?.push($item`Lil' Doctor™ bag`);
+        result.equip?.push($item`Space Trip safety headphones`);
+      }
       if (DaylightShavings.nextBuff() === $effect`Spectacle Moustache`)
         result.equip?.push($item`Daylight Shavings Helmet`);
       // Last ditch removal of this phylum banish, if we need to
