@@ -765,7 +765,7 @@ export const WarQuest: Quest = {
       do: $location`The Battlefield (Frat Uniform)`,
       post: dimesForGarters,
       combat: new CombatStrategy().kill().macro(Macro.trySkill($skill`Extract Jelly`)),
-      limit: { tries: 52 },
+      limit: { tries: 55 },
     },
     {
       name: "Boss Hippie",
