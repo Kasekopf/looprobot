@@ -255,7 +255,13 @@ export const wandererSources: WandererSource[] = [
       myTurncount() > 2 &&
       atLevel(5) &&
       get("desertExploration") > 0, // wait until the desert starts
-    equip: $item`"I Voted!" sticker`,
+    equip: [
+      {
+        equip: $items`"I Voted!" sticker, unwrapped knock-off retro superhero cape`,
+        modes: { retrocape: ["heck", "hold"] },
+      },
+      { equip: $items`"I Voted!" sticker` },
+    ],
     monsters: [
       $monster`government bureaucrat`,
       $monster`terrible mutant`,
