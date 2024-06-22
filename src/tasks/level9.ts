@@ -5,6 +5,7 @@ import {
   council,
   currentMcd,
   getWorkshed,
+  haveEquipped,
   Item,
   itemAmount,
   myAscensions,
@@ -168,12 +169,13 @@ const Oil: Task[] = [
 
       return spec;
     },
-    combat: new CombatStrategy().killItem().macro(
-      Macro.tryItem($item`shadow brick`)
-        .step(`if hasskill Darts: Throw at butt; skill Darts: Throw at butt; endif;`)
+    combat: new CombatStrategy().killItem().macro(() => {
+      const part = haveEquipped($item`unwrapped knock-off retro superhero cape`) ? "butt" : "oil";
+      return Macro.tryItem($item`shadow brick`)
+        .step(`if hasskill Darts: Throw at ${part}; skill Darts: Throw at ${part}; endif;`)
         .attack()
-        .repeat()
-    ),
+        .repeat();
+    }),
     limit: { tries: 18 },
     orbtargets: () => undefined,
   },
@@ -201,12 +203,13 @@ const Oil: Task[] = [
         };
       else return { modifier: "ML, 0.1 item", equip: $items`Everfull Dart Holster` };
     },
-    combat: new CombatStrategy().killItem().macro(
-      Macro.tryItem($item`shadow brick`)
-        .step(`if hasskill Darts: Throw at butt; skill Darts: Throw at butt; endif;`)
+    combat: new CombatStrategy().killItem().macro(() => {
+      const part = haveEquipped($item`unwrapped knock-off retro superhero cape`) ? "butt" : "oil";
+      return Macro.tryItem($item`shadow brick`)
+        .step(`if hasskill Darts: Throw at ${part}; skill Darts: Throw at ${part}; endif;`)
         .attack()
-        .repeat()
-    ),
+        .repeat();
+    }),
     limit: { soft: 5 },
     orbtargets: () => undefined,
   },
