@@ -557,7 +557,7 @@ export class Engine extends BaseEngine<CombatActions, ActiveTask> {
         ((combat.can("kill") || combat.can("killItem")) &&
           !task.boss &&
           this.tasks.every((t) => t.completed() || !t.combat?.can("killFree")) &&
-          haveEffect($effect`Shadow Waters`))
+          (haveEffect($effect`Shadow Waters`) || step("questL07Cyrptic") >= 1))
       ) {
         resources.provide("killFree", equipFirst(outfit, freekillSources));
       }
