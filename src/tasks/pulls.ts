@@ -14,7 +14,18 @@ import {
   toInt,
   visitUrl,
 } from "kolmafia";
-import { $familiar, $item, $items, $monster, $skill, byStat, get, have, set } from "libram";
+import {
+  $effect,
+  $familiar,
+  $item,
+  $items,
+  $monster,
+  $skill,
+  byStat,
+  get,
+  have,
+  set,
+} from "libram";
 import { args, toTempPref } from "../args";
 import { Priorities } from "../engine/priority";
 import { Quest, Task } from "../engine/task";
@@ -212,6 +223,14 @@ export const pulls: PullSpec[] = [
       !have($item`wet stunt nut stew`) &&
       !have($item`wet stew`) &&
       (!have($item`lion oil`) || !have($item`bird rib`)),
+  },
+  {
+    pull: $item`sugar sphere`,
+    useful: () => {
+      if (step("questM20Necklace") >= 3) return false;
+      if (have($effect`Video... Games?`)) return undefined;
+      return true;
+    },
   },
   {
     pull: $item`ninja rope`,

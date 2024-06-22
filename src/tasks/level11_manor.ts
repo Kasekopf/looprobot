@@ -65,16 +65,27 @@ const Manor1: Task[] = [
       return Priorities.None;
     },
     prepare: () => {
-      if (have($effect`Video... Games?`)) tryForceNC();
+      if (
+        have($effect`Video... Games?`) ||
+        have($item`sugar sphere`) ||
+        have($effect`Influence of Sphere`)
+      )
+        tryForceNC();
       else if (have($item`pool cue`) && have($item`handful of hand chalk`))
         ensureEffect($effect`Chalky Hand`);
+      if (have($item`pool cue`) && have($item`sugar sphere`))
+        ensureEffect($effect`Influence of Sphere`);
       tryPlayApriling("-combat");
     },
     do: $location`The Haunted Billiards Room`,
     choices: { 875: 1, 900: 2, 1436: 1 },
     outfit: () => {
       // TODO: ForceNCPossible should only be triggerable NC forces
-      if (forceNCPossible() && have($effect`Video... Games?`)) return { equip: $items`pool cue` };
+      if (
+        forceNCPossible() &&
+        (have($effect`Video... Games?`) || have($effect`Influence of Sphere`))
+      )
+        return { equip: $items`pool cue` };
       return {
         equip: $items`pool cue`,
         modifier: "-combat",
