@@ -156,6 +156,8 @@ export const routing: string[] = [
   "Crypt/Nook",
   "Orc Chasm/Twin Init Search",
   "Orc Chasm/Twin Init", // Use Eagle dude banish
+  "War/Open Orchard",
+  "War/Orchard Finish",
   "Knob/Harem",
 
   "Keys/Star Key", // Allow for better use of orb
@@ -164,8 +166,6 @@ export const routing: string[] = [
   // Setup for second hat phase
   "Robot/Equip Hat Phase 2",
   "Knob/King",
-  "War/Open Orchard",
-  "War/Orchard Finish",
   "War/Boss Hippie",
   "Robot/Unequip Hat Phase 2",
 
