@@ -3,6 +3,7 @@ import {
   create,
   currentMcd,
   familiarWeight,
+  haveEquipped,
   Item,
   myFamiliar,
   myLevel,
@@ -419,6 +420,10 @@ const ManorBasement: Task[] = [
         result.modes.backupcamera = "ml";
         ml_needed -= Math.min(3 * myLevel(), 50);
       }
+      if (!have($item`unwrapped knock-off retro superhero cape`)) {
+        // Add for survivability
+        result.equip.push($item`Everfull Dart Holster`);
+      }
 
       if (ml_needed > 0) {
         return {
@@ -432,6 +437,15 @@ const ManorBasement: Task[] = [
     effects: $effects`Ur-Kel's Aria of Annoyance, Pride of the Puffin, Drescher's Annoying Noise`,
     choices: { 902: 2 },
     combat: new CombatStrategy()
+      .macro(() => {
+        if (!haveEquipped($item`unwrapped knock-off retro superhero cape`))
+          return Macro.step(
+            "if hasskill Darts: Throw at gauge; skill Darts: Throw at gauge; endif;"
+          )
+            .step("if hasskill Darts: Throw at dust; skill Darts: Throw at dust; endif;")
+            .step("if hasskill Darts: Throw at cloud; skill Darts: Throw at cloud; endif;");
+        else return new Macro();
+      })
       .kill($monster`monstrous boiler`)
       .banish($monsters`coaltergeist, steam elemental`),
     limit: { soft: 10 },
