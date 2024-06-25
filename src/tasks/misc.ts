@@ -9,6 +9,7 @@ import {
   floristAvailable,
   gamedayToInt,
   getCampground,
+  getClanLounge,
   haveEquipped,
   hermit,
   hippyStoneBroken,
@@ -1057,6 +1058,13 @@ export const MiscQuest: Quest = {
       do: () => floristAvailable(),
       freeaction: true,
       limit: { completed: true },
+    },
+    {
+      name: "Ice Cold April Shower",
+      ready: () => have($item`Clan VIP Lounge key`) && getClanLounge()["Clan shower"] !== undefined,
+      completed: () => get("_aprilShower"),
+      do: () => cliExecute("try; shower ice"),
+      limit: { tries: 1 },
     },
   ],
 };
