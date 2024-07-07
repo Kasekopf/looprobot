@@ -228,6 +228,7 @@ export const pulls: PullSpec[] = [
     pull: $item`sugar sphere`,
     useful: () => {
       if (step("questM20Necklace") >= 3) return false;
+      if (step("questM20Necklace") < 1) return undefined;
       if (have($effect`Video... Games?`)) return undefined;
       return true;
     },
