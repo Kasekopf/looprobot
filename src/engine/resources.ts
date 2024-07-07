@@ -366,7 +366,7 @@ export const wandererSources: WandererSource[] = [
         familiarWeight($familiar`Grey Goose`) === 7) &&
       // eslint-disable-next-line libram/verify-constants
       (!have($item`Roman Candelabra`) ||
-      step("questM20Necklace") < 1 ||
+        step("questM20Necklace") < 1 ||
         YouRobot.canUse($slot`off-hand`) ||
         !have($familiar`Left-Hand Man`)),
     equip: [
