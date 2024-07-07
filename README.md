@@ -18,9 +18,9 @@ git checkout https://github.com/Kasekopf/looprobot release
 
 1. In aftercore, run `looprobot sim` to verify that the script is installed, and to confirm that you meet the requirements (see below for more details). Unlike `loopgyou` and `loopsmol`, the set of requirements to make the script run well is much longer.
 2. Ascend into a You Robot Softcore run.
-    * **Class:** Myst classes are preferred. Non-myst classes should work, but you may have issues if you don't have **both** a genie bottle and a cursed monkey paw.
-    * **Moon sign:** Vole is strongly preferred, regardless of class. Other signs may work but are much less tested.
-    * **Astral pet:** Any should work; they don't make a big difference to the run.
+   - **Class:** Myst classes are preferred. Non-myst classes should work, but you may have issues if you don't have **both** a genie bottle and a cursed monkey paw.
+   - **Moon sign:** Vole is strongly preferred, regardless of class. Other signs may work but are much less tested.
+   - **Astral pet:** Any should work; they don't make a big difference to the run.
 3. Run `looprobot` and watch it go! If you are more hesitant, you can run `looprobot actions 10` to only do 10 things and stop.
 
 Options can be changed in a few different ways:
