@@ -28,6 +28,7 @@ import {
   $items,
   $monster,
   $skill,
+  $slot,
   AprilingBandHelmet,
   CinchoDeMayo,
   Counter,
@@ -44,7 +45,7 @@ import {
   OutfitSpec,
   step,
 } from "grimoire-kolmafia";
-import { atLevel } from "../lib";
+import { atLevel, YouRobot } from "../lib";
 import { args } from "../args";
 import { killMacro } from "./combat";
 import { BanishState } from "./state";
@@ -362,7 +363,12 @@ export const wandererSources: WandererSource[] = [
       // Start when there will be no waste from the goose for backups
       (myTurncount() > 5 ||
         familiarWeight($familiar`Grey Goose`) === 6 ||
-        familiarWeight($familiar`Grey Goose`) === 7),
+        familiarWeight($familiar`Grey Goose`) === 7) &&
+      // eslint-disable-next-line libram/verify-constants
+      (!have($item`Roman Candelabra`) ||
+      step("questM20Necklace") < 1 ||
+        YouRobot.canUse($slot`off-hand`) ||
+        !have($familiar`Left-Hand Man`)),
     equip: [
       { equip: $items`Kramco Sausage-o-Matic™, Space Trip safety headphones` },
       {
