@@ -81,16 +81,20 @@ function buildIotmList(): Requirement[] {
     {
       thing: new Hardcoded(get("loveTunnelAvailable"), "LOV Tunnel"),
       why: "+exp, leveling",
-      required: true,
+      required: false,
     },
     {
       thing: $item`Kremlin's Greatest Briefcase`,
       why: "Banishes",
     },
     {
-      thing: $item`genie bottle`,
+      thing: [$item`genie bottle`, $item`cursed monkey's paw`],
       why: "Leveling with Goose",
       required: true,
+    },
+    {
+      thing: $item`genie bottle`,
+      why: "Leveling with Goose",
     },
     {
       thing: $item`January's Garbage Tote`,

@@ -89,11 +89,11 @@ Expensive Pulls (Required)
 ✓ Space Trip safety headphones - Pull
 
 Expensive Pulls (Optional)
-✓ Buddy Bjorn - Pull
 ✓ carnivorous potted plant - Pull
 ✓ deck of lewd playing cards - Pull
 ✓ Greatest American Pants OR navel ring of navel gazing - Runaway IoTM
 ✓ lucky gold ring - Farming currency; see the argument "lgr"
+✓ mafia thumb ring - Pull
 ✓ Shore Inc. Ship Trip Scrip - Pull
 
 IoTMs (Required)
@@ -101,11 +101,10 @@ IoTMs (Required)
 ✓ combat lover's locket - Reminiscing
 ✓ Distant Woods Getaway Brochure - +exp
 ✓ Emotionally Chipped - Banish, -combat, items
-✓ genie bottle - Leveling with Goose
+✓ genie bottle OR cursed monkey's paw - Leveling with Goose
 ✓ grey gosling - Leveling, duplication drones
 ✓ June cleaver - Tavern, +adv, survivng
 ✓ Jurassic Parka - Meat, ML, -combat forces, survivng
-✓ LOV Tunnel - +exp, leveling
 ✓ Neverending Party - Leveling with Goose
 ✓ Snojo - Leveling with Goose
 ✓ unwrapped knock-off retro superhero cape - Slay the dead in crypt, survivng
@@ -134,6 +133,7 @@ IoTMs (Optional)
 ✓ Everfull Dart Holster - Free kills
 ✓ familiar scrapbook - +exp
 ✓ Fourth of May Cosplay Saber - Familiar Weight
+✓ genie bottle - Leveling with Goose
 ✓ God Lobster Egg - Leveling
 ✓ industrial fire extinguisher - Harem outfit, Bat hole, stone wool, Crypt, Ultrahydrated, Shadow bricks
 ✓ January's Garbage Tote - +item, +meat
@@ -143,6 +143,7 @@ IoTMs (Optional)
 ✓ li'l orphan tot - +item
 ✓ Lil' Doctor™ bag - Banish, instakill, +item
 ✓ Lovebugs - Crypt, Desert
+✓ LOV Tunnel - +exp, leveling
 ✓ Mayam Calendar - Free rests, fam exp
 ✓ miniature crystal ball - Monster prediction
 ✓ Moping Artistic Goth Kid - Wanderers
@@ -155,7 +156,6 @@ IoTMs (Optional)
 ✓ sleeping patriotic eagle - Niche, Palindome, Twin Paak
 ✓ SongBoom™ BoomBox - Meat and special seasonings
 ✓ spring shoes - Runaways, Leveling
-✓ Summon Clip Art - Amulet coin
 ✓ Unagnimated Gnome - Adv gain
 ✓ unbreakable umbrella - -combat modifier, ML
 ✓ Voting Booth - Wanderers
