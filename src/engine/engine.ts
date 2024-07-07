@@ -871,6 +871,7 @@ export class Engine extends BaseEngine<CombatActions, ActiveTask> {
       louvreDesiredGoal: 7,
       requireBoxServants: false,
       autoAbortThreshold: "-0.05",
+      manaBurningThreshold: "-0.05",
       recoveryScript: "",
       removeMalignantEffects: false,
       choiceAdventureScript: "looprobot_choice.ash",
