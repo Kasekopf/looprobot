@@ -100,7 +100,8 @@ const summonTargets: SummonTarget[] = [
     },
     outfit: {
       modifier: "cold dmg, sleaze res",
-      equip: $items`June cleaver, industrial fire extinguisher`,
+      equip: $items`June cleaver, industrial fire extinguisher, Space Trip safety headphones, Jurassic Parka`,
+      modes: { parka: "ghostasaurus" },
       avoid: $items`carnivorous potted plant, Everfull Dart Holster`,
     },
     combat: new CombatStrategy().macro(Macro.attack().repeat()).killHard(),
