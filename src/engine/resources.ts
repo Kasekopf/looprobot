@@ -350,7 +350,9 @@ export const wandererSources: WandererSource[] = [
     monsters: [$monster`sausage goblin`],
     chance: () => getKramcoWandererChance(),
     // eslint-disable-next-line libram/verify-constants
-    action: Macro.skill($skill`Blow the Purple Candle!`),
+    action: Macro.trySkill($skill`Blow the Purple Candle!`)
+      .attack()
+      .repeat(),
     possible: () => haveEquipped($item`Kramco Sausage-o-Matic™`),
   },
   {
