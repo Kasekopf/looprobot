@@ -323,7 +323,7 @@ export class Engine extends BaseEngine<CombatActions, ActiveTask> {
       { ...task, limit: { ...task.limit, unready: false, completed: false } },
       () => true
     ); // ignore unready for this initial check
-    if (myAdventures() <= args.debug.halt) throw `Running out of adventures!`;
+    if (myAdventures() <= args.debug.halt && myTurncount() >= 1) throw `Running out of adventures!`;
 
     // Copied from grimoire, to remove the extra printout
     // Determine the proper postcondition for after the task executes.
