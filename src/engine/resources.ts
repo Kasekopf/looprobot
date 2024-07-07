@@ -329,6 +329,31 @@ export const wandererSources: WandererSource[] = [
     possible: () => myFamiliar() === $familiar`Mini-Hipster`,
   },
   {
+    name: "Kramco + Candelabra",
+    available: () =>
+      have($item`Kramco Sausage-o-Matic™`) &&
+      // eslint-disable-next-line libram/verify-constants
+      have($item`Roman Candelabra`) &&
+      // eslint-disable-next-line libram/verify-constants
+      !have($effect`Everything Looks Purple`) &&
+      have($familiar`Left-Hand Man`) &&
+      myTurncount() > 5,
+    equip: [
+      // eslint-disable-next-line libram/verify-constants
+      { equip: $items`Kramco Sausage-o-Matic™, Space Trip safety headphones, Roman Candelabra` },
+      {
+        // eslint-disable-next-line libram/verify-constants
+        equip: $items`Kramco Sausage-o-Matic™, unwrapped knock-off retro superhero cape, Roman Candelabra`,
+        modes: { retrocape: ["heck", "hold"] },
+      },
+    ],
+    monsters: [$monster`sausage goblin`],
+    chance: () => getKramcoWandererChance(),
+    // eslint-disable-next-line libram/verify-constants
+    action: Macro.skill($skill`Blow the Purple Candle!`),
+    possible: () => haveEquipped($item`Kramco Sausage-o-Matic™`),
+  },
+  {
     name: "Kramco",
     available: () =>
       have($item`Kramco Sausage-o-Matic™`) &&
@@ -344,17 +369,10 @@ export const wandererSources: WandererSource[] = [
       },
       { equip: $items`Kramco Sausage-o-Matic™` },
     ],
-    prepare: () => {
-      if (SourceTerminal.have() && SourceTerminal.getDigitizeUses() === 0) {
-        SourceTerminal.prepareDigitize();
-      }
-    },
     monsters: [$monster`sausage goblin`],
     chance: () => getKramcoWandererChance(),
     action: () => {
       const result = new Macro();
-      if (SourceTerminal.have() && SourceTerminal.getDigitizeUses() === 0)
-        result.trySkill($skill`Digitize`);
       if (
         familiarWeight($familiar`Grey Goose`) <= 7 &&
         haveEquipped($item`Space Trip safety headphones`) &&
