@@ -330,9 +330,21 @@ function statbotUsesNeeded(stat: Stat, goal: number) {
 }
 
 function statbotEnergyBuffer(): number {
-  if (myTurncount() >= 300)
-    return YouRobot.expectedStatbotCost(statbotUsesNeeded(myPrimestat(), 148));
-  else if (myAdventures() >= 25) {
+  if (myTurncount() >= 300) {
+    const cost = YouRobot.expectedStatbotCost(statbotUsesNeeded(myPrimestat(), 148));
+
+    // Compute (a lower bound of) the energy from the remaining run
+    let expectedEnergy = 0;
+    if (step("questL11Pyramid") < 999) expectedEnergy += 14; // Ed
+    // The hippy boss-killing tracking is a bit broken when it first dies
+    if (step("warProgress") < 999 && get("hippiesDefeated") < 1000) expectedEnergy += 32; // Hippy boss
+    if (step("questL04Bat") < 4) expectedEnergy += 32; // Bat boss
+    const warFights = Math.ceil((1000 - get("hippiesDefeated")) / 32);
+    expectedEnergy += 2 * warFights; // War
+
+    if (expectedEnergy >= cost) return 0;
+    else return cost - expectedEnergy;
+  } else if (myAdventures() >= 25) {
     if (!atLevel(11)) return YouRobot.expectedStatbotCost(statbotUsesNeeded(myPrimestat(), 104));
     else
       return YouRobot.expectedStatbotCost(
