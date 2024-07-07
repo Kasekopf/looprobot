@@ -34803,6 +34803,7 @@ var Engine2 = /* @__PURE__ */ function(_BaseEngine) {
         louvreDesiredGoal: 7,
         requireBoxServants: false,
         autoAbortThreshold: "-0.05",
+        manaBurningThreshold: "-0.05",
         recoveryScript: "",
         removeMalignantEffects: false,
         choiceAdventureScript: "looprobot_choice.ash",
@@ -47779,7 +47780,7 @@ function checkRequirements() {
 }
 
 // src/_git_commit.ts
-var lastCommitHash = "6d957fb";
+var lastCommitHash = "cea7c16";
 
 // src/main.ts
 var _templateObject1190;
