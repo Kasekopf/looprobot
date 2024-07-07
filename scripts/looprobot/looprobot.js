@@ -23405,8 +23405,8 @@ var require_value = __commonJS({
     var _templateObject5631;
     var _templateObject5729;
     var _templateObject5827;
-    var _templateObject5925;
-    var _templateObject6025;
+    var _templateObject5926;
+    var _templateObject6026;
     var _templateObject6140;
     var _templateObject6230;
     var _templateObject6330;
@@ -23583,8 +23583,8 @@ var require_value = __commonJS({
       })), [[(0, libram_1.$item)(_templateObject5433 || (_templateObject5433 = _taggedTemplateLiteral102(["Boris's key"]))), function() {
         return value((0, libram_1.$item)(_templateObject5532 || (_templateObject5532 = _taggedTemplateLiteral102(["Boris's key lime"])))) - value((0, libram_1.$item)(_templateObject5631 || (_templateObject5631 = _taggedTemplateLiteral102(["lime"]))));
       }], [(0, libram_1.$item)(_templateObject5729 || (_templateObject5729 = _taggedTemplateLiteral102(["Jarlsberg's key"]))), function() {
-        return value((0, libram_1.$item)(_templateObject5827 || (_templateObject5827 = _taggedTemplateLiteral102(["Jarlsberg's key lime"])))) - value((0, libram_1.$item)(_templateObject5925 || (_templateObject5925 = _taggedTemplateLiteral102(["lime"]))));
-      }], [(0, libram_1.$item)(_templateObject6025 || (_templateObject6025 = _taggedTemplateLiteral102(["Sneaky Pete's key"]))), function() {
+        return value((0, libram_1.$item)(_templateObject5827 || (_templateObject5827 = _taggedTemplateLiteral102(["Jarlsberg's key lime"])))) - value((0, libram_1.$item)(_templateObject5926 || (_templateObject5926 = _taggedTemplateLiteral102(["lime"]))));
+      }], [(0, libram_1.$item)(_templateObject6026 || (_templateObject6026 = _taggedTemplateLiteral102(["Sneaky Pete's key"]))), function() {
         return value((0, libram_1.$item)(_templateObject6140 || (_templateObject6140 = _taggedTemplateLiteral102(["Sneaky Pete's key lime"])))) - value((0, libram_1.$item)(_templateObject6230 || (_templateObject6230 = _taggedTemplateLiteral102(["lime"]))));
       }], [(0, libram_1.$item)(_templateObject6330 || (_templateObject6330 = _taggedTemplateLiteral102(["fat loot token"]))), currency.apply(void 0, _toConsumableArray36((0, libram_1.$items)(_templateObject6429 || (_templateObject6429 = _taggedTemplateLiteral102(["Boris's key, Jarlsberg's key, Sneaky Pete's key, Boris's ring, Jarlsberg's earring, Sneaky Pete's breath spray, potato sprout, sewing kit, Spellbook: Singer's Faithful Ocelot, Spellbook: Drescher's Annoying Noise, Spellbook: Walberg's Dim Bulb, dried gelatinous cube"])))))], [(0, libram_1.$item)(_templateObject6528 || (_templateObject6528 = _taggedTemplateLiteral102(["inflammable leaf"]))), inflammableLeafCurrency()]], _toConsumableArray36(inputValues)));
       var exclusions = /* @__PURE__ */ new Set([
@@ -47293,6 +47293,8 @@ var _templateObject5531;
 var _templateObject5630;
 var _templateObject5728;
 var _templateObject5826;
+var _templateObject5925;
+var _templateObject6025;
 function _slicedToArray29(arr, i) {
   return _arrayWithHoles29(arr) || _iterableToArrayLimit29(arr, i) || _unsupportedIterableToArray61(arr, i) || _nonIterableRest29();
 }
@@ -47481,32 +47483,35 @@ function buildIotmList() {
   }, {
     thing: new Hardcoded(get("loveTunnelAvailable"), "LOV Tunnel"),
     why: "+exp, leveling",
-    required: true
+    required: false
   }, {
     thing: $item(_templateObject7130 || (_templateObject7130 = _taggedTemplateLiteral100(["Kremlin's Greatest Briefcase"]))),
     why: "Banishes"
   }, {
-    thing: $item(_templateObject8108 || (_templateObject8108 = _taggedTemplateLiteral100(["genie bottle"]))),
+    thing: [$item(_templateObject8108 || (_templateObject8108 = _taggedTemplateLiteral100(["genie bottle"]))), $item(_templateObject9105 || (_templateObject9105 = _taggedTemplateLiteral100(["cursed monkey's paw"])))],
     why: "Leveling with Goose",
     required: true
   }, {
-    thing: $item(_templateObject9105 || (_templateObject9105 = _taggedTemplateLiteral100(["January's Garbage Tote"]))),
+    thing: $item(_templateObject10101 || (_templateObject10101 = _taggedTemplateLiteral100(["genie bottle"]))),
+    why: "Leveling with Goose"
+  }, {
+    thing: $item(_templateObject1181 || (_templateObject1181 = _taggedTemplateLiteral100(["January's Garbage Tote"]))),
     why: "+item, +meat"
   }, {
-    thing: $familiar(_templateObject10101 || (_templateObject10101 = _taggedTemplateLiteral100(["God Lobster"]))),
+    thing: $familiar(_templateObject1281 || (_templateObject1281 = _taggedTemplateLiteral100(["God Lobster"]))),
     why: "Leveling"
   }, {
-    thing: $item(_templateObject1181 || (_templateObject1181 = _taggedTemplateLiteral100(["SongBoom\u2122 BoomBox"]))),
+    thing: $item(_templateObject1379 || (_templateObject1379 = _taggedTemplateLiteral100(["SongBoom\u2122 BoomBox"]))),
     why: "Meat and special seasonings"
   }, {
     thing: new Hardcoded(get("neverendingPartyAlways"), "Neverending Party"),
     why: "Leveling with Goose",
     required: true
   }, {
-    thing: $item(_templateObject1281 || (_templateObject1281 = _taggedTemplateLiteral100(["Bastille Battalion control rig"]))),
+    thing: $item(_templateObject1471 || (_templateObject1471 = _taggedTemplateLiteral100(["Bastille Battalion control rig"]))),
     why: "+exp"
   }, {
-    thing: $item(_templateObject1379 || (_templateObject1379 = _taggedTemplateLiteral100(["latte lovers member's mug"]))),
+    thing: $item(_templateObject1569 || (_templateObject1569 = _taggedTemplateLiteral100(["latte lovers member's mug"]))),
     why: "Banishes"
   }, {
     thing: new Hardcoded(get("voteAlways"), "Voting Booth"),
@@ -47515,160 +47520,160 @@ function buildIotmList() {
     thing: new Hardcoded(get("daycareOpen"), "Boxing Daycare"),
     why: "+exp"
   }, {
-    thing: $item(_templateObject1471 || (_templateObject1471 = _taggedTemplateLiteral100(["Kramco Sausage-o-Matic\u2122"]))),
+    thing: $item(_templateObject1667 || (_templateObject1667 = _taggedTemplateLiteral100(["Kramco Sausage-o-Matic\u2122"]))),
     why: "Wanderers"
   }, {
-    thing: $item(_templateObject1569 || (_templateObject1569 = _taggedTemplateLiteral100(["Lil' Doctor\u2122 bag"]))),
+    thing: $item(_templateObject1761 || (_templateObject1761 = _taggedTemplateLiteral100(["Lil' Doctor\u2122 bag"]))),
     why: "Banish, instakill, +item"
   }, {
-    thing: $item(_templateObject1667 || (_templateObject1667 = _taggedTemplateLiteral100(["Fourth of May Cosplay Saber"]))),
+    thing: $item(_templateObject1856 || (_templateObject1856 = _taggedTemplateLiteral100(["Fourth of May Cosplay Saber"]))),
     why: "Familiar Weight"
   }, {
     thing: new Hardcoded(CampAway_exports.have(), "Distant Woods Getaway Brochure"),
     why: "+exp",
     required: true
   }, {
-    thing: $item(_templateObject1761 || (_templateObject1761 = _taggedTemplateLiteral100(["Powerful Glove"]))),
+    thing: $item(_templateObject1955 || (_templateObject1955 = _taggedTemplateLiteral100(["Powerful Glove"]))),
     why: "Pixels"
   }, {
-    thing: $familiar(_templateObject1856 || (_templateObject1856 = _taggedTemplateLiteral100(["Left-Hand Man"]))),
+    thing: $familiar(_templateObject2049 || (_templateObject2049 = _taggedTemplateLiteral100(["Left-Hand Man"]))),
     why: "Carn plant"
   }, {
-    thing: $familiar(_templateObject1955 || (_templateObject1955 = _taggedTemplateLiteral100(["Melodramedary"]))),
+    thing: $familiar(_templateObject21102 || (_templateObject21102 = _taggedTemplateLiteral100(["Melodramedary"]))),
     why: "Desert progress"
   }, {
-    thing: $item(_templateObject2049 || (_templateObject2049 = _taggedTemplateLiteral100(["Cargo Cultist Shorts"]))),
+    thing: $item(_templateObject2250 || (_templateObject2250 = _taggedTemplateLiteral100(["Cargo Cultist Shorts"]))),
     why: "Mountain man"
   }, {
-    thing: $item(_templateObject21102 || (_templateObject21102 = _taggedTemplateLiteral100(["unwrapped knock-off retro superhero cape"]))),
+    thing: $item(_templateObject2350 || (_templateObject2350 = _taggedTemplateLiteral100(["unwrapped knock-off retro superhero cape"]))),
     why: "Slay the dead in crypt, survivng",
     required: true
   }, {
-    thing: $item(_templateObject2250 || (_templateObject2250 = _taggedTemplateLiteral100(["miniature crystal ball"]))),
+    thing: $item(_templateObject2449 || (_templateObject2449 = _taggedTemplateLiteral100(["miniature crystal ball"]))),
     why: "Monster prediction"
   }, {
-    thing: $skill(_templateObject2350 || (_templateObject2350 = _taggedTemplateLiteral100(["Emotionally Chipped"]))),
+    thing: $skill(_templateObject2543 || (_templateObject2543 = _taggedTemplateLiteral100(["Emotionally Chipped"]))),
     why: "Banish, -combat, items",
     required: true
   }, {
-    thing: $item(_templateObject2449 || (_templateObject2449 = _taggedTemplateLiteral100(["potted power plant"]))),
+    thing: $item(_templateObject2640 || (_templateObject2640 = _taggedTemplateLiteral100(["potted power plant"]))),
     why: "+Adv"
   }, {
-    thing: $item(_templateObject2543 || (_templateObject2543 = _taggedTemplateLiteral100(["backup camera"]))),
+    thing: $item(_templateObject2740 || (_templateObject2740 = _taggedTemplateLiteral100(["backup camera"]))),
     why: "ML, init"
   }, {
-    thing: $familiar(_templateObject2640 || (_templateObject2640 = _taggedTemplateLiteral100(["Shorter-Order Cook"]))),
+    thing: $familiar(_templateObject2838 || (_templateObject2838 = _taggedTemplateLiteral100(["Shorter-Order Cook"]))),
     why: "Kill the Wall of Skin, initial exp"
   }, {
-    thing: $item(_templateObject2740 || (_templateObject2740 = _taggedTemplateLiteral100(["familiar scrapbook"]))),
+    thing: $item(_templateObject2937 || (_templateObject2937 = _taggedTemplateLiteral100(["familiar scrapbook"]))),
     why: "+exp"
   }, {
-    thing: $item(_templateObject2838 || (_templateObject2838 = _taggedTemplateLiteral100(["industrial fire extinguisher"]))),
+    thing: $item(_templateObject3036 || (_templateObject3036 = _taggedTemplateLiteral100(["industrial fire extinguisher"]))),
     why: "Harem outfit, Bat hole, stone wool, Crypt, Ultrahydrated, Shadow bricks"
   }, {
-    thing: $item(_templateObject2937 || (_templateObject2937 = _taggedTemplateLiteral100(["Daylight Shavings Helmet"]))),
+    thing: $item(_templateObject3177 || (_templateObject3177 = _taggedTemplateLiteral100(["Daylight Shavings Helmet"]))),
     why: "+meat, +item"
   }, {
-    thing: $item(_templateObject3036 || (_templateObject3036 = _taggedTemplateLiteral100(["cursed magnifying glass"]))),
+    thing: $item(_templateObject3239 || (_templateObject3239 = _taggedTemplateLiteral100(["cursed magnifying glass"]))),
     why: "Wanderers"
   }, {
-    thing: new Hardcoded(have($item(_templateObject3177 || (_templateObject3177 = _taggedTemplateLiteral100(["cosmic bowling ball"])))) || get("cosmicBowlingBallReturnCombats", -1) >= 0, "Cosmic bowling ball"),
+    thing: new Hardcoded(have($item(_templateObject3337 || (_templateObject3337 = _taggedTemplateLiteral100(["cosmic bowling ball"])))) || get("cosmicBowlingBallReturnCombats", -1) >= 0, "Cosmic bowling ball"),
     why: "Banishes"
   }, {
-    thing: $item(_templateObject3239 || (_templateObject3239 = _taggedTemplateLiteral100(["combat lover's locket"]))),
+    thing: $item(_templateObject3434 || (_templateObject3434 = _taggedTemplateLiteral100(["combat lover's locket"]))),
     why: "Reminiscing",
     required: true
   }, {
-    thing: $familiar(_templateObject3337 || (_templateObject3337 = _taggedTemplateLiteral100(["Grey Goose"]))),
+    thing: $familiar(_templateObject3533 || (_templateObject3533 = _taggedTemplateLiteral100(["Grey Goose"]))),
     why: "Leveling, duplication drones",
     required: true
   }, {
-    thing: $item(_templateObject3434 || (_templateObject3434 = _taggedTemplateLiteral100(["unbreakable umbrella"]))),
+    thing: $item(_templateObject3633 || (_templateObject3633 = _taggedTemplateLiteral100(["unbreakable umbrella"]))),
     why: "-combat modifier, ML"
   }, {
-    thing: $item(_templateObject3533 || (_templateObject3533 = _taggedTemplateLiteral100(["June cleaver"]))),
+    thing: $item(_templateObject3733 || (_templateObject3733 = _taggedTemplateLiteral100(["June cleaver"]))),
     why: "Tavern, +adv, survivng",
     required: true
   }, {
-    thing: $item(_templateObject3633 || (_templateObject3633 = _taggedTemplateLiteral100(["designer sweatpants"]))),
+    thing: $item(_templateObject3833 || (_templateObject3833 = _taggedTemplateLiteral100(["designer sweatpants"]))),
     why: "Sleaze damage, +init"
   }, {
-    thing: $item(_templateObject3733 || (_templateObject3733 = _taggedTemplateLiteral100(["Jurassic Parka"]))),
+    thing: $item(_templateObject3933 || (_templateObject3933 = _taggedTemplateLiteral100(["Jurassic Parka"]))),
     why: "Meat, ML, -combat forces, survivng",
     required: true
   }, {
     thing: new Hardcoded(AutumnAton_exports.have(), "autumn-aton"),
     why: "Lobsterfrogman"
   }, {
-    thing: $item(_templateObject3833 || (_templateObject3833 = _taggedTemplateLiteral100(["S.I.T. Course Completion Certificate"]))),
+    thing: $item(_templateObject4033 || (_templateObject4033 = _taggedTemplateLiteral100(["S.I.T. Course Completion Certificate"]))),
     why: "Profit, +meat"
   }, {
-    thing: $item(_templateObject3933 || (_templateObject3933 = _taggedTemplateLiteral100(["closed-circuit pay phone"]))),
+    thing: $item(_templateObject4157 || (_templateObject4157 = _taggedTemplateLiteral100(["closed-circuit pay phone"]))),
     why: "Shadow bricks, +meat, Leveling with Goose",
     required: true
   }, {
-    thing: $item(_templateObject4033 || (_templateObject4033 = _taggedTemplateLiteral100(["cursed monkey's paw"]))),
+    thing: $item(_templateObject4234 || (_templateObject4234 = _taggedTemplateLiteral100(["cursed monkey's paw"]))),
     why: "Banishes"
   }, {
-    thing: $item(_templateObject4157 || (_templateObject4157 = _taggedTemplateLiteral100(["Cincho de Mayo"]))),
+    thing: $item(_templateObject4334 || (_templateObject4334 = _taggedTemplateLiteral100(["Cincho de Mayo"]))),
     why: "-combat forces"
   }, {
-    thing: $item(_templateObject4234 || (_templateObject4234 = _taggedTemplateLiteral100(["2002 Mr. Store Catalog"]))),
+    thing: $item(_templateObject4433 || (_templateObject4433 = _taggedTemplateLiteral100(["2002 Mr. Store Catalog"]))),
     why: "+item, +init, wanderers"
   }, {
-    thing: $familiar(_templateObject4334 || (_templateObject4334 = _taggedTemplateLiteral100(["Patriotic Eagle"]))),
+    thing: $familiar(_templateObject4533 || (_templateObject4533 = _taggedTemplateLiteral100(["Patriotic Eagle"]))),
     why: "Niche, Palindome, Twin Paak"
   }, {
-    thing: $item(_templateObject4433 || (_templateObject4433 = _taggedTemplateLiteral100(["august scepter"]))),
+    thing: $item(_templateObject4633 || (_templateObject4633 = _taggedTemplateLiteral100(["august scepter"]))),
     why: "Protestors, Nuns"
   }, {
-    thing: $familiar(_templateObject4533 || (_templateObject4533 = _taggedTemplateLiteral100(["Jill-of-All-Trades"]))),
+    thing: $familiar(_templateObject4733 || (_templateObject4733 = _taggedTemplateLiteral100(["Jill-of-All-Trades"]))),
     why: "+meat, +item"
   }, {
-    thing: $item(_templateObject4633 || (_templateObject4633 = _taggedTemplateLiteral100(["candy cane sword cane"]))),
+    thing: $item(_templateObject4833 || (_templateObject4833 = _taggedTemplateLiteral100(["candy cane sword cane"]))),
     why: "NS key, protestors, black forest, war start, bowling, shore"
   }, {
-    thing: $item(_templateObject4733 || (_templateObject4733 = _taggedTemplateLiteral100(["spring shoes"]))),
+    thing: $item(_templateObject4933 || (_templateObject4933 = _taggedTemplateLiteral100(["spring shoes"]))),
     why: "Runaways, Leveling"
   }, {
-    thing: $item(_templateObject4833 || (_templateObject4833 = _taggedTemplateLiteral100(["Everfull Dart Holster"]))),
+    thing: $item(_templateObject5031 || (_templateObject5031 = _taggedTemplateLiteral100(["Everfull Dart Holster"]))),
     why: "Free kills"
   }, {
-    thing: $item(_templateObject4933 || (_templateObject4933 = _taggedTemplateLiteral100(["Apriling band helmet"]))),
+    thing: $item(_templateObject5147 || (_templateObject5147 = _taggedTemplateLiteral100(["Apriling band helmet"]))),
     why: "-combat forces"
   }, {
     // eslint-disable-next-line libram/verify-constants
-    thing: $item(_templateObject5031 || (_templateObject5031 = _taggedTemplateLiteral100(["Mayam Calendar"]))),
+    thing: $item(_templateObject5232 || (_templateObject5232 = _taggedTemplateLiteral100(["Mayam Calendar"]))),
     why: "Free rests, fam exp"
   }];
 }
 function buildLocketList() {
   return [{
-    thing: $monster(_templateObject5147 || (_templateObject5147 = _taggedTemplateLiteral100(["Astronomer"]))),
+    thing: $monster(_templateObject5332 || (_templateObject5332 = _taggedTemplateLiteral100(["Astronomer"]))),
     why: "Star Key"
   }, {
-    thing: $monster(_templateObject5232 || (_templateObject5232 = _taggedTemplateLiteral100(["Camel's Toe"]))),
+    thing: $monster(_templateObject5432 || (_templateObject5432 = _taggedTemplateLiteral100(["Camel's Toe"]))),
     why: "Star Key"
   }, {
-    thing: $monster(_templateObject5332 || (_templateObject5332 = _taggedTemplateLiteral100(["Baa'baa'bu'ran"]))),
+    thing: $monster(_templateObject5531 || (_templateObject5531 = _taggedTemplateLiteral100(["Baa'baa'bu'ran"]))),
     why: "Wool"
   }, {
-    thing: $monster(_templateObject5432 || (_templateObject5432 = _taggedTemplateLiteral100(["mountain man"]))),
+    thing: $monster(_templateObject5630 || (_templateObject5630 = _taggedTemplateLiteral100(["mountain man"]))),
     why: "Ore"
   }, {
-    thing: $monster(_templateObject5531 || (_templateObject5531 = _taggedTemplateLiteral100(["War Frat 151st Infantryman"]))),
+    thing: $monster(_templateObject5728 || (_templateObject5728 = _taggedTemplateLiteral100(["War Frat 151st Infantryman"]))),
     why: "Outfit"
   }];
 }
 function buildMiscList() {
   return [{
-    thing: $familiar(_templateObject5630 || (_templateObject5630 = _taggedTemplateLiteral100(["Oily Woim"]))),
+    thing: $familiar(_templateObject5826 || (_templateObject5826 = _taggedTemplateLiteral100(["Oily Woim"]))),
     why: "Bonus initiative"
   }, {
-    thing: $familiar(_templateObject5728 || (_templateObject5728 = _taggedTemplateLiteral100(["Gelatinous Cubeling"]))),
+    thing: $familiar(_templateObject5925 || (_templateObject5925 = _taggedTemplateLiteral100(["Gelatinous Cubeling"]))),
     why: "Daily dungeon"
   }, {
-    thing: $familiar(_templateObject5826 || (_templateObject5826 = _taggedTemplateLiteral100(["Hobo Monkey"]))),
+    thing: $familiar(_templateObject6025 || (_templateObject6025 = _taggedTemplateLiteral100(["Hobo Monkey"]))),
     why: "Meat drops"
   }, {
     thing: new Hardcoded(get("poolSharkCount") >= 25, "Permanent pool skill from A Shark's Chum"),
@@ -47780,7 +47785,7 @@ function checkRequirements() {
 }
 
 // src/_git_commit.ts
-var lastCommitHash = "cea7c16";
+var lastCommitHash = "a7de967";
 
 // src/main.ts
 var _templateObject1190;
