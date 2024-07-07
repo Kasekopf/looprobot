@@ -488,7 +488,7 @@ export const TowerQuest: Quest = {
     {
       name: "Maze",
       after: ["Frank"],
-      ready: () => myAdventures() === args.debug.halt + 6,
+      ready: () => myAdventures() >= args.debug.halt + 6,
       completed: () => step("questL13Final") > 4,
       prepare: () => {
         fillHp();
