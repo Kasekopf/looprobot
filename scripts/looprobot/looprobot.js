@@ -31789,7 +31789,10 @@ var summonTargets = [{
   },
   outfit: {
     modifier: "cold dmg, sleaze res",
-    equip: $items(_templateObject2423 || (_templateObject2423 = _taggedTemplateLiteral74(["June cleaver, industrial fire extinguisher"]))),
+    equip: $items(_templateObject2423 || (_templateObject2423 = _taggedTemplateLiteral74(["June cleaver, industrial fire extinguisher, Space Trip safety headphones, Jurassic Parka"]))),
+    modes: {
+      parka: "ghostasaurus"
+    },
     avoid: $items(_templateObject2521 || (_templateObject2521 = _taggedTemplateLiteral74(["carnivorous potted plant, Everfull Dart Holster"])))
   },
   combat: new CombatStrategy2().macro(Macro.attack().repeat()).killHard()
@@ -34326,7 +34329,7 @@ var Engine2 = /* @__PURE__ */ function(_BaseEngine) {
       }), function() {
         return true;
       });
-      if ((0, import_kolmafia89.myAdventures)() < args.debug.halt)
+      if ((0, import_kolmafia89.myAdventures)() <= args.debug.halt && (0, import_kolmafia89.myTurncount)() >= 1)
         throw "Running out of adventures!";
       var postcondition = (_task$limit = task.limit) === null || _task$limit === void 0 || (_task$limit$guard = _task$limit.guard) === null || _task$limit$guard === void 0 ? void 0 : _task$limit$guard.call(_task$limit);
       this.acquireItems(task);
@@ -47724,7 +47727,7 @@ function checkRequirements() {
 }
 
 // src/_git_commit.ts
-var lastCommitHash = "e266f46";
+var lastCommitHash = "8728ff0";
 
 // src/main.ts
 var _templateObject1190;
