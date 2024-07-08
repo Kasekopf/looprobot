@@ -1,6 +1,7 @@
 import {
   cliExecute,
   haveEquipped,
+  myAdventures,
   myBuffedstat,
   myClass,
   myMaxmp,
@@ -30,6 +31,7 @@ import {
   Macro,
 } from "libram";
 import { CombatStrategy } from "../engine/combat";
+import { args } from "../args";
 import { atLevel } from "../lib";
 import { Quest, Task } from "../engine/task";
 import { step } from "grimoire-kolmafia";
