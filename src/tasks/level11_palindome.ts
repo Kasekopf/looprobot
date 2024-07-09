@@ -129,7 +129,12 @@ const Copperhead: Task[] = [
       }, $monsters`batrat, ratbat`)
       .killHard($monster`Batsnake`)
       .killItem(),
-    outfit: { modifier: "item", avoid: $items`broken champagne bottle` },
+    outfit: () => {
+      const result = <OutfitSpec>{ modifier: "item", avoid: $items`broken champagne bottle` };
+      if ($location`The Batrat and Ratbat Burrow`.turnsSpent > 5)
+        result.equip = $items`Space Trip safety headphones`;
+      return result;
+    },
     limit: { soft: 10 },
     orbtargets: () => [],
     delay: () => (step("questL04Bat") >= 3 ? 5 : 0),
