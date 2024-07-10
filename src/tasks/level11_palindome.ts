@@ -131,7 +131,7 @@ const Copperhead: Task[] = [
       .killItem(),
     outfit: () => {
       const result = <OutfitSpec>{ modifier: "item", avoid: $items`broken champagne bottle` };
-      if ($location`The Batrat and Ratbat Burrow`.turnsSpent > 5)
+      if ($location`The Batrat and Ratbat Burrow`.turnsSpent >= 5)
         result.equip = $items`Space Trip safety headphones`;
       return result;
     },
