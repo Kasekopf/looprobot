@@ -199,9 +199,15 @@ const Oil: Task[] = [
       if (have($item`unbreakable umbrella`))
         return {
           modifier: "ML 80 max, 0.1 item, monster level percent",
-          equip: $items`unbreakable umbrella, Everfull Dart Holster`,
+          equip: $items`unbreakable umbrella, Everfull Dart Holster, unwrapped knock-off retro superhero cape`,
+          modes: { umbrella: "broken", retrocape: ["heck", "hold"] },
         };
-      else return { modifier: "ML, 0.1 item", equip: $items`Everfull Dart Holster` };
+      else
+        return {
+          modifier: "ML, 0.1 item",
+          equip: $items`Everfull Dart Holster, unwrapped knock-off retro superhero cape`,
+          modes: { retrocape: ["heck", "hold"] },
+        };
     },
     combat: new CombatStrategy().killItem().macro(() => {
       const part = haveEquipped($item`unwrapped knock-off retro superhero cape`) ? "butt" : "oil";
