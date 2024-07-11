@@ -127,13 +127,25 @@ const Copperhead: Task[] = [
         }
         return new Macro();
       }, $monsters`batrat, ratbat`)
+      .macro(() => {
+        if (
+          !haveEquipped($item`Space Trip safety headphones`) &&
+          !haveEquipped($item`unwrapped knock-off retro superhero cape`)
+        )
+          return Macro.tryItem($item`shard of double-ice`);
+        return new Macro();
+      }, $monster`Batsnake`)
       .killHard($monster`Batsnake`)
       .killItem(),
     outfit: () => {
-      const result = <OutfitSpec>{ modifier: "item", avoid: $items`broken champagne bottle` };
-      if ($location`The Batrat and Ratbat Burrow`.turnsSpent >= 5)
-        result.equip = $items`Space Trip safety headphones`;
-      return result;
+      if ($location`The Batrat and Ratbat Burrow`.turnsSpent >= 5) {
+        return {
+          equip: $items`Space Trip safety headphones, unwrapped knock-off retro superhero cape`,
+          modes: { retrocape: ["heck", "hold"] },
+        };
+      } else {
+        return { modifier: "item", avoid: $items`broken champagne bottle` };
+      }
     },
     limit: { soft: 10 },
     orbtargets: () => [],
