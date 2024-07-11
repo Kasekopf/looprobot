@@ -41617,12 +41617,19 @@ var Oil = [{
     if (have($item(_templateObject4426 || (_templateObject4426 = _taggedTemplateLiteral92(["unbreakable umbrella"])))))
       return {
         modifier: "ML 80 max, 0.1 item, monster level percent",
-        equip: $items(_templateObject4526 || (_templateObject4526 = _taggedTemplateLiteral92(["unbreakable umbrella, Everfull Dart Holster"])))
+        equip: $items(_templateObject4526 || (_templateObject4526 = _taggedTemplateLiteral92(["unbreakable umbrella, Everfull Dart Holster, unwrapped knock-off retro superhero cape"]))),
+        modes: {
+          umbrella: "broken",
+          retrocape: ["heck", "hold"]
+        }
       };
     else
       return {
         modifier: "ML, 0.1 item",
-        equip: $items(_templateObject4626 || (_templateObject4626 = _taggedTemplateLiteral92(["Everfull Dart Holster"])))
+        equip: $items(_templateObject4626 || (_templateObject4626 = _taggedTemplateLiteral92(["Everfull Dart Holster, unwrapped knock-off retro superhero cape"]))),
+        modes: {
+          retrocape: ["heck", "hold"]
+        }
       };
   },
   combat: new CombatStrategy2().killItem().macro(function() {
@@ -47809,7 +47816,7 @@ function checkRequirements() {
 }
 
 // src/_git_commit.ts
-var lastCommitHash = "e1d256b";
+var lastCommitHash = "c503b1d";
 
 // src/main.ts
 var _templateObject1190;
