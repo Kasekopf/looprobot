@@ -97,7 +97,6 @@ Expensive Pulls (Optional)
 ✓ Shore Inc. Ship Trip Scrip - Pull
 
 IoTMs (Required)
-✓ closed-circuit pay phone - Shadow bricks, +meat, Leveling with Goose
 ✓ combat lover's locket - Reminiscing
 ✓ Distant Woods Getaway Brochure - +exp
 ✓ Emotionally Chipped - Banish, -combat, items
@@ -105,9 +104,7 @@ IoTMs (Required)
 ✓ grey gosling - Leveling, duplication drones
 ✓ June cleaver - Tavern, +adv, survivng
 ✓ Jurassic Parka - Meat, ML, -combat forces, survivng
-✓ Neverending Party - Leveling with Goose
-✓ Snojo - Leveling with Goose
-✓ unwrapped knock-off retro superhero cape - Slay the dead in crypt, survivng
+✓ Two of (Snojo, Neverending Party, closed-circuit pay phone) - Leveling with Goose
 
 IoTMs (Optional)
 ✓ 2002 Mr. Store Catalog - +item, +init, wanderers
@@ -123,6 +120,7 @@ IoTMs (Optional)
 ✓ Chateau Mantegna - Free rests, +exp
 ✓ Cincho de Mayo - -combat forces
 ✓ Clan VIP Lounge key - YRs, +combat
+✓ closed-circuit pay phone - Shadow bricks, +meat, Leveling with Goose
 ✓ Cosmic bowling ball - Banishes
 ✓ cursed magnifying glass - Wanderers
 ✓ cursed monkey's paw - Banishes
@@ -147,17 +145,21 @@ IoTMs (Optional)
 ✓ Mayam Calendar - Free rests, fam exp
 ✓ miniature crystal ball - Monster prediction
 ✓ Moping Artistic Goth Kid - Wanderers
+✓ Neverending Party - Leveling with Goose
 ✓ potted power plant - +Adv
 ✓ Powerful Glove - Pixels
 ✓ protonic accelerator pack - Wanderers
+✓ Roman Candelabra - Monster copies for delay
 ✓ S.I.T. Course Completion Certificate - Profit, +meat
 ✓ shortest-order cook - Kill the Wall of Skin, initial exp
 ✓ sinistral homunculus - Carn plant
 ✓ sleeping patriotic eagle - Niche, Palindome, Twin Paak
+✓ Snojo - Leveling with Goose
 ✓ SongBoom™ BoomBox - Meat and special seasonings
 ✓ spring shoes - Runaways, Leveling
 ✓ Unagnimated Gnome - Adv gain
 ✓ unbreakable umbrella - -combat modifier, ML
+✓ unwrapped knock-off retro superhero cape - Slay the dead in crypt, survivng
 ✓ Voting Booth - Wanderers
 
 Miscellany

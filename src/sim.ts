@@ -43,7 +43,20 @@ interface Requirement {
  * Return: a list of all things required to run the script.
  */
 function buildIotmList(): Requirement[] {
+  let freeFightSources = 0;
+  if (get("snojoAvailable")) freeFightSources += 1;
+  if (get("neverendingPartyAlways")) freeFightSources += 1;
+  if (have($item`closed-circuit pay phone`)) freeFightSources += 1;
+
   return [
+    {
+      thing: new Hardcoded(
+        freeFightSources >= 2,
+        "Two of (Snojo, Neverending Party, closed-circuit pay phone)"
+      ),
+      why: "Leveling with Goose",
+      required: true,
+    },
     { thing: $item`Clan VIP Lounge key`, why: "YRs, +combat" },
     {
       thing: $familiar`Artistic Goth Kid`,
@@ -68,7 +81,6 @@ function buildIotmList(): Requirement[] {
     {
       thing: new Hardcoded(get("snojoAvailable"), "Snojo"),
       why: "Leveling with Goose",
-      required: true,
     },
     {
       thing: $item`protonic accelerator pack`,
@@ -81,7 +93,6 @@ function buildIotmList(): Requirement[] {
     {
       thing: new Hardcoded(get("loveTunnelAvailable"), "LOV Tunnel"),
       why: "+exp, leveling",
-      required: false,
     },
     {
       thing: $item`Kremlin's Greatest Briefcase`,
@@ -111,7 +122,6 @@ function buildIotmList(): Requirement[] {
     {
       thing: new Hardcoded(get("neverendingPartyAlways"), "Neverending Party"),
       why: "Leveling with Goose",
-      required: true,
     },
     {
       thing: $item`Bastille Battalion control rig`,
@@ -159,7 +169,6 @@ function buildIotmList(): Requirement[] {
     {
       thing: $item`unwrapped knock-off retro superhero cape`,
       why: "Slay the dead in crypt, survivng",
-      required: true,
     },
     {
       thing: $item`miniature crystal ball`,
@@ -240,7 +249,6 @@ function buildIotmList(): Requirement[] {
     {
       thing: $item`closed-circuit pay phone`,
       why: "Shadow bricks, +meat, Leveling with Goose",
-      required: true,
     },
     {
       thing: $item`cursed monkey's paw`,
@@ -286,6 +294,11 @@ function buildIotmList(): Requirement[] {
       // eslint-disable-next-line libram/verify-constants
       thing: $item`Mayam Calendar`,
       why: "Free rests, fam exp",
+    },
+    {
+      // eslint-disable-next-line libram/verify-constants
+      thing: $item`Roman Candelabra`,
+      why: "Monster copies for delay",
     },
   ];
 }
