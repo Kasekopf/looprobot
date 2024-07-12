@@ -136,6 +136,8 @@ const Oil: Task[] = [
       if (myMp() < 80 && myMaxmp() >= 80) customRestoreMp(80 - myMp());
       if (myHp() < 100 && myMaxhp() >= 100) customRestoreMp(100 - myMp());
       if (numericModifier("Monster Level") < 100) changeMcd(10);
+
+      tryPlayApriling("food");
     },
     post: () => {
       if (currentMcd() > 0) changeMcd(0);
@@ -151,7 +153,7 @@ const Oil: Task[] = [
       );
 
       const spec: OutfitSpec & { equip: Item[] } = {
-        modifier: `ML ${mlNeeded} max, 0.1 item`,
+        modifier: `ML ${mlNeeded} max, 0.1 item, 0.1 food drop`,
         equip: $items`unbreakable umbrella, unwrapped knock-off retro superhero cape, June cleaver`,
         modes: { umbrella: "broken", retrocape: ["heck", "hold"] },
         avoid: $items`Kramco Sausage-o-Matic™`,
@@ -194,17 +196,20 @@ const Oil: Task[] = [
       itemAmount($item`bubblin' crude`) >= 12 ||
       have($item`jar of oil`) ||
       !!(get("twinPeakProgress") & 4),
+    prepare: () => {
+      tryPlayApriling("food");
+    },
     do: $location`Oil Peak`,
     outfit: () => {
       if (have($item`unbreakable umbrella`))
         return {
-          modifier: "ML 80 max, 0.1 item, monster level percent",
+          modifier: "ML 80 max, 0.1 item, 0.1 food drop, monster level percent",
           equip: $items`unbreakable umbrella, Everfull Dart Holster, unwrapped knock-off retro superhero cape`,
           modes: { umbrella: "broken", retrocape: ["heck", "hold"] },
         };
       else
         return {
-          modifier: "ML, 0.1 item",
+          modifier: "ML, 0.1 item, 0.1 food drop",
           equip: $items`Everfull Dart Holster, unwrapped knock-off retro superhero cape`,
           modes: { retrocape: ["heck", "hold"] },
         };
