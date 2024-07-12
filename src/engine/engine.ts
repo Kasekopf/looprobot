@@ -866,7 +866,7 @@ export class Engine extends BaseEngine<CombatActions, ActiveTask> {
       resetBadOrb();
     if (get("_latteBanishUsed") && shouldFinishLatte()) refillLatte();
     autosellJunk();
-    for (const poisoned of $effects`Hardly Poisoned at All, A Little Bit Poisoned, Somewhat Poisoned, Really Quite Poisoned, Majorly Poisoned, Toad In The Hole`) {
+    for (const poisoned of $effects`Hardly Poisoned at All, A Little Bit Poisoned, Somewhat Poisoned, Really Quite Poisoned, Majorly Poisoned, Toad In The Hole, Cunctatitis`) {
       if (have(poisoned)) uneffect(poisoned);
     }
     globalStateCache.invalidate();

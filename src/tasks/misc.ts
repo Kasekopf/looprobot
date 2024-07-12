@@ -10,6 +10,7 @@ import {
   gamedayToInt,
   getCampground,
   getClanLounge,
+  haveEffect,
   haveEquipped,
   hermit,
   hippyStoneBroken,
@@ -294,6 +295,8 @@ export const MiscQuest: Quest = {
       ready: () => {
         if (!have($item`protonic accelerator pack`)) return false;
         if (get("questPAGhost") === "unstarted") return false;
+        if (haveEffect($effect`Cunctatitis`)) return false;
+
         switch (get("ghostLocation")) {
           case $location`Cobb's Knob Treasury`:
             return step("questL05Goblin") >= 1;
