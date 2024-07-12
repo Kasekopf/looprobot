@@ -29,7 +29,7 @@ void main(int choice, string page)
 				"Extra stats from stats targets":40,
 				"Butt awareness":30,
 				"Add Hot Damage":1000,
-				"Add Cold Damage":1000,
+				"Add Cold Damage":31,
 				"Add Sleaze Damage":1000,
 				"Add Spooky Damage":1000,
 				"Add Stench Damage":1000,
