@@ -1022,11 +1022,18 @@ export const MiscQuest: Quest = {
       name: "Eat Sausage",
       after: [],
       priority: () => Priorities.Free,
-      ready: () =>
-        myTurncount() >= 100 &&
-        myAdventures() === args.debug.halt + 1 &&
-        have($item`magical sausage casing`) &&
-        myMeat() >= (1 + get("_sausagesEaten")) * 111,
+      ready: () => {
+        if (myTurncount() < 10) return false;
+        if (!have($item`magical sausage casing`)) return false;
+        if (myMeat() < (1 + get("_sausagesEaten")) * 111) return false;
+
+        const advBeforeHalt = myAdventures() - args.debug.halt;
+        // Prepare for Ed
+        if (get("pyramidBombUsed") && step("questL11Pyramid") < 999) advBeforeHalt <= 7;
+        // Prepare for hedge maze
+        if (step("questL13Final") === 4) return advBeforeHalt <= 4;
+        return advBeforeHalt <= 1;
+      },
       completed: () => get("_sausagesEaten") >= 23,
       do: () => eat($item`magical sausage`),
       freeaction: true,
