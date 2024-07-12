@@ -32,6 +32,7 @@ import { Quest, Task } from "../engine/task";
 import { OutfitSpec, step } from "grimoire-kolmafia";
 import { Priorities } from "../engine/priority";
 import { CombatStrategy } from "../engine/combat";
+import { args } from "../args";
 import { atLevel, debug } from "../lib";
 import { councilSafe } from "./level12";
 import { customRestoreMp } from "../engine/moods";
@@ -411,7 +412,7 @@ const Pyramid: Task[] = [
   {
     name: "Boss",
     after: ["Use Bomb"],
-    ready: () => myAdventures() >= 7,
+    ready: () => myAdventures() >= args.debug.halt + 7,
     completed: () => step("questL11Pyramid") === 999,
     do: () => visitUrl("place.php?whichplace=pyramid&action=pyramid_state1a"),
     post: () => {
