@@ -14,6 +14,7 @@ import {
   logprint,
   myAdventures,
   myBasestat,
+  myFamiliar,
   myFullness,
   myHp,
   myLevel,
@@ -28,12 +29,14 @@ import {
   Slot,
   toUrl,
   use,
+  useFamiliar,
   visitUrl,
 } from "kolmafia";
 import { Task } from "./task";
 import {
   $effect,
   $effects,
+  $familiar,
   $item,
   $items,
   $location,
@@ -707,6 +710,11 @@ export class Engine extends BaseEngine<CombatActions, ActiveTask> {
     const effects: Effect[] = undelay(task.effects) ?? [];
     const other_effects = task.other_effects ?? [];
     applyEffects(outfit.modifier.join(","), [...effects, ...other_effects]);
+
+    // Equipping familiar equipment on top of no familiar fails
+    // so ensure we have a familiar equipped
+    if (YouRobot.canUseFamiliar() && myFamiliar() === Familiar.none)
+      useFamiliar(outfit.familiar ?? $familiar`Grey Goose`);
 
     try {
       cacheDress(outfit);
