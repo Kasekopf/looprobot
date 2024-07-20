@@ -975,6 +975,7 @@ export const MiscQuest: Quest = {
       do: $location`The Hidden Temple`,
       choices: { 582: 1, 579: 3 },
       limit: { tries: 1 },
+      expectbeatenup: true,
     },
     {
       name: "Untinkerer Start",
