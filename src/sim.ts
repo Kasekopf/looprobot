@@ -291,12 +291,10 @@ function buildIotmList(): Requirement[] {
       why: "-combat forces",
     },
     {
-      // eslint-disable-next-line libram/verify-constants
       thing: $item`Mayam Calendar`,
       why: "Free rests, fam exp",
     },
     {
-      // eslint-disable-next-line libram/verify-constants
       thing: $item`Roman Candelabra`,
       why: "Monster copies for delay",
     },

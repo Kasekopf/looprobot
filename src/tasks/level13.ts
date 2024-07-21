@@ -1,5 +1,4 @@
 import {
-  cliExecute,
   haveEquipped,
   myAdventures,
   myBuffedstat,
@@ -9,8 +8,6 @@ import {
   myPrimestat,
   numericModifier,
   runChoice,
-  use,
-  useSkill,
   visitUrl,
 } from "kolmafia";
 import {
@@ -21,7 +18,6 @@ import {
   $item,
   $items,
   $location,
-  $monster,
   $skill,
   $stat,
   BeachComb,
@@ -362,79 +358,6 @@ const Door: Task[] = [
     do: () => visitUrl("place.php?whichplace=nstower_door&action=ns_doorknob"),
     limit: { tries: 1 },
     freeaction: true,
-  },
-];
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const wand: Task[] = [
-  {
-    name: "Wand W",
-    after: ["Wall of Bones"],
-    ready: () =>
-      !have($item`11-leaf clover`) && !have($skill`Aug. 2nd: Find an Eleven-Leaf Clover Day`),
-    completed: () => have($item`ruby W`) || have($item`WA`) || have($item`Wand of Nagamar`),
-    do: $location`Pandamonium Slums`,
-    outfit: { modifier: "item" },
-    combat: new CombatStrategy().killItem($monster`W imp`),
-    limit: { soft: 20 },
-  },
-  {
-    name: "Wand A",
-    after: ["Wall of Bones"],
-    ready: () =>
-      !have($item`11-leaf clover`) && !have($skill`Aug. 2nd: Find an Eleven-Leaf Clover Day`),
-    completed: () => have($item`metallic A`) || have($item`WA`) || have($item`Wand of Nagamar`),
-    do: $location`The Penultimate Fantasy Airship`,
-    outfit: { modifier: "item" },
-    combat: new CombatStrategy().killItem($monster`MagiMechTech MechaMech`),
-    limit: { soft: 20 },
-  },
-  {
-    name: "Wand N",
-    after: ["Wall of Bones"],
-    ready: () =>
-      !have($item`11-leaf clover`) && !have($skill`Aug. 2nd: Find an Eleven-Leaf Clover Day`),
-    completed: () => have($item`lowercase N`) || have($item`ND`) || have($item`Wand of Nagamar`),
-    do: $location`The Valley of Rof L'm Fao`,
-    outfit: { modifier: "item" },
-    combat: new CombatStrategy().killItem($monster`XXX pr0n`),
-    limit: { soft: 20 },
-  },
-  {
-    name: "Wand D",
-    after: ["Wall of Bones"],
-    ready: () =>
-      !have($item`11-leaf clover`) && !have($skill`Aug. 2nd: Find an Eleven-Leaf Clover Day`),
-    completed: () => have($item`heavy D`) || have($item`ND`) || have($item`Wand of Nagamar`),
-    do: $location`The Castle in the Clouds in the Sky (Basement)`,
-    outfit: { modifier: "item" },
-    combat: new CombatStrategy().killItem($monster`Alphabet Giant`),
-    limit: { soft: 20 },
-  },
-  {
-    name: "Wand Parts",
-    after: ["Wall of Bones"],
-    ready: () =>
-      have($item`11-leaf clover`) || have($skill`Aug. 2nd: Find an Eleven-Leaf Clover Day`),
-    completed: () =>
-      have($item`Wand of Nagamar`) ||
-      ((have($item`WA`) || (have($item`ruby W`) && have($item`metallic A`))) &&
-        (have($item`ND`) || (have($item`lowercase N`) && have($item`heavy D`)))),
-    prepare: (): void => {
-      if (have($item`11-leaf clover`)) use($item`11-leaf clover`);
-      else useSkill($skill`Aug. 2nd: Find an Eleven-Leaf Clover Day`);
-    },
-    do: $location`The Castle in the Clouds in the Sky (Basement)`,
-    limit: { tries: 1 },
-  },
-  {
-    name: "Wand",
-    after: ["Wand W", "Wand A", "Wand N", "Wand D", "Wand Parts"],
-    completed: () => have($item`Wand of Nagamar`),
-    do: () => {
-      cliExecute("make Wand of Nagamar");
-    },
-    limit: { tries: 1 },
   },
 ];
 

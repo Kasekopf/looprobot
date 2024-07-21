@@ -704,14 +704,12 @@ export const WarQuest: Quest = {
           modifier: "-combat",
         };
         if (!have($skill`Comprehensive Cartography`))
-          // eslint-disable-next-line libram/verify-constants
           result.equip?.push($item`candy cane sword cane`);
         return result;
       },
       combat: new CombatStrategy().macro(Macro.trySkill($skill`Extract Jelly`)),
       do: $location`Wartime Hippy Camp (Frat Disguise)`,
       choices: () => {
-        // eslint-disable-next-line libram/verify-constants
         if (haveEquipped($item`candy cane sword cane`))
           return { 139: 4, 140: 4, 141: 3, 142: 3, 143: 3, 144: 3, 145: 1, 146: 3, 1433: 3 };
         else return { 139: 3, 140: 3, 141: 3, 142: 3, 143: 3, 144: 3, 145: 1, 146: 3, 1433: 3 };

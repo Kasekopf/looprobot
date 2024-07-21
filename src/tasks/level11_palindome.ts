@@ -318,7 +318,6 @@ const Zepplin: Task[] = [
     outfit: () => {
       return {
         modifier: "-combat, sleaze dmg, sleaze spell dmg",
-        // eslint-disable-next-line libram/verify-constants
         equip: $items`candy cane sword cane, deck of lewd playing cards, designer sweatpants, Jurassic Parka, June cleaver, mini kiwi bikini`,
         modes: { parka: "dilophosaur" },
       };
