@@ -99,11 +99,11 @@ Expensive Pulls (Optional)
 IoTMs (Required)
 ✓ combat lover's locket - Reminiscing
 ✓ Distant Woods Getaway Brochure - +exp
-✓ Emotionally Chipped - Banish, -combat, items
 ✓ genie bottle OR cursed monkey's paw - Leveling with Goose
 ✓ grey gosling - Leveling, duplication drones
 ✓ June cleaver - Tavern, +adv, survivng
 ✓ Jurassic Parka - Meat, ML, -combat forces, survivng
+✓ spinal-fluid-covered emotion chip - Banish, -combat, items
 ✓ Two of (Snojo, Neverending Party, closed-circuit pay phone) - Leveling with Goose
 
 IoTMs (Optional)

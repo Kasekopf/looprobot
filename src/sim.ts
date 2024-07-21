@@ -12,7 +12,6 @@ import {
   $familiar,
   $item,
   $monster,
-  $skill,
   AutumnAton,
   CampAway,
   CombatLoversLocket,
@@ -175,7 +174,7 @@ function buildIotmList(): Requirement[] {
       why: "Monster prediction",
     },
     {
-      thing: $skill`Emotionally Chipped`,
+      thing: $item`spinal-fluid-covered emotion chip`,
       why: "Banish, -combat, items",
       required: true,
     },
