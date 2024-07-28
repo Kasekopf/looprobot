@@ -11,6 +11,7 @@ import {
   myMp,
   myTurncount,
   numericModifier,
+  runChoice,
   toUrl,
   use,
   visitUrl,
@@ -414,8 +415,10 @@ export const CryptQuest: Quest = {
       },
       do: () => {
         adv1($location`Haert of the Cyrpt`, -1, "");
-        if (get("lastEncounter") !== "The Bonerdagon")
+        if (get("lastEncounter") !== "The Bonerdagon") {
           visitUrl(toUrl($location`The Defiled Cranny`));
+          if (get("lastEncounter") === "Wooof! Wooooooof!") runChoice(-1);
+        }
       },
       outfit: { familiar: $familiar`Grey Goose` },
       choices: { 527: 1 },
@@ -423,7 +426,7 @@ export const CryptQuest: Quest = {
         .macro(Macro.trySkill($skill`Emit Matter Duplicating Drones`))
         .killHard(),
       boss: true,
-      limit: { tries: 2 },
+      limit: { tries: 3 },
     },
     {
       name: "Finish",
