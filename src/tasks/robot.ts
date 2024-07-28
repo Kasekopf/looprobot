@@ -248,7 +248,11 @@ export const RobotQuest: Quest = {
     {
       name: "Unequip Hat Phase 2",
       after: ["Equip Hat Phase 2", "War/Boss Hippie", "Knob/King"],
-      ready: () => $location`Sonofa Beach`.turnsSpent >= 1 || !AutumnAton.have(),
+      ready: () =>
+        $location`Sonofa Beach`.turnsSpent >= 1 ||
+        !AutumnAton.have() ||
+        get("sidequestLighthouseCompleted") !== "none" ||
+        itemAmount($item`barrel of gunpowder`) >= 5,
       completed: () => YouRobot.canUseFamiliar(),
       do: () => YouRobot.doSwitchPart("top", 2),
       limit: { tries: 1 },
