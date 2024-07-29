@@ -444,7 +444,10 @@ export const MiscQuest: Quest = {
             .skill($skill`Trap Ghost`);
       }),
       post: () => {
-        if (get("questPAGhost") !== "unstarted") {
+        const freeLastTurn = [
+          "Cobb's Knob lab key"
+        ]
+        if (!freeLastTurn.includes(get("lastEncounter")) && get("questPAGhost") !== "unstarted") {
           throw `Failed to kill ghost from protonic accelerator pack`;
         }
       },
