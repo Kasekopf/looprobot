@@ -429,9 +429,7 @@ const famweightOptions: FamweightOption[] = [
 ];
 
 function planRunawayFamiliar(): RunawayFamiliarSpec {
-  const bestFamiliar = have($familiar`Frumious Bandersnatch`) && have($item`Cargo Cultist Shorts`)
-    ? $familiar`Frumious Bandersnatch`
-    : have($familiar`Pair of Stomping Boots`)
+  const bestFamiliar = have($familiar`Pair of Stomping Boots`)
     ? $familiar`Pair of Stomping Boots`
     : false;
 
@@ -538,17 +536,6 @@ export function getRunawaySources(_location?: Location) {
       equip: runawayFamiliarPlan.outfit,
       do: new Macro().runaway(),
       chance: () => 1,
-      banishes: false,
-    },
-    {
-      name: "Bandersnatch",
-      available: () =>
-        runawayFamiliarPlan.available &&
-        runawayFamiliarPlan.outfit.familiar === $familiar`Frumious Bandersnatch`,
-      equip: runawayFamiliarPlan.outfit,
-      do: new Macro().runaway(),
-      chance: () => 1,
-      effect: $effect`Ode to Booze`,
       banishes: false,
     },
   ];
