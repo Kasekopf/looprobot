@@ -3,6 +3,7 @@ import {
   Effect,
   Familiar,
   familiarWeight,
+  getProperty,
   haveEquipped,
   Item,
   itemAmount,
@@ -15,6 +16,7 @@ import {
   myMeat,
   myMp,
   myTurncount,
+  numericModifier,
   retrieveItem,
   Skill,
   totalTurnsPlayed,
@@ -24,6 +26,7 @@ import {
   $class,
   $effect,
   $familiar,
+  $familiars,
   $item,
   $items,
   $monster,
@@ -33,15 +36,18 @@ import {
   CinchoDeMayo,
   Counter,
   get,
+  getActiveEffects,
   getKramcoWandererChance,
   have,
   Macro,
+  Modes,
   set,
   SourceTerminal,
 } from "libram";
 import {
   CombatResource as BaseCombatResource,
   DelayedMacro,
+  Outfit,
   OutfitSpec,
   step,
 } from "grimoire-kolmafia";
@@ -397,6 +403,71 @@ export interface RunawaySource extends CombatResource {
   chance: () => number;
 }
 
+interface RunawayFamiliarSpec {
+  available: boolean;
+  outfit: OutfitSpec;
+}
+
+type FamweightOption = {
+  thing: Item;
+  modes?: Partial<Modes>;
+};
+
+const famweightOptions: FamweightOption[] = [
+  // Fam equip
+  { thing: $item`amulet coin` },
+  { thing: $item`astral pet sweater` },
+  { thing: $item`tiny stillsuit` },
+  // Hands
+  { thing: $item`Fourth of May Cosplay Saber` },
+  { thing: $item`iFlail` },
+  { thing: $item`familiar scrapbook` },
+  // Accessories
+  { thing: $item`Brutal brogues` },
+  { thing: $item`hewn moon-rune spoon` },
+  { thing: $item`Beach Comb` },
+];
+
+function planRunawayFamiliar(): RunawayFamiliarSpec {
+  const bestFamiliar = have($familiar`Pair of Stomping Boots`)
+    ? $familiar`Pair of Stomping Boots`
+    : false;
+
+  if(YouRobot.canUseFamiliar() === false)
+    return {
+      available: false,
+      outfit: {},
+    };
+
+  if (bestFamiliar) {
+    const goalWeight = 5 * (1 + get("_banderRunaways"));
+    let attainableWeight = familiarWeight(bestFamiliar);
+
+    // Include active effects
+    for (const effect of getActiveEffects())
+      attainableWeight += numericModifier(effect, "Familiar Weight");
+
+    // Include as much equipment as needed
+    const outfit = new Outfit();
+    outfit.equip(bestFamiliar);
+    for (const option of famweightOptions) {
+      if (attainableWeight >= goalWeight) break;
+      if (outfit.equip(option.thing)) {
+        attainableWeight += numericModifier(option.thing, "Familiar Weight");
+      }
+    }
+
+    return {
+      outfit: outfit.spec(),
+      available: attainableWeight >= goalWeight,
+    };
+  }
+  return {
+    available: false,
+    outfit: {},
+  };
+}
+
 export const runawayValue =
   have($item`Greatest American Pants`) || have($item`navel ring of navel gazing`)
     ? 0.8 * get("valueOfAdventure")
@@ -404,6 +475,7 @@ export const runawayValue =
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function getRunawaySources(_location?: Location) {
+  const runawayFamiliarPlan = planRunawayFamiliar();
   return [
     {
       name: "Latte (Refill)",
@@ -454,6 +526,16 @@ export function getRunawaySources(_location?: Location) {
       available: () => have($item`peppermint parasol`) && get("_navelRunaways") < 9,
       do: new Macro().item($item`peppermint parasol`),
       chance: () => (get("_navelRunaways") < 3 ? 1 : 0.2),
+      banishes: false,
+    },
+    {
+      name: "Stomping Boots",
+      available: () =>
+        runawayFamiliarPlan.available &&
+        runawayFamiliarPlan.outfit.familiar === $familiar`Pair of Stomping Boots`,
+      equip: runawayFamiliarPlan.outfit,
+      do: new Macro().runaway(),
+      chance: () => 1,
       banishes: false,
     },
   ];
