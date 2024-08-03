@@ -3,7 +3,6 @@ import {
   Effect,
   Familiar,
   familiarWeight,
-  getProperty,
   haveEquipped,
   Item,
   itemAmount,
@@ -26,7 +25,6 @@ import {
   $class,
   $effect,
   $familiar,
-  $familiars,
   $item,
   $items,
   $monster,
@@ -421,6 +419,7 @@ const famweightOptions: FamweightOption[] = [
   // Hands
   { thing: $item`Fourth of May Cosplay Saber` },
   { thing: $item`iFlail` },
+  { thing: $item`ghostly reins` },
   { thing: $item`familiar scrapbook` },
   // Accessories
   { thing: $item`Brutal brogues` },
@@ -433,7 +432,7 @@ function planRunawayFamiliar(): RunawayFamiliarSpec {
     ? $familiar`Pair of Stomping Boots`
     : false;
 
-  if(YouRobot.canUseFamiliar() === false)
+  if (YouRobot.canUseFamiliar() === false)
     return {
       available: false,
       outfit: {},
@@ -506,6 +505,16 @@ export function getRunawaySources(_location?: Location) {
       banishes: false,
     },
     {
+      name: "Stomping Boots",
+      available: () =>
+        runawayFamiliarPlan.available &&
+        runawayFamiliarPlan.outfit.familiar === $familiar`Pair of Stomping Boots`,
+      equip: runawayFamiliarPlan.outfit,
+      do: new Macro().runaway(),
+      chance: () => 1,
+      banishes: false,
+    },
+    {
       name: "GAP",
       available: () => have($item`Greatest American Pants`),
       equip: $item`Greatest American Pants`,
@@ -526,16 +535,6 @@ export function getRunawaySources(_location?: Location) {
       available: () => have($item`peppermint parasol`) && get("_navelRunaways") < 9,
       do: new Macro().item($item`peppermint parasol`),
       chance: () => (get("_navelRunaways") < 3 ? 1 : 0.2),
-      banishes: false,
-    },
-    {
-      name: "Stomping Boots",
-      available: () =>
-        runawayFamiliarPlan.available &&
-        runawayFamiliarPlan.outfit.familiar === $familiar`Pair of Stomping Boots`,
-      equip: runawayFamiliarPlan.outfit,
-      do: new Macro().runaway(),
-      chance: () => 1,
       banishes: false,
     },
   ];
