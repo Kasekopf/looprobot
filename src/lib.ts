@@ -294,3 +294,24 @@ export function tryEnsureLucky(): boolean {
   }
   return false;
 }
+
+export function isChronoWorthIt(): boolean {
+  const currentAdventures = myAdventures();
+  let futureAdventures = currentAdventures;
+  let currentEnergy = YouRobot.energy();
+  let numEnergyCollects = 0;
+
+  while (futureAdventures > 0) {
+    futureAdventures -= 1;
+    currentEnergy += YouRobot.expectedEnergyNextCollect() * 0.85 ** numEnergyCollects;
+    numEnergyCollects += 1;
+
+    if (currentEnergy >= YouRobot.expectedChronolithCost()) {
+      break;
+    }
+  }
+
+  return (
+    currentEnergy >= YouRobot.expectedChronolithCost() && futureAdventures + 9 > currentAdventures
+  );
+}

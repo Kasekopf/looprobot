@@ -71,6 +71,10 @@ export const args = Args.create(
         help: "Always flyer the normal way, instead of wishing for a monster",
         default: false,
       }),
+      chronolith: Args.flag({
+        help: "Skip spending turns to get net positive turns from chronolith at the end of the run (turn on to minimize turncount at the expense of aftercore turns)",
+        default: false,
+      }),
     }),
     debug: Args.group("Debug Options", {
       actions: Args.number({

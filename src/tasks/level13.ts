@@ -28,7 +28,7 @@ import {
 } from "libram";
 import { CombatStrategy } from "../engine/combat";
 import { args } from "../args";
-import { atLevel } from "../lib";
+import { atLevel, isChronoWorthIt, YouRobot } from "../lib";
 import { Quest, Task } from "../engine/task";
 import { step } from "grimoire-kolmafia";
 import { customRestoreMp, ensureWithMPSwaps, fillHp } from "../engine/moods";
@@ -605,6 +605,20 @@ export const TowerQuest: Quest = {
         .kill(),
       boss: true,
       limit: { tries: 1 },
+    },
+    {
+      name: "Post-NS Chronolith",
+      after: ["Naughty Sorceress"],
+      completed: () => !isChronoWorthIt() || args.minor.chronolith,
+      do: (): void => {
+        while (isChronoWorthIt()) {
+          while (YouRobot.energy() < YouRobot.expectedChronolithCost()) {
+            YouRobot.doCollectEnergy();
+          }
+          YouRobot.doChronolith();
+        }
+      },
+      limit: {tries: 1},
     },
   ],
 };
