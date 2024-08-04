@@ -303,7 +303,7 @@ export function isChronoWorthIt(): boolean {
 
   while (futureAdventures > 0) {
     futureAdventures -= 1;
-    currentEnergy += Math.round(YouRobot.expectedEnergyNextCollect() * 0.85 ** numEnergyCollects);
+    currentEnergy += YouRobot.expectedEnergyNextCollect() * 0.85 ** numEnergyCollects;
     numEnergyCollects += 1;
 
     if (currentEnergy >= YouRobot.expectedChronolithCost()) {
