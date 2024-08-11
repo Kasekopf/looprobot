@@ -611,14 +611,17 @@ export const TowerQuest: Quest = {
       after: ["Naughty Sorceress"],
       completed: () => !isChronoWorthIt() || args.minor.chronolith,
       do: (): void => {
-        while (isChronoWorthIt()) {
-          while (YouRobot.energy() < YouRobot.expectedChronolithCost()) {
+        while (isChronoWorthIt() && get("_energyCollected") < 15) {
+          while (
+            YouRobot.energy() < YouRobot.expectedChronolithCost() &&
+            get("_energyCollected") < 15
+          ) {
             YouRobot.doCollectEnergy();
           }
           YouRobot.doChronolith();
         }
       },
-      limit: {tries: 1},
+      limit: { tries: 1 },
     },
   ],
 };

@@ -14,7 +14,6 @@ import {
   myRobotScraps,
   Phylum,
   print,
-  round,
   runChoice,
   Slot,
   Stat,
@@ -188,7 +187,7 @@ export class YouRobot {
 
   static expectedEnergyNextCollect(): number {
     const raw = (25 + get("youRobotPoints")) * 0.85 ** get("_energyCollected");
-    return round(raw);
+    return Math.round(raw);
   }
 
   static doChronolith(): void {
@@ -297,13 +296,16 @@ export function tryEnsureLucky(): boolean {
 
 export function isChronoWorthIt(): boolean {
   const currentAdventures = myAdventures();
+  const currentPoints = Math.min(25 + get("youRobotPoints"), 37);
   let futureAdventures = currentAdventures;
   let currentEnergy = YouRobot.energy();
-  let numEnergyCollects = 0;
+  let numEnergyCollects = get("_energyCollected");
 
-  while (futureAdventures > 0) {
+  while (futureAdventures > 0 && numEnergyCollects < 15) {
     futureAdventures -= 1;
-    currentEnergy += YouRobot.expectedEnergyNextCollect() * 0.85 ** numEnergyCollects;
+    // Use floor to be conservative for now,
+    // since the observed gains do not quite match round
+    currentEnergy += Math.floor(currentPoints * 0.85 ** numEnergyCollects);
     numEnergyCollects += 1;
 
     if (currentEnergy >= YouRobot.expectedChronolithCost()) {
