@@ -120,6 +120,7 @@ export const wanderingNCs = new Set<string>([
   "Poetic Justice",
   "Summer Days",
   "Teacher's Pet",
+  "Violet Fog",
 ]);
 
 type ActiveTask = Task & {
@@ -352,7 +353,7 @@ export class Engine extends BaseEngine<CombatActions, ActiveTask> {
     for (const resource of task_resources.all()) resource.prepare?.();
     this.prepare(task);
     this.do(task);
-    while (this.shouldRepeatAdv(task)) {
+    while (this.shouldRepeatAdv(task) || get("lastEncounter") === "Violet Fog") {
       set("lastEncounter", "");
       this.do(task);
     }
