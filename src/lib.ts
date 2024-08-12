@@ -32,6 +32,7 @@ import {
   $stat,
   AugustScepter,
   get,
+  getTodaysHolidayWanderers,
   have,
   Snapper,
 } from "libram";
@@ -276,6 +277,11 @@ export function levelingStartCompleted(): boolean {
 export const NO_ADVENTURE_SPENT = Guards.create(
   () => myAdventures(),
   (adv) => myAdventures() >= adv
+);
+
+export const NO_ADVENTURE_SPENT_OR_HOLIDAY = Guards.create(
+  () => myAdventures(),
+  (adv) => myAdventures() >= adv || getTodaysHolidayWanderers().length > 0
 );
 
 export function tryEnsureLucky(): boolean {

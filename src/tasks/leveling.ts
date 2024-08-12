@@ -28,7 +28,7 @@ import {
 } from "libram";
 import { Priorities } from "../engine/priority";
 import { Quest, Task } from "../engine/task";
-import { atLevel, levelingStartCompleted, NO_ADVENTURE_SPENT, primestatId, YouRobot } from "../lib";
+import { atLevel, levelingStartCompleted, NO_ADVENTURE_SPENT, NO_ADVENTURE_SPENT_OR_HOLIDAY, primestatId, YouRobot } from "../lib";
 import { fillHp } from "../engine/moods";
 import { OutfitSpec, step } from "grimoire-kolmafia";
 
@@ -205,7 +205,7 @@ const unscaledLeveling: Task[] = [
         return { equip: $items`Space Trip safety headphones` };
       else return { equip: $items`cursed monkey's paw` };
     },
-    limit: { tries: 11, guard: NO_ADVENTURE_SPENT },
+    limit: { tries: 11, guard: NO_ADVENTURE_SPENT_OR_HOLIDAY },
     freecombat: true,
   },
   {
