@@ -1017,7 +1017,7 @@ function verifyWarStarted() {
   if (step("questL12War") >= 1) return;
 
   const failReasons = [];
-  if (!atLevel(70)) failReasons.push("Not at level 12");
+  if (!atLevel(12)) failReasons.push("Not at level 12");
   if (!myBasestat($stat`Mysticality`)) failReasons.push("Myst is not at 70");
   if (!myBasestat($stat`Moxie`)) failReasons.push("Moxie is not at 70");
   if (
@@ -1027,6 +1027,19 @@ function verifyWarStarted() {
   )
     failReasons.push("No war outfit");
   if (step("questL10Garbage") >= 9) failReasons.push("Castle top not ready");
+  if (
+    !have($item`dingy dinghy`) &&
+    !have($item`junk junk`) &&
+    !have($item`skeletal skiff`) &&
+    !have($item`yellow submarine`)
+  ) {
+    if (itemAmount($item`Shore Inc. Ship Trip Scrip`) < 3) {
+      if (myMeat() < 1500) failReasons.push(`Island not open; ${myMeat()} meat is below 1500`);
+      else failReasons.push(`Island not open; not enough scrip`);
+    } else {
+      failReasons.push("Unable to buy dingy dinghy");
+    }
+  }
   if (failReasons.length === 0 && !YouRobot.canUse($slot`hat`))
     failReasons.push("Not switched to hat");
   if (failReasons.length === 0 && step("questL12War") >= 1)

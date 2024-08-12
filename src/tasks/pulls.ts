@@ -128,6 +128,16 @@ export const pulls: PullSpec[] = [
         !have($item`Red Zeppelin ticket`)
       )
         return true;
+      if (
+        myAdventures() > 100 &&
+        myMeat() < 1500 &&
+        itemAmount($item`Shore Inc. Ship Trip Scrip`) < 3 &&
+        !have($item`dingy dinghy`) &&
+        !have($item`junk junk`) &&
+        !have($item`skeletal skiff`) &&
+        !have($item`yellow submarine`)
+      )
+        return true;
       if (step("questL11Ron") >= 5) return false;
       return undefined;
     },
