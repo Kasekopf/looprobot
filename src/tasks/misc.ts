@@ -950,9 +950,9 @@ export const MiscQuest: Quest = {
       ready: () => YouRobot.canUseFamiliar(),
       completed: () => !MayamCalendar.have() || MayamCalendar.remainingUses() === 0,
       do: () => {
+        cliExecute("mayam rings fur lightning eyepatch yam");
         cliExecute("mayam rings chair wood cheese clock");
-        cliExecute("mayam rings fur meat eyepatch yam");
-        cliExecute("mayam rings eye lightning wall explosion");
+        cliExecute("mayam rings eye meat wall explosion");
       },
       outfit: () => {
         if (
