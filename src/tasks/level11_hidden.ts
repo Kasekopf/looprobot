@@ -195,7 +195,7 @@ const Apartment: Task[] = [
       equip: $items`miniature crystal ball, unwrapped knock-off retro superhero cape`,
       modes: { retrocape: ["heck", "hold"] },
     },
-    limit: { soft: 9 },
+    limit: { soft: 15 },
     choices: { 780: 1 },
   },
   {
