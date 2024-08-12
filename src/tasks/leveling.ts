@@ -151,7 +151,7 @@ const unscaledLeveling: Task[] = [
     priority: () => Priorities.Free,
     ready: () => have($item`Bastille Battalion control rig`),
     completed: () => get("_bastilleGames") !== 0,
-    do: () => cliExecute(`bastille myst`),
+    do: () => cliExecute(`bastille myst cannon`),
     limit: { tries: 1 },
     freeaction: true,
     outfit: {
