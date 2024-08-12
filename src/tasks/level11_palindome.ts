@@ -67,7 +67,9 @@ const Copperhead: Task[] = [
         ensureEffect($effect`Crappily Disguised as a Waiter`);
     },
     do: $location`The Copperhead Club`,
-    combat: new CombatStrategy().kill($monster`Mob Penguin Capo`),
+    combat: have($familiar`Robortender`)
+      ? new CombatStrategy().kill($monster`Mob Penguin Capo`)
+      : undefined,
     orbtargets: () => [],
     outfit: (): OutfitSpec => {
       if (have($familiar`Robortender`)) {

@@ -28,7 +28,14 @@ import {
 } from "libram";
 import { Priorities } from "../engine/priority";
 import { Quest, Task } from "../engine/task";
-import { atLevel, levelingStartCompleted, NO_ADVENTURE_SPENT, NO_ADVENTURE_SPENT_OR_HOLIDAY, primestatId, YouRobot } from "../lib";
+import {
+  atLevel,
+  levelingStartCompleted,
+  NO_ADVENTURE_SPENT,
+  NO_ADVENTURE_SPENT_OR_HOLIDAY,
+  primestatId,
+  YouRobot,
+} from "../lib";
 import { fillHp } from "../engine/moods";
 import { OutfitSpec, step } from "grimoire-kolmafia";
 
