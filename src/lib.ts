@@ -186,8 +186,9 @@ export class YouRobot {
   }
 
   static expectedEnergyNextCollect(): number {
-    const raw = (25 + get("youRobotPoints")) * 0.85 ** get("_energyCollected");
-    return Math.round(raw);
+    const raw = Math.min(25 + get("youRobotPoints"), 37) * 0.85 ** get("_energyCollected");
+    // Return a lower bound since it rounds inconsistently (randomly?)
+    return Math.floor(raw);
   }
 
   static doChronolith(): void {
@@ -304,7 +305,7 @@ export function isChronoWorthIt(): boolean {
   while (futureAdventures > 0 && numEnergyCollects < 15) {
     futureAdventures -= 1;
     // Use floor to be conservative for now,
-    // since the observed gains do not quite match round
+    // since the observed gains are inconsistent (random rounding?)
     currentEnergy += Math.floor(currentPoints * 0.85 ** numEnergyCollects);
     numEnergyCollects += 1;
 
