@@ -123,9 +123,11 @@ export const RobotQuest: Quest = {
       ready: () => YouRobot.energy() >= YouRobot.expectedChronolithCost() + statbotEnergyBuffer(),
       do: () => YouRobot.doChronolith(),
       limit: {
+        // Check that energy goes down (instead of +adv) to better handle
+        // off-by-one tracking errors.
         guard: Guards.create(
-          () => myAdventures(),
-          (adv) => adv < myAdventures()
+          () => YouRobot.energy(),
+          (energy) => energy > YouRobot.energy()
         ),
       },
       freeaction: true,
