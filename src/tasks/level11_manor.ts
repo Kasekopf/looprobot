@@ -390,7 +390,12 @@ const ManorBasement: Task[] = [
     do: $location`The Haunted Boiler Room`,
     outfit: (): OutfitSpec => {
       const result = <OutfitSpec & { equip: Item[]; modes: Modes }>{
-        equip: [$item`unstable fulminate`, $item`unwrapped knock-off retro superhero cape`],
+        equip: [
+          $item`unstable fulminate`,
+          $item`unwrapped knock-off retro superhero cape`,
+          // eslint-disable-next-line libram/verify-constants
+          $item`tearaway pants`,
+        ],
         modes: { retrocape: ["heck", "hold"] },
       };
       let ml_needed = 81 - 10; // -10 from MCD

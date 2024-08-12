@@ -398,6 +398,8 @@ export function equipDefaults(outfit: Outfit, noFightingFamiliars: boolean): voi
     outfit.equip($item`protonic accelerator pack`);
     outfit.equip($item`unwrapped knock-off retro superhero cape`);
     outfit.equip($item`designer sweatpants`);
+    // eslint-disable-next-line libram/verify-constants
+    outfit.equip($item`tearaway pants`);
     outfit.equip($item`warbear long johns`);
     outfit.equip($item`square sponge pants`);
     outfit.equip($item`Cargo Cultist Shorts`);
