@@ -161,7 +161,7 @@ const Apartment: Task[] = [
     outfit: {
       equip: $items`muculent machete`,
     },
-    combat: new CombatStrategy().killHard().autoattack(() => dartMacro(false)),
+    combat: new CombatStrategy().killHard().autoattack(() => dartMacro(false, false)),
     choices: { 781: 1 },
     limit: { tries: 4 },
     freecombat: true,
@@ -249,7 +249,7 @@ const Office: Task[] = [
     after: ["Get Machete", "Open City"],
     completed: () => get("hiddenOfficeProgress") >= 1,
     do: $location`An Overgrown Shrine (Northeast)`,
-    combat: new CombatStrategy().killHard().autoattack(() => dartMacro(false)),
+    combat: new CombatStrategy().killHard().autoattack(() => dartMacro(false, false)),
     outfit: {
       equip: $items`muculent machete`,
     },
@@ -343,7 +343,7 @@ const Hospital: Task[] = [
     after: ["Get Machete", "Open City"],
     completed: () => get("hiddenHospitalProgress") >= 1,
     do: $location`An Overgrown Shrine (Southwest)`,
-    combat: new CombatStrategy().killHard().autoattack(() => dartMacro(false)),
+    combat: new CombatStrategy().killHard().autoattack(() => dartMacro(false, false)),
     outfit: {
       equip: $items`muculent machete`,
     },
@@ -398,7 +398,7 @@ const Bowling: Task[] = [
     after: ["Get Machete", "Open City"],
     completed: () => get("hiddenBowlingAlleyProgress") >= 1,
     do: $location`An Overgrown Shrine (Southeast)`,
-    combat: new CombatStrategy().killHard().autoattack(() => dartMacro(false)),
+    combat: new CombatStrategy().killHard().autoattack(() => dartMacro(false, false)),
     outfit: {
       equip: $items`muculent machete`,
     },
@@ -571,7 +571,7 @@ export const HiddenQuest: Quest = {
       choices: { 791: 1 },
       combat: new CombatStrategy()
         .killHard($monster`dense liana`)
-        .autoattack(() => dartMacro(false), $monster`dense liana`)
+        .autoattack(() => dartMacro(false, false), $monster`dense liana`)
         .macro(
           Macro.trySkill($skill`Emit Matter Duplicating Drones`),
           $monster`Protector S. P. E. C. T. R. E.`

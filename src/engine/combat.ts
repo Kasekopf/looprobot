@@ -12,6 +12,7 @@ import {
   $effect,
   $familiar,
   $item,
+  $monsters,
   $skill,
   $slot,
   $stat,
@@ -123,15 +124,19 @@ function attemptDartThrows(part: undefined | string | string[]): Macro {
   return result;
 }
 
-export function dartMacro(hard?: boolean): Macro {
+export function dartMacro(hard: boolean, once: boolean): Macro {
   const result = new Macro();
   if (haveEquipped($item`Everfull Dart Holster`)) {
     if (!hard) result.trySkill($skill`Darts: Aim for the Bullseye`);
 
-    if (!atLevel(12)) result.step(attemptDartThrows(byStat(dartParts)));
-    result.step(attemptDartThrows("butt"));
-    result.step(attemptDartThrows("torso"));
-    if (get("_dartsLeft") >= 2) result.trySkill($skill`Darts: Throw at %part1`);
+    if (once) {
+      result.trySkill($skill`Darts: Throw at %part1`);
+    } else {
+      if (!atLevel(12)) result.step(attemptDartThrows(byStat(dartParts)));
+      result.step(attemptDartThrows("butt"));
+      result.step(attemptDartThrows("torso"));
+      if (get("_dartsLeft") >= 2) result.trySkill($skill`Darts: Throw at %part1`);
+    }
   }
   return result;
 }
@@ -158,7 +163,11 @@ export function killMacro(target?: Monster | Location, hard?: boolean, withSlap 
 
   if (haveEquipped($item`candy cane sword cane`) && have($effect`Shadow Affinity`))
     result.trySkill($skill`Surprisingly Sweet Slash`);
-  result.step(dartMacro(hard));
+
+  const annoyingTargets = $monsters`Mob Penguin Capo`;
+  const singleDart = target instanceof Monster && annoyingTargets.includes(target);
+  result.step(dartMacro(hard ?? false, singleDart));
+
   if (withSlap) result.trySkill($skill`Monkey Slap`);
   if (haveEquipped($item`candy cane sword cane`) && have($effect`Shadow Affinity`))
     result.trySkill($skill`Surprisingly Sweet Stab`);
