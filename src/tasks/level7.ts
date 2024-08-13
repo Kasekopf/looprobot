@@ -1,5 +1,4 @@
 import {
-  adv1,
   changeMcd,
   cliExecute,
   currentMcd,
@@ -11,8 +10,6 @@ import {
   myMp,
   myTurncount,
   numericModifier,
-  runChoice,
-  toUrl,
   use,
   visitUrl,
 } from "kolmafia";
@@ -35,6 +32,7 @@ import {
   get,
   have,
   Macro,
+  set,
 } from "libram";
 import { Priority, Quest, Task } from "../engine/task";
 import { OutfitSpec, step } from "grimoire-kolmafia";
@@ -50,6 +48,7 @@ import { Priorities } from "../engine/priority";
 import { councilSafe, fastFlyerPossible, flyersDone } from "./level12";
 import { ensureWithMPSwaps, fillHp } from "../engine/moods";
 import { tryPlayApriling } from "../engine/resources";
+import { toTempPref } from "../args";
 
 function tuneCape(): void {
   if (
@@ -170,6 +169,9 @@ const Cranny: Task[] = [
       if (haveFlorest() && FloristFriar.BlusteryPuffball.available()) {
         FloristFriar.BlusteryPuffball.plant();
       }
+      if (get("cyrptCrannyEvilness") === 0 && get("lastEncounter") !== "huge ghuol") {
+        set(toTempPref("crannyoverkill"), true);
+      }
     },
     do: $location`The Defiled Cranny`,
     outfit: (): OutfitSpec => {
@@ -201,8 +203,16 @@ const Cranny: Task[] = [
   {
     name: "Cranny Boss",
     after: ["Start", "Cranny"],
-    completed: () => get("cyrptCrannyEvilness") === 0 && step("questL07Cyrptic") !== -1,
+    completed: () =>
+      get("cyrptCrannyEvilness") === 0 &&
+      step("questL07Cyrptic") !== -1 &&
+      !get(toTempPref("crannyoverkill"), false),
     do: $location`The Defiled Cranny`,
+    post: () => {
+      if (get("lastEncounter") === "huge ghuol" && get(toTempPref("crannyoverkill"), false)) {
+        set(toTempPref("crannyoverkill"), false);
+      }
+    },
     combat: new CombatStrategy().killHard(),
     boss: true,
     limit: { tries: 1 },
@@ -414,20 +424,14 @@ export const CryptQuest: Quest = {
         )
           use($item`Ghost Dog Chow`);
       },
-      do: () => {
-        adv1($location`Haert of the Cyrpt`, -1, "");
-        if (get("lastEncounter") !== "The Bonerdagon") {
-          visitUrl(toUrl($location`The Defiled Cranny`));
-          if (get("lastEncounter") === "Wooof! Wooooooof!") runChoice(-1);
-        }
-      },
+      do: $location`Haert of the Cyrpt`,
       outfit: { familiar: $familiar`Grey Goose` },
       choices: { 527: 1 },
       combat: new CombatStrategy()
         .macro(Macro.trySkill($skill`Emit Matter Duplicating Drones`))
         .killHard(),
       boss: true,
-      limit: { tries: 3 },
+      limit: { tries: 1 },
     },
     {
       name: "Finish",
