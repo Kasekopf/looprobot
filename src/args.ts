@@ -75,6 +75,10 @@ export const args = Args.create(
         help: "Skip spending turns to get net positive turns from chronolith at the end of the run (turn on to minimize turncount at the expense of aftercore turns)",
         default: false,
       }),
+      nuns: Args.flag({
+        help: "Do the nuns in the war; uses monkey paw wishes",
+        default: false,
+      }),
     }),
     debug: Args.group("Debug Options", {
       actions: Args.number({

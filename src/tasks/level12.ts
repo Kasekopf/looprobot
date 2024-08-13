@@ -4,6 +4,7 @@ import {
   equippedAmount,
   haveEquipped,
   itemAmount,
+  monkeyPaw,
   myBasestat,
   myHp,
   myMaxhp,
@@ -34,7 +35,6 @@ import {
   have,
   Macro,
   set,
-  uneffect,
 } from "libram";
 import { Priority, Quest, Task } from "../engine/task";
 import { Guards, OutfitSpec, step } from "grimoire-kolmafia";
@@ -557,13 +557,12 @@ const Orchard: Task[] = [
   },
 ];
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const Nuns: Task[] = [
   {
     name: "Nuns",
     after: ["Open Nuns"],
     ready: () => YouRobot.canUse($slot`hat`),
-    completed: () => get("sidequestNunsCompleted") !== "none",
+    completed: () => get("sidequestNunsCompleted") !== "none" || !args.minor.nuns,
     priority: () => (have($effect`Winklered`) ? Priorities.Effect : Priorities.None),
     prepare: () => {
       if (have($item`SongBoom™ BoomBox`) && get("boomBoxSong") !== "Total Eclipse of Your Meat")
@@ -572,45 +571,24 @@ const Nuns: Task[] = [
       $items`flapper fly, autumn dollar, pink candy heart`
         .filter((i) => have(i, 2) && !have(effectModifier(i, "Effect")))
         .forEach((i) => use(i));
-      if (have($item`pocket wish`) && !have($effect`Sinuses For Miles`)) {
-        cliExecute("genie effect sinuses for miles");
+      const effects = $effects`Frosty, Sinuses For Miles, Let's Go Shopping!, A View to Some Meat`;
+      for (const effect of effects) {
+        if (!have($item`cursed monkey's paw`) || get("_monkeyPawWishesUsed") >= 5) continue;
+        if (have(effect)) continue;
+        monkeyPaw(effect);
       }
       if (have($item`savings bond`)) ensureEffect($effect`Earning Interest`);
       fillHp();
     },
     do: $location`The Themthar Hills`,
-    post: () => {
-      if (
-        get("sidequestNunsCompleted") !== "none" &&
-        have($effect`Friendly Chops`) &&
-        have($item`soft green echo eyedrop antidote`)
-      ) {
-        uneffect($effect`Friendly Chops`);
-      }
-    },
     outfit: () => {
-      if (have($familiar`Trick-or-Treating Tot`) && have($item`li'l pirate costume`)) {
-        return {
-          modifier: "meat",
-          familiar: $familiar`Trick-or-Treating Tot`,
-          equip: $items`beer helmet, distressed denim pants, bejeweled pledge pin, li'l pirate costume`,
-        };
-      }
       return {
         modifier: "meat",
-        equip: $items`beer helmet, distressed denim pants, bejeweled pledge pin, amulet coin`, // Use amulet coin (if we have) to avoid using orb
+        equip: $items`beer helmet, distressed denim pants, bejeweled pledge pin`,
       };
     },
     freecombat: true, // Do not equip cmg or carn plant
-    combat: new CombatStrategy()
-      .macro(
-        new Macro()
-          .trySkill($skill`Micrometeorite`)
-          .trySkill($skill`Curse of Weaksauce`)
-          .trySkill($skill`Bowl Straight Up`)
-          .trySkill($skill`Sing Along`)
-      )
-      .killHard(),
+    combat: new CombatStrategy().killHard(),
     limit: { soft: 30 },
     boss: true,
   },
@@ -751,10 +729,10 @@ export const WarQuest: Quest = {
       combat: new CombatStrategy().kill().macro(Macro.trySkill($skill`Extract Jelly`)),
       limit: { tries: 9 },
     },
-    // ...Nuns,
+    ...Nuns,
     {
       name: "Clear",
-      after: ["Open Nuns"],
+      after: ["Open Nuns", "Nuns"],
       ready: () => YouRobot.canUse($slot`hat`),
       completed: () => get("hippiesDefeated") >= 1000,
       outfit: {
