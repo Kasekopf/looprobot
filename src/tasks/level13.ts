@@ -610,7 +610,7 @@ export const TowerQuest: Quest = {
     {
       name: "Post-NS Chronolith",
       after: ["Naughty Sorceress"],
-      completed: () => !isChronoWorthIt() || args.minor.chronolith,
+      completed: () => !isChronoWorthIt() || args.minor.chronolith || get("_energyCollected") >= 15,
       do: (): void => {
         while (isChronoWorthIt() && get("_energyCollected") < 15) {
           while (
