@@ -761,7 +761,9 @@ export const MiscQuest: Quest = {
       name: "Cincho Rest",
       after: [],
       priority: () => Priorities.Free,
-      ready: () => CinchoDeMayo.currentCinch() + CinchoDeMayo.cinchRestoredBy() <= 100,
+      ready: () =>
+        CinchoDeMayo.currentCinch() + CinchoDeMayo.cinchRestoredBy() <= 100 &&
+        (get("chateauAvailable") || get("getawayCampsiteUnlocked")),
       completed: () =>
         !have($item`Cincho de Mayo`) ||
         get("timesRested") >= totalFreeRests() ||
