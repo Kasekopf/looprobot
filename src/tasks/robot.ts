@@ -55,6 +55,7 @@ export const RobotQuest: Quest = {
         ),
       },
       freeaction: true,
+      ignorehalt: true,
     },
     {
       name: "CPU Shirt",
@@ -131,6 +132,7 @@ export const RobotQuest: Quest = {
         ),
       },
       freeaction: true,
+      ignorehalt: true,
     },
     {
       name: "Scavenge",

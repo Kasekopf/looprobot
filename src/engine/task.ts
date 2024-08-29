@@ -32,6 +32,7 @@ export type Task = {
   map_the_monster?: Monster | (() => Monster); // Try and map to the given monster, if possible
   nofightingfamiliars?: boolean;
   killdelayzone?: boolean | (() => boolean);
+  ignorehalt?: boolean;
 } & BaseTask<CombatActions>;
 
 export type Priority = {
