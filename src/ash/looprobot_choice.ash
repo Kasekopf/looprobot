@@ -15,6 +15,13 @@ void main(int choice, string page)
     run_choice(2);
   else if (choice == 691 && options contains 4)  // Second Chest
     run_choice(4);
+  else if (choice == 1322) {
+    // If NEP quest is food or booze
+    if (get_property("_questPartyFairQuest") == "food" || get_property("_questPartyFairQuest") == "booze")
+      run_choice(1); // Accept
+    else
+      run_choice(2); // Decline
+  }
   //Everfull dart handling
   else switch (choice) {
 		default:
