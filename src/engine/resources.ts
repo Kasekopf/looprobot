@@ -676,7 +676,10 @@ export const forceNCSources: ForceNCSorce[] = [
       have($skill`Torso Awareness`) &&
       have($item`Jurassic Parka`) &&
       get("_spikolodonSpikeUses") + args.minor.saveparka < 5,
-    equip: { equip: $items`Jurassic Parka`, modes: { parka: "spikolodon" } },
+      equip: [
+        { equip: $items`Jurassic Parka, designer sweatpants`, modes: { parka: "spikolodon" } },
+        { equip: $items`Jurassic Parka`, modes: { parka: "spikolodon" } }
+        ],
     // Note the externalIf is evaluated only once (at script run)
     do: Macro.trySkill($skill`Summon Love Gnats`)
       .externalIf(!get("lovebugsUnlocked"), Macro.trySkill($skill`Sweat Flood`))
