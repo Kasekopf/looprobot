@@ -371,6 +371,7 @@ export const LevelingQuest: Quest = {
     {
       name: "Mouthwash",
       after: getBuffs,
+      priority: () => Priorities.Start,
       // eslint-disable-next-line libram/verify-constants
       completed: () => !have($item`Mmm-brr! brand mouthwash`),
       do: () => {
@@ -378,6 +379,7 @@ export const LevelingQuest: Quest = {
         if (have($item`pec oil`)) use($item`pec oil`);
         if (have($skill`Emotionally Chipped`) && get("_feelPeacefulUsed") < 3)
           ensureEffect($effect`Feeling Peaceful`);
+        if (have($item`MayDay™ supply package`)) use($item`MayDay™ supply package`);
         if (BeachComb.available()) BeachComb.tryHead(BeachComb.head.COLD);
 
         // eslint-disable-next-line libram/verify-constants
