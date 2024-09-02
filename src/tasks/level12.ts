@@ -716,7 +716,7 @@ export const WarQuest: Quest = {
       do: $location`The Battlefield (Frat Uniform)`,
       post: dimesForGarters,
       combat: new CombatStrategy()
-        .killHard(...warHeroes)
+        .killHard(warHeroes)
         .kill()
         .macro(
           Macro.trySkill($skill`%fn, let's pledge allegiance to a Zone`).trySkill(
@@ -737,7 +737,7 @@ export const WarQuest: Quest = {
       do: $location`The Battlefield (Frat Uniform)`,
       combat: new CombatStrategy()
         .kill()
-        .killHard(...warHeroes)
+        .killHard(warHeroes)
         .macro(Macro.trySkill($skill`Extract Jelly`)),
       limit: { tries: 9 },
     },
@@ -754,7 +754,7 @@ export const WarQuest: Quest = {
       post: dimesForGarters,
       combat: new CombatStrategy()
         .kill()
-        .killHard(...warHeroes)
+        .killHard(warHeroes)
         .macro(Macro.trySkill($skill`Extract Jelly`)),
       limit: { tries: 55 },
     },
