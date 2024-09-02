@@ -1,10 +1,12 @@
 import {
+  expectedDamage,
   familiarWeight,
   haveEquipped,
   Location,
   Monster,
   myBasestat,
   myFamiliar,
+  myHp,
   myPrimestat,
   Stat,
 } from "kolmafia";
@@ -144,8 +146,8 @@ export function dartMacro(hard: boolean, once: boolean): Macro {
 export function killMacro(target?: Monster | Location, hard?: boolean, withSlap = false): Macro {
   const result = new Macro();
 
-  // Level with the Grey Goose if available
-  if (myFamiliar() === $familiar`Grey Goose` && familiarWeight($familiar`Grey Goose`) >= 20) {
+  // Level with the Grey Goose if available and can survive at least 2 hits
+  if (myFamiliar() === $familiar`Grey Goose` && familiarWeight($familiar`Grey Goose`) >= 20 && (expectedDamage() * 2) < myHp()) {
     switch (statToLevel()) {
       case $stat`Muscle`:
         result.trySkill($skill`Convert Matter to Protein`);
