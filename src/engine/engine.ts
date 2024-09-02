@@ -450,7 +450,7 @@ export class Engine extends BaseEngine<CombatActions, ActiveTask> {
     if (
       have($item`rock band flyers`) &&
       !fastFlyerPossible() &&
-      !flyersDone() &&
+      !flyersDone(1000) &&
       (!(task.do instanceof Location) || !blacklist.has(task.do)) &&
       task.name !== "Misc/Protonic Ghost"
     ) {

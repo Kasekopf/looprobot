@@ -45,8 +45,7 @@ import { forceItemPossible, yellowRayPossible } from "../engine/resources";
 import { args, toTempPref } from "../args";
 import { customRestoreMp, fillHp } from "../engine/moods";
 
-export function flyersDone(): boolean {
-  const buffer = 50;
+export function flyersDone(buffer = 50): boolean {
   return get("flyeredML") >= 10000 + buffer;
 }
 
