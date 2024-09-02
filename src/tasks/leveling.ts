@@ -244,8 +244,7 @@ const unscaledLeveling: Task[] = [
       !have($item`closed-circuit pay phone`) ||
       (get("_shadowAffinityToday") &&
         !have($effect`Shadow Affinity`) &&
-        get("encountersUntilSRChoice") !== 0) ||
-      levelingStartCompleted(),
+        get("encountersUntilSRChoice") !== 0),
     prepare: () => {
       if (!get("_shadowAffinityToday")) ClosedCircuitPayphone.chooseQuest(() => 2);
     },
