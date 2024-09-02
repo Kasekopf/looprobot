@@ -49,7 +49,7 @@ import {
   OutfitSpec,
   step,
 } from "grimoire-kolmafia";
-import { atLevel, YouRobot } from "../lib";
+import { atLevel, levelingStartCompleted, YouRobot } from "../lib";
 import { args } from "../args";
 import { killMacro } from "./combat";
 import { BanishState } from "./state";
@@ -362,7 +362,8 @@ export const wandererSources: WandererSource[] = [
       // Start when there will be no waste from the goose for backups
       (myTurncount() > 5 ||
         familiarWeight($familiar`Grey Goose`) === 6 ||
-        familiarWeight($familiar`Grey Goose`) === 7) &&
+        familiarWeight($familiar`Grey Goose`) === 7 ||
+        levelingStartCompleted()) &&
       (!have($item`Roman Candelabra`) ||
         step("questM20Necklace") < 1 ||
         YouRobot.canUse($slot`off-hand`) ||
