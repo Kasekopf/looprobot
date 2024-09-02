@@ -9,11 +9,7 @@ import {
   Item,
   itemAmount,
   myAscensions,
-  myHp,
-  myMaxhp,
-  myMaxmp,
   myMeat,
-  myMp,
   numericModifier,
   use,
   visitUrl,
@@ -40,7 +36,7 @@ import { CombatStrategy } from "../engine/combat";
 import { atLevel, haveLoathingIdolMicrophone } from "../lib";
 import { Priorities } from "../engine/priority";
 import { councilSafe } from "./level12";
-import { customRestoreMp, fillHp } from "../engine/moods";
+import { fillHp } from "../engine/moods";
 import { stenchPlanner } from "../engine/outfit";
 import { tryPlayApriling } from "../engine/resources";
 
@@ -133,8 +129,7 @@ const Oil: Task[] = [
         cliExecute("monkeypaw effect frosty");
       if (haveLoathingIdolMicrophone()) ensureEffect($effect`Spitting Rhymes`);
 
-      if (myMp() < 80 && myMaxmp() >= 80) customRestoreMp(80 - myMp());
-      if (myHp() < 100 && myMaxhp() >= 100) customRestoreMp(100 - myMp());
+      fillHp();
       if (numericModifier("Monster Level") < 100) changeMcd(10);
 
       tryPlayApriling("food");
@@ -199,6 +194,7 @@ const Oil: Task[] = [
       !!(get("twinPeakProgress") & 4),
     prepare: () => {
       tryPlayApriling("food");
+      fillHp();
     },
     do: $location`Oil Peak`,
     outfit: () => {
