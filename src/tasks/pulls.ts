@@ -83,7 +83,7 @@ export const pulls: PullSpec[] = [
   },
   {
     pull: $item`battery (car)`,
-    useful: () => !have($item`potted power plant`),
+    useful: () => !have($item`potted power plant`) && knollAvailable(),
   },
   // General pulls
   {
