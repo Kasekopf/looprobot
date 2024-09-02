@@ -30674,18 +30674,15 @@ var _templateObject2172;
 var _templateObject2182;
 var _templateObject2192;
 var _templateObject2202;
-var _CombatStrategy;
 var _templateObject22110;
 var _templateObject2224;
 var _templateObject2232;
 var _templateObject2242;
 var _templateObject2252;
-var _CombatStrategy$kill;
 var _templateObject2262;
 var _templateObject2272;
 var _templateObject2282;
 var _templateObject2292;
-var _CombatStrategy$kill2;
 var _templateObject2302;
 var _templateObject23110;
 var _templateObject2323;
@@ -31464,7 +31461,7 @@ var WarQuest = {
     },
     do: $location(_templateObject2202 || (_templateObject2202 = _taggedTemplateLiteral73(["The Battlefield (Frat Uniform)"]))),
     post: dimesForGarters,
-    combat: (_CombatStrategy = new CombatStrategy2()).killHard.apply(_CombatStrategy, warHeroes).kill().macro(Macro.trySkill($skill(_templateObject22110 || (_templateObject22110 = _taggedTemplateLiteral73(["%fn, let's pledge allegiance to a Zone"])))).trySkill($skill(_templateObject2224 || (_templateObject2224 = _taggedTemplateLiteral73(["Extract Jelly"]))))),
+    combat: new CombatStrategy2().killHard(warHeroes).kill().macro(Macro.trySkill($skill(_templateObject22110 || (_templateObject22110 = _taggedTemplateLiteral73(["%fn, let's pledge allegiance to a Zone"])))).trySkill($skill(_templateObject2224 || (_templateObject2224 = _taggedTemplateLiteral73(["Extract Jelly"]))))),
     limit: {
       tries: 10
     }
@@ -31481,7 +31478,7 @@ var WarQuest = {
       equip: $items(_templateObject2242 || (_templateObject2242 = _taggedTemplateLiteral73(["beer helmet, distressed denim pants, bejeweled pledge pin"])))
     },
     do: $location(_templateObject2252 || (_templateObject2252 = _taggedTemplateLiteral73(["The Battlefield (Frat Uniform)"]))),
-    combat: (_CombatStrategy$kill = new CombatStrategy2().kill()).killHard.apply(_CombatStrategy$kill, warHeroes).macro(Macro.trySkill($skill(_templateObject2262 || (_templateObject2262 = _taggedTemplateLiteral73(["Extract Jelly"]))))),
+    combat: new CombatStrategy2().kill().killHard(warHeroes).macro(Macro.trySkill($skill(_templateObject2262 || (_templateObject2262 = _taggedTemplateLiteral73(["Extract Jelly"]))))),
     limit: {
       tries: 9
     }
@@ -31499,7 +31496,7 @@ var WarQuest = {
     },
     do: $location(_templateObject2292 || (_templateObject2292 = _taggedTemplateLiteral73(["The Battlefield (Frat Uniform)"]))),
     post: dimesForGarters,
-    combat: (_CombatStrategy$kill2 = new CombatStrategy2().kill()).killHard.apply(_CombatStrategy$kill2, warHeroes).macro(Macro.trySkill($skill(_templateObject2302 || (_templateObject2302 = _taggedTemplateLiteral73(["Extract Jelly"]))))),
+    combat: new CombatStrategy2().kill().killHard(warHeroes).macro(Macro.trySkill($skill(_templateObject2302 || (_templateObject2302 = _taggedTemplateLiteral73(["Extract Jelly"]))))),
     limit: {
       tries: 55
     }
@@ -47930,7 +47927,7 @@ function checkRequirements() {
 }
 
 // src/_git_commit.ts
-var lastCommitHash = "44dd333";
+var lastCommitHash = "bb61f89";
 
 // src/main.ts
 var _templateObject1190;
