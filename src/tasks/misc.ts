@@ -795,6 +795,13 @@ export const MiscQuest: Quest = {
         if (!haveLoathingIdolMicrophone()) {
           buy($coinmaster`Mr. Store 2002`, 1, $item`Loathing Idol Microphone`);
         }
+        if (
+          !have($item`Charter: Nellyville`) &&
+          get("availableMrStore2002Credits") > 0 &&
+          !have($effect`Hot in Herre`)
+        ) {
+          buy($coinmaster`Mr. Store 2002`, 1, $item`Charter: Nellyville`);
+        }
         if (get("availableMrStore2002Credits") > 0) {
           buy(
             $coinmaster`Mr. Store 2002`,

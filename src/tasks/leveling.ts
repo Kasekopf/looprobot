@@ -60,6 +60,15 @@ const buffTasks: Task[] = [
     limit: { tries: 1 },
   },
   {
+    name: "Nellyville",
+    after: ["Misc/2002 Store"],
+    priority: () => Priorities.Free,
+    completed: () => have($effect`Hot in Herre`) || !have($item`Charter: Nellyville`),
+    do: () => use($item`Charter: Nellyville`),
+    freeaction: true,
+    limit: { tries: 1 },
+  },
+  {
     name: "Fortune",
     after: robotSetup,
     completed: () => get("_clanFortuneBuffUsed") || !have($item`Clan VIP Lounge key`),
