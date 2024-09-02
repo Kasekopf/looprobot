@@ -63,7 +63,7 @@ const buffTasks: Task[] = [
   },
   {
     name: "Nellyville",
-    after: ["Misc/2002 Store"],
+    after: [...robotSetup, "Misc/2002 Store"],
     priority: () => Priorities.Free,
     completed: () => have($effect`Hot in Herre`) || !have($item`Charter: Nellyville`),
     do: () => use($item`Charter: Nellyville`),
@@ -73,7 +73,8 @@ const buffTasks: Task[] = [
   {
     name: "Fortune",
     after: robotSetup,
-    completed: () => get("_clanFortuneBuffUsed") || !have($item`Clan VIP Lounge key`),
+    completed: () =>
+      get("_clanFortuneBuffUsed") || !have($item`Clan VIP Lounge key`) || levelingStartCompleted(),
     priority: () => Priorities.Free,
     do: () => cliExecute("fortune buff susie"),
     freeaction: true,
@@ -99,7 +100,8 @@ const buffTasks: Task[] = [
       (!have($item`pocket wish`) &&
         (!have($item`genie bottle`) || get("_genieWishesUsed") >= 3) &&
         (!have($item`cursed monkey's paw`) || get("_monkeyPawWishesUsed") >= 5)) ||
-      myTurncount() >= 20,
+      myTurncount() >= 20 ||
+      levelingStartCompleted(),
     priority: () => Priorities.Free,
     do: () => {
       if (have($item`pocket wish`) || (have($item`genie bottle`) && get("_genieWishesUsed") < 3))
@@ -117,7 +119,8 @@ const buffTasks: Task[] = [
       (!have($item`pocket wish`) &&
         (!have($item`genie bottle`) || get("_genieWishesUsed") >= 3) &&
         (!have($item`cursed monkey's paw`) || get("_monkeyPawWishesUsed") >= 5)) ||
-      myTurncount() >= 20,
+      myTurncount() >= 20 ||
+      levelingStartCompleted(),
     priority: () => Priorities.Free,
     do: () => {
       if (have($item`pocket wish`) || (have($item`genie bottle`) && get("_genieWishesUsed") < 3))
@@ -370,7 +373,7 @@ export const LevelingQuest: Quest = {
     },
     {
       name: "Mouthwash",
-      after: getBuffs,
+      after: ["Cloud Talk", "Nellyville", "Defective Game Grid", "Misc/Cut Melodramedary"],
       priority: () => Priorities.Start,
       // eslint-disable-next-line libram/verify-constants
       completed: () => !have($item`Mmm-brr! brand mouthwash`),
@@ -380,6 +383,11 @@ export const LevelingQuest: Quest = {
         if (have($skill`Emotionally Chipped`) && get("_feelPeacefulUsed") < 3)
           ensureEffect($effect`Feeling Peaceful`);
         if (have($item`MayDay™ supply package`)) use($item`MayDay™ supply package`);
+        if (have($item`scroll of Protection from Bad Stuff`))
+          use($item`scroll of Protection from Bad Stuff`);
+        if (have($item`bottle of antifreeze`)) use($item`bottle of antifreeze`);
+        if (have($item`recording of Rolando's Rondo of Resisto`))
+          use($item`recording of Rolando's Rondo of Resisto`);
         if (BeachComb.available()) BeachComb.tryHead(BeachComb.head.COLD);
 
         // eslint-disable-next-line libram/verify-constants

@@ -34,8 +34,8 @@ export const routing: string[] = [
   "McLargeHuge/Trapper Request",
 
   // Level up with goose
-  "Leveling/LOV Tunnel",
   "Leveling/Mouthwash",
+  "Leveling/LOV Tunnel",
   "Summon/Mountain Man",
   "Leveling/Snojo",
   "Leveling/Shadow Rift", // before 5th bowling ball

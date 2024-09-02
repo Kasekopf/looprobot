@@ -1094,7 +1094,7 @@ export const MiscQuest: Quest = {
     {
       name: "Cut Melodramedary",
       after: [],
-      priority: () => Priorities.Free,
+      priority: () => Priorities.Start,
       ready: () => YouRobot.canUse($slot`weapon`),
       completed: () =>
         get("_entauntaunedToday") ||
