@@ -1101,7 +1101,10 @@ export const MiscQuest: Quest = {
         !have($familiar`Melodramedary`) ||
         !have($item`Fourth of May Cosplay Saber`) ||
         !have($familiar`Shorter-Order Cook`),
-      do: () => visitUrl("main.php?action=camel"),
+      do: () => {
+        visitUrl("main.php?action=camel");
+        runChoice(1);
+      },
       outfit: {
         familiar: $familiar`Melodramedary`,
         weapon: $item`Fourth of May Cosplay Saber`,
