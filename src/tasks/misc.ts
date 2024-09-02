@@ -1109,6 +1109,17 @@ export const MiscQuest: Quest = {
       freeaction: true,
       limit: { tries: 1 },
     },
+    {
+      name: "Tot Res Outfit",
+      after: [],
+      priority: () => Priorities.Free,
+      ready: () => myMeat() >= meatBuffer + 1000,
+      completed: () =>
+        have($item`li'l candy corn costume`) || !have($familiar`Trick-or-Treating Tot`),
+      do: () => buy($item`li'l candy corn costume`),
+      freeaction: true,
+      limit: { tries: 1 },
+    },
   ],
 };
 

@@ -113,6 +113,7 @@ export const pulls: PullSpec[] = [
     pull: $item`1,970 carat gold`,
     useful: () => {
       if (underStandard()) return false;
+      if (have($familiar`Trick-or-Treating Tot`)) return true; // Early meat for the costume
       if (myMeat() < 200 && step("questM05Toot") > 0 && !have($item`letter from King Ralph XI`))
         return true;
       if (

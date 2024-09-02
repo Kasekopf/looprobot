@@ -20,7 +20,9 @@ import {
   $location,
   $monster,
   $skill,
+  BeachComb,
   ClosedCircuitPayphone,
+  ensureEffect,
   get,
   have,
   Macro,
@@ -365,6 +367,35 @@ export const LevelingQuest: Quest = {
       },
       limit: { tries: 3 },
       freecombat: true,
+    },
+    {
+      name: "Mouthwash",
+      after: getBuffs,
+      // eslint-disable-next-line libram/verify-constants
+      completed: () => !have($item`Mmm-brr! brand mouthwash`),
+      do: () => {
+        if (have($item`rainbow glitter candle`)) use($item`rainbow glitter candle`);
+        if (have($item`pec oil`)) use($item`pec oil`);
+        if (have($skill`Emotionally Chipped`) && get("_feelPeacefulUsed") < 3)
+          ensureEffect($effect`Feeling Peaceful`);
+        if (BeachComb.available()) BeachComb.tryHead(BeachComb.head.COLD);
+
+        // eslint-disable-next-line libram/verify-constants
+        use($item`Mmm-brr! brand mouthwash`);
+      },
+      outfit: () => {
+        if (have($familiar`Trick-or-Treating Tot`) && have($item`li'l candy corn costume`))
+          return {
+            familiar: $familiar`Trick-or-Treating Tot`,
+            modifier: "cold res",
+          };
+        return {
+          familiar: $familiar`Exotic Parrot`,
+          modifier: "cold res",
+        };
+      },
+      limit: { tries: 4 },
+      freeaction: true,
     },
     {
       name: "All",
