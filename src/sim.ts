@@ -340,6 +340,10 @@ function buildMiscList(): Requirement[] {
       why: "Meat drops",
     },
     {
+      thing: $familiar`Exotic Parrot`,
+      why: "Cold res",
+    },
+    {
       thing: new Hardcoded(get("poolSharkCount") >= 25, "Permanent pool skill from A Shark's Chum"),
       why: "Haunted billiards room",
     },
