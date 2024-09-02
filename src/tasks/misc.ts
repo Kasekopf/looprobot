@@ -48,6 +48,7 @@ import {
   $monster,
   $monsters,
   $skill,
+  $slot,
   $slots,
   $stat,
   AprilingBandHelmet,
@@ -1082,9 +1083,30 @@ export const MiscQuest: Quest = {
     },
     {
       name: "Ice Cold April Shower",
+      after: [],
+      priority: () => Priorities.Free,
       ready: () => have($item`Clan VIP Lounge key`) && getClanLounge()["Clan shower"] !== undefined,
       completed: () => get("_aprilShower"),
       do: () => cliExecute("try; shower ice"),
+      freeaction: true,
+      limit: { tries: 1 },
+    },
+    {
+      name: "Cut Melodramedary",
+      after: [],
+      priority: () => Priorities.Free,
+      ready: () => YouRobot.canUse($slot`weapon`),
+      completed: () =>
+        get("_entauntaunedToday") ||
+        !have($familiar`Melodramedary`) ||
+        !have($item`Fourth of May Cosplay Saber`) ||
+        !have($familiar`Shorter-Order Cook`),
+      do: () => visitUrl("main.php?action=camel"),
+      outfit: {
+        familiar: $familiar`Melodramedary`,
+        weapon: $item`Fourth of May Cosplay Saber`,
+      },
+      freeaction: true,
       limit: { tries: 1 },
     },
   ],
