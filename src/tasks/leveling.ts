@@ -76,7 +76,7 @@ const buffTasks: Task[] = [
     after: robotSetup,
     completed: () =>
       get("_clanFortuneBuffUsed") || !have($item`Clan VIP Lounge key`) || levelingStartCompleted(),
-    priority: () => Priorities.Free,
+    priority: () => Priorities.Start,
     do: () => cliExecute("fortune buff susie"),
     freeaction: true,
     limit: { tries: 1 },
@@ -103,7 +103,7 @@ const buffTasks: Task[] = [
         (!have($item`cursed monkey's paw`) || get("_monkeyPawWishesUsed") >= 5)) ||
       myTurncount() >= 20 ||
       levelingStartCompleted(),
-    priority: () => Priorities.Free,
+    priority: () => Priorities.Start,
     do: () => {
       if (have($item`pocket wish`) || (have($item`genie bottle`) && get("_genieWishesUsed") < 3))
         cliExecute("genie effect warm shoulders");
@@ -122,7 +122,7 @@ const buffTasks: Task[] = [
         (!have($item`cursed monkey's paw`) || get("_monkeyPawWishesUsed") >= 5)) ||
       myTurncount() >= 20 ||
       levelingStartCompleted(),
-    priority: () => Priorities.Free,
+    priority: () => Priorities.Start,
     do: () => {
       if (have($item`pocket wish`) || (have($item`genie bottle`) && get("_genieWishesUsed") < 3))
         cliExecute("genie effect blue swayed");
@@ -139,7 +139,7 @@ const unscaledLeveling: Task[] = [
   {
     name: "LOV Tunnel",
     after: getBuffsPreLOV,
-    priority: () => Priorities.Free,
+    priority: () => Priorities.Start,
     completed: () => get("_loveTunnelUsed") || !get("loveTunnelAvailable"),
     do: $location`The Tunnel of L.O.V.E.`,
     choices: { 1222: 1, 1223: 1, 1224: primestatId(), 1225: 1, 1226: 2, 1227: 1, 1228: 3 },
