@@ -7,6 +7,7 @@ import {
   Item,
   myLevel,
   myTurncount,
+  numericModifier,
   runChoice,
   runCombat,
   use,
@@ -378,6 +379,7 @@ export const LevelingQuest: Quest = {
       // eslint-disable-next-line libram/verify-constants
       completed: () => !have($item`Mmm-brr! brand mouthwash`),
       do: () => {
+        // Use potions for cold resistance
         if (have($item`rainbow glitter candle`)) use($item`rainbow glitter candle`);
         if (have($item`pec oil`)) use($item`pec oil`);
         if (have($skill`Emotionally Chipped`) && get("_feelPeacefulUsed") < 3)
@@ -389,6 +391,28 @@ export const LevelingQuest: Quest = {
         if (have($item`recording of Rolando's Rondo of Resisto`))
           use($item`recording of Rolando's Rondo of Resisto`);
         if (BeachComb.available()) BeachComb.tryHead(BeachComb.head.COLD);
+
+        // If we are below the minimum cold resistance, wish away the difference
+        const coldMinimum = 33;
+        const wishableEffects = [
+          $effect`Fever From the Flavor`,
+          $effect`Boilermade`,
+          $effect`Inner Warmth`,
+          $effect`Super Structure`,
+          $effect`Icy Composition`,
+        ];
+        for (const effect of wishableEffects) {
+          if (numericModifier("Cold Resistance") >= coldMinimum) break;
+          if (have(effect)) continue;
+          if (
+            have($item`pocket wish`) ||
+            (have($item`genie bottle`) && get("_genieWishesUsed") < 3)
+          )
+            cliExecute(`genie effect ${effect.name}`);
+          else if (have($item`cursed monkey's paw`) && get("_monkeyPawWishesUsed") < 5)
+            cliExecute(`monkeypaw effect ${effect.name}`);
+          else break;
+        }
 
         // eslint-disable-next-line libram/verify-constants
         use($item`Mmm-brr! brand mouthwash`);
