@@ -47003,7 +47003,7 @@ var buffTasks = [{
     return get("_clanFortuneBuffUsed") || !have($item(_templateObject5144 || (_templateObject5144 = _taggedTemplateLiteral99(["Clan VIP Lounge key"])))) || levelingStartCompleted();
   },
   priority: function() {
-    return Priorities.Free;
+    return Priorities.Start;
   },
   do: function() {
     return (0, import_kolmafia111.cliExecute)("fortune buff susie");
@@ -47035,7 +47035,7 @@ var buffTasks = [{
     return have($effect(_templateObject9104 || (_templateObject9104 = _taggedTemplateLiteral99(["Warm Shoulders"])))) || !have($item(_templateObject10100 || (_templateObject10100 = _taggedTemplateLiteral99(["pocket wish"])))) && (!have($item(_templateObject1180 || (_templateObject1180 = _taggedTemplateLiteral99(["genie bottle"])))) || get("_genieWishesUsed") >= 3) && (!have($item(_templateObject1271 || (_templateObject1271 = _taggedTemplateLiteral99(["cursed monkey's paw"])))) || get("_monkeyPawWishesUsed") >= 5) || (0, import_kolmafia111.myTurncount)() >= 20 || levelingStartCompleted();
   },
   priority: function() {
-    return Priorities.Free;
+    return Priorities.Start;
   },
   do: function() {
     if (have($item(_templateObject1370 || (_templateObject1370 = _taggedTemplateLiteral99(["pocket wish"])))) || have($item(_templateObject1469 || (_templateObject1469 = _taggedTemplateLiteral99(["genie bottle"])))) && get("_genieWishesUsed") < 3)
@@ -47054,7 +47054,7 @@ var buffTasks = [{
     return have($effect(_templateObject1561 || (_templateObject1561 = _taggedTemplateLiteral99(["Blue Swayed"])))) || !have($item(_templateObject1661 || (_templateObject1661 = _taggedTemplateLiteral99(["pocket wish"])))) && (!have($item(_templateObject1760 || (_templateObject1760 = _taggedTemplateLiteral99(["genie bottle"])))) || get("_genieWishesUsed") >= 3) && (!have($item(_templateObject1856 || (_templateObject1856 = _taggedTemplateLiteral99(["cursed monkey's paw"])))) || get("_monkeyPawWishesUsed") >= 5) || (0, import_kolmafia111.myTurncount)() >= 20 || levelingStartCompleted();
   },
   priority: function() {
-    return Priorities.Free;
+    return Priorities.Start;
   },
   do: function() {
     if (have($item(_templateObject1951 || (_templateObject1951 = _taggedTemplateLiteral99(["pocket wish"])))) || have($item(_templateObject2051 || (_templateObject2051 = _taggedTemplateLiteral99(["genie bottle"])))) && get("_genieWishesUsed") < 3)
@@ -47075,7 +47075,7 @@ var unscaledLeveling = [{
   name: "LOV Tunnel",
   after: getBuffsPreLOV,
   priority: function() {
-    return Priorities.Free;
+    return Priorities.Start;
   },
   completed: function() {
     return get("_loveTunnelUsed") || !get("loveTunnelAvailable");
@@ -48132,7 +48132,7 @@ function checkRequirements() {
 }
 
 // src/_git_commit.ts
-var lastCommitHash = "765a14b";
+var lastCommitHash = "40e1cc6";
 
 // src/main.ts
 var _templateObject1190;
