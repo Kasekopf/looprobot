@@ -1,7 +1,7 @@
 import { $item, $items, $location, $skill, $slot, $stat, AutumnAton, get, have, set } from "libram";
 import { Priorities } from "../engine/priority";
 import { Quest } from "../engine/task";
-import { atLevel, levelingStartCompleted, YouRobot } from "../lib";
+import { atLevel, debug, levelingStartCompleted, YouRobot } from "../lib";
 import { Guards, step } from "grimoire-kolmafia";
 import {
   ceil,
@@ -16,7 +16,6 @@ import {
 } from "kolmafia";
 import { flyersDone } from "./level12";
 import { toTempPref } from "../args";
-import { debug } from "console";
 
 const BATTERIES = $items`battery (car), battery (lantern), battery (9-Volt), battery (D), battery (AA)`;
 export const RobotQuest: Quest = {
