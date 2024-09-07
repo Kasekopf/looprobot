@@ -211,9 +211,9 @@ export const pulls: PullSpec[] = [
   {
     pull: $item`pocket wish`,
     useful: () => {
-      if (!levelingStartCompleted()) return undefined;
       if (flyersDone()) return false;
       if (args.minor.flyer) return false;
+      if (!levelingStartCompleted() || myTurncount() < 100) return undefined;
       return !have($item`pocket wish`);
     },
     duplicate: true, // still need to consider allocating room for it
