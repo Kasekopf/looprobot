@@ -207,11 +207,15 @@ const Cranny: Task[] = [
       get("cyrptCrannyEvilness") === 0 &&
       step("questL07Cyrptic") !== -1 &&
       !get(toTempPref("crannyoverkill"), false),
+    prepare: () => {
+      if (get(toTempPref("crannyoverkill"), false)) set("cyrptCrannyEvilness", 1);
+    },
     do: $location`The Defiled Cranny`,
     post: () => {
       if (get("lastEncounter") === "huge ghuol" && get(toTempPref("crannyoverkill"), false)) {
         set(toTempPref("crannyoverkill"), false);
       }
+      visitUrl("crypt.php");
     },
     combat: new CombatStrategy().killHard(),
     boss: true,
