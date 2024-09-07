@@ -16,6 +16,7 @@ import {
 } from "kolmafia";
 import { flyersDone } from "./level12";
 import { toTempPref } from "../args";
+import { debug } from "console";
 
 const BATTERIES = $items`battery (car), battery (lantern), battery (9-Volt), battery (D), battery (AA)`;
 export const RobotQuest: Quest = {
@@ -122,7 +123,19 @@ export const RobotQuest: Quest = {
       priority: () => Priorities.Free,
       completed: () => false,
       ready: () => YouRobot.energy() >= YouRobot.expectedChronolithCost() + statbotEnergyBuffer(),
-      do: () => YouRobot.doChronolith(),
+      do: () => {
+        const startingAdv = myAdventures();
+        YouRobot.doChronolith();
+        if (myAdventures() === startingAdv) {
+          // Energy was probably misaligned in mafia.
+          const energy = YouRobot.energy();
+          cliExecute("refresh all");
+          if (energy > YouRobot.energy()) {
+            const message = `Expected energy ${energy}, was instead ${YouRobot.energy()}`;
+            debug(`Misalignment: ${message}`);
+          }
+        }
+      },
       limit: {
         // Check that energy goes down (instead of +adv) to better handle
         // off-by-one tracking errors.
