@@ -342,11 +342,11 @@ export const wandererSources: WandererSource[] = [
       have($familiar`Left-Hand Man`) &&
       myTurncount() > 5,
     equip: [
-      { equip: $items`Kramco Sausage-o-Matic™, Space Trip safety headphones, Roman Candelabra` },
       {
         equip: $items`Kramco Sausage-o-Matic™, unwrapped knock-off retro superhero cape, Roman Candelabra`,
         modes: { retrocape: ["heck", "hold"] },
       },
+      { equip: $items`Kramco Sausage-o-Matic™, Space Trip safety headphones, Roman Candelabra` },
     ],
     monsters: [$monster`sausage goblin`],
     chance: () => getKramcoWandererChance(),
