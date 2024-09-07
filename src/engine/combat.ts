@@ -6,6 +6,7 @@ import {
   myBasestat,
   myFamiliar,
   myPrimestat,
+  Skill,
   Stat,
 } from "kolmafia";
 import {
@@ -146,19 +147,20 @@ export function killMacro(target?: Monster | Location, hard?: boolean, withSlap 
 
   // Level with the Grey Goose if available
   if (myFamiliar() === $familiar`Grey Goose` && familiarWeight($familiar`Grey Goose`) >= 20) {
-    switch (statToLevel()) {
-      case $stat`Muscle`:
-        result.trySkill($skill`Convert Matter to Protein`);
-        break;
-      case $stat`Mysticality`:
-        result.trySkill($skill`Convert Matter to Energy`);
-        break;
-      case $stat`Moxie`:
-        result.trySkill($skill`Convert Matter to Pomade`);
-        break;
-      case Stat.none:
-        break;
-    }
+    const gooseMonsterBanlist = $monsters`Batsnake, Frozen Solid Snake, ninja snowman assassin`;
+    const gooseSkill = byStat(
+      {
+        Muscle: $skill`Convert Matter to Protein`,
+        Mysticality: $skill`Convert Matter to Energy`,
+        Moxie: $skill`Convert Matter to Pomade`,
+        default: Skill.none,
+      },
+      statToLevel().toString()
+    );
+    result.if_(
+      gooseMonsterBanlist.map((m) => `!monsterid ${m.id}`).join(" && "),
+      Macro.trySkill(gooseSkill)
+    );
   }
 
   if (haveEquipped($item`candy cane sword cane`) && have($effect`Shadow Affinity`))
