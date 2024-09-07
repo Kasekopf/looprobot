@@ -165,7 +165,7 @@ var init_logger = __esm({
         }
       }, {
         key: "debug",
-        value: function debug3(message) {
+        value: function debug2(message) {
           this.log(LogLevels.DEBUG, message);
         }
       }]);
@@ -46258,7 +46258,6 @@ var TowerQuest = {
 // src/tasks/robot.ts
 init_dist();
 var import_kolmafia110 = require("kolmafia");
-var import_console = require("console");
 var _templateObject1090;
 var _templateObject2200;
 var _templateObject3172;
@@ -46548,7 +46547,7 @@ var RobotQuest = {
         (0, import_kolmafia110.cliExecute)("refresh all");
         if (energy > YouRobot.energy()) {
           var message = "Expected energy ".concat(energy, ", was instead ").concat(YouRobot.energy());
-          (0, import_console.debug)("Misalignment: ".concat(message));
+          debug("Misalignment: ".concat(message));
         }
       }
     },
@@ -48157,7 +48156,7 @@ function checkRequirements() {
 }
 
 // src/_git_commit.ts
-var lastCommitHash = "b057550";
+var lastCommitHash = "514a27c";
 
 // src/main.ts
 var _templateObject1190;
