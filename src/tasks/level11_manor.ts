@@ -21,6 +21,7 @@ import {
   $monster,
   $monsters,
   $skill,
+  $slot,
   ensureEffect,
   get,
   getActiveEffects,
@@ -32,7 +33,7 @@ import { Modes, OutfitSpec, step } from "grimoire-kolmafia";
 import { CombatStrategy, killMacro } from "../engine/combat";
 import { Priorities } from "../engine/priority";
 import { forceNCPossible, tryForceNC, tryPlayApriling } from "../engine/resources";
-import { haveLoathingIdolMicrophone } from "../lib";
+import { haveLoathingIdolMicrophone, YouRobot } from "../lib";
 import { globalStateCache } from "../engine/state";
 import { fillHp } from "../engine/moods";
 
@@ -55,6 +56,7 @@ const Manor1: Task[] = [
   {
     name: "Billiards",
     after: ["Kitchen"],
+    ready: () => !have($item`pool cue`) || YouRobot.canUse($slot`weapon`),
     completed: () => step("questM20Necklace") >= 3,
     priority: () => {
       if (get("noncombatForcerActive")) return Priorities.GoodForceNC;

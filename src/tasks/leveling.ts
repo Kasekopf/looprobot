@@ -21,6 +21,7 @@ import {
   $location,
   $monster,
   $skill,
+  $slot,
   BeachComb,
   ClosedCircuitPayphone,
   ensureEffect,
@@ -254,7 +255,7 @@ const unscaledLeveling: Task[] = [
       if (have($effect`Shadow Affinity`)) return [Priorities.Start, Priorities.MinorEffect];
       else return [Priorities.Start];
     },
-    ready: () => atLevel(7) && step("questL07Cyrptic") !== -1,
+    ready: () => atLevel(7) && step("questL07Cyrptic") !== -1 && YouRobot.canUse($slot`weapon`),
     completed: () =>
       !have($item`closed-circuit pay phone`) ||
       (get("_shadowAffinityToday") &&
