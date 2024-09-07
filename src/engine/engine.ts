@@ -454,20 +454,28 @@ export class Engine extends BaseEngine<CombatActions, ActiveTask> {
       (!(task.do instanceof Location) || !blacklist.has(task.do)) &&
       task.name !== "Misc/Protonic Ghost"
     ) {
-      const stuncape: OutfitSpec = {
-        back: $item`unwrapped knock-off retro superhero cape`,
-        modes: { retrocape: ["heck", "hold"] },
-      };
-      if (get("lovebugsUnlocked") || outfit.canEquip(stuncape)) {
-        if (!get("lovebugsUnlocked")) outfit.equip(stuncape);
-        combat.macro(
-          new Macro().if_(
-            `!hpbelow 50 && ${monster_blacklist.map((m) => `!monsterid ${m.id}`).join(" && ")}`,
-            new Macro().trySkill($skill`Summon Love Gnats`).tryItem($item`rock band flyers`)
-          ),
-          undefined,
-          true
+      // Find the best stagger option that we own, and flyer if we can equip it
+      // (If we don't own any stagger option, flyer anyway; we will probably
+      //  die, but at least we won't softlock).
+      const staggerOptions: OutfitSpec[] = [
+        {
+          equip: $items`unwrapped knock-off retro superhero cape`,
+          modes: { retrocape: ["heck", "hold"] },
+        },
+        {
+          equip: $items`Jurassic Parka`,
+        },
+        {
+          equip: $items`Eight Days a Week Pill Keeper`,
+        },
+      ];
+      const staggerOption = staggerOptions.find((opt) => have(opt.equip?.[0] ?? Item.none));
+      if (get("lovebugsUnlocked") || !staggerOption || outfit.equip(staggerOption)) {
+        const flyerMacro = new Macro().if_(
+          `!hpbelow 50 && ${monster_blacklist.map((m) => `!monsterid ${m.id}`).join(" && ")}`,
+          new Macro().trySkill($skill`Summon Love Gnats`).tryItem($item`rock band flyers`)
         );
+        combat.macro(flyerMacro, undefined, true);
       }
     }
 
