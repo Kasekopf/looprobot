@@ -89,7 +89,7 @@ export function main(command?: string): void {
       throw `Unable to find available task, but the run is not complete.`;
     }
   } finally {
-    engine.propertyManager.resetAll();
+    engine.destruct();
   }
 
   if (step("questL13Final") > 11) {
