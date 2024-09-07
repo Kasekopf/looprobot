@@ -35,7 +35,7 @@ import { trainSetAvailable } from "./misc";
 import { yellowSubmarinePossible } from "../engine/outfit";
 import { atLevel, levelingStartCompleted, underStandard, YouRobot } from "../lib";
 import { summonStrategy } from "./summons";
-import { fastFlyerPossible, flyersDone } from "./level12";
+import { flyersDone } from "./level12";
 
 /**
  * optional: If true, only pull this if there is one in storage (i.e., no mall buy).
@@ -213,7 +213,7 @@ export const pulls: PullSpec[] = [
     useful: () => {
       if (!levelingStartCompleted()) return undefined;
       if (flyersDone()) return false;
-      if (!fastFlyerPossible()) return false;
+      if (args.minor.flyer) return false;
       return !have($item`pocket wish`);
     },
     duplicate: true, // still need to consider allocating room for it
