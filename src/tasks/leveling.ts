@@ -394,7 +394,7 @@ export const LevelingQuest: Quest = {
     },
     {
       name: "Mouthwash",
-      after: ["Cloud Talk", "Nellyville", "Defective Game Grid", "Misc/Cut Melodramedary"],
+      after: ["Cloud Talk", "Nellyville", "Defective Game Grid", "Misc/Cut Melodramedary", "Acquire Mouthwash"],
       priority: () => Priorities.Start,
       // eslint-disable-next-line libram/verify-constants
       completed: () => !have($item`Mmm-brr! brand mouthwash`),
