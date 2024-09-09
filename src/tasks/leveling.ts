@@ -42,6 +42,7 @@ import {
 } from "../lib";
 import { fillHp } from "../engine/moods";
 import { OutfitSpec, step } from "grimoire-kolmafia";
+import { args } from "../args";
 
 const robotSetup = [
   "Robot/Scavenge",
@@ -372,6 +373,24 @@ export const LevelingQuest: Quest = {
       },
       limit: { tries: 3 },
       freecombat: true,
+    },
+    {
+      name: "Acquire Mouthwash",
+      completed: () =>
+        // eslint-disable-next-line libram/verify-constants
+        !have($item`Sept-Ember Censer`) ||
+        args.minor.saveember ,
+      do: (): void => {
+        // Grab Embers
+        visitUrl("shop.php?whichshop=september");
+
+        // Grab Bembershoot
+        visitUrl(`shop.php?whichshop=september&action=buyitem&quantity=1&whichrow=1516&pwd`);
+
+        // Grab Mouthwashes
+        visitUrl("shop.php?whichshop=september&action=buyitem&quantity=3&whichrow=1512&pwd");
+      },
+      limit: { tries: 1 },
     },
     {
       name: "Mouthwash",
