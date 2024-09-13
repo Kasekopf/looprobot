@@ -379,12 +379,12 @@ export const LevelingQuest: Quest = {
       completed: () =>
         // eslint-disable-next-line libram/verify-constants
         !have($item`Sept-Ember Censer`) ||
-        have(mouthWash) ||
-        args.minor.saveember ||
-        myLevel() >= 7,
+        (get("availableSeptEmbers", 0) === 0 && get("_septEmbersCollected", true)) ||
+        args.minor.saveember,
       do: (): void => {
         // Grab Embers
         visitUrl("shop.php?whichshop=september");
+        set("_septEmbersCollected", true);
 
         // Grab Bembershoot
         visitUrl(`shop.php?whichshop=september&action=buyitem&quantity=1&whichrow=1516&pwd`);
