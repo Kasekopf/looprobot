@@ -24,7 +24,7 @@ import { checkRequirements } from "./sim";
 import { lastCommitHash } from "./_git_commit";
 import { args, toTempPref } from "./args";
 
-const time_property = "_looprobot_first_start";
+const time_property = toTempPref("first_start");
 const svn_name = "Kasekopf-loop-casual-branches-release";
 
 export function main(command?: string): void {
