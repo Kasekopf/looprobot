@@ -581,7 +581,6 @@ export const TowerQuest: Quest = {
       completed: () => step("questL13Final") > 10,
       do: $location`Tower Level 5`,
       outfit: () => ({
-        // eslint-disable-next-line libram/verify-constants
         equip: $items`unwrapped knock-off retro superhero cape, Jurassic Parka, attorney's badge, backup camera, tearaway pants`,
         modes: {
           parka: "kachungasaur",

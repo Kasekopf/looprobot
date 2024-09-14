@@ -1127,9 +1127,7 @@ export const MiscQuest: Quest = {
       name: "Structural Ember",
       after: [],
       priority: () => Priorities.Free,
-      // eslint-disable-next-line libram/verify-constants
       completed: () => !have($item`structural ember`),
-      // eslint-disable-next-line libram/verify-constants
       do: () => use($item`structural ember`),
       freeaction: true,
       limit: { tries: 2 },

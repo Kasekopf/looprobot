@@ -377,7 +377,6 @@ export const LevelingQuest: Quest = {
     {
       name: "Acquire Mouthwash",
       completed: () =>
-        // eslint-disable-next-line libram/verify-constants
         !have($item`Sept-Ember Censer`) ||
         (get("availableSeptEmbers", 0) === 0 && get("_septEmbersCollected", true)) ||
         args.minor.saveember,
@@ -405,7 +404,7 @@ export const LevelingQuest: Quest = {
         "Acquire Mouthwash",
       ],
       priority: () => Priorities.Start,
-      completed: () => !have(mouthWash),
+      completed: () => !have($item`Mmm-brr! brand mouthwash`),
       do: () => {
         // Use potions for cold resistance
         if (have($item`rainbow glitter candle`)) use($item`rainbow glitter candle`);
@@ -441,7 +440,7 @@ export const LevelingQuest: Quest = {
             cliExecute(`monkeypaw effect ${effect.name}`);
           else break;
         }
-        use(mouthWash);
+        use($item`Mmm-brr! brand mouthwash`);
       },
       outfit: () => {
         if (have($familiar`Trick-or-Treating Tot`) && have($item`li'l candy corn costume`))
@@ -468,6 +467,3 @@ export const LevelingQuest: Quest = {
     },
   ],
 };
-
-// eslint-disable-next-line libram/verify-constants
-const mouthWash = $item`Mmm-brr! brand mouthwash`;
