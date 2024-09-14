@@ -1036,7 +1036,7 @@ export const MiscQuest: Quest = {
     {
       name: "Eat Sausage",
       after: [],
-      priority: () => Priorities.Free,
+      priority: () => Priorities.FreePositive,
       ready: () => {
         if (myTurncount() < 10) return false;
         if (!have($item`magical sausage casing`)) return false;
@@ -1052,6 +1052,7 @@ export const MiscQuest: Quest = {
       completed: () => get("_sausagesEaten") >= 23,
       do: () => eat($item`magical sausage`),
       freeaction: true,
+      ignorehalt: true,
       limit: { tries: 23 },
     },
     {

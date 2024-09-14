@@ -44,7 +44,7 @@ export const RobotQuest: Quest = {
     {
       name: "First Chronolith",
       after: ["CPU Potions", "CPU Energy"],
-      priority: () => Priorities.Free,
+      priority: () => Priorities.FreePositive,
       completed: () => myAdventures() > 5 || myTurncount() > 5,
       ready: () => YouRobot.energy() >= YouRobot.expectedChronolithCost(),
       do: () => YouRobot.doChronolith(),
@@ -119,7 +119,7 @@ export const RobotQuest: Quest = {
     {
       name: "Chronolith",
       after: ["CPU Potions", "CPU Energy", "CPU Shirt"],
-      priority: () => Priorities.Free,
+      priority: () => Priorities.FreePositive,
       completed: () => false,
       ready: () => YouRobot.energy() >= YouRobot.expectedChronolithCost() + statbotEnergyBuffer(),
       do: () => {

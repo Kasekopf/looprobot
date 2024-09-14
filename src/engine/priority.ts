@@ -17,6 +17,7 @@ export class Priorities {
   static Wanderer: Priority = { score: 20000, reason: "Wanderer" };
   static Always: Priority = { score: 10000, reason: "Forced" };
   static GoodForceNC: Priority = { score: 8000, reason: "Forcing NC" };
+  static FreePositive: Priority = { score: 1001, reason: "Free action gaining adv" };
   static Free: Priority = { score: 1000, reason: "Free action" };
   static NeedAdv: Priority = { score: 200, reason: "Low on adventures" };
   static LastCopyableMonster: Priority = { score: 100, reason: "Copy last monster" };
