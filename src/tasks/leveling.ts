@@ -42,6 +42,7 @@ import {
 } from "../lib";
 import { fillHp } from "../engine/moods";
 import { OutfitSpec, step } from "grimoire-kolmafia";
+import { args } from "../args";
 
 const robotSetup = [
   "Robot/Scavenge",
@@ -374,11 +375,31 @@ export const LevelingQuest: Quest = {
       freecombat: true,
     },
     {
+      name: "Acquire Mouthwash",
+      completed: () =>
+        // eslint-disable-next-line libram/verify-constants
+        !have($item`Sept-Ember Censer`) ||
+        (get("availableSeptEmbers", 0) === 0 && get("_septEmbersCollected", true)) ||
+        args.minor.saveember,
+      do: (): void => {
+        // Grab Embers
+        visitUrl("shop.php?whichshop=september");
+        set("_septEmbersCollected", true);
+
+        // Grab Bembershoot
+        visitUrl(`shop.php?whichshop=september&action=buyitem&quantity=1&whichrow=1516&pwd`);
+
+        // Grab Mouthwashes
+        visitUrl("shop.php?whichshop=september&action=buyitem&quantity=3&whichrow=1512&pwd");
+      },
+      limit: { tries: 1 },
+      freeaction: true,
+    },
+    {
       name: "Mouthwash",
-      after: ["Cloud Talk", "Nellyville", "Defective Game Grid", "Misc/Cut Melodramedary"],
+      after: ["Cloud Talk", "Nellyville", "Defective Game Grid", "Misc/Cut Melodramedary", "Acquire Mouthwash"],
       priority: () => Priorities.Start,
-      // eslint-disable-next-line libram/verify-constants
-      completed: () => !have($item`Mmm-brr! brand mouthwash`),
+      completed: () => !have(mouthWash),
       do: () => {
         // Use potions for cold resistance
         if (have($item`rainbow glitter candle`)) use($item`rainbow glitter candle`);
@@ -414,9 +435,7 @@ export const LevelingQuest: Quest = {
             cliExecute(`monkeypaw effect ${effect.name}`);
           else break;
         }
-
-        // eslint-disable-next-line libram/verify-constants
-        use($item`Mmm-brr! brand mouthwash`);
+        use(mouthWash);
       },
       outfit: () => {
         if (have($familiar`Trick-or-Treating Tot`) && have($item`li'l candy corn costume`))
@@ -443,3 +462,6 @@ export const LevelingQuest: Quest = {
     },
   ],
 };
+
+// eslint-disable-next-line libram/verify-constants
+const mouthWash = $item`Mmm-brr! brand mouthwash`;

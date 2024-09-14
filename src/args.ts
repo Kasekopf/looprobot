@@ -58,6 +58,10 @@ export const args = Args.create(
         help: "Number of spikolodon spikes to save (max 5).",
         default: 0,
       }),
+      saveember: Args.flag({
+        help: "Should we save the Sept-Ember Censor for aftercore?",
+        default: false,
+      }),
       voterbooth: Args.flag({
         help: "Attempt to use the voter booth if we have access.",
         default: true,
