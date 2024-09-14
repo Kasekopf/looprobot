@@ -179,7 +179,6 @@ const Cranny: Task[] = [
         equip: tryCape(
           $item`muculent machete`,
           $item`gravy boat`,
-          // eslint-disable-next-line libram/verify-constants
           $item`tearaway pants`,
           $item`unbreakable umbrella`,
           $item`barrel lid`,

@@ -149,7 +149,6 @@ const Oil: Task[] = [
 
       const spec: OutfitSpec & { equip: Item[] } = {
         modifier: `ML ${mlNeeded} max, 0.1 item, 0.1 food drop`,
-        // eslint-disable-next-line libram/verify-constants
         equip: $items`unbreakable umbrella, unwrapped knock-off retro superhero cape, June cleaver, tearaway pants`,
         modes: { umbrella: "broken", retrocape: ["heck", "hold"] },
         avoid: $items`Kramco Sausage-o-Matic™`,
@@ -201,7 +200,6 @@ const Oil: Task[] = [
       if (have($item`unbreakable umbrella`))
         return {
           modifier: "ML 80 max, 0.1 item, 0.1 food drop, monster level percent",
-          // eslint-disable-next-line libram/verify-constants
           equip: $items`unbreakable umbrella, Everfull Dart Holster, unwrapped knock-off retro superhero cape, tearaway pants`,
           modes: { umbrella: "broken", retrocape: ["heck", "hold"] },
         };

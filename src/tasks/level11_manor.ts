@@ -395,7 +395,6 @@ const ManorBasement: Task[] = [
         equip: [
           $item`unstable fulminate`,
           $item`unwrapped knock-off retro superhero cape`,
-          // eslint-disable-next-line libram/verify-constants
           $item`tearaway pants`,
         ],
         modes: { retrocape: ["heck", "hold"] },
