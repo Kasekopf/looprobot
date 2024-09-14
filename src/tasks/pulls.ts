@@ -85,6 +85,18 @@ export const pulls: PullSpec[] = [
     pull: $item`battery (car)`,
     useful: () => !have($item`potted power plant`) && knollAvailable(),
   },
+  // Stat pulls
+  {
+    pull: $item`Mmm-brr! brand mouthwash`,
+    useful: () => {
+      if (!have($item`Sept-Ember Censer`)) return false;
+      if (levelingStartCompleted()) return false;
+      if (get("availableSeptEmbers", 0) >= 2) return undefined;
+      if (!get("_septEmbersCollected", false)) return undefined;
+      if (have($item`Mmm-brr! brand mouthwash`)) return undefined;
+      return true; // no embers available, but we need more to finish leveling
+    },
+  },
   // General pulls
   {
     pull: $item`lucky gold ring`,
