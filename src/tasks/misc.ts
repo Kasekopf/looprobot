@@ -1127,7 +1127,7 @@ export const MiscQuest: Quest = {
       name: "Structural Ember",
       after: [],
       priority: () => Priorities.Free,
-      completed: () => !have($item`structural ember`),
+      completed: () => !have($item`structural ember`) || get("_structuralEmberUsed", false),
       do: () => use($item`structural ember`),
       freeaction: true,
       limit: { tries: 2 },
