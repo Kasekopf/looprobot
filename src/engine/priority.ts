@@ -175,6 +175,7 @@ export class Prioritization {
         ball_useful &&
         !ball_may_not_be_useful &&
         !location_in_blacklist &&
+        step("questL13Final") === -1 &&
         // Stop trying to use bowling ball when Video Games is running low,
         // we need to make it through billiards room
         (!have($effect`Video... Games?`) ||
