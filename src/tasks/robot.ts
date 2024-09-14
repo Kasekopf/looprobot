@@ -91,7 +91,7 @@ export const RobotQuest: Quest = {
       after: ["CPU Potions"],
       priority: () => Priorities.Free,
       completed: () => myTurncount() >= 1000,
-      ready: () => have($item`battery (AAA)`) && YouRobot.energy() < 50,
+      ready: () => have($item`battery (AAA)`) && (YouRobot.energy() < 50 || myTurncount() > 5),
       do: () => use($item`battery (AAA)`),
       limit: {
         guard: Guards.create(

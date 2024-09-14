@@ -397,7 +397,13 @@ export const LevelingQuest: Quest = {
     },
     {
       name: "Mouthwash",
-      after: ["Cloud Talk", "Nellyville", "Defective Game Grid", "Misc/Cut Melodramedary", "Acquire Mouthwash"],
+      after: [
+        "Cloud Talk",
+        "Nellyville",
+        "Defective Game Grid",
+        "Misc/Cut Melodramedary",
+        "Acquire Mouthwash",
+      ],
       priority: () => Priorities.Start,
       completed: () => !have(mouthWash),
       do: () => {
