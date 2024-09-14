@@ -418,6 +418,8 @@ export const LevelingQuest: Quest = {
         if (have($item`recording of Rolando's Rondo of Resisto`))
           use($item`recording of Rolando's Rondo of Resisto`);
         if (BeachComb.available()) BeachComb.tryHead(BeachComb.head.COLD);
+        if (get("spacegateAlways") && get("spacegateVaccine1") && !get("_spacegateVaccine"))
+          ensureEffect($effect`Rainbow Vaccine`);
 
         // If we are below the minimum cold resistance, wish away the difference
         const coldMinimum = 33;
