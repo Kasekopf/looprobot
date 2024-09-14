@@ -204,9 +204,10 @@ const Cranny: Task[] = [
     name: "Cranny Boss",
     after: ["Start", "Cranny"],
     completed: () =>
-      get("cyrptCrannyEvilness") === 0 &&
-      step("questL07Cyrptic") !== -1 &&
-      !get(toTempPref("crannyoverkill"), false),
+      (get("cyrptCrannyEvilness") === 0 &&
+        step("questL07Cyrptic") !== -1 &&
+        !get(toTempPref("crannyoverkill"), false)) ||
+      step("questL07Cyrptic") >= 1,
     prepare: () => {
       if (get(toTempPref("crannyoverkill"), false)) set("cyrptCrannyEvilness", 1);
     },
