@@ -378,7 +378,7 @@ export const LevelingQuest: Quest = {
       name: "Acquire Mouthwash",
       completed: () =>
         !have($item`Sept-Ember Censer`) ||
-        (get("availableSeptEmbers", 0) === 0 && get("_septEmbersCollected", true)) ||
+        (get("availableSeptEmbers", 0) === 0 && get("_septEmbersCollected", false)) ||
         args.minor.saveember,
       do: (): void => {
         // Grab Embers
