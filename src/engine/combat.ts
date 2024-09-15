@@ -92,7 +92,7 @@ function statToLevel(): Stat {
   if (myBasestat($stat`Moxie`) < 70) return $stat`Moxie`;
   if (myBasestat($stat`Mysticality`) < 70 && myPrimestat() !== $stat`Muscle`)
     return $stat`Mysticality`;
-  return Stat.none;
+  return myPrimestat();
 }
 
 const dartParts: Switch<string, string[]> = {
