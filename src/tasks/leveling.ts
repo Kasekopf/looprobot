@@ -376,6 +376,7 @@ export const LevelingQuest: Quest = {
     },
     {
       name: "Acquire Mouthwash",
+      priority: () => Priorities.Start,
       completed: () =>
         !have($item`Sept-Ember Censer`) ||
         (get("availableSeptEmbers", 0) === 0 && get("_septEmbersCollected", false)) ||
