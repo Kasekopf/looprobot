@@ -50,10 +50,10 @@ function buildIotmList(): Requirement[] {
   return [
     {
       thing: new Hardcoded(
-        freeFightSources >= 2,
-        "Two of (Snojo, Neverending Party, closed-circuit pay phone)"
+        have($item`Sept-Ember Censer`) || (have($familiar`Grey Goose`) && freeFightSources >= 2),
+        "Sept-Ember Censer OR [grey gosling AND two of (Snojo, Neverending Party, closed-circuit pay phone)]"
       ),
-      why: "Leveling with Goose",
+      why: "Leveling",
       required: true,
     },
     { thing: $item`Clan VIP Lounge key`, why: "YRs, +combat" },
@@ -99,12 +99,12 @@ function buildIotmList(): Requirement[] {
     },
     {
       thing: [$item`genie bottle`, $item`cursed monkey's paw`],
-      why: "Leveling with Goose",
+      why: "Leveling",
       required: true,
     },
     {
       thing: $item`genie bottle`,
-      why: "Leveling with Goose",
+      why: "Leveling, flyering",
     },
     {
       thing: $item`January's Garbage Tote`,
@@ -152,8 +152,7 @@ function buildIotmList(): Requirement[] {
     },
     {
       thing: new Hardcoded(CampAway.have(), "Distant Woods Getaway Brochure"),
-      why: "+exp",
-      required: true,
+      why: "+exp, resting for cincho",
     },
     {
       thing: $item`Powerful Glove`,
@@ -176,7 +175,6 @@ function buildIotmList(): Requirement[] {
     {
       thing: $item`spinal-fluid-covered emotion chip`,
       why: "Banish, -combat, items",
-      required: true,
     },
     {
       thing: $item`potted power plant`,
@@ -218,7 +216,7 @@ function buildIotmList(): Requirement[] {
       why: "Reminiscing",
       required: true,
     },
-    { thing: $familiar`Grey Goose`, why: "Leveling, duplication drones", required: true },
+    { thing: $familiar`Grey Goose`, why: "Duplication drones" },
     {
       thing: $item`unbreakable umbrella`,
       why: "-combat modifier, ML",
@@ -247,11 +245,11 @@ function buildIotmList(): Requirement[] {
     },
     {
       thing: $item`closed-circuit pay phone`,
-      why: "Shadow bricks, +meat, Leveling with Goose",
+      why: "Shadow bricks, +meat, leveling with Goose",
     },
     {
       thing: $item`cursed monkey's paw`,
-      why: "Banishes",
+      why: "Banishes, nuns",
     },
     {
       thing: $item`Cincho de Mayo`,

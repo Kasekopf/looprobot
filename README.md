@@ -51,17 +51,21 @@ Major Options:
 Minor Options:
   fax BOOLEAN - Use a fax to summon a monster. Set to false if the faxbots are offline. [default: true] [setting: looprobot_fax]
   lgr - Pull a lucky gold ring. If pulled, it will be equipped during many combats. [default: false] [setting: looprobot_lgr]
-  profitfamiliar - Use free familiar turns for familiar related profits. [default: false] [setting: looprobot_profitFamiliar]
+  profitfamiliar - Use free familiar turns for familiar related profits. [default: false] [setting: looprobot_profitfamiliar]
   pvp - Break your hippy stone at the start of the run. [default: false] [setting: looprobot_pvp]
   wand - Always get the zap wand. [default: false] [setting: looprobot_wand]
   forcelocket - Always equip the combat lover's locket, in order to get monsters inside quickly. [default: false] [setting: looprobot_forcelocket]
   skipbackups - Don't use any Backup Camera Backups. [default: false] [setting: looprobot_skipbackups]
   savelocket NUMBER - Number of uses of the combat lover's locket to save. [default: 0] [setting: looprobot_savelocket]
-  savetuba - Don't use Apriling Band Helmet's Tuba summon. [default: false] [setting: looprobot_savetuba]
+  saveapril NUMBER - Number of Apriling Band instruments to save. [default: 0] [setting: looprobot_saveapril]
   luck NUMBER - Multiply the threshold for stopping execution when "you may just be unlucky". Increasing this can be dangerous and cause the script to waste more adventures; use at your own risk. [default: 1] [setting: looprobot_luck]
   saveparka NUMBER - Number of spikolodon spikes to save (max 5). [default: 0] [setting: looprobot_saveparka]
+  saveember - Should we save the Sept-Ember Censor for aftercore? [default: false] [setting: looprobot_saveember]
   voterbooth - Attempt to use the voter booth if we have access. [default: true] [setting: looprobot_voterbooth]
   stillsuit FAMILIAR - Equip the stillsuit to this familiar during the run [default: Gelatinous Cubeling] [setting: stillsuitFamiliar]
+  flyer - Always flyer the normal way, instead of wishing for a monster [default: false] [setting: looprobot_flyer]
+  chronolith - Skip spending turns to get net positive turns from chronolith at the end of the run (turn on to minimize turncount at the expense of aftercore turns) [default: false] [setting: looprobot_chronolith]
+  nuns - Do the nuns in the war; uses monkey paw wishes [default: false] [setting: looprobot_nuns]
 
 Debug Options:
   actions NUMBER - Maximum number of actions to perform, if given. Can be used to execute just a few steps at a time. [setting: looprobot_actions]
@@ -73,7 +77,7 @@ Debug Options:
   settings - Show the parsed value for all arguments and exit.
   ignorekeys - Ignore the check that all keys can be obtained. Typically for hardcore, if you plan to get your own keys [default: false] [setting: looprobot_ignorekeys]
   halt NUMBER - Halt when you have this number of adventures remaining or fewer [default: 0] [setting: looprobot_halt]
-  war NUMBER - Halt when your turncount is above this number and you haven't started the war [default: 150] [setting: looprobot_war]
+  warby NUMBER - Halt when your turncount is above this number and you haven't started the war [default: 150] [setting: looprobot_warby]
 ```
 
 ### Will this script work for me?
@@ -89,22 +93,19 @@ Expensive Pulls (Required)
 ✓ Space Trip safety headphones - Pull
 
 Expensive Pulls (Optional)
+✓ Buddy Bjorn - Pull
 ✓ carnivorous potted plant - Pull
 ✓ deck of lewd playing cards - Pull
 ✓ Greatest American Pants OR navel ring of navel gazing - Runaway IoTM
 ✓ lucky gold ring - Farming currency; see the argument "lgr"
-✓ mafia thumb ring - Pull
 ✓ Shore Inc. Ship Trip Scrip - Pull
 
 IoTMs (Required)
 ✓ combat lover's locket - Reminiscing
-✓ Distant Woods Getaway Brochure - +exp
-✓ genie bottle OR cursed monkey's paw - Leveling with Goose
-✓ grey gosling - Leveling, duplication drones
+✓ genie bottle OR cursed monkey's paw - Leveling
 ✓ June cleaver - Tavern, +adv, survivng
 ✓ Jurassic Parka - Meat, ML, -combat forces, survivng
-✓ spinal-fluid-covered emotion chip - Banish, -combat, items
-✓ Two of (Snojo, Neverending Party, closed-circuit pay phone) - Leveling with Goose
+✓ Sept-Ember Censer OR [grey gosling AND two of (Snojo, Neverending Party, closed-circuit pay phone)] - Leveling
 
 IoTMs (Optional)
 ✓ 2002 Mr. Store Catalog - +item, +init, wanderers
@@ -120,19 +121,21 @@ IoTMs (Optional)
 ✓ Chateau Mantegna - Free rests, +exp
 ✓ Cincho de Mayo - -combat forces
 ✓ Clan VIP Lounge key - YRs, +combat
-✓ closed-circuit pay phone - Shadow bricks, +meat, Leveling with Goose
+✓ closed-circuit pay phone - Shadow bricks, +meat, leveling with Goose
 ✓ Cosmic bowling ball - Banishes
 ✓ cursed magnifying glass - Wanderers
-✓ cursed monkey's paw - Banishes
+✓ cursed monkey's paw - Banishes, nuns
 ✓ Dark Jill-of-All-Trades - +meat, +item
 ✓ Daylight Shavings Helmet - +meat, +item
 ✓ Deck of Every Card - A key for the NS tower, stone wool, ore
 ✓ designer sweatpants - Sleaze damage, +init
+✓ Distant Woods Getaway Brochure - +exp, resting for cincho
 ✓ Everfull Dart Holster - Free kills
 ✓ familiar scrapbook - +exp
 ✓ Fourth of May Cosplay Saber - Familiar Weight
-✓ genie bottle - Leveling with Goose
+✓ genie bottle - Leveling, flyering
 ✓ God Lobster Egg - Leveling
+✓ grey gosling - Duplication drones
 ✓ industrial fire extinguisher - Harem outfit, Bat hole, stone wool, Crypt, Ultrahydrated, Shadow bricks
 ✓ January's Garbage Tote - +item, +meat
 ✓ Kramco Sausage-o-Matic™ - Wanderers
@@ -156,6 +159,7 @@ IoTMs (Optional)
 ✓ sleeping patriotic eagle - Niche, Palindome, Twin Paak
 ✓ Snojo - Leveling with Goose
 ✓ SongBoom™ BoomBox - Meat and special seasonings
+✓ spinal-fluid-covered emotion chip - Banish, -combat, items
 ✓ spring shoes - Runaways, Leveling
 ✓ Unagnimated Gnome - Adv gain
 ✓ unbreakable umbrella - -combat modifier, ML
@@ -164,6 +168,7 @@ IoTMs (Optional)
 
 Miscellany
 ✓ dried gelatinous cube - Daily dungeon
+✓ exotic parrot egg - Cold res
 ✓ hobo monkey - Meat drops
 ✓ Permanent pool skill from A Shark's Chum - Haunted billiards room
 ✓ woim - Bonus initiative
