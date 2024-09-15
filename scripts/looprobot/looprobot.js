@@ -29227,7 +29227,7 @@ function statToLevel() {
     return $stat(_templateObject2140 || (_templateObject2140 = _taggedTemplateLiteral70(["Moxie"])));
   if ((0, import_kolmafia82.myBasestat)($stat(_templateObject3127 || (_templateObject3127 = _taggedTemplateLiteral70(["Mysticality"])))) < 70 && (0, import_kolmafia82.myPrimestat)() !== $stat(_templateObject4104 || (_templateObject4104 = _taggedTemplateLiteral70(["Muscle"]))))
     return $stat(_templateObject568 || (_templateObject568 = _taggedTemplateLiteral70(["Mysticality"])));
-  return import_kolmafia82.Stat.none;
+  return (0, import_kolmafia82.myPrimestat)();
 }
 var dartParts = {
   Muscle: ["Wing", "Tentacle", "Face", "Handle", "Mouth", "Fin", "Ear"],
@@ -48192,7 +48192,7 @@ function checkRequirements() {
 }
 
 // src/_git_commit.ts
-var lastCommitHash = "68347b2";
+var lastCommitHash = "8f46cd7";
 
 // src/main.ts
 var _templateObject1190;
