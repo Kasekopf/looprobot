@@ -156,9 +156,13 @@ export const RobotQuest: Quest = {
         let scrapNeeded = 0;
         if (!YouRobot.canUseFamiliar() && !levelingStartCompleted()) scrapNeeded += 5;
         if (YouRobot.getPartId("right") !== 3 && !scrapBufferCompleted()) scrapNeeded += 5;
-        // If moxie class, we need more scrap to get a way to attack
-        // (or else KoL does not let us adventure in most zones)
-        if (myPrimestat() === $stat`Moxie` && !YouRobot.canUse($slot`weapon`)) scrapNeeded += 15;
+        if (!YouRobot.canUse($slot`weapon`)) {
+          // If moxie class, we need more scrap to get a way to attack
+          // (or else KoL does not let us adventure in most zones)
+          if (myPrimestat() === $stat`Moxie`) scrapNeeded += 15;
+          // Otherwise, we just need to have a weapon after the kitchen
+          else scrapNeeded += 9;
+        }
         return YouRobot.scrap() >= scrapNeeded;
       },
       do: () => YouRobot.doScavenge(),
