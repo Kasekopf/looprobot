@@ -46589,8 +46589,12 @@ var RobotQuest = {
         scrapNeeded += 5;
       if (YouRobot.getPartId("right") !== 3 && !scrapBufferCompleted())
         scrapNeeded += 5;
-      if ((0, import_kolmafia110.myPrimestat)() === $stat(_templateObject1171 || (_templateObject1171 = _taggedTemplateLiteral98(["Moxie"]))) && !YouRobot.canUse($slot(_templateObject1270 || (_templateObject1270 = _taggedTemplateLiteral98(["weapon"])))))
-        scrapNeeded += 15;
+      if (!YouRobot.canUse($slot(_templateObject1171 || (_templateObject1171 = _taggedTemplateLiteral98(["weapon"]))))) {
+        if ((0, import_kolmafia110.myPrimestat)() === $stat(_templateObject1270 || (_templateObject1270 = _taggedTemplateLiteral98(["Moxie"]))))
+          scrapNeeded += 15;
+        else
+          scrapNeeded += 9;
+      }
       return YouRobot.scrap() >= scrapNeeded;
     },
     do: function() {
@@ -48188,7 +48192,7 @@ function checkRequirements() {
 }
 
 // src/_git_commit.ts
-var lastCommitHash = "c3a2cfd";
+var lastCommitHash = "68347b2";
 
 // src/main.ts
 var _templateObject1190;
