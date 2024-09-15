@@ -29274,7 +29274,7 @@ function dartMacro(hard, once) {
 function killMacro(target, hard) {
   var withSlap = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : false;
   var result = new Macro();
-  if ((0, import_kolmafia82.myFamiliar)() === $familiar(_templateObject1030 || (_templateObject1030 = _taggedTemplateLiteral70(["Grey Goose"]))) && (0, import_kolmafia82.familiarWeight)($familiar(_templateObject1127 || (_templateObject1127 = _taggedTemplateLiteral70(["Grey Goose"])))) >= 20) {
+  if ((0, import_kolmafia82.myFamiliar)() === $familiar(_templateObject1030 || (_templateObject1030 = _taggedTemplateLiteral70(["Grey Goose"]))) && (0, import_kolmafia82.familiarWeight)($familiar(_templateObject1127 || (_templateObject1127 = _taggedTemplateLiteral70(["Grey Goose"])))) >= 20 && (!levelingStartCompleted() || (0, import_kolmafia82.myLevel)() < 13)) {
     var gooseMonsterBanlist = $monsters(_templateObject1226 || (_templateObject1226 = _taggedTemplateLiteral70(["Batsnake, Frozen Solid Snake, ninja snowman assassin"])));
     var gooseSkill = byStat({
       Muscle: $skill(_templateObject1325 || (_templateObject1325 = _taggedTemplateLiteral70(["Convert Matter to Protein"]))),
@@ -48192,7 +48192,7 @@ function checkRequirements() {
 }
 
 // src/_git_commit.ts
-var lastCommitHash = "8f46cd7";
+var lastCommitHash = "c45dd2d";
 
 // src/main.ts
 var _templateObject1190;
