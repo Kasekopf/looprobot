@@ -5,6 +5,7 @@ import {
   Monster,
   myBasestat,
   myFamiliar,
+  myLevel,
   myPrimestat,
   Skill,
   Stat,
@@ -24,7 +25,7 @@ import {
   Switch,
 } from "libram";
 import { ActionDefaults, CombatStrategy as BaseCombatStrategy } from "grimoire-kolmafia";
-import { atLevel, YouRobot } from "../lib";
+import { atLevel, levelingStartCompleted, YouRobot } from "../lib";
 
 const myActions = [
   "ignore", // Task doesn't care what happens
@@ -146,7 +147,11 @@ export function killMacro(target?: Monster | Location, hard?: boolean, withSlap 
   const result = new Macro();
 
   // Level with the Grey Goose if available
-  if (myFamiliar() === $familiar`Grey Goose` && familiarWeight($familiar`Grey Goose`) >= 20) {
+  if (
+    myFamiliar() === $familiar`Grey Goose` &&
+    familiarWeight($familiar`Grey Goose`) >= 20 &&
+    (!levelingStartCompleted() || myLevel() < 13)
+  ) {
     const gooseMonsterBanlist = $monsters`Batsnake, Frozen Solid Snake, ninja snowman assassin`;
     const gooseSkill = byStat(
       {
