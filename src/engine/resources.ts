@@ -264,8 +264,11 @@ export const wandererSources: WandererSource[] = [
       {
         equip: $items`"I Voted!" sticker, unwrapped knock-off retro superhero cape`,
         modes: { retrocape: ["heck", "hold"] },
+        // eslint-disable-next-line libram/verify-constants
+        avoid: $items`bat wings`,
       },
-      { equip: $items`"I Voted!" sticker` },
+      // eslint-disable-next-line libram/verify-constants
+      { equip: $items`"I Voted!" sticker`, avoid: $items`bat wings`, },
     ],
     monsters: [
       $monster`government bureaucrat`,
@@ -369,12 +372,16 @@ export const wandererSources: WandererSource[] = [
         YouRobot.canUse($slot`off-hand`) ||
         !have($familiar`Left-Hand Man`)),
     equip: [
-      { equip: $items`Kramco Sausage-o-Matic™, Space Trip safety headphones` },
+      // eslint-disable-next-line libram/verify-constants
+      { equip: $items`Kramco Sausage-o-Matic™, Space Trip safety headphones`, avoid: $items`bat wings`, },
       {
         equip: $items`Kramco Sausage-o-Matic™, unwrapped knock-off retro superhero cape`,
         modes: { retrocape: ["heck", "hold"] },
+        // eslint-disable-next-line libram/verify-constants
+        avoid: $items`bat wings`,
       },
-      { equip: $items`Kramco Sausage-o-Matic™` },
+      // eslint-disable-next-line libram/verify-constants
+      { equip: $items`Kramco Sausage-o-Matic™`, avoid: $items`bat wings`, },
     ],
     monsters: [$monster`sausage goblin`],
     chance: () => getKramcoWandererChance(),
