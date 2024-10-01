@@ -395,6 +395,8 @@ export function equipDefaults(outfit: Outfit, noFightingFamiliars: boolean): voi
       outfit.equip($item`fresh coat of paint`);
     }
     outfit.equip($item`familiar scrapbook`);
+    // eslint-disable-next-line libram/verify-constants
+    outfit.equip($item`bat wings`)
     outfit.equip($item`protonic accelerator pack`);
     outfit.equip($item`unwrapped knock-off retro superhero cape`);
     outfit.equip($item`designer sweatpants`);

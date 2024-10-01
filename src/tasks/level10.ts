@@ -56,7 +56,8 @@ export const GiantQuest: Quest = {
       do: $location`The Beanbat Chamber`,
       outfit: {
         modifier: "item",
-        equip: $items`miniature crystal ball`,
+        // eslint-disable-next-line libram/verify-constants
+        equip: $items`miniature crystal ball, bat wings`,
         avoid: $items`broken champagne bottle`,
       },
       combat: new CombatStrategy()
@@ -72,7 +73,8 @@ export const GiantQuest: Quest = {
       do: $location`The Beanbat Chamber`,
       outfit: {
         modifier: "item",
-        equip: $items`miniature crystal ball`,
+        // eslint-disable-next-line libram/verify-constants
+        equip: $items`miniature crystal ball, bat wings`,
         avoid: $items`broken champagne bottle`,
       },
       combat: new CombatStrategy()
@@ -97,7 +99,8 @@ export const GiantQuest: Quest = {
       completed: () => have($item`amulet of extreme plot significance`),
       do: $location`The Penultimate Fantasy Airship`,
       choices: () => {
-        return { 178: 2, 182: have($item`model airship`) ? 1 : 4, 1387: 3 };
+        // eslint-disable-next-line libram/verify-constants
+        return { 178: 2, 182: have($item`model airship`) ? 1 : have($item`bat wings`) ? 6 : 4, 1387: 3 };
       },
       post: () => {
         if (have($effect`Temporary Amnesia`)) cliExecute("uneffect Temporary Amnesia");
@@ -119,6 +122,8 @@ export const GiantQuest: Quest = {
         else
           return {
             modifier: "-combat, item",
+            // eslint-disable-next-line libram/verify-constants
+            equip: $items`bat wings`,
             avoid: $items`broken champagne bottle`,
           };
       },
@@ -139,7 +144,8 @@ export const GiantQuest: Quest = {
       completed: () => have($item`S.O.C.K.`),
       do: $location`The Penultimate Fantasy Airship`,
       choices: () => {
-        return { 178: 2, 182: have($item`model airship`) ? 1 : 4 };
+        // eslint-disable-next-line libram/verify-constants
+        return { 178: 2, 182: have($item`model airship`) ? 1 : have($item`bat wings`) ? 6 : 4 };
       },
       post: () => {
         if (have($effect`Temporary Amnesia`)) cliExecute("uneffect Temporary Amnesia");
@@ -150,6 +156,8 @@ export const GiantQuest: Quest = {
           return {
             modifier: "-combat",
             weapon: $item`Fourth of May Cosplay Saber`,
+            // eslint-disable-next-line libram/verify-constants
+            equip: $items`bat wings`,
             avoid: $items`Kramco Sausage-o-Matic™`,
           };
         } else {

@@ -82,7 +82,8 @@ export const BatQuest: Quest = {
           return stenchPlanner.outfitFor(1, {
             equip: $items`industrial fire extinguisher`,
           });
-        else return stenchPlanner.outfitFor(1, { modifier: "item" });
+        // eslint-disable-next-line libram/verify-constants
+        else return stenchPlanner.outfitFor(1, { modifier: "item", equip: $items`bat wings` });
       },
       choices: { 1427: 1 },
       combat: new CombatStrategy()
@@ -133,7 +134,8 @@ export const BatQuest: Quest = {
       post: () => {
         if (have($item`sonar-in-a-biscuit`)) use($item`sonar-in-a-biscuit`);
       },
-      outfit: { modifier: "item, 10 stench res" },
+      // eslint-disable-next-line libram/verify-constants
+      outfit: { modifier: "item, 10 stench res", equip: $items`bat wings` },
       combat: new CombatStrategy().kill($monster`screambat`).killItem(),
       limit: { tries: 10 },
     },
@@ -159,7 +161,8 @@ export const BatQuest: Quest = {
       post: () => {
         if (have($item`sonar-in-a-biscuit`)) use($item`sonar-in-a-biscuit`);
       },
-      outfit: { modifier: "item, 10 stench res" },
+      // eslint-disable-next-line libram/verify-constants
+      outfit: { modifier: "item, 10 stench res", equip: $items`bat wings` },
       combat: new CombatStrategy().kill($monster`screambat`).killItem(),
       limit: { tries: 10 },
     },
@@ -191,7 +194,8 @@ export const BatQuest: Quest = {
       combat: new CombatStrategy()
         .macro(new Macro().trySkill($skill`Back-Up to your Last Enemy`))
         .kill($monsters`Boss Bat, lobsterfrogman`),
-      outfit: { equip: $items`backup camera` },
+      // eslint-disable-next-line libram/verify-constants
+      outfit: { equip: $items`backup camera, bat wings`},
       limit: { tries: 4 },
     },
     {
