@@ -94,6 +94,8 @@ export const McLargeHugeQuest: Quest = {
       outfit: {
         modifier: "item, food drop",
         avoid: $items`broken champagne bottle`,
+        // eslint-disable-next-line libram/verify-constants
+        equip: $items`bat wings`,
         familiar: $familiar`Grey Goose`,
       },
       combat: new CombatStrategy()
@@ -101,7 +103,8 @@ export const McLargeHugeQuest: Quest = {
           if (itemAmount($item`goat cheese`) === 0)
             return Macro.trySkill($skill`Emit Matter Duplicating Drones`).tryItem(
               $item`Spooky VHS Tape`
-            );
+            // eslint-disable-next-line libram/verify-constants
+            ).trySkill($skill`Swoop Like a Bat`);
           if (itemAmount($item`goat cheese`) === 1) {
             if (
               myFamiliar() === $familiar`Grey Goose` &&
@@ -109,7 +112,8 @@ export const McLargeHugeQuest: Quest = {
               familiarWeight($familiar`Grey Goose`) < 10
             )
               return Macro.trySkill($skill`Emit Matter Duplicating Drones`);
-            else return Macro.tryItem($item`Spooky VHS Tape`);
+            // eslint-disable-next-line libram/verify-constants
+            else return Macro.tryItem($item`Spooky VHS Tape`).trySkill($skill`Swoop Like a Bat`);
           }
           return new Macro();
         }, $monster`dairy goat`)
