@@ -147,7 +147,8 @@ const unscaledLeveling: Task[] = [
     choices: { 1222: 1, 1223: 1, 1224: primestatId(), 1225: 1, 1226: 2, 1227: 1, 1228: 3 },
     combat: new CombatStrategy().killHard(),
     limit: { tries: 1 },
-    outfit: { equip: $items`Space Trip safety headphones` },
+    // eslint-disable-next-line libram/verify-constants
+    outfit: { equip: $items`Space Trip safety headphones`, avoid: $items`bat wings` },
     freecombat: true,
   },
   {

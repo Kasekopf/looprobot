@@ -349,7 +349,8 @@ export const wandererSources: WandererSource[] = [
         equip: $items`Kramco Sausage-o-Matic™, unwrapped knock-off retro superhero cape, Roman Candelabra`,
         modes: { retrocape: ["heck", "hold"] },
       },
-      { equip: $items`Kramco Sausage-o-Matic™, Space Trip safety headphones, Roman Candelabra` },
+      // eslint-disable-next-line libram/verify-constants
+      { equip: $items`Kramco Sausage-o-Matic™, Space Trip safety headphones, Roman Candelabra`, avoid: $items`bat wings` },
     ],
     monsters: [$monster`sausage goblin`],
     chance: () => getKramcoWandererChance(),
