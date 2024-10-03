@@ -336,6 +336,8 @@ const Pyramid: Task[] = [
       .macro(() => {
         const result = Macro.tryItem($item`tangle of rat tails`)
           .trySkill($skill`Otoscope`)
+          // eslint-disable-next-line libram/verify-constants
+          .trySkill($skill`Swoop Like a Bat`)
           .trySkill($skill`Curse of Weaksauce`);
         if (have($skill`Saucegeyser`))
           return result.while_("!mpbelow 24", Macro.skill($skill`Saucegeyser`));
@@ -351,7 +353,8 @@ const Pyramid: Task[] = [
       .killItem([$monster`tomb rat`, $monster`tomb rat king`])
       .banish([$monster`tomb asp`, $monster`tomb servant`]),
     outfit: () => {
-      const result: OutfitSpec = { modifier: "item", equip: [] };
+      // eslint-disable-next-line libram/verify-constants
+      const result: OutfitSpec = { modifier: "item", equip: $items`bat wings` };
       if (
         have($item`Lil' Doctor™ bag`) &&
         get("_otoscopeUsed") < 3 &&
