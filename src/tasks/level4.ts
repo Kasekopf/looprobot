@@ -20,6 +20,7 @@ import {
   get,
   have,
   Macro,
+  set,
 } from "libram";
 import { Quest } from "../engine/task";
 import { Outfit, step } from "grimoire-kolmafia";
@@ -41,6 +42,90 @@ export const BatQuest: Quest = {
       limit: { tries: 1 },
       priority: () => (councilSafe() ? Priorities.Free : Priorities.BadMood),
       freeaction: true,
+    },
+    {
+      name: "Bat Wings Sonar 1",
+      after: [],
+      // eslint-disable-next-line libram/verify-constants
+      ready: () => have($item`bat wings`),
+      completed: () => (step("questL04Bat") + itemAmount($item`sonar-in-a-biscuit`) >= 1) || get("_sonarEntrance", false),
+      do: $location`The Bat Hole Entrance`,
+      prepare: () => {
+        if (numericModifier("stench resistance") < 1) ensureEffect($effect`Red Door Syndrome`);
+        if (numericModifier("stench resistance") < 1)
+          throw `Unable to ensure stench res for guano junction`;
+      },
+      post: () => {
+        if (have($item`sonar-in-a-biscuit`)) use($item`sonar-in-a-biscuit`);
+        set("_sonarEntrance", true);
+      },
+      // eslint-disable-next-line libram/verify-constants
+      outfit: { modifier: "item, 10 stench res", equip: $items`bat wings` },
+      choices: { 1427: 1 },
+      limit: { tries: 1 },
+    },
+    {
+      name: "Bat Wings Sonar 2",
+      after: [],
+      // eslint-disable-next-line libram/verify-constants
+      ready: () => have($item`bat wings`),
+      completed: () => (step("questL04Bat") + itemAmount($item`sonar-in-a-biscuit`) >= 1) || get("_sonarGuano", false),
+      do: $location`Guano Junction`,
+      prepare: () => {
+        if (numericModifier("stench resistance") < 1) ensureEffect($effect`Red Door Syndrome`);
+        if (numericModifier("stench resistance") < 1)
+          throw `Unable to ensure stench res for guano junction`;
+      },
+      post: () => {
+        if (have($item`sonar-in-a-biscuit`)) use($item`sonar-in-a-biscuit`);
+        set("_sonarGuano", true);
+      },
+      // eslint-disable-next-line libram/verify-constants
+      outfit: { modifier: "item, 10 stench res", equip: $items`bat wings` },
+      choices: { 1427: 1 },
+      limit: { tries: 1 },
+    },
+    {
+      name: "Bat Wings Sonar 3",
+      after: [],
+      // eslint-disable-next-line libram/verify-constants
+      ready: () => have($item`bat wings`),
+      completed: () => (step("questL04Bat") + itemAmount($item`sonar-in-a-biscuit`) >= 1) || get("_sonarBatrat", false),
+      do: $location`The Batrat and Ratbat Burrow`,
+      prepare: () => {
+        if (numericModifier("stench resistance") < 1) ensureEffect($effect`Red Door Syndrome`);
+        if (numericModifier("stench resistance") < 1)
+          throw `Unable to ensure stench res for guano junction`;
+      },
+      post: () => {
+        if (have($item`sonar-in-a-biscuit`)) use($item`sonar-in-a-biscuit`);
+        set("_sonarBatrat", true);
+      },
+      // eslint-disable-next-line libram/verify-constants
+      outfit: { modifier: "item, 10 stench res", equip: $items`bat wings` },
+      choices: { 1427: 1 },
+      limit: { tries: 1 },
+    },
+    {
+      name: "Bat Wings Bean",
+      after: [],
+      // eslint-disable-next-line libram/verify-constants
+      ready: () => have($item`bat wings`),
+      completed: () => (step("questL04Bat") + itemAmount($item`sonar-in-a-biscuit`) >= 1) || get("_batWingsBean", false),
+      do: $location`The Beanbat Chamber`,
+      prepare: () => {
+        if (numericModifier("stench resistance") < 1) ensureEffect($effect`Red Door Syndrome`);
+        if (numericModifier("stench resistance") < 1)
+          throw `Unable to ensure stench res for guano junction`;
+      },
+      post: () => {
+        if (have($item`sonar-in-a-biscuit`)) use($item`sonar-in-a-biscuit`);
+        set("_batWingsBean", true);
+      },
+      // eslint-disable-next-line libram/verify-constants
+      outfit: { modifier: "item, 10 stench res", equip: $items`bat wings` },
+      choices: { 1427: 1 },
+      limit: { tries: 1 },
     },
     {
       name: "Get Sonar 1",
