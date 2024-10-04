@@ -20,7 +20,6 @@ import {
   get,
   have,
   Macro,
-  set,
 } from "libram";
 import { Quest } from "../engine/task";
 import { Outfit, step } from "grimoire-kolmafia";
@@ -48,7 +47,7 @@ export const BatQuest: Quest = {
       after: [],
       // eslint-disable-next-line libram/verify-constants
       ready: () => have($item`bat wings`),
-      completed: () => (step("questL04Bat") + itemAmount($item`sonar-in-a-biscuit`) >= 1) || get("_sonarEntrance", false),
+      completed: () => get("batWingsBatHoleEntrance", false),
       do: $location`The Bat Hole Entrance`,
       prepare: () => {
         if (numericModifier("stench resistance") < 1) ensureEffect($effect`Red Door Syndrome`);
@@ -57,7 +56,6 @@ export const BatQuest: Quest = {
       },
       post: () => {
         if (have($item`sonar-in-a-biscuit`)) use($item`sonar-in-a-biscuit`);
-        set("_sonarEntrance", true);
       },
       // eslint-disable-next-line libram/verify-constants
       outfit: { modifier: "item, 10 stench res", equip: $items`bat wings` },
@@ -69,7 +67,7 @@ export const BatQuest: Quest = {
       after: [],
       // eslint-disable-next-line libram/verify-constants
       ready: () => have($item`bat wings`),
-      completed: () => (step("questL04Bat") + itemAmount($item`sonar-in-a-biscuit`) >= 1) || get("_sonarGuano", false),
+      completed: () => get("batWingsGuanoJunction", false),
       do: $location`Guano Junction`,
       prepare: () => {
         if (numericModifier("stench resistance") < 1) ensureEffect($effect`Red Door Syndrome`);
@@ -78,7 +76,6 @@ export const BatQuest: Quest = {
       },
       post: () => {
         if (have($item`sonar-in-a-biscuit`)) use($item`sonar-in-a-biscuit`);
-        set("_sonarGuano", true);
       },
       // eslint-disable-next-line libram/verify-constants
       outfit: { modifier: "item, 10 stench res", equip: $items`bat wings` },
@@ -90,7 +87,7 @@ export const BatQuest: Quest = {
       after: [],
       // eslint-disable-next-line libram/verify-constants
       ready: () => have($item`bat wings`),
-      completed: () => (step("questL04Bat") + itemAmount($item`sonar-in-a-biscuit`) >= 1) || get("_sonarBatrat", false),
+      completed: () => get("batWingsBatratBurrow", false),
       do: $location`The Batrat and Ratbat Burrow`,
       prepare: () => {
         if (numericModifier("stench resistance") < 1) ensureEffect($effect`Red Door Syndrome`);
@@ -99,7 +96,6 @@ export const BatQuest: Quest = {
       },
       post: () => {
         if (have($item`sonar-in-a-biscuit`)) use($item`sonar-in-a-biscuit`);
-        set("_sonarBatrat", true);
       },
       // eslint-disable-next-line libram/verify-constants
       outfit: { modifier: "item, 10 stench res", equip: $items`bat wings` },
@@ -111,7 +107,7 @@ export const BatQuest: Quest = {
       after: [],
       // eslint-disable-next-line libram/verify-constants
       ready: () => have($item`bat wings`),
-      completed: () => (step("questL04Bat") + itemAmount($item`sonar-in-a-biscuit`) >= 1) || get("_batWingsBean", false),
+      completed: () => get("batWingsBeanbatChamber", false),
       do: $location`The Beanbat Chamber`,
       prepare: () => {
         if (numericModifier("stench resistance") < 1) ensureEffect($effect`Red Door Syndrome`);
@@ -120,7 +116,6 @@ export const BatQuest: Quest = {
       },
       post: () => {
         if (have($item`sonar-in-a-biscuit`)) use($item`sonar-in-a-biscuit`);
-        set("_batWingsBean", true);
       },
       // eslint-disable-next-line libram/verify-constants
       outfit: { modifier: "item, 10 stench res", equip: $items`bat wings` },

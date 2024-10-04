@@ -396,9 +396,13 @@ export function equipDefaults(outfit: Outfit, noFightingFamiliars: boolean): voi
     }
     outfit.equip($item`familiar scrapbook`);
     // eslint-disable-next-line libram/verify-constants
-    outfit.equip($item`bat wings`)
-    outfit.equip($item`protonic accelerator pack`);
-    outfit.equip($item`unwrapped knock-off retro superhero cape`);
+    if(have($item`bat wings`) && get("_batWingsFreeFights",0) < 5) {
+      // eslint-disable-next-line libram/verify-constants
+      outfit.equip($item`bat wings`)
+    } else {
+      outfit.equip($item`protonic accelerator pack`);
+      outfit.equip($item`unwrapped knock-off retro superhero cape`);
+    }
     outfit.equip($item`designer sweatpants`);
     outfit.equip($item`tearaway pants`);
     outfit.equip($item`warbear long johns`);
