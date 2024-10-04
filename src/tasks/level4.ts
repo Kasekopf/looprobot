@@ -44,6 +44,7 @@ export const BatQuest: Quest = {
     },
     {
       name: "Bat Wings Sonar 1",
+      priority: () => Priorities.Free,
       after: [],
       // eslint-disable-next-line libram/verify-constants
       ready: () => have($item`bat wings`),
@@ -58,12 +59,12 @@ export const BatQuest: Quest = {
         if (have($item`sonar-in-a-biscuit`)) use($item`sonar-in-a-biscuit`);
       },
       // eslint-disable-next-line libram/verify-constants
-      outfit: { modifier: "item, 10 stench res", equip: $items`bat wings` },
-      choices: { 1427: 1 },
+      outfit: { modifier: "10 stench res", equip: $items`bat wings` },
       limit: { tries: 1 },
     },
     {
       name: "Bat Wings Sonar 2",
+      priority: () => Priorities.Free,
       after: [],
       // eslint-disable-next-line libram/verify-constants
       ready: () => have($item`bat wings`),
@@ -78,12 +79,12 @@ export const BatQuest: Quest = {
         if (have($item`sonar-in-a-biscuit`)) use($item`sonar-in-a-biscuit`);
       },
       // eslint-disable-next-line libram/verify-constants
-      outfit: { modifier: "item, 10 stench res", equip: $items`bat wings` },
-      choices: { 1427: 1 },
+      outfit: { modifier: "10 stench res", equip: $items`bat wings` },
       limit: { tries: 1 },
     },
     {
       name: "Bat Wings Sonar 3",
+      priority: () => Priorities.Free,
       after: [],
       // eslint-disable-next-line libram/verify-constants
       ready: () => have($item`bat wings`),
@@ -98,12 +99,12 @@ export const BatQuest: Quest = {
         if (have($item`sonar-in-a-biscuit`)) use($item`sonar-in-a-biscuit`);
       },
       // eslint-disable-next-line libram/verify-constants
-      outfit: { modifier: "item, 10 stench res", equip: $items`bat wings` },
-      choices: { 1427: 1 },
+      outfit: { modifier: "10 stench res", equip: $items`bat wings` },
       limit: { tries: 1 },
     },
     {
       name: "Bat Wings Bean",
+      priority: () => Priorities.Free,
       after: [],
       // eslint-disable-next-line libram/verify-constants
       ready: () => have($item`bat wings`),
@@ -118,8 +119,7 @@ export const BatQuest: Quest = {
         if (have($item`sonar-in-a-biscuit`)) use($item`sonar-in-a-biscuit`);
       },
       // eslint-disable-next-line libram/verify-constants
-      outfit: { modifier: "item, 10 stench res", equip: $items`bat wings` },
-      choices: { 1427: 1 },
+      outfit: { modifier: "10 stench res", equip: $items`bat wings` },
       limit: { tries: 1 },
     },
     {
