@@ -100,7 +100,7 @@ export const GiantQuest: Quest = {
       do: $location`The Penultimate Fantasy Airship`,
       choices: () => {
         // eslint-disable-next-line libram/verify-constants
-        return { 178: 2, 182: have($item`bat wings`) ? 6 : have($item`model airship`) ? 1 : 4, 1387: 3 };
+        return { 178: 2, 1387: 3 };
       },
       post: () => {
         if (have($effect`Temporary Amnesia`)) cliExecute("uneffect Temporary Amnesia");
@@ -145,7 +145,7 @@ export const GiantQuest: Quest = {
       do: $location`The Penultimate Fantasy Airship`,
       choices: () => {
         // eslint-disable-next-line libram/verify-constants
-        return { 178: 2, 182: have($item`bat wings`) ? 6 : have($item`model airship`) ? 1 : 4 };
+        return { 178: 2 };
       },
       post: () => {
         if (have($effect`Temporary Amnesia`)) cliExecute("uneffect Temporary Amnesia");

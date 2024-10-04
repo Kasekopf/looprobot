@@ -22,6 +22,13 @@ void main(int choice, string page)
     else
       run_choice(2); // Decline
   }
+  else if (choice == 182) {
+	if(options contains 4)
+		run_choice(4);
+	if(options contains 6)
+		run_choice(6);
+	run_choice(1);
+  }
   //Everfull dart handling
   else switch (choice) {
 		default:
