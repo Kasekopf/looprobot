@@ -65,7 +65,7 @@ export const BatQuest: Quest = {
     {
       name: "Bat Wings Sonar 2",
       priority: () => Priorities.Free,
-      after: [],
+      after: ["Bat Wings Sonar 1"],
       // eslint-disable-next-line libram/verify-constants
       ready: () => have($item`bat wings`),
       completed: () => get("batWingsGuanoJunction", false),
@@ -85,7 +85,7 @@ export const BatQuest: Quest = {
     {
       name: "Bat Wings Sonar 3",
       priority: () => Priorities.Free,
-      after: [],
+      after: ["Bat Wings Sonar 2"],
       // eslint-disable-next-line libram/verify-constants
       ready: () => have($item`bat wings`),
       completed: () => get("batWingsBatratBurrow", false),
@@ -105,7 +105,7 @@ export const BatQuest: Quest = {
     {
       name: "Bat Wings Bean",
       priority: () => Priorities.Free,
-      after: [],
+      after: ["Bat Wings Sonar 3"],
       // eslint-disable-next-line libram/verify-constants
       ready: () => have($item`bat wings`),
       completed: () => get("batWingsBeanbatChamber", false),
