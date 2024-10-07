@@ -140,7 +140,7 @@ export const GiantQuest: Quest = {
       completed: () => have($item`S.O.C.K.`),
       do: $location`The Penultimate Fantasy Airship`,
       choices: () => {
-        return { 178: 2 };
+        return { 178: 2, 1387: 3 };
       },
       post: () => {
         if (have($effect`Temporary Amnesia`)) cliExecute("uneffect Temporary Amnesia");

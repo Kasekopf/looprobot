@@ -22,22 +22,35 @@ void main(int choice, string page)
     else
       run_choice(2); // Decline
   }
-  else if (choice == 182) {
-	if(options contains 4)
-		run_choice(4);
-	else if(options contains 6)
-		run_choice(6);
-	else run_choice(1);
-	if(choice == 1387) {
-		run_choice(3);
-	}
-  }
-  //Everfull dart handling
+  
+  //Everfull dart and airship handling
   else switch (choice) {
 		default:
 			return;
+	case 182: // Airship
+		priority = {
+			"Gallivant down to the head":1,
+			"Flap over to something else":2,
+			"Pry open a hatch with your candy cane sword":3,
+			"Investigate the crew quarters":4
+		}
+		top = 999999999;
+		pick = 1;
 
-	case 1525:
+			foreach i,x in available_choice_options() {
+				if (priority[x] == 0) {
+					print(`dart perk "{x}" not in priority list`,"red");
+					continue;
+				}
+				if (priority[x] < top) {
+					top = priority[x];
+					pick = i;
+				}
+			}
+			run_choice(pick);
+			break;
+
+	case 1525: // Everfull dart
 			priority = {
 				"Throw a second dart quickly":60,
 				"Deal 25-50% more damage":800,
