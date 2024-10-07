@@ -395,9 +395,7 @@ export function equipDefaults(outfit: Outfit, noFightingFamiliars: boolean): voi
       outfit.equip($item`fresh coat of paint`);
     }
     outfit.equip($item`familiar scrapbook`);
-    // eslint-disable-next-line libram/verify-constants
     if(have($item`bat wings`) && get("_batWingsFreeFights",0) < 5) {
-      // eslint-disable-next-line libram/verify-constants
       outfit.equip($item`bat wings`)
     } else {
       outfit.equip($item`protonic accelerator pack`);

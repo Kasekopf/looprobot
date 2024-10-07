@@ -108,13 +108,11 @@ const Temple: Task[] = [
       step("questL11Worship") >= 3,
     prepare: () => tryEnsureLucky(),
     do: $location`The Hidden Temple`,
-    // eslint-disable-next-line libram/verify-constants
     outfit: { modifier: "+combat, item", equip: $items`bat wings` },
     combat: new CombatStrategy()
       .macro(
         new Macro()
-          // eslint-disable-next-line libram/verify-constants
-          .trySkill($skill`Swoop Like a Bat`)
+          .trySkill($skill`Swoop like a Bat`)
           .trySkill($skill`Fire Extinguisher: Polar Vortex`)
           .trySkill($skill`Fire Extinguisher: Polar Vortex`),
         $monster`baa-relief sheep`

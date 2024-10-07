@@ -264,11 +264,8 @@ export const wandererSources: WandererSource[] = [
       {
         equip: $items`"I Voted!" sticker, unwrapped knock-off retro superhero cape`,
         modes: { retrocape: ["heck", "hold"] },
-        // eslint-disable-next-line libram/verify-constants
-        avoid: $items`bat wings`,
       },
-      // eslint-disable-next-line libram/verify-constants
-      { equip: $items`"I Voted!" sticker`, avoid: $items`bat wings`, },
+      { equip: $items`"I Voted!" sticker` },
     ],
     monsters: [
       $monster`government bureaucrat`,
@@ -349,8 +346,7 @@ export const wandererSources: WandererSource[] = [
         equip: $items`Kramco Sausage-o-Matic™, unwrapped knock-off retro superhero cape, Roman Candelabra`,
         modes: { retrocape: ["heck", "hold"] },
       },
-      // eslint-disable-next-line libram/verify-constants
-      { equip: $items`Kramco Sausage-o-Matic™, Space Trip safety headphones, Roman Candelabra`, avoid: $items`bat wings` },
+      { equip: $items`Kramco Sausage-o-Matic™, Space Trip safety headphones, Roman Candelabra` },
     ],
     monsters: [$monster`sausage goblin`],
     chance: () => getKramcoWandererChance(),
@@ -373,16 +369,12 @@ export const wandererSources: WandererSource[] = [
         YouRobot.canUse($slot`off-hand`) ||
         !have($familiar`Left-Hand Man`)),
     equip: [
-      // eslint-disable-next-line libram/verify-constants
-      { equip: $items`Kramco Sausage-o-Matic™, Space Trip safety headphones`, avoid: $items`bat wings`, },
+      { equip: $items`Kramco Sausage-o-Matic™, Space Trip safety headphones` },
       {
         equip: $items`Kramco Sausage-o-Matic™, unwrapped knock-off retro superhero cape`,
         modes: { retrocape: ["heck", "hold"] },
-        // eslint-disable-next-line libram/verify-constants
-        avoid: $items`bat wings`,
       },
-      // eslint-disable-next-line libram/verify-constants
-      { equip: $items`Kramco Sausage-o-Matic™`, avoid: $items`bat wings`, },
+      { equip: $items`Kramco Sausage-o-Matic™` },
     ],
     monsters: [$monster`sausage goblin`],
     chance: () => getKramcoWandererChance(),

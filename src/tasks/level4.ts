@@ -46,7 +46,6 @@ export const BatQuest: Quest = {
       name: "Bat Wings Sonar 1",
       priority: () => Priorities.Free,
       after: [],
-      // eslint-disable-next-line libram/verify-constants
       ready: () => have($item`bat wings`),
       completed: () => get("batWingsBatHoleEntrance", false),
       do: $location`The Bat Hole Entrance`,
@@ -58,7 +57,6 @@ export const BatQuest: Quest = {
       post: () => {
         if (have($item`sonar-in-a-biscuit`)) use($item`sonar-in-a-biscuit`);
       },
-      // eslint-disable-next-line libram/verify-constants
       outfit: { modifier: "10 stench res", equip: $items`bat wings` },
       limit: { tries: 1 },
     },
@@ -66,7 +64,6 @@ export const BatQuest: Quest = {
       name: "Bat Wings Sonar 2",
       priority: () => Priorities.Free,
       after: ["Bat Wings Sonar 1"],
-      // eslint-disable-next-line libram/verify-constants
       ready: () => have($item`bat wings`),
       completed: () => get("batWingsGuanoJunction", false),
       do: $location`Guano Junction`,
@@ -78,7 +75,6 @@ export const BatQuest: Quest = {
       post: () => {
         if (have($item`sonar-in-a-biscuit`)) use($item`sonar-in-a-biscuit`);
       },
-      // eslint-disable-next-line libram/verify-constants
       outfit: { modifier: "10 stench res", equip: $items`bat wings` },
       limit: { tries: 1 },
     },
@@ -86,7 +82,6 @@ export const BatQuest: Quest = {
       name: "Bat Wings Sonar 3",
       priority: () => Priorities.Free,
       after: ["Bat Wings Sonar 2"],
-      // eslint-disable-next-line libram/verify-constants
       ready: () => have($item`bat wings`),
       completed: () => get("batWingsBatratBurrow", false),
       do: $location`The Batrat and Ratbat Burrow`,
@@ -98,7 +93,6 @@ export const BatQuest: Quest = {
       post: () => {
         if (have($item`sonar-in-a-biscuit`)) use($item`sonar-in-a-biscuit`);
       },
-      // eslint-disable-next-line libram/verify-constants
       outfit: { modifier: "10 stench res", equip: $items`bat wings` },
       limit: { tries: 1 },
     },
@@ -106,7 +100,6 @@ export const BatQuest: Quest = {
       name: "Bat Wings Bean",
       priority: () => Priorities.Free,
       after: ["Bat Wings Sonar 3"],
-      // eslint-disable-next-line libram/verify-constants
       ready: () => have($item`bat wings`),
       completed: () => get("batWingsBeanbatChamber", false),
       do: $location`The Beanbat Chamber`,
@@ -118,7 +111,6 @@ export const BatQuest: Quest = {
       post: () => {
         if (have($item`sonar-in-a-biscuit`)) use($item`sonar-in-a-biscuit`);
       },
-      // eslint-disable-next-line libram/verify-constants
       outfit: { modifier: "10 stench res", equip: $items`bat wings` },
       limit: { tries: 1 },
     },
@@ -162,7 +154,6 @@ export const BatQuest: Quest = {
           return stenchPlanner.outfitFor(1, {
             equip: $items`industrial fire extinguisher`,
           });
-        // eslint-disable-next-line libram/verify-constants
         else return stenchPlanner.outfitFor(1, { modifier: "item", equip: $items`bat wings` });
       },
       choices: { 1427: 1 },
@@ -214,7 +205,6 @@ export const BatQuest: Quest = {
       post: () => {
         if (have($item`sonar-in-a-biscuit`)) use($item`sonar-in-a-biscuit`);
       },
-      // eslint-disable-next-line libram/verify-constants
       outfit: { modifier: "item, 10 stench res", equip: $items`bat wings` },
       combat: new CombatStrategy().kill($monster`screambat`).killItem(),
       limit: { tries: 10 },
@@ -241,7 +231,6 @@ export const BatQuest: Quest = {
       post: () => {
         if (have($item`sonar-in-a-biscuit`)) use($item`sonar-in-a-biscuit`);
       },
-      // eslint-disable-next-line libram/verify-constants
       outfit: { modifier: "item, 10 stench res", equip: $items`bat wings` },
       combat: new CombatStrategy().kill($monster`screambat`).killItem(),
       limit: { tries: 10 },
@@ -274,7 +263,6 @@ export const BatQuest: Quest = {
       combat: new CombatStrategy()
         .macro(new Macro().trySkill($skill`Back-Up to your Last Enemy`))
         .kill($monsters`Boss Bat, lobsterfrogman`),
-      // eslint-disable-next-line libram/verify-constants
       outfit: { equip: $items`backup camera, bat wings`},
       limit: { tries: 4 },
     },

@@ -56,7 +56,6 @@ export const GiantQuest: Quest = {
       do: $location`The Beanbat Chamber`,
       outfit: {
         modifier: "item",
-        // eslint-disable-next-line libram/verify-constants
         equip: $items`miniature crystal ball, bat wings`,
         avoid: $items`broken champagne bottle`,
       },
@@ -73,7 +72,6 @@ export const GiantQuest: Quest = {
       do: $location`The Beanbat Chamber`,
       outfit: {
         modifier: "item",
-        // eslint-disable-next-line libram/verify-constants
         equip: $items`miniature crystal ball, bat wings`,
         avoid: $items`broken champagne bottle`,
       },
@@ -99,7 +97,6 @@ export const GiantQuest: Quest = {
       completed: () => have($item`amulet of extreme plot significance`),
       do: $location`The Penultimate Fantasy Airship`,
       choices: () => {
-        // eslint-disable-next-line libram/verify-constants
         return { 178: 2, 1387: 3 };
       },
       post: () => {
@@ -122,7 +119,6 @@ export const GiantQuest: Quest = {
         else
           return {
             modifier: "-combat, item",
-            // eslint-disable-next-line libram/verify-constants
             equip: $items`bat wings`,
             avoid: $items`broken champagne bottle`,
           };
@@ -144,7 +140,6 @@ export const GiantQuest: Quest = {
       completed: () => have($item`S.O.C.K.`),
       do: $location`The Penultimate Fantasy Airship`,
       choices: () => {
-        // eslint-disable-next-line libram/verify-constants
         return { 178: 2 };
       },
       post: () => {
@@ -156,7 +151,6 @@ export const GiantQuest: Quest = {
           return {
             modifier: "-combat",
             weapon: $item`Fourth of May Cosplay Saber`,
-            // eslint-disable-next-line libram/verify-constants
             equip: $items`bat wings`,
             avoid: $items`Kramco Sausage-o-Matic™`,
           };

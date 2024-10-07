@@ -147,8 +147,7 @@ const unscaledLeveling: Task[] = [
     choices: { 1222: 1, 1223: 1, 1224: primestatId(), 1225: 1, 1226: 2, 1227: 1, 1228: 3 },
     combat: new CombatStrategy().killHard(),
     limit: { tries: 1 },
-    // eslint-disable-next-line libram/verify-constants
-    outfit: { equip: $items`Space Trip safety headphones`, avoid: $items`bat wings` },
+    outfit: { equip: $items`Space Trip safety headphones` },
     freecombat: true,
   },
   {
@@ -166,8 +165,6 @@ const unscaledLeveling: Task[] = [
     },
     outfit: {
       modifier: "exp",
-      // eslint-disable-next-line libram/verify-constants
-      avoid: $items`bat wings`,
     },
     limit: { tries: 1 },
     freeaction: true,
@@ -206,8 +203,6 @@ const unscaledLeveling: Task[] = [
     outfit: () => {
       const result = <OutfitSpec>{
         equip: $items`cursed monkey's paw, unwrapped knock-off retro superhero cape`,
-        // eslint-disable-next-line libram/verify-constants
-        avoid: $items`bat wings`,
         modes: { retrocape: ["heck", "hold"] },
       };
       if (canEquip($item`Space Trip safety headphones`))
@@ -231,10 +226,8 @@ const unscaledLeveling: Task[] = [
     combat: new CombatStrategy().killHard().macro(() => killMacro(undefined, true, true)),
     outfit: () => {
       if (canEquip($item`Space Trip safety headphones`))
-        // eslint-disable-next-line libram/verify-constants
-        return { equip: $items`Space Trip safety headphones`, avoid: $items`bat wings`, };
-      // eslint-disable-next-line libram/verify-constants
-      else return { equip: $items`cursed monkey's paw`, avoid: $items`bat wings`, };
+        return { equip: $items`Space Trip safety headphones`};
+      else return { equip: $items`cursed monkey's paw` };
     },
     limit: { tries: 11, guard: NO_ADVENTURE_SPENT_OR_HOLIDAY },
     freecombat: true,
@@ -250,10 +243,8 @@ const unscaledLeveling: Task[] = [
     combat: new CombatStrategy().killHard().macro(() => killMacro(undefined, true, true)),
     outfit: () => {
       if (canEquip($item`Space Trip safety headphones`))
-        // eslint-disable-next-line libram/verify-constants
-        return { equip: $items`Space Trip safety headphones`, avoid: $items`bat wings`, };
-      // eslint-disable-next-line libram/verify-constants
-      else return { equip: $items`cursed monkey's paw`, avoid: $items`bat wings`, };
+        return { equip: $items`Space Trip safety headphones` };
+      else return { equip: $items`cursed monkey's paw` };
     },
     limit: { tries: 3, guard: NO_ADVENTURE_SPENT },
     freecombat: true,
@@ -312,8 +303,7 @@ const unscaledLeveling: Task[] = [
         equip: $items`Space Trip safety headphones, unwrapped knock-off retro superhero cape`,
         modifier: "item",
         modes: { retrocape: ["heck", "hold"] },
-        // eslint-disable-next-line libram/verify-constants
-        avoid: $items`broken champagne bottle, bat wings`,
+        avoid: $items`broken champagne bottle`,
         familiar: $familiar`Grey Goose`,
       };
       if (
@@ -378,8 +368,6 @@ export const LevelingQuest: Quest = {
       combat: new CombatStrategy().killHard(),
       outfit: {
         equip: $items`June cleaver, Space Trip safety headphones`,
-        // eslint-disable-next-line libram/verify-constants
-        avoid: $items`bat wings`,
         familiar: $familiar`God Lobster`,
         modifier: "exp",
       },
