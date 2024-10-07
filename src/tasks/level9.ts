@@ -452,6 +452,7 @@ export const ChasmQuest: Quest = {
           visitUrl("place.php?whichplace=orc_chasm&action=bridge_jump");
         }
       },
+      outfit: { equip: $items`bat wings` },
       freeaction: true,
       limit: { tries: 30, unready: true },
     },
