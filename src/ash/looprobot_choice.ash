@@ -38,10 +38,6 @@ void main(int choice, string page)
 		pick = 1;
 
 			foreach i,x in available_choice_options() {
-				if (priority[x] == 0) {
-					print(`dart perk "{x}" not in priority list`,"red");
-					continue;
-				}
 				if (priority[x] < top) {
 					top = priority[x];
 					pick = i;
