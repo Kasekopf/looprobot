@@ -448,6 +448,9 @@ export const ChasmQuest: Quest = {
       completed: () => step("questL09Topping") >= 1,
       do: () => {
         visitUrl(`place.php?whichplace=orc_chasm&action=bridge${get("chasmBridgeProgress")}`); // use existing materials
+        if(have($item`bat wings`) && get("chasmBridgeProgress") >= 25) {
+          visitUrl("place.php?whichplace=orc_chasm&action=bridge_jump");
+        }
       },
       freeaction: true,
       limit: { tries: 30, unready: true },
