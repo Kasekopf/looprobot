@@ -336,7 +336,6 @@ const Pyramid: Task[] = [
       .macro(() => {
         const result = Macro.tryItem($item`tangle of rat tails`)
           .trySkill($skill`Otoscope`)
-          .trySkill($skill`Swoop like a Bat`)
           .trySkill($skill`Curse of Weaksauce`);
         if (have($skill`Saucegeyser`))
           return result.while_("!mpbelow 24", Macro.skill($skill`Saucegeyser`));
