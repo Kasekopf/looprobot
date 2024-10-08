@@ -21,29 +21,29 @@ void main(int choice, string page)
       run_choice(1); // Accept
     else
       run_choice(2); // Decline
+  } else if (choice == 182) {
+	int selected_choice = -1;
+	foreach num, choice_text in options {
+    	if (choice_text == "Gallivant down to the head") {
+        	selected_choice = num;
+        	break;
+    	} else if (choice_text == "Flap over to something else") {
+			selected_choice = num;
+        	break;
+		} else if (choice_text == "Pry open a hatch with your candy cane sword") {
+			selected_choice = num;
+        	break;
+		} else if (choice_text == "Investigate the crew quarters") {
+			selected_choice = num;
+        	break;
+		}
+	}
+	run_choice(selected_choice);
   }
   
   //Everfull dart and airship handling
   else switch (choice) {
 		default:
-			return;
-	case 182: // Airship
-		priority = {
-			"Gallivant down to the head":1,
-			"Flap over to something else":2,
-			"Pry open a hatch with your candy cane sword":3,
-			"Investigate the crew quarters":4
-		}
-		top = 999999999;
-		pick = 1;
-
-			foreach i,x in available_choice_options() {
-				if (priority[x] < top) {
-					top = priority[x];
-					pick = i;
-				}
-			}
-			run_choice(pick);
 			break;
 
 	case 1525: // Everfull dart
@@ -52,7 +52,6 @@ void main(int choice, string page)
 				"Deal 25-50% more damage":800,
 				"You are less impressed by bullseyes":10,
 				"25% Better bullseye targeting":20,
-				"Extra stats from stats targets":40,
 				"Butt awareness":30,
 				"Add Hot Damage":1000,
 				"Add Cold Damage":31,
@@ -64,7 +63,6 @@ void main(int choice, string page)
 				"25% More Accurate bullseye targeting":19,
 				"Deal 25-50% extra damage":10000,
 				"Increase Dart Deleveling from deleveling targets":100,
-				"Deal 25-50% greater damage":10000,
 				"Extra stats from stats targets":39,
 				"25% better chance to hit bullseyes":18,
 				};
