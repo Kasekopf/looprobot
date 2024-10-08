@@ -36,6 +36,9 @@ void main(int choice, string page)
 		} else if (choice_text == "Investigate the crew quarters") {
 			selected_choice = num;
         	break;
+		} else if (choice_text == "You will drop your things and walk away.") {
+			selected_choice = num;
+        	break;
 		}
 	}
 	run_choice(selected_choice);
