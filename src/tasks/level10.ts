@@ -115,7 +115,7 @@ export const GiantQuest: Quest = {
         have($item`Plastic Wrap Immateria`) ? 25 : have($item`Gauze Immateria`) ? 20 : 15, // After that, just look for noncombats
       outfit: () => {
         if (forceItemPossible())
-          return { modifier: "-combat", avoid: $items`Kramco Sausage-o-Matic™` };
+          return { modifier: "-combat", avoid: $items`Kramco Sausage-o-Matic™`, equip: $items`bat wings`, };
         else
           return {
             modifier: "-combat, item",
@@ -157,6 +157,7 @@ export const GiantQuest: Quest = {
         } else {
           return {
             modifier: "-combat",
+            equip: $items`bat wings`,
           };
         }
       },

@@ -32,7 +32,7 @@ void main(int choice, string page)
 
     if (selected_choice == -1) {
         foreach num, choice_text in options {
-            if (choice_text == "Flap over to something else") { // If we can flap and can't gallivant, do that
+            if (choice_text contains "Flap") { // If we can flap and can't gallivant, try to flap
                 selected_choice = num;
                 break;
             }
