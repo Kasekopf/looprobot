@@ -356,7 +356,11 @@ const Zepplin: Task[] = [
         return Macro.trySkill($skill`%fn, fire a Red, White and Blue Blast`).externalIf(
           get("_glarkCableUses") < 5,
           Macro.tryItem($item`glark cable`)
-        );
+        )
+        .if_(
+          $monster`red butler`,
+          Macro.trySkill($skill`Swoop like a Bat`)
+          )
       }, $monsters`man with the red buttons, red skeleton, red butler`)
       .banish($monsters`Red Herring, Red Snapper`)
       .kill(),
@@ -373,7 +377,7 @@ const Zepplin: Task[] = [
         return {
           familiar: $familiar`Patriotic Eagle`,
           modifier: "item",
-          equip: $items`Space Trip safety headphones`,
+          equip: $items`Space Trip safety headphones, bat wings`,
         };
       }
       return { modifier: "item" };

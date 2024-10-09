@@ -457,7 +457,8 @@ const Bowling: Task[] = [
           Macro.tryItem($item`Spooky VHS Tape`)
         )
           .trySkill($skill`Emit Matter Duplicating Drones`)
-          .trySkill($skill`Otoscope`);
+          .trySkill($skill`Otoscope`)
+          .trySkill($skill`Swoop like a Bat`);
       }, $monster`pygmy bowler`)
       .banish($monster`pygmy janitor`)
       .banish($monster`pygmy orderlies`),
