@@ -21,41 +21,7 @@ void main(int choice, string page)
       run_choice(1); // Accept
     else
       run_choice(2); // Decline
-  } else if (choice == 182) { // Random lack of an encounter
-    int selected_choice = -1;
-    foreach num, choice_text in options {
-        if (choice_text == "Gallivant down to the head") { // If we can gallivant down to the head, do that
-            selected_choice = num;
-            break;
-        }
-    }
-
-    if (selected_choice == -1) {
-        foreach num, choice_text in options {
-            if (choice_text contains "Flap") { // If we can flap and can't gallivant, try to flap
-                selected_choice = num;
-                break;
-            }
-        }
-    }
-
-    if (selected_choice == -1) {
-        foreach num, choice_text in options {
-            if (choice_text == "Pry open a hatch with your candy cane sword") {
-                selected_choice = num;
-                break;
-            } else if (choice_text == "Investigate the crew quarters") {
-                selected_choice = num;
-                break;
-            } else if (choice_text == "You will drop your things and walk away.") {
-                selected_choice = num;
-                break;
-            }
-        }
-    }
-
-    run_choice(selected_choice);
-}
+  }
   
   //Everfull dart and airship handling
   else switch (choice) {
