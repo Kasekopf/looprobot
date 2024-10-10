@@ -32,20 +32,21 @@ import { summonStrategy } from "./summons";
 import { args } from "../args";
 
 function batWingAirship(): boolean {
+  const haveWings = have($item`bat wings`);
   const turns = $location`The Penultimate Fantasy Airship`.turnsSpent;
-  if(turns >= 4 && !have($item`Tissue Paper Immateria`)) {
+  if(turns >= 4 && !have($item`Tissue Paper Immateria`) && haveWings) {
     return true;
   }
-  if(turns >= 8 && !have($item`Tin Foil Immateria`)) {
+  if(turns >= 8 && !have($item`Tin Foil Immateria`) && haveWings) {
     return true;
   }
-  if(turns >= 12 && !have($item`Gauze Immateria`)) {
+  if(turns >= 12 && !have($item`Gauze Immateria`) && haveWings) {
     return true;
   }
-  if(turns >= 16 && !have($item`Plastic Wrap Immateria`)) {
+  if(turns >= 16 && !have($item`Plastic Wrap Immateria`) && haveWings) {
     return true;
   }
-  if(turns >= 20 && have($item`Plastic Wrap Immateria`)) {
+  if(turns >= 20 && have($item`Plastic Wrap Immateria`) && haveWings) {
     return true;
   }
   return false;
