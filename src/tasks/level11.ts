@@ -351,7 +351,7 @@ const Pyramid: Task[] = [
       .killItem([$monster`tomb rat`, $monster`tomb rat king`])
       .banish([$monster`tomb asp`, $monster`tomb servant`]),
     outfit: () => {
-      const result: OutfitSpec = { modifier: "item", equip: [] };
+      const result: OutfitSpec = { modifier: "item", equip: [$item`unwrapped knock-off retro superhero cape`] };
       if (
         have($item`Lil' Doctor™ bag`) &&
         get("_otoscopeUsed") < 3 &&

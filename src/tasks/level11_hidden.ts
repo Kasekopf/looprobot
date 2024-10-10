@@ -108,10 +108,11 @@ const Temple: Task[] = [
       step("questL11Worship") >= 3,
     prepare: () => tryEnsureLucky(),
     do: $location`The Hidden Temple`,
-    outfit: { modifier: "+combat, item" },
+    outfit: { modifier: "+combat, item", equip: $items`bat wings` },
     combat: new CombatStrategy()
       .macro(
         new Macro()
+          .trySkill($skill`Swoop like a Bat`)
           .trySkill($skill`Fire Extinguisher: Polar Vortex`)
           .trySkill($skill`Fire Extinguisher: Polar Vortex`),
         $monster`baa-relief sheep`
@@ -456,7 +457,8 @@ const Bowling: Task[] = [
           Macro.tryItem($item`Spooky VHS Tape`)
         )
           .trySkill($skill`Emit Matter Duplicating Drones`)
-          .trySkill($skill`Otoscope`);
+          .trySkill($skill`Otoscope`)
+          .trySkill($skill`Swoop like a Bat`);
       }, $monster`pygmy bowler`)
       .banish($monster`pygmy janitor`)
       .banish($monster`pygmy orderlies`),

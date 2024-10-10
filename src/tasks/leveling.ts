@@ -226,7 +226,7 @@ const unscaledLeveling: Task[] = [
     combat: new CombatStrategy().killHard().macro(() => killMacro(undefined, true, true)),
     outfit: () => {
       if (canEquip($item`Space Trip safety headphones`))
-        return { equip: $items`Space Trip safety headphones` };
+        return { equip: $items`Space Trip safety headphones`};
       else return { equip: $items`cursed monkey's paw` };
     },
     limit: { tries: 11, guard: NO_ADVENTURE_SPENT_OR_HOLIDAY },

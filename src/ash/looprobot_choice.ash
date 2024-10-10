@@ -22,18 +22,18 @@ void main(int choice, string page)
     else
       run_choice(2); // Decline
   }
-  //Everfull dart handling
+  
+  //Everfull dart and airship handling
   else switch (choice) {
 		default:
-			return;
+			break;
 
-	case 1525:
+	case 1525: // Everfull dart
 			priority = {
 				"Throw a second dart quickly":60,
 				"Deal 25-50% more damage":800,
 				"You are less impressed by bullseyes":10,
 				"25% Better bullseye targeting":20,
-				"Extra stats from stats targets":40,
 				"Butt awareness":30,
 				"Add Hot Damage":1000,
 				"Add Cold Damage":31,
@@ -45,7 +45,6 @@ void main(int choice, string page)
 				"25% More Accurate bullseye targeting":19,
 				"Deal 25-50% extra damage":10000,
 				"Increase Dart Deleveling from deleveling targets":100,
-				"Deal 25-50% greater damage":10000,
 				"Extra stats from stats targets":39,
 				"25% better chance to hit bullseyes":18,
 				};

@@ -31,6 +31,27 @@ import { forceItemPossible, tryForceNC, tryPlayApriling } from "../engine/resour
 import { summonStrategy } from "./summons";
 import { args } from "../args";
 
+function batWingAirship(): boolean {
+  const haveWings = have($item`bat wings`);
+  const turns = $location`The Penultimate Fantasy Airship`.turnsSpent;
+  if(turns >= 4 && !have($item`Tissue Paper Immateria`) && haveWings) {
+    return true;
+  }
+  if(turns >= 8 && !have($item`Tin Foil Immateria`) && haveWings) {
+    return true;
+  }
+  if(turns >= 12 && !have($item`Gauze Immateria`) && haveWings) {
+    return true;
+  }
+  if(turns >= 16 && !have($item`Plastic Wrap Immateria`) && haveWings) {
+    return true;
+  }
+  if(turns >= 20 && have($item`Plastic Wrap Immateria`) && haveWings) {
+    return true;
+  }
+  return false;
+}
+
 export const GiantQuest: Quest = {
   name: "Giant",
   tasks: [
@@ -56,7 +77,7 @@ export const GiantQuest: Quest = {
       do: $location`The Beanbat Chamber`,
       outfit: {
         modifier: "item",
-        equip: $items`miniature crystal ball`,
+        equip: $items`miniature crystal ball, bat wings`,
         avoid: $items`broken champagne bottle`,
       },
       combat: new CombatStrategy()
@@ -72,7 +93,7 @@ export const GiantQuest: Quest = {
       do: $location`The Beanbat Chamber`,
       outfit: {
         modifier: "item",
-        equip: $items`miniature crystal ball`,
+        equip: $items`miniature crystal ball, bat wings`,
         avoid: $items`broken champagne bottle`,
       },
       combat: new CombatStrategy()
@@ -97,7 +118,7 @@ export const GiantQuest: Quest = {
       completed: () => have($item`amulet of extreme plot significance`),
       do: $location`The Penultimate Fantasy Airship`,
       choices: () => {
-        return { 178: 2, 182: have($item`model airship`) ? 1 : 4, 1387: 3 };
+        return { 178: 2, 182: !have($item`model airship`) ? 4 : batWingAirship() ? 6 : 1, 1387: 3 };
       },
       post: () => {
         if (have($effect`Temporary Amnesia`)) cliExecute("uneffect Temporary Amnesia");
@@ -115,10 +136,11 @@ export const GiantQuest: Quest = {
         have($item`Plastic Wrap Immateria`) ? 25 : have($item`Gauze Immateria`) ? 20 : 15, // After that, just look for noncombats
       outfit: () => {
         if (forceItemPossible())
-          return { modifier: "-combat", avoid: $items`Kramco Sausage-o-Matic™` };
+          return { modifier: "-combat", avoid: $items`Kramco Sausage-o-Matic™`, equip: $items`bat wings`, };
         else
           return {
             modifier: "-combat, item",
+            equip: $items`bat wings`,
             avoid: $items`broken champagne bottle`,
           };
       },
@@ -139,7 +161,7 @@ export const GiantQuest: Quest = {
       completed: () => have($item`S.O.C.K.`),
       do: $location`The Penultimate Fantasy Airship`,
       choices: () => {
-        return { 178: 2, 182: have($item`model airship`) ? 1 : 4 };
+        return { 178: 2, 182: !have($item`model airship`) ? 4 : batWingAirship() ? 6 : 1, 1387: 3 };
       },
       post: () => {
         if (have($effect`Temporary Amnesia`)) cliExecute("uneffect Temporary Amnesia");
@@ -150,11 +172,13 @@ export const GiantQuest: Quest = {
           return {
             modifier: "-combat",
             weapon: $item`Fourth of May Cosplay Saber`,
+            equip: $items`bat wings`,
             avoid: $items`Kramco Sausage-o-Matic™`,
           };
         } else {
           return {
             modifier: "-combat",
+            equip: $items`bat wings`,
           };
         }
       },
