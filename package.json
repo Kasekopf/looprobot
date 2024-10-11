@@ -34,7 +34,7 @@
     "core-js": "^3.16.4",
     "garbo-lib": "^0.0.6",
     "grimoire-kolmafia": "^0.3.26",
-    "kolmafia": "^5.27934.0",
+    "kolmafia": "^5.28083.0",
     "libram": "^0.9.11",
     "mafia-shared-relay": "^0.0.7",
     "node": "^21.1.0"

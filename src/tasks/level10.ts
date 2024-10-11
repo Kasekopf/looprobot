@@ -31,27 +31,6 @@ import { forceItemPossible, tryForceNC, tryPlayApriling } from "../engine/resour
 import { summonStrategy } from "./summons";
 import { args } from "../args";
 
-function batWingAirship(): boolean {
-  if(!haveEquipped($item`bat wings`)) return false;
-  const turns = $location`The Penultimate Fantasy Airship`.turnsSpent;
-  if(turns >= 4 && !have($item`Tissue Paper Immateria`)) {
-    return true;
-  }
-  if(turns >= 8 && !have($item`Tin Foil Immateria`)) {
-    return true;
-  }
-  if(turns >= 12 && !have($item`Gauze Immateria`)) {
-    return true;
-  }
-  if(turns >= 16 && !have($item`Plastic Wrap Immateria`)) {
-    return true;
-  }
-  if(turns >= 20 && have($item`Plastic Wrap Immateria`)) {
-    return true;
-  }
-  return false;
-}
-
 export const GiantQuest: Quest = {
   name: "Giant",
   tasks: [
@@ -118,7 +97,7 @@ export const GiantQuest: Quest = {
       completed: () => have($item`amulet of extreme plot significance`),
       do: $location`The Penultimate Fantasy Airship`,
       choices: () => {
-        return { 178: 2, 182: !have($item`model airship`) ? 4 : batWingAirship() ? 6 : 1, 1387: 3 };
+        return { 178: 2, 1387: 3 };
       },
       post: () => {
         if (have($effect`Temporary Amnesia`)) cliExecute("uneffect Temporary Amnesia");
@@ -147,6 +126,8 @@ export const GiantQuest: Quest = {
       combat: new CombatStrategy()
         .macro(() => {
           if (have($item`Mohawk wig`)) return new Macro();
+          if (haveEquipped($item`bat wings`) && get("_batWingsSwoopUsed") < 11)
+            return Macro.skill($skill`Swoop like a Bat`).step(killMacro());
           if (haveEquipped($item`Fourth of May Cosplay Saber`) && get("_saberForceUses") < 5)
             return Macro.skill($skill`Use the Force`);
           if (have($skill`Emotionally Chipped`) && get("_feelEnvyUsed") < 3)
@@ -161,7 +142,7 @@ export const GiantQuest: Quest = {
       completed: () => have($item`S.O.C.K.`),
       do: $location`The Penultimate Fantasy Airship`,
       choices: () => {
-        return { 178: 2, 182: !have($item`model airship`) ? 4 : batWingAirship() ? 6 : 1, 1387: 3 };
+        return { 178: 2 };
       },
       post: () => {
         if (have($effect`Temporary Amnesia`)) cliExecute("uneffect Temporary Amnesia");
@@ -187,6 +168,8 @@ export const GiantQuest: Quest = {
         have($item`Plastic Wrap Immateria`) ? 25 : have($item`Gauze Immateria`) ? 20 : 15, // After that, just look for noncombats
       combat: new CombatStrategy().macro(() => {
         if (have($item`Mohawk wig`)) return new Macro();
+        if (haveEquipped($item`bat wings`) && get("_batWingsSwoopUsed") < 11)
+          return Macro.skill($skill`Swoop like a Bat`).step(killMacro());
         if (haveEquipped($item`Fourth of May Cosplay Saber`) && get("_saberForceUses") < 5)
           return Macro.skill($skill`Use the Force`);
         if (have($skill`Emotionally Chipped`) && get("_feelEnvyUsed") < 3)

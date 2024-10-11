@@ -2183,10 +2183,10 @@ keyv@^4.5.3:
   dependencies:
     json-buffer "3.0.1"
 
-kolmafia@^5.27934.0:
-  version "5.27940.0"
-  resolved "https://registry.yarnpkg.com/kolmafia/-/kolmafia-5.27940.0.tgz#c91a3d267271653f7a70599d6ea87b6e3e63745d"
-  integrity sha512-SRYNVbOY2U6D0wKyHQGZqz1JEekpzaqK9nqoP0KYeIYHP2pLOVawnWNEftmXWzW6RS6rigq964VJNPmvde3QSQ==
+kolmafia@^5.28083.0:
+  version "5.28083.0"
+  resolved "https://registry.yarnpkg.com/kolmafia/-/kolmafia-5.28083.0.tgz#ee49097bc5dc70176d317f4a4398879018985255"
+  integrity sha512-eERitL+zvNOoligNTXgqUZMfMwxeJyk+hiKTD0BI7mCs5Q54jJgOALOmr+e0Njz+yfd2oJW17UmvaxufwQM5cQ==
 
 levn@^0.4.1:
   version "0.4.1"
