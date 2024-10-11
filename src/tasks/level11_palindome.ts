@@ -380,7 +380,7 @@ const Zepplin: Task[] = [
           equip: $items`Space Trip safety headphones, bat wings`,
         };
       }
-      return { modifier: "item" };
+      return { modifier: "item", equip: $items`bat wings` };
     },
     limit: { soft: 13 },
   },
