@@ -16,6 +16,7 @@ const context = await esbuild.context({
   },
   entryPoints: {
     "KoLmafia/scripts/looprobot/looprobot": "src/main.ts",
+    "KoLmafia/scripts/looprobot/looprobot_choice": "src/standalone/looprobot_choice.ts",
     "KoLmafia/relay/relay_looprobot": "src/relay.ts",
   },
   entryNames: "[dir]/[name]",
