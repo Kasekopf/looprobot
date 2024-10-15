@@ -126,12 +126,10 @@ export const GiantQuest: Quest = {
       combat: new CombatStrategy()
         .macro(() => {
           if (have($item`Mohawk wig`)) return new Macro();
-          if (haveEquipped($item`bat wings`) && get("_batWingsSwoopUsed") < 11)
-            return Macro.skill($skill`Swoop like a Bat`).step(killMacro());
-          if (haveEquipped($item`Fourth of May Cosplay Saber`) && get("_saberForceUses") < 5)
-            return Macro.skill($skill`Use the Force`);
           if (have($skill`Emotionally Chipped`) && get("_feelEnvyUsed") < 3)
             return Macro.skill($skill`Feel Envy`).step(killMacro());
+          if (haveEquipped($item`Fourth of May Cosplay Saber`) && get("_saberForceUses") < 5)
+            return Macro.skill($skill`Use the Force`);
           return new Macro();
         }, $monster`Burly Sidekick`)
         .forceItems($monster`Quiet Healer`),
@@ -168,12 +166,10 @@ export const GiantQuest: Quest = {
         have($item`Plastic Wrap Immateria`) ? 25 : have($item`Gauze Immateria`) ? 20 : 15, // After that, just look for noncombats
       combat: new CombatStrategy().macro(() => {
         if (have($item`Mohawk wig`)) return new Macro();
-        if (haveEquipped($item`bat wings`) && get("_batWingsSwoopUsed") < 11)
-          return Macro.skill($skill`Swoop like a Bat`).step(killMacro());
-        if (haveEquipped($item`Fourth of May Cosplay Saber`) && get("_saberForceUses") < 5)
-          return Macro.skill($skill`Use the Force`);
         if (have($skill`Emotionally Chipped`) && get("_feelEnvyUsed") < 3)
           return Macro.skill($skill`Feel Envy`).step(killMacro());
+        if (haveEquipped($item`Fourth of May Cosplay Saber`) && get("_saberForceUses") < 5)
+          return Macro.skill($skill`Use the Force`);
         return new Macro();
       }, $monster`Burly Sidekick`),
     },
