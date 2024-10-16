@@ -98,7 +98,6 @@ import {
 } from "./resources";
 import { Priorities, Prioritization } from "./priority";
 import { args } from "../args";
-import { fastFlyerPossible, flyersDone } from "../tasks/level12";
 import { globalStateCache } from "./state";
 import { removeTeleportitis, teleportitisTask } from "../tasks/misc";
 import { summonStrategy } from "../tasks/summons";
@@ -106,6 +105,7 @@ import { pullStrategy } from "../tasks/pulls";
 import { keyStrategy } from "../tasks/keys";
 import { applyEffects } from "./moods";
 import { ROUTE_WAIT_TO_NCFORCE } from "../route";
+import { fastFlyerPossible, flyersDone } from "../tasks/level12";
 
 export const wanderingNCs = new Set<string>([
   "Wooof! Wooooooof!",
