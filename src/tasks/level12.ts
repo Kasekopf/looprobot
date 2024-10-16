@@ -39,7 +39,7 @@ import {
 import { Priority, Quest, Task } from "../engine/task";
 import { Guards, OutfitSpec, step } from "grimoire-kolmafia";
 import { Priorities } from "../engine/priority";
-import { CombatStrategy, killMacro } from "../engine/combat";
+import { CombatStrategy } from "../engine/combat";
 import { atLevel, debug, YouRobot } from "../lib";
 import { forceItemPossible, yellowRayPossible } from "../engine/resources";
 import { args, toTempPref } from "../args";
@@ -433,7 +433,6 @@ const Orchard: Task[] = [
       have($item`heart of the filthworm queen`) ||
       get("sidequestOrchardCompleted") !== "none",
     do: $location`The Hatching Chamber`,
-    choices: {1387: 3},
     outfit: () => {
       if (yellowRayPossible()) return {};
       else if (have($item`industrial fire extinguisher`) && get("_fireExtinguisherCharge") >= 10)
@@ -441,39 +440,29 @@ const Orchard: Task[] = [
           equip: $items`bat wings, industrial fire extinguisher, Space Trip safety headphones`,
           modes: { retrocape: ["heck", "hold"] },
         };
-      else if (have($item`Fourth of May Cosplay Saber`) && get("_saberForceUses") < 3)
+      else
         return {
-          equip: $items`unwrapped knock-off retro superhero cape, Space Trip safety headphones, Fourth of May Cosplay Saber`,
+          equip: $items`bat wings, Space Trip safety headphones`,
           modes: { retrocape: ["heck", "hold"] },
           modifier: "item",
         };
-      else if (have($item`bat wings`))
-        return { equip: $items`bat wings` };
-      else
-      return {
-        equip: $items`unwrapped knock-off retro superhero cape, Space Trip safety headphones`,
-        modes: { retrocape: ["heck", "hold"] },
-        modifier: "item",
-      };
     },
     combat: new CombatStrategy()
-      .yellowRay($monster`filthworm royal guard`)
+      .yellowRay($monster`larval filthworm`)
       .startingMacro(Macro.trySkill($skill`Extract Jelly`))
       .macro(() =>
-        Macro.externalIf(have($item`bat wings`),
-          Macro.trySkill($skill`Swoop like a Bat`))
-        .if_("match gland", Macro.runaway())
-        .externalIf(haveEquipped($item`industrial fire extinguisher`) && get("_fireExtinguisherCharge") >= 10,
-          Macro.trySkill($skill`Fire Extinguisher: Polar Vortex`))
-        .if_("match gland", Macro.runaway())
-        .trySkill($skill`Use the Force`)
-        .externalIf(
+        Macro.trySkill($skill`Swoop like a Bat`)
+        .if_(
+          "!match gland",
+          new Macro().externalIf(
             have($skill`Emotionally Chipped`) &&
-            get("_feelEnvyUsed") < 3 &&
-            have($effect`Everything Looks Yellow`),
-            Macro.trySkill($skill`Feel Envy`)).step(killMacro())
-        )
-        .killItem(),
+              get("_feelEnvyUsed") < 3 &&
+              have($effect`Everything Looks Yellow`),
+            Macro.trySkill($skill`Feel Envy`),
+            Macro.trySkill($skill`Fire Extinguisher: Polar Vortex`)
+          )
+        ),
+      ),
     limit: { soft: 10 },
   },
   {
@@ -487,7 +476,6 @@ const Orchard: Task[] = [
       have($item`heart of the filthworm queen`) ||
       get("sidequestOrchardCompleted") !== "none",
     do: $location`The Feeding Chamber`,
-    choices: {1387: 3},
     outfit: () => {
       if (yellowRayPossible()) return {};
       else if (have($item`industrial fire extinguisher`) && get("_fireExtinguisherCharge") >= 10)
@@ -495,39 +483,29 @@ const Orchard: Task[] = [
           equip: $items`bat wings, industrial fire extinguisher, Space Trip safety headphones`,
           modes: { retrocape: ["heck", "hold"] },
         };
-      else if (have($item`Fourth of May Cosplay Saber`) && get("_saberForceUses") < 3)
+      else
         return {
-          equip: $items`unwrapped knock-off retro superhero cape, Space Trip safety headphones, Fourth of May Cosplay Saber`,
+          equip: $items`bat wings, Space Trip safety headphones`,
           modes: { retrocape: ["heck", "hold"] },
           modifier: "item",
         };
-      else if (have($item`bat wings`))
-        return { equip: $items`bat wings` };
-      else
-      return {
-        equip: $items`unwrapped knock-off retro superhero cape, Space Trip safety headphones`,
-        modes: { retrocape: ["heck", "hold"] },
-        modifier: "item",
-      };
     },
     combat: new CombatStrategy()
-      .yellowRay($monster`filthworm royal guard`)
+      .yellowRay($monster`filthworm drone`)
       .startingMacro(Macro.trySkill($skill`Extract Jelly`))
       .macro(() =>
-        Macro.externalIf(have($item`bat wings`),
-          Macro.trySkill($skill`Swoop like a Bat`))
-        .if_("match gland", Macro.runaway())
-        .externalIf(haveEquipped($item`industrial fire extinguisher`) && get("_fireExtinguisherCharge") >= 10,
-          Macro.trySkill($skill`Fire Extinguisher: Polar Vortex`))
-        .if_("match gland", Macro.runaway())
-        .trySkill($skill`Use the Force`)
-        .externalIf(
+        Macro.trySkill($skill`Swoop like a Bat`)
+        .if_(
+          "!match gland",
+          new Macro().externalIf(
             have($skill`Emotionally Chipped`) &&
-            get("_feelEnvyUsed") < 3 &&
-            have($effect`Everything Looks Yellow`),
-            Macro.trySkill($skill`Feel Envy`)).step(killMacro())
-        )
-        .killItem(),
+              get("_feelEnvyUsed") < 3 &&
+              have($effect`Everything Looks Yellow`),
+            Macro.trySkill($skill`Feel Envy`),
+            Macro.trySkill($skill`Fire Extinguisher: Polar Vortex`)
+          )
+        ),
+      ),
     effects: $effects`Filthworm Larva Stench`,
     limit: { soft: 10 },
   },
@@ -541,47 +519,36 @@ const Orchard: Task[] = [
       get("sidequestOrchardCompleted") !== "none",
     do: $location`The Royal Guard Chamber`,
     effects: $effects`Filthworm Drone Stench`,
-    choices: {1387: 3},
     outfit: () => {
       if (yellowRayPossible()) return {};
       else if (have($item`industrial fire extinguisher`) && get("_fireExtinguisherCharge") >= 10)
         return {
-          equip: $items`bat wings, industrial fire extinguisher, Space Trip safety headphones`,
+          equip: $items`unwrapped knock-off retro superhero cape, industrial fire extinguisher, Space Trip safety headphones`,
           modes: { retrocape: ["heck", "hold"] },
         };
-      else if (have($item`Fourth of May Cosplay Saber`) && get("_saberForceUses") < 3)
+      else
         return {
-          equip: $items`unwrapped knock-off retro superhero cape, Space Trip safety headphones, Fourth of May Cosplay Saber`,
+          equip: $items`unwrapped knock-off retro superhero cape, Space Trip safety headphones`,
           modes: { retrocape: ["heck", "hold"] },
           modifier: "item",
         };
-      else if (have($item`bat wings`))
-        return { equip: $items`bat wings` };
-      else
-      return {
-        equip: $items`unwrapped knock-off retro superhero cape, Space Trip safety headphones`,
-        modes: { retrocape: ["heck", "hold"] },
-        modifier: "item",
-      };
     },
     combat: new CombatStrategy()
       .yellowRay($monster`filthworm royal guard`)
       .startingMacro(Macro.trySkill($skill`Extract Jelly`))
       .macro(() =>
-        Macro.externalIf(have($item`bat wings`),
-          Macro.trySkill($skill`Swoop like a Bat`))
-        .if_("match gland", Macro.runaway())
-        .externalIf(haveEquipped($item`industrial fire extinguisher`) && get("_fireExtinguisherCharge") >= 10,
-          Macro.trySkill($skill`Fire Extinguisher: Polar Vortex`))
-        .if_("match gland", Macro.runaway())
-        .trySkill($skill`Use the Force`)
-        .externalIf(
+        Macro.trySkill($skill`Swoop like a Bat`)
+        .if_(
+          "!match gland",
+          new Macro().externalIf(
             have($skill`Emotionally Chipped`) &&
-            get("_feelEnvyUsed") < 3 &&
-            have($effect`Everything Looks Yellow`),
-            Macro.trySkill($skill`Feel Envy`)).step(killMacro())
-        )
-        .killItem(),
+              get("_feelEnvyUsed") < 3 &&
+              have($effect`Everything Looks Yellow`),
+            Macro.trySkill($skill`Feel Envy`),
+            Macro.trySkill($skill`Fire Extinguisher: Polar Vortex`)
+          )
+        ),
+      ),
     limit: { soft: 10 },
   },
   {
