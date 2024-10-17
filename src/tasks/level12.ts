@@ -436,6 +436,7 @@ const Orchard: Task[] = [
     choices: {1387: 3},
     outfit: () => {
       if (yellowRayPossible()) return {};
+      if(have($effect`Everything Looks Yellow`)) {
       const equips = [];
       equips.push($item`Space Trip safety headphones`)
       if(have($item`bat wings`) && get("_batWingsSwoopUsed") < 11) equips.push($item`bat wings`)
@@ -448,11 +449,13 @@ const Orchard: Task[] = [
           modes: { retrocape: ["heck", "hold"] },
           modifier: "item",
         };
+      } else return  { equip: $items`Space Trip safety headphones` };
     },
     combat: new CombatStrategy()
       .yellowRay($monster`larval filthworm`)
       .startingMacro(Macro.trySkill($skill`Extract Jelly`))
       .macro(() =>
+        Macro.externalIf(have($effect`Everything Looks Yellow`),
         Macro.externalIf(have($item`bat wings`),
           Macro.trySkill($skill`Swoop like a Bat`))
         .if_("match gland", Macro.runaway())
@@ -462,7 +465,7 @@ const Orchard: Task[] = [
         .trySkill($skill`Use the Force`)
         .externalIf(
           get("_feelEnvyUsed") < 3,
-          Macro.trySkill($skill`Feel Envy`)).step(killMacro()),
+          Macro.trySkill($skill`Feel Envy`)).step(killMacro()),)
       ),
     limit: { soft: 10 },
   },
@@ -480,6 +483,7 @@ const Orchard: Task[] = [
     choices: {1387: 3},
     outfit: () => {
       if (yellowRayPossible()) return {};
+      if(have($effect`Everything Looks Yellow`)) {
       const equips = [];
       equips.push($item`Space Trip safety headphones`)
       if(have($item`bat wings`) && get("_batWingsSwoopUsed") < 11) equips.push($item`bat wings`)
@@ -492,11 +496,13 @@ const Orchard: Task[] = [
           modes: { retrocape: ["heck", "hold"] },
           modifier: "item",
         };
+      } else return  { equip: $items`Space Trip safety headphones` };
     },
     combat: new CombatStrategy()
       .yellowRay($monster`filthworm drone`)
       .startingMacro(Macro.trySkill($skill`Extract Jelly`))
       .macro(() =>
+        Macro.externalIf(have($effect`Everything Looks Yellow`),
         Macro.externalIf(have($item`bat wings`),
           Macro.trySkill($skill`Swoop like a Bat`))
         .if_("match gland", Macro.runaway())
@@ -506,7 +512,7 @@ const Orchard: Task[] = [
         .trySkill($skill`Use the Force`)
         .externalIf(
           get("_feelEnvyUsed") < 3,
-          Macro.trySkill($skill`Feel Envy`)).step(killMacro()),
+          Macro.trySkill($skill`Feel Envy`)).step(killMacro()),)
       ),
     effects: $effects`Filthworm Larva Stench`,
     limit: { soft: 10 },
@@ -524,6 +530,7 @@ const Orchard: Task[] = [
     choices: {1387: 3},
     outfit: () => {
       if (yellowRayPossible()) return {};
+      if(have($effect`Everything Looks Yellow`)) {
       const equips = [];
       equips.push($item`Space Trip safety headphones`)
       if(have($item`bat wings`) && get("_batWingsSwoopUsed") < 11) equips.push($item`bat wings`)
@@ -536,11 +543,13 @@ const Orchard: Task[] = [
           modes: { retrocape: ["heck", "hold"] },
           modifier: "item",
         };
+      } else return  { equip: $items`Space Trip safety headphones` };
     },
     combat: new CombatStrategy()
       .yellowRay($monster`filthworm royal guard`)
       .startingMacro(Macro.trySkill($skill`Extract Jelly`))
       .macro(() =>
+        Macro.externalIf(have($effect`Everything Looks Yellow`),
         Macro.externalIf(have($item`bat wings`),
           Macro.trySkill($skill`Swoop like a Bat`))
         .if_("match gland", Macro.runaway())
@@ -550,7 +559,7 @@ const Orchard: Task[] = [
         .trySkill($skill`Use the Force`)
         .externalIf(
           get("_feelEnvyUsed") < 3,
-          Macro.trySkill($skill`Feel Envy`)).step(killMacro()),
+          Macro.trySkill($skill`Feel Envy`)).step(killMacro()),)
       ),
     limit: { soft: 10 },
   },
