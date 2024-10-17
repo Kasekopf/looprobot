@@ -435,23 +435,16 @@ const Orchard: Task[] = [
     do: $location`The Hatching Chamber`,
     choices: {1387: 3},
     outfit: () => {
+      const equips = [];
+      equips.push($item`Space Trip safety headphones`)
       if (yellowRayPossible()) return {};
-      else if (have($item`industrial fire extinguisher`) && get("_fireExtinguisherCharge") >= 10)
-        return {
-          equip: $items`bat wings, industrial fire extinguisher, Space Trip safety headphones`,
-          modes: { retrocape: ["heck", "hold"] },
-        };
-        else if (have($item`Fourth of May Cosplay Saber`) && get("_saberForceUses") < 3)
-        return {
-          equip: $items`unwrapped knock-off retro superhero cape, Space Trip safety headphones, Fourth of May Cosplay Saber`,
-          modes: { retrocape: ["heck", "hold"] },
-          modifier: "item",
-        }
-        else if (have($item`bat wings`))
-          return { equip: $items`bat wings` };
+      else if(have($item`bat wings`) && get("_batWingsSwoopUsed") < 11) equips.push($item`bat wings`)
+        else equips.push($item`unwrapped knock-off retro superhero cape`)
+      if(have($item`industrial fire extinguisher`) && get("_fireExtinguisherCharge") >= 10) equips.push($item`industrial fire extinguisher`)
         else
+          if(have($item`Fourth of May Cosplay Saber`) && get("_saberForceUses") < 3) equips.push($item`Fourth of May Cosplay Saber`)
         return {
-          equip: $items`unwrapped knock-off retro superhero cape, Space Trip safety headphones`,
+          equip: equips,
           modes: { retrocape: ["heck", "hold"] },
           modifier: "item",
         };
@@ -468,8 +461,7 @@ const Orchard: Task[] = [
         .if_("match gland", Macro.runaway())
         .trySkill($skill`Use the Force`)
         .externalIf(
-          get("_feelEnvyUsed") < 3 &&
-          have($effect`Everything Looks Yellow`),
+          get("_feelEnvyUsed") < 3,
           Macro.trySkill($skill`Feel Envy`)).step(killMacro()),
       ),
     limit: { soft: 10 },
@@ -487,23 +479,16 @@ const Orchard: Task[] = [
     do: $location`The Feeding Chamber`,
     choices: {1387: 3},
     outfit: () => {
+      const equips = [];
+      equips.push($item`Space Trip safety headphones`)
       if (yellowRayPossible()) return {};
-      else if (have($item`industrial fire extinguisher`) && get("_fireExtinguisherCharge") >= 10)
-        return {
-          equip: $items`bat wings, industrial fire extinguisher, Space Trip safety headphones`,
-          modes: { retrocape: ["heck", "hold"] },
-        };
-        else if (have($item`Fourth of May Cosplay Saber`) && get("_saberForceUses") < 3)
-        return {
-          equip: $items`unwrapped knock-off retro superhero cape, Space Trip safety headphones, Fourth of May Cosplay Saber`,
-          modes: { retrocape: ["heck", "hold"] },
-          modifier: "item",
-        }
-        else if (have($item`bat wings`))
-          return { equip: $items`bat wings` };
+      else if(have($item`bat wings`) && get("_batWingsSwoopUsed") < 11) equips.push($item`bat wings`)
+        else equips.push($item`unwrapped knock-off retro superhero cape`)
+      if(have($item`industrial fire extinguisher`) && get("_fireExtinguisherCharge") >= 10) equips.push($item`industrial fire extinguisher`)
         else
+          if(have($item`Fourth of May Cosplay Saber`) && get("_saberForceUses") < 3) equips.push($item`Fourth of May Cosplay Saber`)
         return {
-          equip: $items`unwrapped knock-off retro superhero cape, Space Trip safety headphones`,
+          equip: equips,
           modes: { retrocape: ["heck", "hold"] },
           modifier: "item",
         };
@@ -520,8 +505,7 @@ const Orchard: Task[] = [
         .if_("match gland", Macro.runaway())
         .trySkill($skill`Use the Force`)
         .externalIf(
-          get("_feelEnvyUsed") < 3 &&
-          have($effect`Everything Looks Yellow`),
+          get("_feelEnvyUsed") < 3,
           Macro.trySkill($skill`Feel Envy`)).step(killMacro()),
       ),
     effects: $effects`Filthworm Larva Stench`,
@@ -539,23 +523,16 @@ const Orchard: Task[] = [
     effects: $effects`Filthworm Drone Stench`,
     choices: {1387: 3},
     outfit: () => {
+      const equips = [];
+      equips.push($item`Space Trip safety headphones`)
       if (yellowRayPossible()) return {};
-      else if (have($item`industrial fire extinguisher`) && get("_fireExtinguisherCharge") >= 10)
-        return {
-          equip: $items`bat wings, industrial fire extinguisher, Space Trip safety headphones`,
-          modes: { retrocape: ["heck", "hold"] },
-        };
-        else if (have($item`Fourth of May Cosplay Saber`) && get("_saberForceUses") < 3)
-        return {
-          equip: $items`unwrapped knock-off retro superhero cape, Space Trip safety headphones, Fourth of May Cosplay Saber`,
-          modes: { retrocape: ["heck", "hold"] },
-          modifier: "item",
-        }
-        else if (have($item`bat wings`))
-          return { equip: $items`bat wings` };
+      else if(have($item`bat wings`) && get("_batWingsSwoopUsed") < 11) equips.push($item`bat wings`)
+        else equips.push($item`unwrapped knock-off retro superhero cape`)
+      if(have($item`industrial fire extinguisher`) && get("_fireExtinguisherCharge") >= 10) equips.push($item`industrial fire extinguisher`)
         else
+          if(have($item`Fourth of May Cosplay Saber`) && get("_saberForceUses") < 3) equips.push($item`Fourth of May Cosplay Saber`)
         return {
-          equip: $items`unwrapped knock-off retro superhero cape, Space Trip safety headphones`,
+          equip: equips,
           modes: { retrocape: ["heck", "hold"] },
           modifier: "item",
         };
@@ -572,8 +549,7 @@ const Orchard: Task[] = [
         .if_("match gland", Macro.runaway())
         .trySkill($skill`Use the Force`)
         .externalIf(
-          get("_feelEnvyUsed") < 3 &&
-          have($effect`Everything Looks Yellow`),
+          get("_feelEnvyUsed") < 3,
           Macro.trySkill($skill`Feel Envy`)).step(killMacro()),
       ),
     limit: { soft: 10 },
