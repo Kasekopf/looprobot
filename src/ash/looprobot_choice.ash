@@ -21,6 +21,12 @@ void main(int choice, string page)
       run_choice(1); // Accept
     else
       run_choice(2); // Decline
+  } else if (choice == 182) {  // Random Lack of an Encounter
+    if (options contains 4) // Pick up a model airship
+      run_choice(4);
+    else if (options contains 6) // Bat Wings Skip
+      run_choice(6);
+    else run_choice(1);
   }
   //Everfull dart handling
   else switch (choice) {
