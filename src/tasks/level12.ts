@@ -435,10 +435,10 @@ const Orchard: Task[] = [
     do: $location`The Hatching Chamber`,
     choices: {1387: 3},
     outfit: () => {
+      if (yellowRayPossible()) return {};
       const equips = [];
       equips.push($item`Space Trip safety headphones`)
-      if (yellowRayPossible()) return {};
-      else if(have($item`bat wings`) && get("_batWingsSwoopUsed") < 11) equips.push($item`bat wings`)
+      if(have($item`bat wings`) && get("_batWingsSwoopUsed") < 11) equips.push($item`bat wings`)
         else equips.push($item`unwrapped knock-off retro superhero cape`)
       if(have($item`industrial fire extinguisher`) && get("_fireExtinguisherCharge") >= 10) equips.push($item`industrial fire extinguisher`)
         else
@@ -479,10 +479,10 @@ const Orchard: Task[] = [
     do: $location`The Feeding Chamber`,
     choices: {1387: 3},
     outfit: () => {
+      if (yellowRayPossible()) return {};
       const equips = [];
       equips.push($item`Space Trip safety headphones`)
-      if (yellowRayPossible()) return {};
-      else if(have($item`bat wings`) && get("_batWingsSwoopUsed") < 11) equips.push($item`bat wings`)
+      if(have($item`bat wings`) && get("_batWingsSwoopUsed") < 11) equips.push($item`bat wings`)
         else equips.push($item`unwrapped knock-off retro superhero cape`)
       if(have($item`industrial fire extinguisher`) && get("_fireExtinguisherCharge") >= 10) equips.push($item`industrial fire extinguisher`)
         else
@@ -523,10 +523,10 @@ const Orchard: Task[] = [
     effects: $effects`Filthworm Drone Stench`,
     choices: {1387: 3},
     outfit: () => {
+      if (yellowRayPossible()) return {};
       const equips = [];
       equips.push($item`Space Trip safety headphones`)
-      if (yellowRayPossible()) return {};
-      else if(have($item`bat wings`) && get("_batWingsSwoopUsed") < 11) equips.push($item`bat wings`)
+      if(have($item`bat wings`) && get("_batWingsSwoopUsed") < 11) equips.push($item`bat wings`)
         else equips.push($item`unwrapped knock-off retro superhero cape`)
       if(have($item`industrial fire extinguisher`) && get("_fireExtinguisherCharge") >= 10) equips.push($item`industrial fire extinguisher`)
         else
