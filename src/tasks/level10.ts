@@ -97,13 +97,13 @@ export const GiantQuest: Quest = {
       completed: () => have($item`amulet of extreme plot significance`),
       do: $location`The Penultimate Fantasy Airship`,
       choices: () => {
-        return { 178: 2, 182: have($item`model airship`) ? 1 : 4, 1387: 3 };
+        return { 178: 2, 1387: 3 };
       },
       post: () => {
         if (have($effect`Temporary Amnesia`)) cliExecute("uneffect Temporary Amnesia");
       },
       orbtargets: () => {
-        if (have($item`Fourth of May Cosplay Saber`)) {
+        if (have($item`Fourth of May Cosplay Saber`) && !have($item`bat wings`)) {
           if (have($item`Mohawk wig`)) return $monsters`Quiet Healer`;
           else return $monsters`Quiet Healer, Burly Sidekick`;
         } else {
@@ -115,23 +115,23 @@ export const GiantQuest: Quest = {
         have($item`Plastic Wrap Immateria`) ? 25 : have($item`Gauze Immateria`) ? 20 : 15, // After that, just look for noncombats
       outfit: () => {
         if (forceItemPossible())
-          return { modifier: "-combat", avoid: $items`Kramco Sausage-o-Matic™` };
+          return { modifier: "-combat", avoid: $items`Kramco Sausage-o-Matic™`, equip: $items`bat wings` };
         else
           return {
             modifier: "-combat, item",
             avoid: $items`broken champagne bottle`,
+            equip: $items`bat wings`
           };
       },
       combat: new CombatStrategy()
         .macro(() => {
           if (have($item`Mohawk wig`)) return new Macro();
-          if (haveEquipped($item`Fourth of May Cosplay Saber`) && get("_saberForceUses") < 5)
-            return Macro.skill($skill`Use the Force`);
           if (have($skill`Emotionally Chipped`) && get("_feelEnvyUsed") < 3)
             return Macro.skill($skill`Feel Envy`).step(killMacro());
+          if (haveEquipped($item`Fourth of May Cosplay Saber`) && get("_saberForceUses") < 5 && !have($item`bat wings`))
+            return Macro.skill($skill`Use the Force`);
           return new Macro();
-        }, $monster`Burly Sidekick`)
-        .forceItems($monster`Quiet Healer`),
+        }, $monsters`Burly Sidekick, Quiet Healer`),
     },
     {
       name: "Airship",
@@ -139,22 +139,24 @@ export const GiantQuest: Quest = {
       completed: () => have($item`S.O.C.K.`),
       do: $location`The Penultimate Fantasy Airship`,
       choices: () => {
-        return { 178: 2, 182: have($item`model airship`) ? 1 : 4 };
+        return { 178: 2 };
       },
       post: () => {
         if (have($effect`Temporary Amnesia`)) cliExecute("uneffect Temporary Amnesia");
       },
       orbtargets: () => [],
       outfit: () => {
-        if (get("_saberForceUses") < 5 && !have($item`Mohawk wig`)) {
+        if (get("_saberForceUses") < 5 && !have($item`Mohawk wig`) && !have($item`bat wings`)) {
           return {
             modifier: "-combat",
             weapon: $item`Fourth of May Cosplay Saber`,
             avoid: $items`Kramco Sausage-o-Matic™`,
+            equip: $items`bat wings`,
           };
         } else {
           return {
             modifier: "-combat",
+            equip: $items`bat wings`,
           };
         }
       },
@@ -163,10 +165,10 @@ export const GiantQuest: Quest = {
         have($item`Plastic Wrap Immateria`) ? 25 : have($item`Gauze Immateria`) ? 20 : 15, // After that, just look for noncombats
       combat: new CombatStrategy().macro(() => {
         if (have($item`Mohawk wig`)) return new Macro();
-        if (haveEquipped($item`Fourth of May Cosplay Saber`) && get("_saberForceUses") < 5)
-          return Macro.skill($skill`Use the Force`);
         if (have($skill`Emotionally Chipped`) && get("_feelEnvyUsed") < 3)
           return Macro.skill($skill`Feel Envy`).step(killMacro());
+        if (haveEquipped($item`Fourth of May Cosplay Saber`) && get("_saberForceUses") < 5 && !have($item`bat wings`))
+          return Macro.skill($skill`Use the Force`);
         return new Macro();
       }, $monster`Burly Sidekick`),
     },
