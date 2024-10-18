@@ -131,8 +131,7 @@ export const GiantQuest: Quest = {
           if (haveEquipped($item`Fourth of May Cosplay Saber`) && get("_saberForceUses") < 5 && !have($item`bat wings`))
             return Macro.skill($skill`Use the Force`);
           return new Macro();
-        }, $monster`Burly Sidekick`)
-        .forceItems($monster`Quiet Healer`),
+        }, $monsters`Burly Sidekick, Quiet Healer`),
     },
     {
       name: "Airship",
