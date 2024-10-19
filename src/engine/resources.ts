@@ -651,16 +651,16 @@ export function yellowRayPossible(): boolean {
 export type ForceItemSource = CombatResource;
 export const forceItemSources: ForceItemSource[] = [
   {
+    name: "Envy",
+    available: () => have($skill`Emotionally Chipped`) && get("_feelEnvyUsed") < 3,
+    do: () => Macro.skill($skill`Feel Envy`).step(killMacro()),
+  },
+  {
     name: "Saber",
     available: () => have($item`Fourth of May Cosplay Saber`) && get("_saberForceUses") < 5,
     prepare: () => set("choiceAdventure1387", 3),
     equip: $item`Fourth of May Cosplay Saber`,
     do: $skill`Use the Force`,
-  },
-  {
-    name: "Envy",
-    available: () => have($skill`Emotionally Chipped`) && get("_feelEnvyUsed") < 3,
-    do: () => Macro.skill($skill`Feel Envy`).step(killMacro()),
   },
 ];
 

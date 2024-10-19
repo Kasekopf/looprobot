@@ -126,12 +126,13 @@ export const GiantQuest: Quest = {
       combat: new CombatStrategy()
         .macro(() => {
           if (have($item`Mohawk wig`)) return new Macro();
+          if (haveEquipped($item`Fourth of May Cosplay Saber`) && get("_saberForceUses") < 5)
+            return Macro.skill($skill`Use the Force`);
           if (have($skill`Emotionally Chipped`) && get("_feelEnvyUsed") < 3)
             return Macro.skill($skill`Feel Envy`).step(killMacro());
-          if (haveEquipped($item`Fourth of May Cosplay Saber`) && get("_saberForceUses") < 5 && !have($item`bat wings`))
-            return Macro.skill($skill`Use the Force`);
           return new Macro();
-        }, $monsters`Burly Sidekick, Quiet Healer`),
+        }, $monster`Burly Sidekick`)
+        .forceItems($monster`Quiet Healer`),
     },
     {
       name: "Airship",
