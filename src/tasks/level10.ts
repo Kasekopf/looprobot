@@ -94,7 +94,7 @@ export const GiantQuest: Quest = {
       name: "Airship YR Healer",
       after: ["Grow Beanstalk"],
       prepare: () => tryPlayApriling("-combat"),
-      completed: () => have($item`amulet of extreme plot significance`),
+      completed: () => have($item`amulet of extreme plot significance`) || have($item`S.O.C.K.`),
       do: $location`The Penultimate Fantasy Airship`,
       choices: () => {
         return { 178: 2, 1387: 3 };
