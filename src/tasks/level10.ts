@@ -103,7 +103,7 @@ export const GiantQuest: Quest = {
         if (have($effect`Temporary Amnesia`)) cliExecute("uneffect Temporary Amnesia");
       },
       orbtargets: () => {
-        if (have($item`Fourth of May Cosplay Saber`) && !have($item`bat wings`)) {
+        if (have($item`Fourth of May Cosplay Saber`)) {
           if (have($item`Mohawk wig`)) return $monsters`Quiet Healer`;
           else return $monsters`Quiet Healer, Burly Sidekick`;
         } else {
@@ -128,7 +128,7 @@ export const GiantQuest: Quest = {
           if (have($item`Mohawk wig`)) return new Macro();
           if (haveEquipped($item`Fourth of May Cosplay Saber`) && get("_saberForceUses") < 5)
             return Macro.skill($skill`Use the Force`);
-          if (have($skill`Emotionally Chipped`) && get("_feelEnvyUsed") < 3)
+          if (have($skill`Emotionally Chipped`) && get("_feelEnvyUsed") < 3 && have($item`amulet of extreme plot significance`))
             return Macro.skill($skill`Feel Envy`).step(killMacro());
           return new Macro();
         }, $monster`Burly Sidekick`)
