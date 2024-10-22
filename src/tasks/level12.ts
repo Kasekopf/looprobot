@@ -437,18 +437,25 @@ const Orchard: Task[] = [
     outfit: () => {
       if (yellowRayPossible()) return {};
       if(have($effect`Everything Looks Yellow`)) {
-      const equips = [];
-      equips.push($item`Space Trip safety headphones`)
-      if(have($item`bat wings`) && get("_batWingsSwoopUsed") < 11) equips.push($item`bat wings`)
-        else equips.push($item`unwrapped knock-off retro superhero cape`)
-      if(have($item`industrial fire extinguisher`) && get("_fireExtinguisherCharge") >= 10) equips.push($item`industrial fire extinguisher`)
+        const equips = [];
+        equips.push($item`Space Trip safety headphones`)
+
+        if(have($item`bat wings`) && get("_batWingsSwoopUsed") < 11)
+          equips.push($item`bat wings`)
         else
-          if(have($item`Fourth of May Cosplay Saber`) && get("_saberForceUses") < 3) equips.push($item`Fourth of May Cosplay Saber`)
-      if(equips.includes($item`bat wings`) || equips.includes($item`industrial fire extinguisher`)) {
-        if(have($item`Greatest American Pants`))
-          equips.push($item`Greatest American Pants`)
-        else if(have($item`navel ring of navel gazing`))
-          equips.push($item`navel ring of navel gazing`)
+          equips.push($item`unwrapped knock-off retro superhero cape`)
+        if(have($item`industrial fire extinguisher`) && get("_fireExtinguisherCharge") >= 10)
+          equips.push($item`industrial fire extinguisher`)
+        else
+          if(have($item`Fourth of May Cosplay Saber`) && get("_saberForceUses") < 3)
+            equips.push($item`Fourth of May Cosplay Saber`)
+
+        if(equips.includes($item`bat wings`) || equips.includes($item`industrial fire extinguisher`)) {
+          if(have($item`Greatest American Pants`))
+            equips.push($item`Greatest American Pants`)
+          else
+            if(have($item`navel ring of navel gazing`))
+              equips.push($item`navel ring of navel gazing`)
       }
         return {
           equip: equips,
@@ -490,19 +497,26 @@ const Orchard: Task[] = [
     outfit: () => {
       if (yellowRayPossible()) return {};
       if(have($effect`Everything Looks Yellow`)) {
-      const equips = [];
-      equips.push($item`Space Trip safety headphones`)
-      if(have($item`bat wings`) && get("_batWingsSwoopUsed") < 11) equips.push($item`bat wings`)
-        else equips.push($item`unwrapped knock-off retro superhero cape`)
-      if(have($item`industrial fire extinguisher`) && get("_fireExtinguisherCharge") >= 10) equips.push($item`industrial fire extinguisher`)
+        const equips = [];
+        equips.push($item`Space Trip safety headphones`)
+
+        if(have($item`bat wings`) && get("_batWingsSwoopUsed") < 11)
+          equips.push($item`bat wings`)
         else
-          if(have($item`Fourth of May Cosplay Saber`) && get("_saberForceUses") < 3) equips.push($item`Fourth of May Cosplay Saber`)
-            if(equips.includes($item`bat wings`) || equips.includes($item`industrial fire extinguisher`)) {
-              if(have($item`Greatest American Pants`))
-                equips.push($item`Greatest American Pants`)
-              else if(have($item`navel ring of navel gazing`))
-                equips.push($item`navel ring of navel gazing`)
-            }
+          equips.push($item`unwrapped knock-off retro superhero cape`)
+        if(have($item`industrial fire extinguisher`) && get("_fireExtinguisherCharge") >= 10)
+          equips.push($item`industrial fire extinguisher`)
+        else
+          if(have($item`Fourth of May Cosplay Saber`) && get("_saberForceUses") < 3)
+            equips.push($item`Fourth of May Cosplay Saber`)
+
+        if(equips.includes($item`bat wings`) || equips.includes($item`industrial fire extinguisher`)) {
+          if(have($item`Greatest American Pants`))
+            equips.push($item`Greatest American Pants`)
+          else
+            if(have($item`navel ring of navel gazing`))
+              equips.push($item`navel ring of navel gazing`)
+      }
         return {
           equip: equips,
           modes: { retrocape: ["heck", "hold"] },
@@ -543,19 +557,26 @@ const Orchard: Task[] = [
     outfit: () => {
       if (yellowRayPossible()) return {};
       if(have($effect`Everything Looks Yellow`)) {
-      const equips = [];
-      equips.push($item`Space Trip safety headphones`)
-      if(have($item`bat wings`) && get("_batWingsSwoopUsed") < 11) equips.push($item`bat wings`)
-        else equips.push($item`unwrapped knock-off retro superhero cape`)
-      if(have($item`industrial fire extinguisher`) && get("_fireExtinguisherCharge") >= 10) equips.push($item`industrial fire extinguisher`)
+        const equips = [];
+        equips.push($item`Space Trip safety headphones`)
+
+        if(have($item`bat wings`) && get("_batWingsSwoopUsed") < 11)
+          equips.push($item`bat wings`)
         else
-          if(have($item`Fourth of May Cosplay Saber`) && get("_saberForceUses") < 3) equips.push($item`Fourth of May Cosplay Saber`)
-            if(equips.includes($item`bat wings`) || equips.includes($item`industrial fire extinguisher`)) {
-              if(have($item`Greatest American Pants`))
-                equips.push($item`Greatest American Pants`)
-              else if(have($item`navel ring of navel gazing`))
-                equips.push($item`navel ring of navel gazing`)
-            }
+          equips.push($item`unwrapped knock-off retro superhero cape`)
+        if(have($item`industrial fire extinguisher`) && get("_fireExtinguisherCharge") >= 10)
+          equips.push($item`industrial fire extinguisher`)
+        else
+          if(have($item`Fourth of May Cosplay Saber`) && get("_saberForceUses") < 3)
+            equips.push($item`Fourth of May Cosplay Saber`)
+
+        if(equips.includes($item`bat wings`) || equips.includes($item`industrial fire extinguisher`)) {
+          if(have($item`Greatest American Pants`))
+            equips.push($item`Greatest American Pants`)
+          else
+            if(have($item`navel ring of navel gazing`))
+              equips.push($item`navel ring of navel gazing`)
+      }
         return {
           equip: equips,
           modes: { retrocape: ["heck", "hold"] },
