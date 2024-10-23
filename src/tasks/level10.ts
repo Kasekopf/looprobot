@@ -152,7 +152,6 @@ export const GiantQuest: Quest = {
             modifier: "-combat",
             weapon: $item`Fourth of May Cosplay Saber`,
             avoid: $items`Kramco Sausage-o-Matic™`,
-            equip: $items`bat wings`,
           };
         } else {
           return {
