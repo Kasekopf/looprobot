@@ -446,9 +446,6 @@ const Orchard: Task[] = [
           equips.push($item`unwrapped knock-off retro superhero cape`)
         if(have($item`industrial fire extinguisher`) && get("_fireExtinguisherCharge") >= 10)
           equips.push($item`industrial fire extinguisher`)
-        else
-          if(have($item`Fourth of May Cosplay Saber`) && get("_saberForceUses") < 3)
-            equips.push($item`Fourth of May Cosplay Saber`)
 
         if(equips.includes($item`bat wings`) || equips.includes($item`industrial fire extinguisher`)) {
           if(have($item`Greatest American Pants`))
@@ -475,7 +472,6 @@ const Orchard: Task[] = [
         .externalIf(haveEquipped($item`industrial fire extinguisher`) && get("_fireExtinguisherCharge") >= 10,
           Macro.trySkill($skill`Fire Extinguisher: Polar Vortex`))
         .if_("match gland", Macro.runaway())
-        .trySkill($skill`Use the Force`)
         .externalIf(
           get("_feelEnvyUsed") < 3,
           Macro.trySkill($skill`Feel Envy`)).step(killMacro()),)
@@ -506,9 +502,6 @@ const Orchard: Task[] = [
           equips.push($item`unwrapped knock-off retro superhero cape`)
         if(have($item`industrial fire extinguisher`) && get("_fireExtinguisherCharge") >= 10)
           equips.push($item`industrial fire extinguisher`)
-        else
-          if(have($item`Fourth of May Cosplay Saber`) && get("_saberForceUses") < 3)
-            equips.push($item`Fourth of May Cosplay Saber`)
 
         if(equips.includes($item`bat wings`) || equips.includes($item`industrial fire extinguisher`)) {
           if(have($item`Greatest American Pants`))
@@ -535,7 +528,6 @@ const Orchard: Task[] = [
         .externalIf(haveEquipped($item`industrial fire extinguisher`) && get("_fireExtinguisherCharge") >= 10,
           Macro.trySkill($skill`Fire Extinguisher: Polar Vortex`))
         .if_("match gland", Macro.runaway())
-        .trySkill($skill`Use the Force`)
         .externalIf(
           get("_feelEnvyUsed") < 3,
           Macro.trySkill($skill`Feel Envy`)).step(killMacro()),)
@@ -566,9 +558,6 @@ const Orchard: Task[] = [
           equips.push($item`unwrapped knock-off retro superhero cape`)
         if(have($item`industrial fire extinguisher`) && get("_fireExtinguisherCharge") >= 10)
           equips.push($item`industrial fire extinguisher`)
-        else
-          if(have($item`Fourth of May Cosplay Saber`) && get("_saberForceUses") < 3)
-            equips.push($item`Fourth of May Cosplay Saber`)
 
         if(equips.includes($item`bat wings`) || equips.includes($item`industrial fire extinguisher`)) {
           if(have($item`Greatest American Pants`))
@@ -595,7 +584,6 @@ const Orchard: Task[] = [
         .externalIf(haveEquipped($item`industrial fire extinguisher`) && get("_fireExtinguisherCharge") >= 10,
           Macro.trySkill($skill`Fire Extinguisher: Polar Vortex`))
         .if_("match gland", Macro.runaway())
-        .trySkill($skill`Use the Force`)
         .externalIf(
           get("_feelEnvyUsed") < 3,
           Macro.trySkill($skill`Feel Envy`)).step(killMacro()),)
