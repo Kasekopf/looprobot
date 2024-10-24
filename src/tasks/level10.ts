@@ -149,8 +149,7 @@ export const GiantQuest: Quest = {
           if (have($skill`Emotionally Chipped`) && get("_feelEnvyUsed") < 3)
             return Macro.skill($skill`Feel Envy`).step(killMacro());
           return new Macro();
-        }, $monsters`Quiet Healer, Burly Sidekick`)
-        .forceItems(targetMonsters()),
+        }, targetMonsters()),
     },
     {
       name: "Airship",
