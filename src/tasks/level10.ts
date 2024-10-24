@@ -94,7 +94,7 @@ export const GiantQuest: Quest = {
       name: "Airship YR Healer",
       after: ["Grow Beanstalk"],
       prepare: () => tryPlayApriling("-combat"),
-      completed: () => have($item`amulet of extreme plot significance`) || have($item`S.O.C.K.`),
+      completed: () => have($item`S.O.C.K.`),
       do: $location`The Penultimate Fantasy Airship`,
       choices: () => {
         return { 178: 2, 1387: 3 };
@@ -131,46 +131,8 @@ export const GiantQuest: Quest = {
           if (have($skill`Emotionally Chipped`) && get("_feelEnvyUsed") < 3 && have($item`amulet of extreme plot significance`))
             return Macro.skill($skill`Feel Envy`).step(killMacro());
           return new Macro();
-        }, $monster`Burly Sidekick`)
-        .forceItems($monster`Quiet Healer`),
-    },
-    {
-      name: "Airship",
-      after: ["Airship YR Healer"],
-      completed: () => have($item`S.O.C.K.`),
-      do: $location`The Penultimate Fantasy Airship`,
-      choices: () => {
-        return { 178: 2 };
-      },
-      post: () => {
-        if (have($effect`Temporary Amnesia`)) cliExecute("uneffect Temporary Amnesia");
-      },
-      orbtargets: () => [],
-      outfit: () => {
-        if (get("_saberForceUses") < 5 && !have($item`Mohawk wig`) && !have($item`bat wings`)) {
-          return {
-            modifier: "-combat",
-            weapon: $item`Fourth of May Cosplay Saber`,
-            avoid: $items`Kramco Sausage-o-Matic™`,
-          };
-        } else {
-          return {
-            modifier: "-combat",
-            equip: $items`bat wings`,
-          };
-        }
-      },
-      limit: { soft: 50 },
-      delay: () =>
-        have($item`Plastic Wrap Immateria`) ? 25 : have($item`Gauze Immateria`) ? 20 : 15, // After that, just look for noncombats
-      combat: new CombatStrategy().macro(() => {
-        if (have($item`Mohawk wig`)) return new Macro();
-        if (have($skill`Emotionally Chipped`) && get("_feelEnvyUsed") < 3)
-          return Macro.skill($skill`Feel Envy`).step(killMacro());
-        if (haveEquipped($item`Fourth of May Cosplay Saber`) && get("_saberForceUses") < 5 && !have($item`bat wings`))
-          return Macro.skill($skill`Use the Force`);
-        return new Macro();
-      }, $monster`Burly Sidekick`),
+        }, $monsters`Quiet Healer, Burly Sidekick`)
+        .forceItems($monsters`Quiet Healer, Burly Sidekick`),
     },
     {
       name: "Basement Search",
@@ -203,8 +165,10 @@ export const GiantQuest: Quest = {
       after: ["Basement Search"],
       completed: () => step("questL10Garbage") >= 8,
       do: $location`The Castle in the Clouds in the Sky (Basement)`,
-      outfit: { equip: $items`amulet of extreme plot significance` },
-      choices: { 670: 4 },
+      outfit: { equip: $items`amulet of extreme plot significance, unbreakable umbrella` },
+      choices: { 671: have($item`massive dumbbell`) ? 1 : haveEquipped($item`unbreakable umbrella`) ? 4 : 5,
+        670: haveEquipped($item`amulet of extreme plot significance`) ? 4 : 1,
+        669: haveEquipped($item`unbreakable umbrella`) ? 1 : 3 },
       limit: { tries: 1 },
     },
     {
