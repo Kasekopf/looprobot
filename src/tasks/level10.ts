@@ -156,7 +156,7 @@ export const GiantQuest: Quest = {
       combat: new CombatStrategy().startingMacro(
         Macro.trySkill($skill`%fn, let's pledge allegiance to a Zone`)
       ),
-      choices: { 670: 5, 669: 1, 671: 4 },
+      choices: { 670: 1, 669: 1, 671: 4 },
       ncforce: true,
       limit: { soft: 20 },
     },
