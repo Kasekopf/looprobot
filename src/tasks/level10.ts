@@ -169,7 +169,7 @@ export const GiantQuest: Quest = {
       choices: { 671: have($item`massive dumbbell`) ? 1 : haveEquipped($item`unbreakable umbrella`) ? 4 : 5,
         670: haveEquipped($item`amulet of extreme plot significance`) ? 4 : 1,
         669: haveEquipped($item`unbreakable umbrella`) ? 1 : 3 },
-      limit: { tries: 1 },
+      limit: { soft: 5 },
     },
     {
       name: "Ground",
