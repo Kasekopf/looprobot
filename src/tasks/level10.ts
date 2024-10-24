@@ -3,6 +3,7 @@ import {
   containsText,
   haveEquipped,
   itemAmount,
+  Monster,
   myDaycount,
   use,
   visitUrl,
@@ -30,6 +31,21 @@ import { councilSafe } from "./level12";
 import { forceItemPossible, tryForceNC, tryPlayApriling } from "../engine/resources";
 import { summonStrategy } from "./summons";
 import { args } from "../args";
+
+function targetMonsters(): Monster[] {
+  const monsters = [];
+  if (!have($item`bat wings`)) {
+    monsters.push($monster`Burly Sidekick`);
+    monsters.push($monster`Quiet Healer`);
+  } else if(have($skill`Feel Envy`) && get("_feelEnvyUsed") < 3) {
+    if(!have($item`amulet of extreme plot significance`)) {
+        if(!have($item`Mohawk wig`))
+          monsters.push($monster`Burly Sidekick`)
+      } else monsters.push($monster`Quiet Healer`)
+    }
+
+    return monsters;
+  }
 
 export const GiantQuest: Quest = {
   name: "Giant",
@@ -94,7 +110,9 @@ export const GiantQuest: Quest = {
       name: "Airship YR Healer",
       after: ["Grow Beanstalk"],
       prepare: () => tryPlayApriling("-combat"),
-      completed: () => (have($item`amulet of extreme plot significance`) || have($item`Mohawk wig`) || (have($item`bat wings`) && (!have($skill`Feel Envy`) || get("_feelEnvyUsed") >= 3))) || have($item`S.O.C.K.`),
+      completed: () => (have($item`amulet of extreme plot significance`) && have($item`Mohawk wig`))
+        || have($item`S.O.C.K.`)
+        && targetMonsters().length > 0,
       do: $location`The Penultimate Fantasy Airship`,
       choices: () => {
         return { 178: 2, 1387: 3 };
@@ -132,7 +150,7 @@ export const GiantQuest: Quest = {
             return Macro.skill($skill`Feel Envy`).step(killMacro());
           return new Macro();
         }, $monsters`Quiet Healer, Burly Sidekick`)
-        .forceItems($monsters`Quiet Healer, Burly Sidekick`),
+        .forceItems(targetMonsters()),
     },
     {
       name: "Airship",
@@ -175,7 +193,7 @@ export const GiantQuest: Quest = {
           if (have($skill`Emotionally Chipped`) && get("_feelEnvyUsed") < 3 && have($item`amulet of extreme plot significance`))
             return Macro.skill($skill`Feel Envy`).step(killMacro());
           return new Macro();
-        }, $monsters`Quiet Healer, Burly Sidekick`),
+        }, targetMonsters()),
     },
     {
       name: "Basement Search",
