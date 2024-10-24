@@ -165,11 +165,11 @@ export const GiantQuest: Quest = {
       after: ["Basement Search"],
       completed: () => step("questL10Garbage") >= 8,
       do: $location`The Castle in the Clouds in the Sky (Basement)`,
-      outfit: { equip: $items`amulet of extreme plot significance, unbreakable umbrella` },
+      outfit: { equip: $items`amulet of extreme plot significance, unbreakable umbrella`, modifier: "-combat" },
       choices: { 671: have($item`massive dumbbell`) ? 1 : haveEquipped($item`unbreakable umbrella`) ? 4 : 5,
         670: haveEquipped($item`amulet of extreme plot significance`) ? 4 : 1,
         669: haveEquipped($item`unbreakable umbrella`) ? 1 : 3 },
-      limit: { soft: 5 },
+      limit: { soft: 20 },
     },
     {
       name: "Ground",
