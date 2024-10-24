@@ -36,7 +36,7 @@ import { args } from "../args";
 import { atLevel, debug } from "../lib";
 import { councilSafe } from "./level12";
 import { customRestoreMp } from "../engine/moods";
-import { tryPlayApriling } from "../engine/resources";
+import { photoboothEffect, tryPlayApriling } from "../engine/resources";
 
 const Diary: Task[] = [
   {
@@ -44,6 +44,7 @@ const Diary: Task[] = [
     after: ["Start"],
     prepare: () => {
       tryPlayApriling("+combat");
+      photoboothEffect("+combat");
     },
     completed: () => step("questL11Black") >= 2,
     do: $location`The Black Forest`,

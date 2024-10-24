@@ -2,6 +2,7 @@ import { CombatStrategy, killMacro } from "../engine/combat";
 import {
   adv1,
   buy,
+  chatPrivate,
   cliExecute,
   eat,
   equippedAmount,
@@ -10,6 +11,7 @@ import {
   gamedayToInt,
   getCampground,
   getClanLounge,
+  getClanName,
   haveEffect,
   haveEquipped,
   hermit,
@@ -56,6 +58,7 @@ import {
   BurningLeaves,
   byStat,
   CinchoDeMayo,
+  Clan,
   ensureEffect,
   get,
   getSaleValue,
@@ -1132,6 +1135,32 @@ export const MiscQuest: Quest = {
       do: () => use($item`structural ember`),
       freeaction: true,
       limit: { tries: 2 },
+    },
+    {
+      name: "Clan Photo Booth Free Kill",
+      after: [],
+      priority: () => Priorities.Free,
+      ready: () =>
+          Clan.getWhitelisted().find(
+          (c) => c.name === getClanName(),
+          ) !== undefined
+          && get("_photoBoothEquipment", 0) === 0 ,
+      completed: () => (have($item`Sheriff moustache`) && have($item`Sheriff badge`) && have($item`Sheriff pistol`)) || get("_photoBoothEquipment", 0) >= 3,
+      do: (): void => {
+        const currentClan = getClanName();
+        if(
+        (Clan.getWhitelisted().find(
+        (c) => c.name === "Bonus Adventures from Hell",
+        ) === undefined))
+          chatPrivate("bafhbot", "whitelist bafh")
+        if(currentClan !== "Bonus Adventures from Hell") Clan.join("Bonus Adventures from Hell")
+        cliExecute("photobooth item moustache");
+        cliExecute("photobooth item badge");
+        cliExecute("photobooth item pistol");
+        if(currentClan !== "Bonus Adventures from Hell") Clan.join(currentClan)
+      },
+      freeaction: true,
+      limit: { tries: 3 },
     },
   ],
 };

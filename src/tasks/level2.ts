@@ -5,7 +5,7 @@ import { Priorities } from "../engine/priority";
 import { councilSafe } from "./level12";
 import { Quest } from "../engine/task";
 import { step } from "grimoire-kolmafia";
-import { tryPlayApriling } from "../engine/resources";
+import { photoboothEffect, tryPlayApriling } from "../engine/resources";
 
 export const MosquitoQuest: Quest = {
   name: "Mosquito",
@@ -38,6 +38,7 @@ export const MosquitoQuest: Quest = {
       after: ["Burn Delay"],
       prepare: () => {
         tryPlayApriling("-combat");
+        photoboothEffect("-combat");
       },
       completed: () => step("questL02Larva") >= 1,
       do: $location`The Spooky Forest`,

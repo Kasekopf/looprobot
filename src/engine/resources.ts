@@ -587,6 +587,13 @@ export const freekillSources: FreekillSource[] = [
     equip: { equip: $items`Jurassic Parka`, modes: { parka: "dilophosaur" } },
     do: $skill`Spit jurassic acid`,
   },
+  {
+    name: "Sheriff Authority",
+    available: () =>
+      have($item`Sheriff moustache`) && have($item`Sheriff badge`) && have($item`Sheriff pistol`) && get("_authorityUses",0) < 3,
+    equip: { equip: $items`Sheriff moustache, Sheriff badge, Sheriff pistol` },
+    do: $skill`Assert your Authority`,
+  },
 ];
 
 /**
@@ -732,6 +739,21 @@ export function tryPlayApriling(modifier: string): void {
 
   if (modifier.includes("food") || modifier.includes("booze")) {
     AprilingBandHelmet.conduct("Apriling Band Celebration Bop");
+  }
+}
+
+export function photoboothEffect(modifier: string): void {
+  if (!have($item`Clan VIP Lounge key`) || get("_photoBoothEffects",0) >= 3) return;
+
+  if (modifier.includes("+combat")) {
+    if (have($effect`Towering Muscles`)) return;
+    cliExecute("photobooth effect Towering Muscles");
+  }
+
+  if (modifier.includes("-combat")) {
+    if (get("noncombatForcerActive")) return;
+    if (have($effect`Wild and Westy!`)) return;
+    cliExecute("photobooth effect wild and westy");
   }
 }
 

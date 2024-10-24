@@ -32,7 +32,7 @@ import { Quest, Task } from "../engine/task";
 import { Modes, OutfitSpec, step } from "grimoire-kolmafia";
 import { CombatStrategy, killMacro } from "../engine/combat";
 import { Priorities } from "../engine/priority";
-import { forceNCPossible, tryForceNC, tryPlayApriling } from "../engine/resources";
+import { forceNCPossible, photoboothEffect, tryForceNC, tryPlayApriling } from "../engine/resources";
 import { haveLoathingIdolMicrophone, YouRobot } from "../lib";
 import { globalStateCache } from "../engine/state";
 import { fillHp } from "../engine/moods";
@@ -79,6 +79,7 @@ const Manor1: Task[] = [
       if (have($item`pool cue`) && have($item`sugar sphere`))
         ensureEffect($effect`Influence of Sphere`);
       tryPlayApriling("-combat");
+      photoboothEffect("-combat");
     },
     do: $location`The Haunted Billiards Room`,
     choices: { 875: 1, 900: 2, 1436: 1 },

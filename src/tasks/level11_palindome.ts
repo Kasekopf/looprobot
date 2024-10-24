@@ -37,7 +37,7 @@ import { ensureWithMPSwaps, fillHp } from "../engine/moods";
 import { globalStateCache } from "../engine/state";
 import { tryEnsureLucky, tuneSnapper, YouRobot } from "../lib";
 import { Priorities } from "../engine/priority";
-import { tryPlayApriling } from "../engine/resources";
+import { photoboothEffect, tryPlayApriling } from "../engine/resources";
 
 function shenItem(item: Item) {
   return (
@@ -164,6 +164,7 @@ const Copperhead: Task[] = [
     prepare: () => {
       restoreHp(myMaxhp());
       tryPlayApriling("+combat");
+      photoboothEffect("+combat");
     },
     do: $location`Lair of the Ninja Snowmen`,
     outfit: () => {
