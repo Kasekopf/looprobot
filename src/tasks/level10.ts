@@ -91,7 +91,7 @@ export const GiantQuest: Quest = {
       freeaction: true,
     },
     {
-      name: "Airship YR Healer",
+      name: "Airship",
       after: ["Grow Beanstalk"],
       prepare: () => tryPlayApriling("-combat"),
       completed: () => have($item`S.O.C.K.`),
