@@ -218,7 +218,7 @@ export const GiantQuest: Quest = {
       ),
       choices: { 671: have($item`massive dumbbell`) ? 1 : haveEquipped($item`unbreakable umbrella`) ? 4 : 5,
         670: haveEquipped($item`amulet of extreme plot significance`) ? 4 : 1,
-        669: haveEquipped($item`unbreakable umbrella`) ? 1 : 3 },
+        669: haveEquipped($item`unbreakable umbrella`) ? 1 : 4 },
       ncforce: true,
       limit: { soft: 20 },
     },
@@ -230,7 +230,7 @@ export const GiantQuest: Quest = {
       outfit: { equip: $items`amulet of extreme plot significance, unbreakable umbrella`, modifier: "-combat" },
       choices: { 671: have($item`massive dumbbell`) ? 1 : haveEquipped($item`unbreakable umbrella`) ? 4 : 5,
         670: haveEquipped($item`amulet of extreme plot significance`) ? 4 : 1,
-        669: haveEquipped($item`unbreakable umbrella`) ? 1 : 3 },
+        669: haveEquipped($item`unbreakable umbrella`) ? 1 : 4 },
       limit: { soft: 20 },
     },
     {
