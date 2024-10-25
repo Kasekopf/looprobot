@@ -590,7 +590,7 @@ export const freekillSources: FreekillSource[] = [
   {
     name: "Sheriff Authority",
     available: () =>
-      have($item`Sheriff moustache`) && have($item`Sheriff badge`) && have($item`Sheriff pistol`) && get("_authorityUses",0) < 3,
+      have($item`Sheriff moustache`) && have($item`Sheriff badge`) && have($item`Sheriff pistol`) && get("_authorityUsed",0) < 3,
     equip: { equip: $items`Sheriff moustache, Sheriff badge, Sheriff pistol` },
     do: $skill`Assert your Authority`,
   },
