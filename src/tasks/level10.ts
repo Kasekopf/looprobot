@@ -106,56 +106,8 @@ export const GiantQuest: Quest = {
       freeaction: true,
     },
     {
-      name: "Airship YR Healer",
-      after: ["Grow Beanstalk"],
-      prepare: () => tryPlayApriling("-combat"),
-      completed: () =>
-        (have($item`amulet of extreme plot significance`) && have($item`Mohawk wig`)) ||
-        (have($item`S.O.C.K.`) && targetMonsters().length > 0),
-      do: $location`The Penultimate Fantasy Airship`,
-      choices: () => {
-        return { 178: 2, 1387: 3 };
-      },
-      post: () => {
-        if (have($effect`Temporary Amnesia`)) cliExecute("uneffect Temporary Amnesia");
-      },
-      orbtargets: () => {
-        if (have($item`Fourth of May Cosplay Saber`)) {
-          if (have($item`Mohawk wig`)) return $monsters`Quiet Healer`;
-          else return $monsters`Quiet Healer, Burly Sidekick`;
-        } else {
-          return undefined; // Avoid orb dancing if we are using a real YR
-        }
-      },
-      limit: { soft: 50 },
-      delay: () =>
-        have($item`Plastic Wrap Immateria`) ? 25 : have($item`Gauze Immateria`) ? 20 : 15, // After that, just look for noncombats
-      outfit: () => {
-        if (forceItemPossible())
-          return {
-            modifier: "-combat",
-            avoid: $items`Kramco Sausage-o-Matic™`,
-            equip: $items`bat wings`,
-          };
-        else
-          return {
-            modifier: "-combat, item",
-            avoid: $items`broken champagne bottle`,
-            equip: $items`bat wings`,
-          };
-      },
-      combat: new CombatStrategy().macro(() => {
-        if (have($item`Mohawk wig`)) return new Macro();
-        if (haveEquipped($item`Fourth of May Cosplay Saber`) && get("_saberForceUses") < 5)
-          return Macro.skill($skill`Use the Force`);
-        if (have($skill`Emotionally Chipped`) && get("_feelEnvyUsed") < 3)
-          return Macro.skill($skill`Feel Envy`).step(killMacro());
-        return new Macro();
-      }, targetMonsters()),
-    },
-    {
       name: "Airship",
-      after: ["Airship YR Healer"],
+      after: ["Grow Beanstalk"],
       prepare: () => tryPlayApriling("-combat"),
       completed: () => have($item`S.O.C.K.`),
       do: $location`The Penultimate Fantasy Airship`,
