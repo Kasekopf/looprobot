@@ -3,6 +3,7 @@ import {
   containsText,
   haveEquipped,
   itemAmount,
+  Monster,
   myDaycount,
   use,
   visitUrl,
@@ -30,6 +31,21 @@ import { councilSafe } from "./level12";
 import { forceItemPossible, tryForceNC, tryPlayApriling } from "../engine/resources";
 import { summonStrategy } from "./summons";
 import { args } from "../args";
+
+function targetMonsters(): Monster[] {
+  const monsters = [];
+  if (!have($item`bat wings`)) {
+    monsters.push($monster`Burly Sidekick`);
+    monsters.push($monster`Quiet Healer`);
+  } else if(have($skill`Feel Envy`) && get("_feelEnvyUsed") < 3) {
+    if(!have($item`amulet of extreme plot significance`)) {
+        if(!have($item`Mohawk wig`))
+          monsters.push($monster`Burly Sidekick`)
+      } else monsters.push($monster`Quiet Healer`)
+    }
+
+    return monsters;
+  }
 
 export const GiantQuest: Quest = {
   name: "Giant",
@@ -94,10 +110,12 @@ export const GiantQuest: Quest = {
       name: "Airship YR Healer",
       after: ["Grow Beanstalk"],
       prepare: () => tryPlayApriling("-combat"),
-      completed: () => have($item`amulet of extreme plot significance`),
+      completed: () => (have($item`amulet of extreme plot significance`) && have($item`Mohawk wig`))
+        || have($item`S.O.C.K.`)
+        && targetMonsters().length > 0,
       do: $location`The Penultimate Fantasy Airship`,
       choices: () => {
-        return { 178: 2, 182: have($item`model airship`) ? 1 : 4, 1387: 3 };
+        return { 178: 2, 1387: 3 };
       },
       post: () => {
         if (have($effect`Temporary Amnesia`)) cliExecute("uneffect Temporary Amnesia");
@@ -115,11 +133,12 @@ export const GiantQuest: Quest = {
         have($item`Plastic Wrap Immateria`) ? 25 : have($item`Gauze Immateria`) ? 20 : 15, // After that, just look for noncombats
       outfit: () => {
         if (forceItemPossible())
-          return { modifier: "-combat", avoid: $items`Kramco Sausage-o-Matic™` };
+          return { modifier: "-combat", avoid: $items`Kramco Sausage-o-Matic™`, equip: $items`bat wings` };
         else
           return {
             modifier: "-combat, item",
             avoid: $items`broken champagne bottle`,
+            equip: $items`bat wings`
           };
       },
       combat: new CombatStrategy()
@@ -130,45 +149,50 @@ export const GiantQuest: Quest = {
           if (have($skill`Emotionally Chipped`) && get("_feelEnvyUsed") < 3)
             return Macro.skill($skill`Feel Envy`).step(killMacro());
           return new Macro();
-        }, $monster`Burly Sidekick`)
-        .forceItems($monster`Quiet Healer`),
+        }, targetMonsters()),
     },
     {
       name: "Airship",
       after: ["Airship YR Healer"],
+      prepare: () => tryPlayApriling("-combat"),
       completed: () => have($item`S.O.C.K.`),
       do: $location`The Penultimate Fantasy Airship`,
       choices: () => {
-        return { 178: 2, 182: have($item`model airship`) ? 1 : 4 };
+        return { 178: 2, 1387: 3 };
       },
       post: () => {
         if (have($effect`Temporary Amnesia`)) cliExecute("uneffect Temporary Amnesia");
       },
-      orbtargets: () => [],
-      outfit: () => {
-        if (get("_saberForceUses") < 5 && !have($item`Mohawk wig`)) {
-          return {
-            modifier: "-combat",
-            weapon: $item`Fourth of May Cosplay Saber`,
-            avoid: $items`Kramco Sausage-o-Matic™`,
-          };
+      orbtargets: () => {
+        if (have($item`Fourth of May Cosplay Saber`)) {
+          if (have($item`Mohawk wig`)) return $monsters`Quiet Healer`;
+          else return $monsters`Quiet Healer, Burly Sidekick`;
         } else {
-          return {
-            modifier: "-combat",
-          };
+          return undefined; // Avoid orb dancing if we are using a real YR
         }
       },
       limit: { soft: 50 },
       delay: () =>
         have($item`Plastic Wrap Immateria`) ? 25 : have($item`Gauze Immateria`) ? 20 : 15, // After that, just look for noncombats
-      combat: new CombatStrategy().macro(() => {
-        if (have($item`Mohawk wig`)) return new Macro();
-        if (haveEquipped($item`Fourth of May Cosplay Saber`) && get("_saberForceUses") < 5)
-          return Macro.skill($skill`Use the Force`);
-        if (have($skill`Emotionally Chipped`) && get("_feelEnvyUsed") < 3)
-          return Macro.skill($skill`Feel Envy`).step(killMacro());
-        return new Macro();
-      }, $monster`Burly Sidekick`),
+      outfit: () => {
+        if (forceItemPossible())
+          return { modifier: "-combat", avoid: $items`Kramco Sausage-o-Matic™`, equip: $items`bat wings` };
+        else
+          return {
+            modifier: "-combat, item",
+            avoid: $items`broken champagne bottle`,
+            equip: $items`bat wings`
+          };
+      },
+      combat: new CombatStrategy()
+        .macro(() => {
+          if (have($item`Mohawk wig`)) return new Macro();
+          if (haveEquipped($item`Fourth of May Cosplay Saber`) && get("_saberForceUses") < 5)
+            return Macro.skill($skill`Use the Force`);
+          if (have($skill`Emotionally Chipped`) && get("_feelEnvyUsed") < 3 && have($item`amulet of extreme plot significance`))
+            return Macro.skill($skill`Feel Envy`).step(killMacro());
+          return new Macro();
+        }, targetMonsters()),
     },
     {
       name: "Basement Search",
@@ -192,7 +216,9 @@ export const GiantQuest: Quest = {
       combat: new CombatStrategy().startingMacro(
         Macro.trySkill($skill`%fn, let's pledge allegiance to a Zone`)
       ),
-      choices: { 670: 5, 669: 1, 671: 4 },
+      choices: { 671: have($item`massive dumbbell`) ? 1 : haveEquipped($item`unbreakable umbrella`) ? 4 : 5,
+        670: haveEquipped($item`amulet of extreme plot significance`) ? 4 : 1,
+        669: haveEquipped($item`unbreakable umbrella`) ? 1 : 4 },
       ncforce: true,
       limit: { soft: 20 },
     },
@@ -201,9 +227,11 @@ export const GiantQuest: Quest = {
       after: ["Basement Search"],
       completed: () => step("questL10Garbage") >= 8,
       do: $location`The Castle in the Clouds in the Sky (Basement)`,
-      outfit: { equip: $items`amulet of extreme plot significance` },
-      choices: { 670: 4 },
-      limit: { tries: 1 },
+      outfit: { equip: $items`amulet of extreme plot significance, unbreakable umbrella`, modifier: "-combat" },
+      choices: { 671: have($item`massive dumbbell`) ? 1 : haveEquipped($item`unbreakable umbrella`) ? 4 : 5,
+        670: haveEquipped($item`amulet of extreme plot significance`) ? 4 : 1,
+        669: haveEquipped($item`unbreakable umbrella`) ? 1 : 4 },
+      limit: { soft: 20 },
     },
     {
       name: "Ground",
