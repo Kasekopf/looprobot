@@ -27,7 +27,7 @@ import { Quest } from "../engine/task";
 import { step } from "grimoire-kolmafia";
 import { Priorities } from "../engine/priority";
 import { councilSafe } from "./level12";
-import { forceItemPossible, photoboothEffect, tryForceNC, tryPlayApriling } from "../engine/resources";
+import { forceItemPossible, tryForceNC, tryPlayApriling } from "../engine/resources";
 import { summonStrategy } from "./summons";
 import { args } from "../args";
 
@@ -181,7 +181,6 @@ export const GiantQuest: Quest = {
       prepare: () => {
         tryForceNC();
         tryPlayApriling("-combat");
-        photoboothEffect("-combat");
       },
       do: $location`The Castle in the Clouds in the Sky (Basement)`,
       outfit: () => {

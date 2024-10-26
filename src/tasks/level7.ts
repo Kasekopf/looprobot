@@ -47,7 +47,7 @@ import {
 import { Priorities } from "../engine/priority";
 import { councilSafe, fastFlyerPossible, flyersDone } from "./level12";
 import { ensureWithMPSwaps, fillHp } from "../engine/moods";
-import { photoboothEffect, tryPlayApriling } from "../engine/resources";
+import { tryPlayApriling } from "../engine/resources";
 import { toTempPref } from "../args";
 
 function tuneCape(): void {
@@ -86,7 +86,6 @@ const Alcove: Task[] = [
         else ensureWithMPSwaps($effects`Nearly Silent Hunting`);
       }
       tryPlayApriling("-combat");
-      photoboothEffect("-combat");
 
       if (
         myClass() === $class`Seal Clubber` &&
@@ -164,7 +163,6 @@ const Cranny: Task[] = [
       changeMcd(10);
       fillHp();
       tryPlayApriling("-combat");
-      photoboothEffect("-combat");
     },
     post: () => {
       if (currentMcd() > 0) changeMcd(0);

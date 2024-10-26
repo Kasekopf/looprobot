@@ -38,7 +38,7 @@ import { Priorities } from "../engine/priority";
 import { councilSafe } from "./level12";
 import { fillHp } from "../engine/moods";
 import { stenchPlanner } from "../engine/outfit";
-import { photoboothEffect, tryPlayApriling } from "../engine/resources";
+import { tryPlayApriling } from "../engine/resources";
 
 const ABoo: Task[] = [
   {
@@ -233,7 +233,6 @@ const Twin: Task[] = [
       if (numericModifier("stench resistance") < 4)
         throw `Unable to ensure stench res for Twin Peak`;
       tryPlayApriling("-combat");
-      photoboothEffect("-combat");
     },
     do: $location`Twin Peak`,
     choices: { 606: 1, 607: 1 },

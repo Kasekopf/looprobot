@@ -32,7 +32,7 @@ import { fillHp } from "../engine/moods";
 import { summonStrategy } from "./summons";
 import { coldPlanner } from "../engine/outfit";
 import { trainSetAvailable } from "./misc";
-import { photoboothEffect, tryPlayApriling } from "../engine/resources";
+import { tryPlayApriling } from "../engine/resources";
 
 export const McLargeHugeQuest: Quest = {
   name: "McLargeHuge",
@@ -136,7 +136,6 @@ export const McLargeHugeQuest: Quest = {
       prepare: () => {
         fillHp();
         tryPlayApriling("+combat");
-        photoboothEffect("+combat");
       },
       ready: () => !get("noncombatForcerActive"),
       do: $location`Lair of the Ninja Snowmen`,

@@ -89,6 +89,13 @@ import { ROUTE_WAIT_TO_NCFORCE } from "../route";
 
 const meatBuffer = 1000;
 
+const sheriffReady = Clan.getWhitelisted().find(
+  (c) => c.name === getClanName(),
+  ) !== undefined
+  && get("_photoBoothEquipment", 0) === 0 && Clan.getWhitelisted().find(
+    (c) => c.name === "Bonus Adventures from Hell",
+    ) === undefined;
+
 export const MiscQuest: Quest = {
   name: "Misc",
   tasks: [
@@ -1141,28 +1148,21 @@ export const MiscQuest: Quest = {
       after: [],
       priority: () => Priorities.Free,
       ready: () =>
-          Clan.getWhitelisted().find(
-          (c) => c.name === getClanName(),
-          ) !== undefined
-          && get("_photoBoothEquipment", 0) === 0 ,
+          sheriffReady,
       completed: () => (have($item`Sheriff moustache`) && have($item`Sheriff badge`) && have($item`Sheriff pistol`)) || get("_photoBoothEquipment", 0) >= 3,
       do: (): void => {
-        const currentClan = getClanName();
-        if(
-        (Clan.getWhitelisted().find(
-        (c) => c.name === "Bonus Adventures from Hell",
-        ) === undefined))
-          chatPrivate("bafhbot", "whitelist bafh")
-        if(currentClan !== "Bonus Adventures from Hell") Clan.join("Bonus Adventures from Hell")
-        cliExecute("photobooth item moustache");
-        cliExecute("photobooth item badge");
-        cliExecute("photobooth item pistol");
-        if(currentClan !== "Bonus Adventures from Hell") Clan.join(currentClan)
+        Clan.with("Bonus Adventures from Hell", () => sheriffActions());
       },
       freeaction: true,
       limit: { tries: 3 },
     },
   ],
+};
+
+const sheriffActions = () => {
+  cliExecute("photobooth item moustache");
+  cliExecute("photobooth item badge");
+  cliExecute("photobooth item pistol");
 };
 
 export const WandQuest: Quest = {

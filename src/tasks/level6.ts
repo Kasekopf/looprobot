@@ -6,7 +6,7 @@ import { Priorities } from "../engine/priority";
 import { councilSafe } from "./level12";
 import { Quest } from "../engine/task";
 import { step } from "grimoire-kolmafia";
-import { photoboothEffect, tryPlayApriling } from "../engine/resources";
+import { tryPlayApriling } from "../engine/resources";
 
 export const FriarQuest: Quest = {
   name: "Friar",
@@ -26,7 +26,6 @@ export const FriarQuest: Quest = {
       after: ["Start"],
       prepare: () => {
         tryPlayApriling("-combat");
-        photoboothEffect("-combat");
       },
       completed: () => have($item`box of birthday candles`) || step("questL06Friar") === 999,
       do: $location`The Dark Heart of the Woods`,
@@ -44,7 +43,6 @@ export const FriarQuest: Quest = {
       after: ["Start"],
       prepare: () => {
         tryPlayApriling("-combat");
-        photoboothEffect("-combat");
       },
       completed: () => have($item`dodecagram`) || step("questL06Friar") === 999,
       do: $location`The Dark Neck of the Woods`,
@@ -58,7 +56,6 @@ export const FriarQuest: Quest = {
       after: ["Start"],
       prepare: () => {
         tryPlayApriling("-combat");
-        photoboothEffect("-combat");
       },
       completed: () => have($item`eldritch butterknife`) || step("questL06Friar") === 999,
       do: $location`The Dark Elbow of the Woods`,

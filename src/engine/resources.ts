@@ -742,21 +742,6 @@ export function tryPlayApriling(modifier: string): void {
   }
 }
 
-export function photoboothEffect(modifier: string): void {
-  if (!have($item`Clan VIP Lounge key`) || get("_photoBoothEffects",0) >= 3) return;
-
-  if (modifier.includes("+combat")) {
-    if (have($effect`Towering Muscles`)) return;
-    cliExecute("photobooth effect Towering Muscles");
-  }
-
-  if (modifier.includes("-combat")) {
-    if (get("noncombatForcerActive")) return;
-    if (have($effect`Wild and Westy!`)) return;
-    cliExecute("photobooth effect wild and westy");
-  }
-}
-
 export type BackupTarget = {
   monster: Monster;
   completed: () => boolean;

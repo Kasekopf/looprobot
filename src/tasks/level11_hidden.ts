@@ -33,7 +33,7 @@ import { OutfitSpec, step } from "grimoire-kolmafia";
 import { Priorities } from "../engine/priority";
 import { CombatStrategy, dartMacro } from "../engine/combat";
 import { cosmicBowlingBallReady, tryEnsureLucky } from "../lib";
-import { photoboothEffect, tryPlayApriling } from "../engine/resources";
+import { tryPlayApriling } from "../engine/resources";
 
 function manualChoice(whichchoice: number, option: number) {
   return visitUrl(`choice.php?whichchoice=${whichchoice}&pwd=${myHash()}&option=${option}`);
@@ -45,7 +45,6 @@ const Temple: Task[] = [
     after: ["Mosquito/Burn Delay"],
     prepare: () => {
       tryPlayApriling("-combat");
-      photoboothEffect("-combat");
     },
     completed: () =>
       have($item`tree-holed coin`) ||
@@ -61,7 +60,6 @@ const Temple: Task[] = [
     after: ["Forest Coin"],
     prepare: () => {
       tryPlayApriling("-combat");
-      photoboothEffect("-combat");
     },
     completed: () => have($item`Spooky Temple map`) || step("questM16Temple") === 999,
     do: $location`The Spooky Forest`,
@@ -74,7 +72,6 @@ const Temple: Task[] = [
     after: ["Mosquito/Burn Delay"],
     prepare: () => {
       tryPlayApriling("-combat");
-      photoboothEffect("-combat");
     },
     completed: () => have($item`Spooky-Gro fertilizer`) || step("questM16Temple") === 999,
     do: $location`The Spooky Forest`,
@@ -87,7 +84,6 @@ const Temple: Task[] = [
     after: ["Mosquito/Burn Delay"],
     prepare: () => {
       tryPlayApriling("-combat");
-      photoboothEffect("-combat");
     },
     completed: () => have($item`spooky sapling`) || step("questM16Temple") === 999,
     do: $location`The Spooky Forest`,
