@@ -179,10 +179,12 @@ export const GiantQuest: Quest = {
       combat: new CombatStrategy().startingMacro(
         Macro.trySkill($skill`%fn, let's pledge allegiance to a Zone`)
       ),
-      choices: {
-        671: have($item`massive dumbbell`) ? 1 : 4,
-        670: have($item`amulet of extreme plot significance`) ? 5 : 1,
-        669: 1,
+      choices: () => {
+        return {
+          671: have($item`massive dumbbell`) ? 1 : 4,
+          670: have($item`amulet of extreme plot significance`) ? 5 : 1,
+          669: 1,
+        };
       },
       ncforce: true,
       limit: { soft: 20 },
