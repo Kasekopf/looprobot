@@ -395,7 +395,7 @@ export function equipDefaults(outfit: Outfit, noFightingFamiliars: boolean): voi
       outfit.equip($item`fresh coat of paint`);
     }
     outfit.equip($item`familiar scrapbook`);
-    if(have($item`bat wings`) && get("_batWingsFreeFights",0) < 5) {
+    if (have($item`bat wings`) && get("_batWingsFreeFights", 0) < 5) {
       outfit.equip($item`bat wings`);
     } else {
       outfit.equip($item`protonic accelerator pack`);
