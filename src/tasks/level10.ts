@@ -3,7 +3,6 @@ import {
   containsText,
   haveEquipped,
   itemAmount,
-  Monster,
   myDaycount,
   use,
   visitUrl,
@@ -28,23 +27,9 @@ import { Quest } from "../engine/task";
 import { OutfitSpec, step } from "grimoire-kolmafia";
 import { Priorities } from "../engine/priority";
 import { councilSafe } from "./level12";
-import { forceItemPossible, tryForceNC, tryPlayApriling } from "../engine/resources";
+import { tryForceNC, tryPlayApriling } from "../engine/resources";
 import { summonStrategy } from "./summons";
 import { args } from "../args";
-
-function targetMonsters(): Monster[] {
-  const monsters = [];
-  if (!have($item`bat wings`)) {
-    monsters.push($monster`Burly Sidekick`);
-    monsters.push($monster`Quiet Healer`);
-  } else if (have($skill`Feel Envy`) && get("_feelEnvyUsed") < 3) {
-    if (!have($item`amulet of extreme plot significance`)) {
-      if (!have($item`Mohawk wig`)) monsters.push($monster`Burly Sidekick`);
-    } else monsters.push($monster`Quiet Healer`);
-  }
-
-  return monsters;
-}
 
 export const GiantQuest: Quest = {
   name: "Giant",
@@ -117,19 +102,16 @@ export const GiantQuest: Quest = {
       post: () => {
         if (have($effect`Temporary Amnesia`)) cliExecute("uneffect Temporary Amnesia");
       },
-      orbtargets: () => {
-        if (have($item`Fourth of May Cosplay Saber`)) {
-          if (have($item`Mohawk wig`)) return $monsters`Quiet Healer`;
-          else return $monsters`Quiet Healer, Burly Sidekick`;
-        } else {
-          return undefined; // Avoid orb dancing if we are using a real YR
-        }
-      },
+      orbtargets: () => [],
       limit: { soft: 50 },
-      delay: () =>
-        have($item`Plastic Wrap Immateria`) ? 25 : have($item`Gauze Immateria`) ? 20 : 15, // After that, just look for noncombats
+      delay: () => {
+        const mult = have($item`bat wings`) ? 4 : 5;
+        if (have($item`Plastic Wrap Immateria`)) return mult * 5;
+        if (have($item`Gauze Immateria`)) return mult * 4;
+        return mult * 3;
+      },
       outfit: () => {
-        if (forceItemPossible())
+        if (have($skill`Emotionally Chipped`) && get("_feelEnvyUsed") < 3)
           return {
             modifier: "-combat",
             avoid: $items`Kramco Sausage-o-Matic™`,
@@ -138,22 +120,31 @@ export const GiantQuest: Quest = {
         else
           return {
             modifier: "-combat, item",
-            avoid: $items`broken champagne bottle`,
+            avoid: $items`broken champagne bottle, Kramco Sausage-o-Matic™`,
             equip: $items`bat wings`,
           };
       },
-      combat: new CombatStrategy().macro(() => {
-        if (have($item`Mohawk wig`)) return new Macro();
-        if (haveEquipped($item`Fourth of May Cosplay Saber`) && get("_saberForceUses") < 5)
-          return Macro.skill($skill`Use the Force`);
-        if (
-          have($skill`Emotionally Chipped`) &&
-          get("_feelEnvyUsed") < 3 &&
-          have($item`amulet of extreme plot significance`)
-        )
-          return Macro.skill($skill`Feel Envy`).step(killMacro());
-        return new Macro();
-      }, targetMonsters()),
+      combat: new CombatStrategy()
+        .macro(() => {
+          if (have($item`Mohawk wig`)) return new Macro();
+          if (
+            have($skill`Emotionally Chipped`) &&
+            (get("_feelEnvyUsed") < 2 ||
+              (get("_feelEnvyUsed") < 3 && have($item`amulet of extreme plot significance`)))
+          )
+            return Macro.skill($skill`Feel Envy`).step(killMacro());
+          if (haveEquipped($item`Fourth of May Cosplay Saber`) && get("_saberForceUses") < 5)
+            return Macro.skill($skill`Use the Force`);
+          return new Macro();
+        }, $monster`Burly Sidekick`)
+        .macro(() => {
+          if (have($item`amulet of extreme plot significance`)) return new Macro();
+          if (have($skill`Emotionally Chipped`) && get("_feelEnvyUsed") < 3)
+            return Macro.skill($skill`Feel Envy`).step(killMacro());
+          if (haveEquipped($item`Fourth of May Cosplay Saber`) && get("_saberForceUses") < 5)
+            return Macro.skill($skill`Use the Force`);
+          return new Macro();
+        }, $monster`Quiet Healer`),
     },
     {
       name: "Basement Search",
