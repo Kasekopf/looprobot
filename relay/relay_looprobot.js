@@ -6869,7 +6869,7 @@ var args = Args.create("looprobot", 'This is a script to complete You Robot Soft
     }),
     nuns: Args.flag({
       help: "Do the nuns in the war; uses monkey paw wishes",
-      default: false
+      default: true
     })
   }),
   debug: Args.group("Debug Options", {
