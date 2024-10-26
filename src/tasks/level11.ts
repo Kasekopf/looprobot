@@ -158,15 +158,42 @@ const Desert: Task[] = [
     name: "Oasis",
     after: ["Compass"],
     completed: () => get("desertExploration") >= 100,
-    ready: () => !have($effect`Ultrahydrated`) && get("oasisAvailable", false),
+    ready: () => {
+      // No need to go in oasis if we are fully decked out
+      if (
+        have($familiar`Melodramedary`) &&
+        have($item`survival knife`) &&
+        have($item`UV-resistant compass`)
+      )
+        return false;
+      return !have($effect`Ultrahydrated`) && get("oasisAvailable", false);
+    },
     do: $location`The Oasis`,
     limit: { soft: 10 },
   },
   {
     name: "Oasis Drum",
     after: ["Compass"],
-    ready: () => have($item`worm-riding hooks`) || itemAmount($item`worm-riding manual page`) >= 15,
-    priority: () => (have($effect`Ultrahydrated`) ? Priorities.MinorEffect : Priorities.None),
+    ready: () => {
+      // No need to go in oasis if we are fully decked out
+      if (
+        have($familiar`Melodramedary`) &&
+        have($item`survival knife`) &&
+        have($item`UV-resistant compass`)
+      )
+        return false;
+      return have($item`worm-riding hooks`) || itemAmount($item`worm-riding manual page`) >= 15;
+    },
+    priority: () => {
+      if (
+        have($familiar`Melodramedary`) &&
+        have($item`survival knife`) &&
+        have($item`UV-resistant compass`)
+      )
+        return Priorities.None;
+      if (have($effect`Ultrahydrated`)) return Priorities.MinorEffect;
+      return Priorities.None;
+    },
     completed: () =>
       get("desertExploration") >= 100 ||
       have($item`drum machine`) ||
@@ -208,6 +235,13 @@ const Desert: Task[] = [
     acquire: [{ item: $item`can of black paint`, useful: () => (get("gnasirProgress") & 2) === 0 }],
     ready: () => {
       if (have($familiar`Melodramedary`) && !YouRobot.canUseFamiliar()) return false;
+      // No need to go in oasis if we are fully decked out
+      if (
+        have($familiar`Melodramedary`) &&
+        have($item`survival knife`) &&
+        have($item`UV-resistant compass`)
+      )
+        return true;
       const cond =
         (have($item`can of black paint`) ||
           myMeat() >= 1000 ||
@@ -218,7 +252,16 @@ const Desert: Task[] = [
           have($effect`Ultrahydrated`));
       return cond;
     },
-    priority: () => (have($effect`Ultrahydrated`) ? Priorities.MinorEffect : Priorities.None),
+    priority: () => {
+      if (
+        have($familiar`Melodramedary`) &&
+        have($item`survival knife`) &&
+        have($item`UV-resistant compass`)
+      )
+        return Priorities.None;
+      if (have($effect`Ultrahydrated`)) return Priorities.MinorEffect;
+      return Priorities.None;
+    },
     completed: () => get("desertExploration") >= 100,
     do: $location`The Arid, Extra-Dry Desert`,
     outfit: (): OutfitSpec => {
