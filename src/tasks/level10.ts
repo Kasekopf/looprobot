@@ -25,7 +25,7 @@ import {
 import { CombatStrategy, killMacro } from "../engine/combat";
 import { atLevel, YouRobot } from "../lib";
 import { Quest } from "../engine/task";
-import { step } from "grimoire-kolmafia";
+import { OutfitSpec, step } from "grimoire-kolmafia";
 import { Priorities } from "../engine/priority";
 import { councilSafe } from "./level12";
 import { forceItemPossible, tryForceNC, tryPlayApriling } from "../engine/resources";
@@ -207,28 +207,39 @@ export const GiantQuest: Quest = {
       name: "Basement Search",
       after: ["Airship"],
       completed: () =>
-        containsText(
-          $location`The Castle in the Clouds in the Sky (Basement)`.noncombatQueue,
-          "Mess Around with Gym"
-        ) || step("questL10Garbage") >= 8,
+        (have($item`amulet of extreme plot significance`) &&
+          containsText(
+            $location`The Castle in the Clouds in the Sky (Basement)`.noncombatQueue,
+            "Mess Around with Gym"
+          )) ||
+        step("questL10Garbage") >= 8,
       prepare: () => {
         tryForceNC();
         tryPlayApriling("-combat");
       },
       do: $location`The Castle in the Clouds in the Sky (Basement)`,
       outfit: () => {
+        const result: OutfitSpec = { modifier: "-combat" };
         if (!have($effect`Citizen of a Zone`) && have($familiar`Patriotic Eagle`)) {
-          return { modifier: "-combat", familiar: $familiar`Patriotic Eagle` };
+          result.familiar = $familiar`Patriotic Eagle`;
         }
-        return { modifier: "-combat" };
+        if (!have($item`amulet of extreme plot significance`)) {
+          if (have($item`unbreakable umbrella`)) {
+            result.equip = $items`unbreakable umbrella`;
+            result.modes = { umbrella: "cocoon" };
+          } else {
+            result.equip = $items`titanium assault umbrella`;
+          }
+        }
+        return result;
       },
       combat: new CombatStrategy().startingMacro(
         Macro.trySkill($skill`%fn, let's pledge allegiance to a Zone`)
       ),
       choices: {
-        671: have($item`massive dumbbell`) ? 1 : haveEquipped($item`unbreakable umbrella`) ? 4 : 5,
-        670: haveEquipped($item`amulet of extreme plot significance`) ? 4 : 1,
-        669: haveEquipped($item`unbreakable umbrella`) ? 1 : 4,
+        671: have($item`massive dumbbell`) ? 1 : 4,
+        670: have($item`amulet of extreme plot significance`) ? 5 : 1,
+        669: 1,
       },
       ncforce: true,
       limit: { soft: 20 },
@@ -238,16 +249,9 @@ export const GiantQuest: Quest = {
       after: ["Basement Search"],
       completed: () => step("questL10Garbage") >= 8,
       do: $location`The Castle in the Clouds in the Sky (Basement)`,
-      outfit: {
-        equip: $items`amulet of extreme plot significance, unbreakable umbrella`,
-        modifier: "-combat",
-      },
-      choices: {
-        671: have($item`massive dumbbell`) ? 1 : haveEquipped($item`unbreakable umbrella`) ? 4 : 5,
-        670: haveEquipped($item`amulet of extreme plot significance`) ? 4 : 1,
-        669: haveEquipped($item`unbreakable umbrella`) ? 1 : 4,
-      },
-      limit: { soft: 20 },
+      outfit: { equip: $items`amulet of extreme plot significance` },
+      choices: { 670: 4 },
+      limit: { tries: 1 },
     },
     {
       name: "Ground",
