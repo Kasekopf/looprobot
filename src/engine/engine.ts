@@ -449,8 +449,10 @@ export class Engine extends BaseEngine<CombatActions, ActiveTask> {
       $monster`annoyed snake`,
       $monster`slime blob`,
       $monster`Astrologer of Shub-Jigguwatt`,
+      $monster`tomb rat king`,
     ];
     if (get("camelSpit") === 100) monster_blacklist.push($monster`Camel's Toe`); // we will spit
+    if (have($item`tangle of rat tails`)) monster_blacklist.push($monster`tomb rat`);
     if (
       have($item`rock band flyers`) &&
       !fastFlyerPossible() &&
