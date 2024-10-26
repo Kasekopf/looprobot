@@ -257,9 +257,8 @@ export const wandererSources: WandererSource[] = [
       totalTurnsPlayed() % 11 === 1 &&
       get("lastVoteMonsterTurn") < totalTurnsPlayed() &&
       get("_voteFreeFights") < 3 &&
-      myTurncount() > 2 &&
-      atLevel(5) &&
-      get("desertExploration") > 0, // wait until the desert starts
+      myTurncount() > 5 &&
+      atLevel(5),
     equip: [
       {
         equip: $items`"I Voted!" sticker, unwrapped knock-off retro superhero cape`,
