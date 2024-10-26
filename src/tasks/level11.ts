@@ -33,7 +33,7 @@ import { OutfitSpec, step } from "grimoire-kolmafia";
 import { Priorities } from "../engine/priority";
 import { CombatStrategy } from "../engine/combat";
 import { args } from "../args";
-import { atLevel, debug } from "../lib";
+import { atLevel, debug, YouRobot } from "../lib";
 import { councilSafe } from "./level12";
 import { customRestoreMp } from "../engine/moods";
 import { tryPlayApriling } from "../engine/resources";
@@ -207,6 +207,7 @@ const Desert: Task[] = [
     after: ["Diary", "Compass"],
     acquire: [{ item: $item`can of black paint`, useful: () => (get("gnasirProgress") & 2) === 0 }],
     ready: () => {
+      if (have($familiar`Melodramedary`) && !YouRobot.canUseFamiliar()) return false;
       const cond =
         (have($item`can of black paint`) ||
           myMeat() >= 1000 ||
