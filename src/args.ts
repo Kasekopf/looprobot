@@ -81,7 +81,7 @@ export const args = Args.create(
       }),
       nuns: Args.flag({
         help: "Do the nuns in the war; uses monkey paw wishes",
-        default: false,
+        default: true,
       }),
     }),
     debug: Args.group("Debug Options", {

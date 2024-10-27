@@ -94,14 +94,15 @@ export const McLargeHugeQuest: Quest = {
       outfit: {
         modifier: "item, food drop",
         avoid: $items`broken champagne bottle`,
+        equip: $items`bat wings`,
         familiar: $familiar`Grey Goose`,
       },
       combat: new CombatStrategy()
         .macro(() => {
           if (itemAmount($item`goat cheese`) === 0)
-            return Macro.trySkill($skill`Emit Matter Duplicating Drones`).tryItem(
-              $item`Spooky VHS Tape`
-            );
+            return Macro.trySkill($skill`Emit Matter Duplicating Drones`)
+              .tryItem($item`Spooky VHS Tape`)
+              .trySkill($skill`Swoop like a Bat`);
           if (itemAmount($item`goat cheese`) === 1) {
             if (
               myFamiliar() === $familiar`Grey Goose` &&
@@ -109,7 +110,7 @@ export const McLargeHugeQuest: Quest = {
               familiarWeight($familiar`Grey Goose`) < 10
             )
               return Macro.trySkill($skill`Emit Matter Duplicating Drones`);
-            else return Macro.tryItem($item`Spooky VHS Tape`);
+            else return Macro.tryItem($item`Spooky VHS Tape`).trySkill($skill`Swoop like a Bat`);
           }
           return new Macro();
         }, $monster`dairy goat`)

@@ -24,10 +24,10 @@ import {
 import { CombatStrategy, killMacro } from "../engine/combat";
 import { atLevel, YouRobot } from "../lib";
 import { Quest } from "../engine/task";
-import { step } from "grimoire-kolmafia";
+import { OutfitSpec, step } from "grimoire-kolmafia";
 import { Priorities } from "../engine/priority";
 import { councilSafe } from "./level12";
-import { forceItemPossible, tryForceNC, tryPlayApriling } from "../engine/resources";
+import { tryForceNC, tryPlayApriling } from "../engine/resources";
 import { summonStrategy } from "./summons";
 import { args } from "../args";
 
@@ -91,108 +91,101 @@ export const GiantQuest: Quest = {
       freeaction: true,
     },
     {
-      name: "Airship YR Healer",
+      name: "Airship",
       after: ["Grow Beanstalk"],
       prepare: () => tryPlayApriling("-combat"),
-      completed: () => have($item`amulet of extreme plot significance`),
-      do: $location`The Penultimate Fantasy Airship`,
-      choices: () => {
-        return { 178: 2, 182: have($item`model airship`) ? 1 : 4, 1387: 3 };
-      },
-      post: () => {
-        if (have($effect`Temporary Amnesia`)) cliExecute("uneffect Temporary Amnesia");
-      },
-      orbtargets: () => {
-        if (have($item`Fourth of May Cosplay Saber`)) {
-          if (have($item`Mohawk wig`)) return $monsters`Quiet Healer`;
-          else return $monsters`Quiet Healer, Burly Sidekick`;
-        } else {
-          return undefined; // Avoid orb dancing if we are using a real YR
-        }
-      },
-      limit: { soft: 50 },
-      delay: () =>
-        have($item`Plastic Wrap Immateria`) ? 25 : have($item`Gauze Immateria`) ? 20 : 15, // After that, just look for noncombats
-      outfit: () => {
-        if (forceItemPossible())
-          return { modifier: "-combat", avoid: $items`Kramco Sausage-o-Matic™` };
-        else
-          return {
-            modifier: "-combat, item",
-            avoid: $items`broken champagne bottle`,
-          };
-      },
-      combat: new CombatStrategy()
-        .macro(() => {
-          if (have($item`Mohawk wig`)) return new Macro();
-          if (haveEquipped($item`Fourth of May Cosplay Saber`) && get("_saberForceUses") < 5)
-            return Macro.skill($skill`Use the Force`);
-          if (have($skill`Emotionally Chipped`) && get("_feelEnvyUsed") < 3)
-            return Macro.skill($skill`Feel Envy`).step(killMacro());
-          return new Macro();
-        }, $monster`Burly Sidekick`)
-        .forceItems($monster`Quiet Healer`),
-    },
-    {
-      name: "Airship",
-      after: ["Airship YR Healer"],
       completed: () => have($item`S.O.C.K.`),
       do: $location`The Penultimate Fantasy Airship`,
       choices: () => {
-        return { 178: 2, 182: have($item`model airship`) ? 1 : 4 };
+        return { 178: 2, 1387: 3 };
       },
       post: () => {
         if (have($effect`Temporary Amnesia`)) cliExecute("uneffect Temporary Amnesia");
       },
       orbtargets: () => [],
-      outfit: () => {
-        if (get("_saberForceUses") < 5 && !have($item`Mohawk wig`)) {
-          return {
-            modifier: "-combat",
-            weapon: $item`Fourth of May Cosplay Saber`,
-            avoid: $items`Kramco Sausage-o-Matic™`,
-          };
-        } else {
-          return {
-            modifier: "-combat",
-          };
-        }
-      },
       limit: { soft: 50 },
-      delay: () =>
-        have($item`Plastic Wrap Immateria`) ? 25 : have($item`Gauze Immateria`) ? 20 : 15, // After that, just look for noncombats
-      combat: new CombatStrategy().macro(() => {
-        if (have($item`Mohawk wig`)) return new Macro();
-        if (haveEquipped($item`Fourth of May Cosplay Saber`) && get("_saberForceUses") < 5)
-          return Macro.skill($skill`Use the Force`);
+      delay: () => {
+        const mult = have($item`bat wings`) ? 4 : 5;
+        if (have($item`Plastic Wrap Immateria`)) return mult * 5;
+        if (have($item`Gauze Immateria`)) return mult * 4;
+        return mult * 3;
+      },
+      outfit: () => {
         if (have($skill`Emotionally Chipped`) && get("_feelEnvyUsed") < 3)
-          return Macro.skill($skill`Feel Envy`).step(killMacro());
-        return new Macro();
-      }, $monster`Burly Sidekick`),
+          return {
+            modifier: "-combat",
+            avoid: $items`Kramco Sausage-o-Matic™`,
+            equip: $items`bat wings`,
+          };
+        else
+          return {
+            modifier: "-combat, item",
+            avoid: $items`broken champagne bottle, Kramco Sausage-o-Matic™`,
+            equip: $items`bat wings`,
+          };
+      },
+      combat: new CombatStrategy()
+        .macro(() => {
+          if (have($item`Mohawk wig`)) return new Macro();
+          if (
+            have($skill`Emotionally Chipped`) &&
+            (get("_feelEnvyUsed") < 2 ||
+              (get("_feelEnvyUsed") < 3 && have($item`amulet of extreme plot significance`)))
+          )
+            return Macro.skill($skill`Feel Envy`).step(killMacro());
+          if (haveEquipped($item`Fourth of May Cosplay Saber`) && get("_saberForceUses") < 5)
+            return Macro.skill($skill`Use the Force`);
+          return new Macro();
+        }, $monster`Burly Sidekick`)
+        .macro(() => {
+          if (have($item`amulet of extreme plot significance`)) return new Macro();
+          if (have($skill`Emotionally Chipped`) && get("_feelEnvyUsed") < 3)
+            return Macro.skill($skill`Feel Envy`).step(killMacro());
+          if (haveEquipped($item`Fourth of May Cosplay Saber`) && get("_saberForceUses") < 5)
+            return Macro.skill($skill`Use the Force`);
+          return new Macro();
+        }, $monster`Quiet Healer`),
     },
     {
       name: "Basement Search",
       after: ["Airship"],
       completed: () =>
-        containsText(
-          $location`The Castle in the Clouds in the Sky (Basement)`.noncombatQueue,
-          "Mess Around with Gym"
-        ) || step("questL10Garbage") >= 8,
+        (have($item`amulet of extreme plot significance`) &&
+          containsText(
+            $location`The Castle in the Clouds in the Sky (Basement)`.noncombatQueue,
+            "Mess Around with Gym"
+          )) ||
+        step("questL10Garbage") >= 8,
       prepare: () => {
         tryForceNC();
         tryPlayApriling("-combat");
       },
       do: $location`The Castle in the Clouds in the Sky (Basement)`,
       outfit: () => {
+        const result: OutfitSpec = { modifier: "-combat" };
         if (!have($effect`Citizen of a Zone`) && have($familiar`Patriotic Eagle`)) {
-          return { modifier: "-combat", familiar: $familiar`Patriotic Eagle` };
+          result.familiar = $familiar`Patriotic Eagle`;
         }
-        return { modifier: "-combat" };
+        if (!have($item`amulet of extreme plot significance`)) {
+          if (have($item`unbreakable umbrella`)) {
+            result.equip = $items`unbreakable umbrella`;
+            result.modes = { umbrella: "cocoon" };
+          } else {
+            result.equip = $items`titanium assault umbrella`;
+          }
+        }
+        return result;
       },
       combat: new CombatStrategy().startingMacro(
         Macro.trySkill($skill`%fn, let's pledge allegiance to a Zone`)
       ),
-      choices: { 670: 5, 669: 1, 671: 4 },
+      choices: () => {
+        return {
+          671: have($item`massive dumbbell`) ? 1 : 4,
+          670: have($item`amulet of extreme plot significance`) ? 5 : 1,
+          669: 1,
+        };
+      },
       ncforce: true,
       limit: { soft: 20 },
     },

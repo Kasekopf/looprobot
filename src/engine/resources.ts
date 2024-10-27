@@ -257,9 +257,8 @@ export const wandererSources: WandererSource[] = [
       totalTurnsPlayed() % 11 === 1 &&
       get("lastVoteMonsterTurn") < totalTurnsPlayed() &&
       get("_voteFreeFights") < 3 &&
-      myTurncount() > 2 &&
-      atLevel(5) &&
-      get("desertExploration") > 0, // wait until the desert starts
+      myTurncount() > 5 &&
+      atLevel(5),
     equip: [
       {
         equip: $items`"I Voted!" sticker, unwrapped knock-off retro superhero cape`,
@@ -651,16 +650,16 @@ export function yellowRayPossible(): boolean {
 export type ForceItemSource = CombatResource;
 export const forceItemSources: ForceItemSource[] = [
   {
+    name: "Envy",
+    available: () => have($skill`Emotionally Chipped`) && get("_feelEnvyUsed") < 3,
+    do: () => Macro.skill($skill`Feel Envy`).step(killMacro()),
+  },
+  {
     name: "Saber",
     available: () => have($item`Fourth of May Cosplay Saber`) && get("_saberForceUses") < 5,
     prepare: () => set("choiceAdventure1387", 3),
     equip: $item`Fourth of May Cosplay Saber`,
     do: $skill`Use the Force`,
-  },
-  {
-    name: "Envy",
-    available: () => have($skill`Emotionally Chipped`) && get("_feelEnvyUsed") < 3,
-    do: () => Macro.skill($skill`Feel Envy`).step(killMacro()),
   },
 ];
 

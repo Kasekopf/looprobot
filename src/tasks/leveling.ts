@@ -3,6 +3,7 @@ import {
   canEquip,
   cliExecute,
   familiarWeight,
+  floor,
   haveEquipped,
   Item,
   myLevel,
@@ -379,7 +380,7 @@ export const LevelingQuest: Quest = {
       priority: () => Priorities.Start,
       completed: () =>
         !have($item`Sept-Ember Censer`) ||
-        (get("availableSeptEmbers", 0) === 0 && get("_septEmbersCollected", false)) ||
+        (get("availableSeptEmbers", 0) < 1 && get("_septEmbersCollected", false)) ||
         args.minor.saveember,
       do: (): void => {
         // Grab Embers
@@ -387,10 +388,14 @@ export const LevelingQuest: Quest = {
         set("_septEmbersCollected", true);
 
         // Grab Bembershoot
-        visitUrl(`shop.php?whichshop=september&action=buyitem&quantity=1&whichrow=1516&pwd`);
+        if (!have($item`bembershoot`))
+          visitUrl(`shop.php?whichshop=september&action=buyitem&quantity=1&whichrow=1516&pwd`);
 
         // Grab Mouthwashes
-        visitUrl("shop.php?whichshop=september&action=buyitem&quantity=3&whichrow=1512&pwd");
+        const mouthwashes = floor(get("availableSeptEmbers", 0) / 2);
+        visitUrl(
+          `shop.php?whichshop=september&action=buyitem&quantity=${mouthwashes}&whichrow=1512&pwd`
+        );
       },
       limit: { tries: 1 },
       freeaction: true,

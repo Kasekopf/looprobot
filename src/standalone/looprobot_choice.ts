@@ -25,6 +25,18 @@ export function main(choice: number, page: string) {
       runChoice(2); // Decline
     }
   }
+  // Random Lack of an Encounter
+  else if (choice === 182) {
+    if (options[4]) {
+      // Pick up a model airship
+      runChoice(4);
+    } else if (options[6]) {
+      // Bat Wings Skip
+      runChoice(6);
+    } else {
+      runChoice(1);
+    }
+  }
   // Everfull dart handling
   else if (choice === 1525) {
     const priority: { [key: string]: number } = {

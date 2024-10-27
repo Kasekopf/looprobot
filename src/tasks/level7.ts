@@ -212,7 +212,10 @@ const Cranny: Task[] = [
     },
     do: $location`The Defiled Cranny`,
     post: () => {
-      if (get("lastEncounter") === "huge ghuol" && get(toTempPref("crannyoverkill"), false)) {
+      if (
+        (get("lastEncounter") === "huge ghuol" || get("lastEncounter") === "Dart Perks") &&
+        get(toTempPref("crannyoverkill"), false)
+      ) {
         set(toTempPref("crannyoverkill"), false);
       }
       visitUrl("crypt.php");
