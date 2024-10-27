@@ -898,7 +898,7 @@ export class Engine extends BaseEngine<CombatActions, ActiveTask> {
       manaBurningThreshold: "-0.05",
       recoveryScript: "",
       removeMalignantEffects: false,
-      choiceAdventureScript: "looprobot_choice.ash",
+      choiceAdventureScript: "looprobot_choice.js",
       mpAutoRecoveryItems: ensureRecovery(
         "mpAutoRecoveryItems",
         ["black cherry soda", "doc galaktik's invigorating tonic"],
