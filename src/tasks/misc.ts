@@ -88,11 +88,13 @@ import { ROUTE_WAIT_TO_NCFORCE } from "../route";
 
 const meatBuffer = 1000;
 
-const sheriffReady = Clan.getWhitelisted().find(
+const clanWL = Clan.getWhitelisted();
+
+const sheriffReady = clanWL.find(
   (c) => c.name === getClanName(),
   ) !== undefined
   && get("_photoBoothEquipment", 0) === 0
-  && Clan.getWhitelisted().find(
+  && clanWL.find(
     (c) => c.name === "Bonus Adventures from Hell",
     ) !== undefined;
 
