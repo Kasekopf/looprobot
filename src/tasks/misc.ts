@@ -91,9 +91,10 @@ const meatBuffer = 1000;
 const sheriffReady = Clan.getWhitelisted().find(
   (c) => c.name === getClanName(),
   ) !== undefined
-  && get("_photoBoothEquipment", 0) === 0 && Clan.getWhitelisted().find(
+  && get("_photoBoothEquipment", 0) === 0
+  && Clan.getWhitelisted().find(
     (c) => c.name === "Bonus Adventures from Hell",
-    ) === undefined;
+    ) !== undefined;
 
 export const MiscQuest: Quest = {
   name: "Misc",
