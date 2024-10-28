@@ -2,7 +2,6 @@ import { CombatStrategy, killMacro } from "../engine/combat";
 import {
   adv1,
   buy,
-  chatPrivate,
   cliExecute,
   eat,
   equippedAmount,
