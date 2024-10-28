@@ -100,9 +100,9 @@ export const McLargeHugeQuest: Quest = {
       combat: new CombatStrategy()
         .macro(() => {
           if (itemAmount($item`goat cheese`) === 0)
-            return Macro.trySkill($skill`Emit Matter Duplicating Drones`).tryItem(
-              $item`Spooky VHS Tape`
-            ).trySkill($skill`Swoop like a Bat`);
+            return Macro.trySkill($skill`Emit Matter Duplicating Drones`)
+              .tryItem($item`Spooky VHS Tape`)
+              .trySkill($skill`Swoop like a Bat`);
           if (itemAmount($item`goat cheese`) === 1) {
             if (
               myFamiliar() === $familiar`Grey Goose` &&

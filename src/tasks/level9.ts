@@ -149,7 +149,7 @@ const Oil: Task[] = [
 
       const spec: OutfitSpec & { equip: Item[] } = {
         modifier: `ML ${mlNeeded} max, 0.1 item, 0.1 food drop`,
-        equip: $items`unbreakable umbrella, unwrapped knock-off retro superhero cape, June cleaver, tearaway pants`,
+        equip: $items`unbreakable umbrella, unwrapped knock-off retro superhero cape, June cleaver`,
         modes: { umbrella: "broken", retrocape: ["heck", "hold"] },
         avoid: $items`Kramco Sausage-o-Matic™`,
       };
@@ -200,7 +200,7 @@ const Oil: Task[] = [
       if (have($item`unbreakable umbrella`))
         return {
           modifier: "ML 80 max, 0.1 item, 0.1 food drop, monster level percent",
-          equip: $items`unbreakable umbrella, Everfull Dart Holster, unwrapped knock-off retro superhero cape, tearaway pants`,
+          equip: $items`unbreakable umbrella, Everfull Dart Holster, unwrapped knock-off retro superhero cape`,
           modes: { umbrella: "broken", retrocape: ["heck", "hold"] },
         };
       else
@@ -456,8 +456,7 @@ export const ChasmQuest: Quest = {
       name: "Bat Wings Bridge Parts",
       after: ["Start"],
       priority: () => Priorities.Free,
-      ready: () =>
-        have($item`bat wings`) && get("chasmBridgeProgress") >= 25,
+      ready: () => have($item`bat wings`) && get("chasmBridgeProgress") >= 25,
       completed: () => step("questL09Topping") >= 1,
       do: () => {
         visitUrl(`place.php?whichplace=orc_chasm&action=bridge${get("chasmBridgeProgress")}`); // use existing materials
