@@ -168,7 +168,7 @@ const Oil: Task[] = [
     },
     combat: new CombatStrategy().killItem().macro(() => {
       const part = haveEquipped($item`unwrapped knock-off retro superhero cape`) ? "butt" : "oil";
-      return Macro.tryItem($item`shadow brick`)
+      return Macro.externalIf(get("_shadowBricksUsed") < 13, Macro.tryItem($item`shadow brick`))
         .step(`if hasskill Darts: Throw at ${part}; skill Darts: Throw at ${part}; endif;`)
         .attack()
         .repeat();
@@ -212,7 +212,7 @@ const Oil: Task[] = [
     },
     combat: new CombatStrategy().killItem().macro(() => {
       const part = haveEquipped($item`unwrapped knock-off retro superhero cape`) ? "butt" : "oil";
-      return Macro.tryItem($item`shadow brick`)
+      return Macro.externalIf(get("_shadowBricksUsed") < 13, Macro.tryItem($item`shadow brick`))
         .step(`if hasskill Darts: Throw at ${part}; skill Darts: Throw at ${part}; endif;`)
         .attack()
         .repeat();

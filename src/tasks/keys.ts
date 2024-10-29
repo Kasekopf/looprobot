@@ -453,7 +453,11 @@ export const DigitalQuest: Quest = {
       combat: new CombatStrategy().kill().macro(() => {
         if (get("lovebugsUnlocked"))
           return Macro.trySkill($skill`Summon Love Gnats`).trySkill($skill`Summon Love Stinkbug`);
-        else return Macro.tryItem($item`shard of double-ice`).tryItem($item`shadow brick`);
+        else
+          return Macro.tryItem($item`shard of double-ice`).externalIf(
+            get("_shadowBricksUsed") < 13,
+            Macro.tryItem($item`shadow brick`)
+          );
       }, $monster`fleaman`),
       limit: { soft: 16 },
       delay: 16,
