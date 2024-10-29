@@ -297,7 +297,7 @@ const unscaledLeveling: Task[] = [
       .killHard()
       .macro(() => {
         if (haveEquipped($item`Space Trip safety headphones`)) return new Macro();
-        return killMacro(undefined, true, true);
+        return killMacro($location`Shadow Rift (The Misspelled Cemetary)`, true, true);
       }),
     outfit: () => {
       const result: OutfitSpec = {

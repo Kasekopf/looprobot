@@ -11,16 +11,15 @@ import {
   Stat,
 } from "kolmafia";
 import {
-  $effect,
   $familiar,
   $item,
+  $location,
   $monsters,
   $skill,
   $slot,
   $stat,
   byStat,
   get,
-  have,
   Macro,
   Switch,
 } from "libram";
@@ -168,7 +167,10 @@ export function killMacro(target?: Monster | Location, hard?: boolean, withSlap 
     );
   }
 
-  if (haveEquipped($item`candy cane sword cane`) && have($effect`Shadow Affinity`))
+  if (
+    haveEquipped($item`candy cane sword cane`) &&
+    target === $location`Shadow Rift (The Misspelled Cemetary)`
+  )
     result.trySkill($skill`Surprisingly Sweet Slash`);
 
   const annoyingTargets = $monsters`Mob Penguin Capo`;
@@ -176,7 +178,10 @@ export function killMacro(target?: Monster | Location, hard?: boolean, withSlap 
   result.step(dartMacro(hard ?? false, singleDart));
 
   if (withSlap) result.trySkill($skill`Monkey Slap`);
-  if (haveEquipped($item`candy cane sword cane`) && have($effect`Shadow Affinity`))
+  if (
+    haveEquipped($item`candy cane sword cane`) &&
+    target === $location`Shadow Rift (The Misspelled Cemetary)`
+  )
     result.trySkill($skill`Surprisingly Sweet Stab`);
   result.trySkill($skill`Summon Love Mosquito`);
   if (haveEquipped($item`June cleaver`)) return result.attack().repeat();
