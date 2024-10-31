@@ -537,6 +537,13 @@ export function getRunawaySources(_location?: Location) {
       chance: () => (get("_navelRunaways") < 3 ? 1 : 0.2),
       banishes: false,
     },
+    {
+      name: "Sheriff Authority",
+      available: () =>
+        have($item`Sheriff moustache`) && have($item`Sheriff badge`) && have($item`Sheriff pistol`) && get("_assertYourAuthorityCast",0) < 3,
+      equip: { equip: $items`Sheriff moustache, Sheriff badge, Sheriff pistol` },
+      do: $skill`Assert your Authority`,
+    },
   ];
 }
 
@@ -585,13 +592,6 @@ export const freekillSources: FreekillSource[] = [
       !have($effect`Everything Looks Yellow`),
     equip: { equip: $items`Jurassic Parka`, modes: { parka: "dilophosaur" } },
     do: $skill`Spit jurassic acid`,
-  },
-  {
-    name: "Sheriff Authority",
-    available: () =>
-      have($item`Sheriff moustache`) && have($item`Sheriff badge`) && have($item`Sheriff pistol`) && get("_assertYourAuthorityCast",0) < 3,
-    equip: { equip: $items`Sheriff moustache, Sheriff badge, Sheriff pistol` },
-    do: $skill`Assert your Authority`,
   },
 ];
 
