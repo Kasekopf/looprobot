@@ -766,8 +766,10 @@ export const WarQuest: Quest = {
       after: ["Flyers End", "Lighthouse End", "Junkyard End"],
       ready: () => YouRobot.canUse($slot`hat`),
       completed: () => get("hippiesDefeated") >= 64,
-      outfit: {
-        equip: $items`beer helmet, distressed denim pants, bejeweled pledge pin`,
+      outfit: () => {
+        if(have($item`Sheriff moustache`) && have($item`Sheriff badge`) && have($item`Sheriff pistol`) && get("_assertYourAuthorityCast",0) < 3)
+          return { equip: $items`beer helmet, distressed denim pants, bejeweled pledge pin, Sheriff moustache, Sheriff badge, Sheriff pistol` }
+        else return { equip: $items`beer helmet, distressed denim pants, bejeweled pledge pin` }
       },
       do: $location`The Battlefield (Frat Uniform)`,
       post: dimesForGarters,
@@ -777,7 +779,7 @@ export const WarQuest: Quest = {
         .macro(
           Macro.trySkill($skill`%fn, let's pledge allegiance to a Zone`).trySkill(
             $skill`Extract Jelly`
-          )
+          ).trySkill($skill`Assert your Authority`)
         ),
       limit: { tries: 10 },
     },
