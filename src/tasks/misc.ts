@@ -10,6 +10,7 @@ import {
   gamedayToInt,
   getCampground,
   getClanLounge,
+  getClanName,
   haveEffect,
   haveEquipped,
   hermit,
@@ -56,6 +57,7 @@ import {
   BurningLeaves,
   byStat,
   CinchoDeMayo,
+  Clan,
   ensureEffect,
   get,
   getSaleValue,
@@ -85,6 +87,16 @@ import { coldPlanner, yellowSubmarinePossible } from "../engine/outfit";
 import { ROUTE_WAIT_TO_NCFORCE } from "../route";
 
 const meatBuffer = 1000;
+
+const clanWL = Clan.getWhitelisted();
+
+const sheriffReady = clanWL.find(
+  (c) => c.name === getClanName(),
+  ) !== undefined
+  && get("_photoBoothEquipment", 0) === 0
+  && clanWL.find(
+    (c) => c.name === "Bonus Adventures from Hell",
+    ) !== undefined;
 
 export const MiscQuest: Quest = {
   name: "Misc",
@@ -1133,7 +1145,26 @@ export const MiscQuest: Quest = {
       freeaction: true,
       limit: { tries: 2 },
     },
+    {
+      name: "Clan Photo Booth Free Kill",
+      after: [],
+      priority: () => Priorities.Free,
+      ready: () =>
+          sheriffReady,
+      completed: () => (have($item`Sheriff moustache`) && have($item`Sheriff badge`) && have($item`Sheriff pistol`)) || get("_photoBoothEquipment", 0) >= 3,
+      do: (): void => {
+        Clan.with("Bonus Adventures from Hell", () => sheriffActions());
+      },
+      freeaction: true,
+      limit: { tries: 3 },
+    },
   ],
+};
+
+const sheriffActions = () => {
+  cliExecute("photobooth item moustache");
+  cliExecute("photobooth item badge");
+  cliExecute("photobooth item pistol");
 };
 
 export const WandQuest: Quest = {
