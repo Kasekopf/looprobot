@@ -342,7 +342,7 @@ export function equipDefaults(outfit: Outfit, noFightingFamiliars: boolean): voi
     // eslint-disable-next-line libram/verify-constants
     outfit.equip($familiar`Peace Turkey`);
     outfit.equip($familiar`Disgeist`);
-  }  // low priority
+  } // low priority
 
   if (!noFightingFamiliars) {
     if (args.minor.profitfamiliar) {
