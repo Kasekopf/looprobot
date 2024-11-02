@@ -90,13 +90,10 @@ const meatBuffer = 1000;
 
 const clanWL = Clan.getWhitelisted();
 
-const sheriffReady = clanWL.find(
-  (c) => c.name === getClanName(),
-  ) !== undefined
-  && get("_photoBoothEquipment", 0) === 0
-  && clanWL.find(
-    (c) => c.name === "Bonus Adventures from Hell",
-    ) !== undefined;
+const sheriffReady =
+  clanWL.find((c) => c.name === getClanName()) !== undefined &&
+  get("_photoBoothEquipment", 0) === 0 &&
+  clanWL.find((c) => c.name === "Bonus Adventures from Hell") !== undefined;
 
 export const MiscQuest: Quest = {
   name: "Misc",
@@ -1149,9 +1146,12 @@ export const MiscQuest: Quest = {
       name: "Clan Photo Booth Free Kill",
       after: [],
       priority: () => Priorities.Free,
-      ready: () =>
-          sheriffReady,
-      completed: () => (have($item`Sheriff moustache`) && have($item`Sheriff badge`) && have($item`Sheriff pistol`)) || get("_photoBoothEquipment", 0) >= 3,
+      ready: () => sheriffReady,
+      completed: () =>
+        (have($item`Sheriff moustache`) &&
+          have($item`Sheriff badge`) &&
+          have($item`Sheriff pistol`)) ||
+        get("_photoBoothEquipment", 0) >= 3,
       do: (): void => {
         Clan.with("Bonus Adventures from Hell", () => sheriffActions());
       },

@@ -71,19 +71,20 @@ function getRelevantEffects(): { [modifier: string]: Effect[] } {
   if (
     have($item`Clan VIP Lounge key`) &&
     !underStandard() &&
-    (get("_photoBoothEffects",0) < 3 || have($effect`Wild and Westy!`)) &&
+    (get("_photoBoothEffects", 0) < 3 || have($effect`Wild and Westy!`)) &&
     ((have($item`ninja rope`) && have($item`ninja carabiner`) && have($item`ninja crampons`)) ||
       step("questL08Trapper") >= 3)
   )
     result["-combat"].push($effect`Wild and Westy!`);
 
-    if (
-      have($item`Clan VIP Lounge key`) &&
-      !underStandard() &&
-      (!get("_olympicSwimmingPool") || have($effect`Silent Running`)) &&
-      ((have($item`ninja rope`) && have($item`ninja carabiner`) && have($item`ninja crampons`)) ||
-        step("questL08Trapper") >= 3)
-    )
+  if (
+    have($item`Clan VIP Lounge key`) &&
+    !underStandard() &&
+    (!get("_olympicSwimmingPool") || have($effect`Silent Running`)) &&
+    ((have($item`ninja rope`) && have($item`ninja carabiner`) && have($item`ninja crampons`)) ||
+      step("questL08Trapper") >= 3)
+  )
+    result["-combat"].push($effect`Silent Running`);
 
   if (have($skill`Emotionally Chipped`) && get("_feelLonelyUsed") < 3)
     result["-combat"].push($effect`Feeling Lonely`);
