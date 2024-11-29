@@ -50,7 +50,7 @@ Major Options:
 
 Minor Options:
   fax BOOLEAN - Use a fax to summon a monster. Set to false if the faxbots are offline. [default: true] [setting: looprobot_fax]
-  seasoning BOOLEAN - If true, get special seasoning from SongBoom boombox after the beginning of the run. [default: false] [setting: looprobot_seasoning]
+  seasoning BOOLEAN - If true, get special seasoning from SongBoom boombox. Not advised if you constantly run low on meat. [default: false] [setting: looprobot_seasoning]
   lgr - Pull a lucky gold ring. If pulled, it will be equipped during many combats. [default: false] [setting: looprobot_lgr]
   profitfamiliar - Use free familiar turns for familiar related profits. [default: false] [setting: looprobot_profitfamiliar]
   pvp - Break your hippy stone at the start of the run. [default: false] [setting: looprobot_pvp]

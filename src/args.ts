@@ -19,7 +19,7 @@ export const args = Args.create(
         default: true,
       }),
       seasoning: Args.boolean({
-        help: "If true, get special seasoning from SongBoom boombox after the beginning of the run.",
+        help: "If true, get special seasoning from SongBoom boombox. Not advised if you constantly run low on meat.",
         default: false,
       }),
       lgr: Args.flag({
