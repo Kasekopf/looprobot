@@ -37165,7 +37165,7 @@ var MiscQuest = {
         return get("_aprilBandInstruments") + args.minor.saveapril < 2;
       },
       completed: function() {
-        return have($item(_templateObject1894 || (_templateObject1894 = _taggedTemplateLiteral82(["Apriling band tuba"]))));
+        return !AprilingBandHelmet_exports.have() || have($item(_templateObject1894 || (_templateObject1894 = _taggedTemplateLiteral82(["Apriling band tuba"]))));
       },
       do: function() {
         return AprilingBandHelmet_exports.joinSection($item(_templateObject1904 || (_templateObject1904 = _taggedTemplateLiteral82(["Apriling band tuba"]))));
@@ -37185,7 +37185,7 @@ var MiscQuest = {
         return have($item(_templateObject19112 || (_templateObject19112 = _taggedTemplateLiteral82(["Apriling band tuba"])))) && (0, import_kolmafia94.myTurncount)() >= ROUTE_WAIT_TO_NCFORCE && atLevel(6) && !get("noncombatForcerActive");
       },
       completed: function() {
-        return $item(_templateObject1929 || (_templateObject1929 = _taggedTemplateLiteral82(["Apriling band tuba"]))).dailyusesleft === 0;
+        return !AprilingBandHelmet_exports.have() || $item(_templateObject1929 || (_templateObject1929 = _taggedTemplateLiteral82(["Apriling band tuba"]))).dailyusesleft === 0;
       },
       do: function() {
         return AprilingBandHelmet_exports.play($item(_templateObject1934 || (_templateObject1934 = _taggedTemplateLiteral82(["Apriling band tuba"]))), true);
@@ -37206,7 +37206,7 @@ var MiscQuest = {
         return get("_aprilBandInstruments") + args.minor.saveapril < 2 && (!have($item(_templateObject1944 || (_templateObject1944 = _taggedTemplateLiteral82(["closed-circuit pay phone"])))) || !get("neverendingPartyAlways") || !get("snojoAvailable"));
       },
       completed: function() {
-        return have($item(_templateObject1954 || (_templateObject1954 = _taggedTemplateLiteral82(["Apriling band piccolo"]))));
+        return !AprilingBandHelmet_exports.have() || have($item(_templateObject1954 || (_templateObject1954 = _taggedTemplateLiteral82(["Apriling band piccolo"]))));
       },
       do: function() {
         return AprilingBandHelmet_exports.joinSection($item(_templateObject1964 || (_templateObject1964 = _taggedTemplateLiteral82(["Apriling band piccolo"]))));
@@ -37226,7 +37226,7 @@ var MiscQuest = {
         return have($item(_templateObject1974 || (_templateObject1974 = _taggedTemplateLiteral82(["Apriling band piccolo"])))) && (0, import_kolmafia94.familiarWeight)($familiar(_templateObject1984 || (_templateObject1984 = _taggedTemplateLiteral82(["Grey Goose"])))) < 19;
       },
       completed: function() {
-        return $item(_templateObject1994 || (_templateObject1994 = _taggedTemplateLiteral82(["Apriling band piccolo"]))).dailyusesleft === 0;
+        return !AprilingBandHelmet_exports.have() || $item(_templateObject1994 || (_templateObject1994 = _taggedTemplateLiteral82(["Apriling band piccolo"]))).dailyusesleft === 0;
       },
       do: function() {
         return AprilingBandHelmet_exports.play($item(_templateObject2004 || (_templateObject2004 = _taggedTemplateLiteral82(["Apriling band piccolo"]))), true);
@@ -49115,7 +49115,7 @@ function checkRequirements() {
 }
 
 // src/_git_commit.ts
-var lastCommitHash = "f4b3813";
+var lastCommitHash = "dd4658b";
 
 // src/main.ts
 var _templateObject1190;
