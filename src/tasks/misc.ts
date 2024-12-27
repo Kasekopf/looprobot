@@ -895,7 +895,7 @@ export const MiscQuest: Quest = {
       name: "Apriling Acquire Tuba",
       priority: () => Priorities.Free,
       ready: () => get("_aprilBandInstruments") + args.minor.saveapril < 2,
-      completed: () => have($item`Apriling band tuba`),
+      completed: () => !AprilingBandHelmet.have() || have($item`Apriling band tuba`),
       do: () => AprilingBandHelmet.joinSection($item`Apriling band tuba`),
       limit: { tries: 1 },
       freeaction: true,
@@ -909,7 +909,7 @@ export const MiscQuest: Quest = {
         myTurncount() >= ROUTE_WAIT_TO_NCFORCE &&
         atLevel(6) &&
         !get("noncombatForcerActive"),
-      completed: () => $item`Apriling band tuba`.dailyusesleft === 0,
+      completed: () => !AprilingBandHelmet.have() || $item`Apriling band tuba`.dailyusesleft === 0,
       do: () => AprilingBandHelmet.play($item`Apriling band tuba`, true),
       limit: { tries: 3, unready: true },
       freeaction: true,
@@ -923,7 +923,7 @@ export const MiscQuest: Quest = {
         (!have($item`closed-circuit pay phone`) ||
           !get("neverendingPartyAlways") ||
           !get("snojoAvailable")),
-      completed: () => have($item`Apriling band piccolo`),
+      completed: () => !AprilingBandHelmet.have() || have($item`Apriling band piccolo`),
       do: () => AprilingBandHelmet.joinSection($item`Apriling band piccolo`),
       limit: { tries: 1 },
       freeaction: true,
@@ -933,7 +933,8 @@ export const MiscQuest: Quest = {
       after: [],
       priority: () => Priorities.Free,
       ready: () => have($item`Apriling band piccolo`) && familiarWeight($familiar`Grey Goose`) < 19,
-      completed: () => $item`Apriling band piccolo`.dailyusesleft === 0,
+      completed: () =>
+        !AprilingBandHelmet.have() || $item`Apriling band piccolo`.dailyusesleft === 0,
       do: () => AprilingBandHelmet.play($item`Apriling band piccolo`, true),
       outfit: { familiar: $familiar`Grey Goose` },
       limit: { tries: 3 },
