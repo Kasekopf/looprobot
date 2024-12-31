@@ -46,6 +46,9 @@ export function main(command?: string): void {
 
   printVersionInfo();
   if (args.version) return;
+  if (args.minor.hippy && args.minor.flyer) {
+    throw `The flags "hippy" and "flyer" are not compatible; please disable flyer if you want to do the hippy war`;
+  }
 
   if (myPath() !== $path`You, Robot` && !args.debug.list)
     throw `You are not currently in a You Robot run. Please start one.`;
