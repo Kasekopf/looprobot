@@ -72,6 +72,7 @@ export const routing: string[] = [
   "McLargeHuge/Peak", // Get Eagle beast banish
   "Giant/Ground",
   "Summon/War Frat 151st Infantryman",
+  "Summon/War Hippy Elite Fire Spinner", // If args.minor.hippy
   "Misc/Unlock Island Submarine",
   "Misc/Unlock Island",
   "Robot/Statbot L12",
@@ -157,7 +158,6 @@ export const routing: string[] = [
   "Crypt/Nook",
   "Orc Chasm/Twin Init Search",
   "Orc Chasm/Twin Init", // Use Eagle dude banish
-  "War/Open Orchard",
   "War/Orchard Finish",
   "Knob/Harem",
 

@@ -42,9 +42,27 @@ const summonTargets: SummonTarget[] = [
     target: $monster`War Frat 151st Infantryman`,
     ready: () => myMeat() >= 200,
     completed: () =>
-      have($item`beer helmet`) &&
-      have($item`distressed denim pants`) &&
-      have($item`bejeweled pledge pin`),
+      args.minor.hippy ||
+      (have($item`beer helmet`) &&
+        have($item`distressed denim pants`) &&
+        have($item`bejeweled pledge pin`)),
+    priority: () => (have($effect`Everything Looks Yellow`) ? Priorities.BadYR : Priorities.None),
+    after: [],
+    outfit: {
+      equip: $items`unwrapped knock-off retro superhero cape`,
+      modes: { retrocape: ["heck", "hold"] },
+      avoid: $items`carnivorous potted plant`,
+    },
+    combat: new CombatStrategy().yellowRay(),
+  },
+  {
+    target: $monster`War Hippy Elite Fire Spinner`,
+    ready: () => myMeat() >= 200 && args.minor.hippy,
+    completed: () =>
+      !args.minor.hippy ||
+      (have($item`reinforced beaded headband`) &&
+        have($item`bullet-proof corduroys`) &&
+        have($item`round purple sunglasses`)),
     priority: () => (have($effect`Everything Looks Yellow`) ? Priorities.BadYR : Priorities.None),
     after: [],
     outfit: {

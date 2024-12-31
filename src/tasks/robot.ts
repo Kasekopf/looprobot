@@ -14,8 +14,8 @@ import {
   Stat,
   use,
 } from "kolmafia";
-import { flyersDone } from "./level12";
-import { toTempPref } from "../args";
+import { flyersDone, warPhaseOneDone } from "./level12";
+import { args, toTempPref } from "../args";
 
 const BATTERIES = $items`battery (car), battery (lantern), battery (9-Volt), battery (D), battery (AA)`;
 export const RobotQuest: Quest = {
@@ -234,9 +234,7 @@ export const RobotQuest: Quest = {
         myBasestat($stat`Moxie`) >= 70 &&
         myBasestat($stat`Mysticality`) >= 70,
       completed: () =>
-        YouRobot.canUse($slot`hat`) ||
-        (step("questL10Garbage") >= 10 &&
-          (have($item`rock band flyers`) || get("sidequestArenaCompleted") !== "none")),
+        YouRobot.canUse($slot`hat`) || (step("questL10Garbage") >= 10 && warPhaseOneDone()),
       do: () => YouRobot.doSwitchPart("top", 4),
       limit: { tries: 1 },
       freeaction: true,
@@ -257,7 +255,7 @@ export const RobotQuest: Quest = {
       name: "Equip Hat Phase 2",
       after: ["Unequip Hat Phase 1", "Knob/Harem", "Crypt/Finish"],
       priority: () => (get("gooseDronesRemaining") > 0 ? Priorities.GoodDrone : Priorities.None),
-      ready: () => flyersDone(),
+      ready: () => flyersDone() || args.minor.hippy,
       completed: () =>
         YouRobot.canUse($slot`hat`) ||
         (step("questL12War") === 999 && step("questL05Goblin") === 999),
@@ -336,11 +334,7 @@ function scrapBufferCompleted(): boolean {
   if (!YouRobot.canUse($slot`off-hand`)) scrapNeeded += 15;
 
   // We only need scrap to switch to a hat (and back) 3 times.
-  if (
-    step("questL10Garbage") < 20 ||
-    (!have($item`rock band flyers`) && get("sidequestArenaCompleted") === "none")
-  )
-    scrapNeeded += 20;
+  if (step("questL10Garbage") < 20 || warPhaseOneDone()) scrapNeeded += 20;
   if (step("questL12War") < 999) scrapNeeded += 20;
 
   if (YouRobot.canUse($slot`hat`)) scrapNeeded -= 15; // we may be in the middle of a phase

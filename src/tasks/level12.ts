@@ -70,7 +70,14 @@ const warHeroes = [
 ];
 
 function warOutfit(): Item[] {
+  if (args.minor.hippy)
+    return $items`reinforced beaded headband, bullet-proof corduroys, round purple sunglasses`;
   return $items`beer helmet, distressed denim pants, bejeweled pledge pin`;
+}
+
+function warFlyer(): Item {
+  if (args.minor.hippy) return $item`jam band flyers`;
+  else return $item`rock band flyers`;
 }
 
 function flyersTasks(after: string[]): Task[] {
@@ -79,7 +86,7 @@ function flyersTasks(after: string[]): Task[] {
       name: "Flyers Start",
       after: after,
       ready: () => YouRobot.canUse($slot`hat`),
-      completed: () => have($item`rock band flyers`) || get("sidequestArenaCompleted") !== "none",
+      completed: () => have(warFlyer()) || get("sidequestArenaCompleted") !== "none",
       outfit: { equip: warOutfit() },
       do: (): void => {
         visitUrl("bigisland.php?place=concert&pwd");
@@ -101,7 +108,7 @@ function flyersTasks(after: string[]): Task[] {
         equip: $items`unwrapped knock-off retro superhero cape`,
       },
       combat: new CombatStrategy()
-        .macro(Macro.tryItem($item`rock band flyers`).tryItem($item`hair spray`))
+        .macro(Macro.tryItem(warFlyer()).tryItem($item`hair spray`))
         .kill(),
       limit: { tries: 1 },
     },
@@ -115,7 +122,7 @@ function flyersTasks(after: string[]): Task[] {
       do: (): void => {
         visitUrl("bigisland.php?place=concert&pwd");
         cliExecute("refresh inv");
-        if (have($item`rock band flyers`)) {
+        if (have(warFlyer())) {
           debug("Mafia tracking was incorrect for rock band flyers; continuing to flyer...");
           set(
             toTempPref("flyeredML_buffer"),
@@ -660,7 +667,8 @@ function nunsTasks(after: string[]): Task[] {
       prepare: () => {
         if (have($item`SongBoom™ BoomBox`) && get("boomBoxSong") !== "Total Eclipse of Your Meat")
           cliExecute("boombox meat");
-        if (!get("concertVisited")) ensureEffect($effect`Winklered`);
+        if (!get("concertVisited") && get("sidequestArenaCompleted") !== "none")
+          ensureEffect($effect`Winklered`);
         $items`flapper fly, autumn dollar, pink candy heart`
           .filter((i) => have(i, 2) && !have(effectModifier(i, "Effect")))
           .forEach((i) => use(i));
@@ -689,6 +697,11 @@ function nunsTasks(after: string[]): Task[] {
 }
 
 export function getWarQuest(): Quest {
+  if (args.minor.hippy) return getWarQuestHippy();
+  else return getWarQuestFrat();
+}
+
+function getWarQuestFrat(): Quest {
   return {
     name: "War",
     tasks: [
@@ -795,12 +808,10 @@ export function getWarQuest(): Quest {
       {
         name: "Phase 1",
         after: ["Flyers Start", "Junkyard End"],
-        completed: () =>
-          (have($item`rock band flyers`) || get("sidequestArenaCompleted") !== "none") &&
-          get("sidequestJunkyardCompleted") !== "none",
+        completed: () => warPhaseOneDone(),
         do: () => {
           // Use this task only for routing
-          throw `Task Phase 1 should never run`;
+          throw `Task War/Phase 1 should never run`;
         },
         limit: { tries: 0 },
       },
@@ -838,7 +849,7 @@ export function getWarQuest(): Quest {
           ),
         limit: { tries: 10 },
       },
-      ...orchardTasks("turninAfter"),
+      ...orchardTasks("Open Orchard"),
       {
         name: "Open Nuns",
         after: ["Orchard Finish"],
@@ -898,6 +909,217 @@ export function getWarQuest(): Quest {
   };
 }
 
+function getWarQuestHippy(): Quest {
+  return {
+    name: "War",
+    tasks: [
+      {
+        name: "Start",
+        after: [],
+        ready: () => atLevel(12) && councilSafe(),
+        completed: () => step("questL12War") !== -1,
+        do: () => visitUrl("council.php"),
+        limit: { tries: 1 },
+        freeaction: true,
+      },
+      {
+        name: "Outfit Hippy",
+        after: ["Misc/Unlock Island"],
+        ready: () =>
+          (get("skillLevel144") === 0 ||
+            atLevel(12) ||
+            get("_universeCalculated") >= get("skillLevel144")) &&
+          myTurncount() >= 150,
+        completed: () =>
+          (have($item`filthy corduroys`) && have($item`filthy knitted dread sack`)) ||
+          (have($item`beer helmet`) &&
+            have($item`distressed denim pants`) &&
+            have($item`bejeweled pledge pin`)),
+        do: $location`Hippy Camp`,
+        limit: { soft: 10 },
+        choices: () => {
+          return {
+            136: have($item`filthy corduroys`) ? 2 : 1,
+            137: have($item`filthy corduroys`) ? 1 : 2,
+          };
+        },
+        outfit: () => {
+          if (forceItemPossible())
+            return {
+              modifier: "+combat",
+            };
+          else
+            return {
+              modifier: "item",
+            };
+        },
+        combat: new CombatStrategy().forceItems().macro(Macro.trySkill($skill`Extract Jelly`)),
+      },
+      {
+        name: "Outfit",
+        after: ["Start", "Outfit Hippy"],
+        ready: () => YouRobot.canUse($slot`hat`),
+        completed: () =>
+          have($item`reinforced beaded headband`) &&
+          have($item`bullet-proof corduroys`) &&
+          have($item`round purple sunglasses`),
+        do: $location`Hippy Camp`,
+        limit: { soft: 10 },
+        outfit: {
+          equip: $items`filthy corduroys, filthy knitted dread sack`,
+        },
+      },
+      {
+        name: "Enrage",
+        after: ["Start", "Misc/Unlock Island", "Misc/Unlock Island Submarine", "Outfit"],
+        ready: () =>
+          myBasestat($stat`mysticality`) >= 70 &&
+          myBasestat($stat`moxie`) >= 70 &&
+          YouRobot.canUse($slot`hat`),
+        completed: () => step("questL12War") >= 1,
+        prepare: () => {
+          // Restore a bit more HP than usual
+          if (myHp() < 80 && myHp() < myMaxhp()) restoreHp(myMaxhp() < 80 ? myMaxhp() : 80);
+        },
+        outfit: () => {
+          const result = <OutfitSpec>{
+            equip: warOutfit(),
+            modifier: "-combat",
+          };
+          if (!have($skill`Comprehensive Cartography`))
+            result.equip?.push($item`candy cane sword cane`);
+          return result;
+        },
+        do: $location`Wartime Frat House (Hippy Disguise)`,
+        choices: () => {
+          if (haveEquipped($item`candy cane sword cane`))
+            return { 139: 4, 140: 4, 141: 3, 142: 3, 143: 4, 144: 4, 145: 1, 146: 3, 1433: 3 };
+          else return { 139: 3, 140: 3, 141: 3, 142: 3, 143: 3, 144: 3, 145: 1, 146: 3, 1433: 3 };
+        },
+        limit: { soft: 20 },
+      },
+      ...nunsTasks(["Enrage"]),
+      ...orchardTasks("Enrage"),
+      {
+        name: "Open Lighthouse",
+        after: ["Nuns", "Orchard Finish"],
+        ready: () => YouRobot.canUse($slot`hat`),
+        completed: () => get("fratboysDefeated") >= 64,
+        outfit: () => {
+          if (
+            have($item`Sheriff moustache`) &&
+            have($item`Sheriff badge`) &&
+            have($item`Sheriff pistol`) &&
+            get("_assertYourAuthorityCast", 0) < 3
+          )
+            return {
+              equip: [
+                ...warOutfit(),
+                $item`Sheriff moustache`,
+                $item`Sheriff badge`,
+                $item`Sheriff pistol`,
+              ],
+            };
+          else return { equip: warOutfit() };
+        },
+        do: $location`The Battlefield (Hippy Uniform)`,
+        post: dimesForGarters,
+        combat: new CombatStrategy()
+          .killHard(warHeroes)
+          .kill()
+          .macro(
+            Macro.trySkill($skill`%fn, let's pledge allegiance to a Zone`)
+              .trySkill($skill`Extract Jelly`)
+              .trySkill($skill`Assert your Authority`)
+          ),
+        limit: { tries: 10 },
+      },
+      ...lighthouseTasks(["Open Lighthouse"]),
+      {
+        name: "Phase 1",
+        after: ["Lighthouse"],
+        completed: () => warPhaseOneDone(),
+        do: () => {
+          // Use this task only for routing
+          throw `Task War/Phase 1 should never run`;
+        },
+        limit: { tries: 0 },
+      },
+      {
+        name: "Open Junkyard",
+        after: ["Lighthouse End"],
+        ready: () => YouRobot.canUse($slot`hat`),
+        completed: () => get("fratboysDefeated") >= 192,
+        outfit: {
+          equip: warOutfit(),
+        },
+        do: $location`The Battlefield (Hippy Uniform)`,
+        combat: new CombatStrategy()
+          .kill()
+          .killHard(warHeroes)
+          .macro(Macro.trySkill($skill`Extract Jelly`)),
+        limit: { tries: 18 },
+      },
+      ...junkyardTasks(["Open Junkyard"]),
+      {
+        name: "Open Arena",
+        after: ["Junkyard End"],
+        ready: () => YouRobot.canUse($slot`hat`),
+        completed: () => get("fratboysDefeated") >= 458,
+        outfit: {
+          equip: warOutfit(),
+        },
+        do: $location`The Battlefield (Hippy Uniform)`,
+        combat: new CombatStrategy()
+          .kill()
+          .killHard(warHeroes)
+          .macro(Macro.trySkill($skill`Extract Jelly`)),
+        limit: { tries: 50 },
+      },
+      ...flyersTasks(["Open Arena"]),
+      {
+        name: "Clear",
+        after: ["Flyers End"],
+        ready: () => YouRobot.canUse($slot`hat`),
+        completed: () => get("fratboysDefeated") >= 1000,
+        outfit: {
+          equip: warOutfit(),
+        },
+        do: $location`The Battlefield (Hippy Uniform)`,
+        post: dimesForGarters,
+        combat: new CombatStrategy()
+          .kill()
+          .killHard(warHeroes)
+          .macro(Macro.trySkill($skill`Extract Jelly`)),
+        limit: { tries: 55 },
+      },
+      {
+        name: "Boss",
+        after: ["Clear"],
+        ready: () => YouRobot.canUse($slot`hat`),
+        completed: () => step("questL12War") === 999,
+        outfit: {
+          equip: warOutfit(),
+        },
+        prepare: () => {
+          dimesForGarters();
+          fillHp();
+        },
+        do: (): void => {
+          visitUrl("bigisland.php?place=camp&whichcamp=2&confirm7=1");
+          visitUrl("bigisland.php?action=bossfight&pwd");
+          runCombat();
+          visitUrl("council.php");
+          cliExecute("refresh all");
+        },
+        combat: new CombatStrategy().killHard().macro(Macro.trySkill($skill`Extract Jelly`)),
+        limit: { tries: 2 }, // Possible cleaver
+        boss: true,
+      },
+    ],
+  };
+}
+
 export function councilSafe(): boolean {
   // Check if it is safe to visit the council without making the war outfit worse
   // (It is harder to get the hippy outfit after the war starts)
@@ -906,17 +1128,36 @@ export function councilSafe(): boolean {
     (have($item`filthy corduroys`) && have($item`filthy knitted dread sack`)) ||
     (have($item`beer helmet`) &&
       have($item`distressed denim pants`) &&
-      have($item`bejeweled pledge pin`))
+      have($item`bejeweled pledge pin`)) ||
+    (args.minor.hippy &&
+      have($item`reinforced beaded headband`) &&
+      have($item`bullet-proof corduroys`) &&
+      have($item`round purple sunglasses`))
   );
 }
 
 function dimesForGarters(): void {
   if (myTurncount() >= 1000) return;
-  if (itemAmount($item`gauze garter`) >= 20) return;
-  const to_sell = $items`pink clay bead, purple clay bead, green clay bead, communications windchimes, bullet-proof corduroys, round purple sunglasses, reinforced beaded headband`;
-  for (const it of to_sell) {
-    if (itemAmount(it) > 0) sell(it.buyer, itemAmount(it), it);
-  }
+  if (args.minor.hippy) {
+    if (itemAmount($item`filthy poultice`) >= 20) return;
+    const to_sell = $items`red class ring, blue class ring, white class ring, PADL Phone, beer helmet, distressed denim pants, bejeweled pledge pin`;
+    for (const it of to_sell) {
+      if (itemAmount(it) > 0) sell(it.buyer, itemAmount(it), it);
+    }
 
-  if ($coinmaster`Quartersmaster`.availableTokens >= 2) cliExecute("make * gauze garter");
+    if ($coinmaster`Dimemaster`.availableTokens >= 2) cliExecute("make * filthy poultice");
+  } else {
+    if (itemAmount($item`gauze garter`) >= 20) return;
+    const to_sell = $items`pink clay bead, purple clay bead, green clay bead, communications windchimes, bullet-proof corduroys, round purple sunglasses, reinforced beaded headband`;
+    for (const it of to_sell) {
+      if (itemAmount(it) > 0) sell(it.buyer, itemAmount(it), it);
+    }
+
+    if ($coinmaster`Quartersmaster`.availableTokens >= 2) cliExecute("make * gauze garter");
+  }
+}
+
+export function warPhaseOneDone() {
+  if (args.minor.hippy) return $location`Sonofa Beach`.turnsSpent !== 0;
+  return !have($item`rock band flyers`) && get("sidequestArenaCompleted") === "none";
 }

@@ -83,6 +83,10 @@ export const args = Args.create(
         help: "Do the nuns in the war; uses monkey paw wishes",
         default: true,
       }),
+      hippy: Args.flag({
+        help: "Fight the war on behalf of the hippies, for factoids",
+        default: false,
+      }),
     }),
     debug: Args.group("Debug Options", {
       actions: Args.number({

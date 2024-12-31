@@ -453,8 +453,9 @@ export class Engine extends BaseEngine<CombatActions, ActiveTask> {
     ];
     if (get("camelSpit") === 100) monster_blacklist.push($monster`Camel's Toe`); // we will spit
     if (have($item`tangle of rat tails`)) monster_blacklist.push($monster`tomb rat`);
+    const flyer = args.minor.hippy ? $item`jam band flyers` : $item`rock band flyers`;
     if (
-      have($item`rock band flyers`) &&
+      have(flyer) &&
       !fastFlyerPossible() &&
       !flyersDone(1000) &&
       (!(task.do instanceof Location) || !blacklist.has(task.do)) &&
@@ -479,7 +480,7 @@ export class Engine extends BaseEngine<CombatActions, ActiveTask> {
       if (get("lovebugsUnlocked") || !staggerOption || outfit.equip(staggerOption)) {
         const flyerMacro = new Macro().if_(
           `!hpbelow 50 && ${monster_blacklist.map((m) => `!monsterid ${m.id}`).join(" && ")}`,
-          new Macro().trySkill($skill`Summon Love Gnats`).tryItem($item`rock band flyers`)
+          new Macro().trySkill($skill`Summon Love Gnats`).tryItem(flyer)
         );
         combat.macro(flyerMacro, undefined, true);
       }
