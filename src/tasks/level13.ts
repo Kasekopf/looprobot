@@ -1,5 +1,6 @@
 import {
   haveEquipped,
+  itemAmount,
   myAdventures,
   myBuffedstat,
   myClass,
@@ -590,7 +591,11 @@ export const TowerQuest: Quest = {
         modifier: "HP",
         avoid: $items`extra-wide head candle`,
       }),
-      combat: new CombatStrategy().macro(new Macro().item($item`gauze garter`).repeat()),
+      combat: new CombatStrategy().macro(() => {
+        if (itemAmount($item`filthy poultice`) > 5)
+          return new Macro().item($item`filthy poultice`).repeat();
+        return new Macro().item($item`gauze garter`).repeat();
+      }),
       boss: true,
       limit: { tries: 1 },
     },
