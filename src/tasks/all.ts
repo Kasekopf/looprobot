@@ -12,7 +12,7 @@ import { HiddenQuest } from "./level11_hidden";
 import { ManorQuest } from "./level11_manor";
 import { PalindomeQuest } from "./level11_palindome";
 import { MacguffinQuest } from "./level11";
-import { WarQuest } from "./level12";
+import { getWarQuest } from "./level12";
 import { TowerQuest } from "./level13";
 import { MiscQuest, WandQuest } from "./misc";
 import { PullQuest } from "./pulls";
@@ -48,7 +48,7 @@ export function all_tasks(): Task[] {
     ManorQuest,
     PalindomeQuest,
     MacguffinQuest,
-    WarQuest,
+    getWarQuest(),
     TowerQuest,
     DigitalQuest,
   ];
