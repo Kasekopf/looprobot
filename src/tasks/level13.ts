@@ -377,7 +377,7 @@ export const TowerQuest: Quest = {
         "Orc Chasm/Finish",
         "Giant/Finish",
         "Macguffin/Finish",
-        "War/Boss Hippie",
+        "War/Boss",
         "Robot/Statbot L13",
       ],
       ready: () => atLevel(13),

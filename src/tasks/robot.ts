@@ -226,7 +226,7 @@ export const RobotQuest: Quest = {
     },
     {
       name: "Equip Hat Phase 1",
-      after: ["Giant/Ground", "War/Outfit Frat"],
+      after: ["Giant/Ground", "War/Outfit"],
       priority: () => Priorities.Free,
       ready: () =>
         step("questL11Shen") >= 5 &&
@@ -243,7 +243,7 @@ export const RobotQuest: Quest = {
     },
     {
       name: "Unequip Hat Phase 1",
-      after: ["Equip Hat Phase 1", "Giant/Top Floor", "War/Flyers Start", "War/Junkyard End"],
+      after: ["Equip Hat Phase 1", "Giant/Top Floor", "War/Phase 1"],
       completed: () =>
         YouRobot.canUseFamiliar() || flyersDone() || get(toTempPref("hatSwapped1"), false),
       do: () => {
@@ -267,7 +267,7 @@ export const RobotQuest: Quest = {
     },
     {
       name: "Unequip Hat Phase 2",
-      after: ["Equip Hat Phase 2", "War/Boss Hippie", "Knob/King"],
+      after: ["Equip Hat Phase 2", "War/Boss", "Knob/King"],
       ready: () =>
         $location`Sonofa Beach`.turnsSpent >= 1 ||
         !AutumnAton.have() ||
@@ -313,7 +313,7 @@ export const RobotQuest: Quest = {
         "Orc Chasm/Finish",
         "Giant/Finish",
         "Macguffin/Finish",
-        "War/Boss Hippie",
+        "War/Boss",
       ],
       ready: () => YouRobot.energy() >= YouRobot.expectedStatbotCost(),
       completed: () => atLevel(13),

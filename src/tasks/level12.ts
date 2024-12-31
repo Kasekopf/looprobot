@@ -735,7 +735,7 @@ export function getWarQuest(): Quest {
         combat: new CombatStrategy().forceItems().macro(Macro.trySkill($skill`Extract Jelly`)),
       },
       {
-        name: "Outfit Frat",
+        name: "Outfit",
         after: ["Start", "Outfit Hippy"],
         ready: () => YouRobot.canUse($slot`hat`),
         completed: () =>
@@ -761,7 +761,7 @@ export function getWarQuest(): Quest {
       },
       {
         name: "Enrage",
-        after: ["Start", "Misc/Unlock Island", "Misc/Unlock Island Submarine", "Outfit Frat"],
+        after: ["Start", "Misc/Unlock Island", "Misc/Unlock Island Submarine", "Outfit"],
         ready: () =>
           myBasestat($stat`mysticality`) >= 70 &&
           myBasestat($stat`moxie`) >= 70 &&
@@ -792,6 +792,18 @@ export function getWarQuest(): Quest {
       ...flyersTasks(["Enrage"]),
       ...lighthouseTasks(["Enrage"]),
       ...junkyardTasks(["Enrage"]),
+      {
+        name: "Phase 1",
+        after: ["Flyers Start", "Junkyard End"],
+        completed: () =>
+          (have($item`rock band flyers`) || get("sidequestArenaCompleted") !== "none") &&
+          get("sidequestJunkyardCompleted") !== "none",
+        do: () => {
+          // Use this task only for routing
+          throw `Task Phase 1 should never run`;
+        },
+        limit: { tries: 0 },
+      },
       {
         name: "Open Orchard",
         after: ["Flyers End", "Lighthouse End", "Junkyard End"],
@@ -860,7 +872,7 @@ export function getWarQuest(): Quest {
         limit: { tries: 55 },
       },
       {
-        name: "Boss Hippie",
+        name: "Boss",
         after: ["Clear"],
         ready: () => YouRobot.canUse($slot`hat`),
         completed: () => step("questL12War") === 999,

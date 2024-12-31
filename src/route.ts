@@ -79,8 +79,7 @@ export const routing: string[] = [
   // First hat phase
   "Robot/Equip Hat Phase 1",
   "War/Enrage",
-  "War/Flyers Start",
-  "War/Junkyard End",
+  "War/Phase 1",
   "Palindome/Hot Snake Precastle",
   "Giant/Top Floor",
   "Robot/Unequip Hat Phase 1",
@@ -168,7 +167,7 @@ export const routing: string[] = [
   // Setup for second hat phase
   "Robot/Equip Hat Phase 2",
   "Knob/King",
-  "War/Boss Hippie",
+  "War/Boss",
   "Robot/Unequip Hat Phase 2",
 
   // Finish off quests
