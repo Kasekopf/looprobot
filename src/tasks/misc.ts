@@ -932,7 +932,7 @@ export const MiscQuest: Quest = {
       name: "Apriling Piccolo",
       after: [],
       priority: () => Priorities.Free,
-      ready: () => have($item`Apriling band piccolo`) && familiarWeight($familiar`Grey Goose`) < 19,
+      ready: () => have($item`Apriling band piccolo`) && familiarWeight($familiar`Grey Goose`) < 19 && YouRobot.canUseFamiliar(),
       completed: () =>
         !AprilingBandHelmet.have() || $item`Apriling band piccolo`.dailyusesleft === 0,
       do: () => AprilingBandHelmet.play($item`Apriling band piccolo`, true),
