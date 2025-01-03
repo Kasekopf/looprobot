@@ -6,7 +6,6 @@ import {
   Item,
   itemAmount,
   myAscensions,
-  myFamiliar,
   myHash,
   myMeat,
   putCloset,
@@ -32,7 +31,7 @@ import { Quest, Task } from "../engine/task";
 import { OutfitSpec, step } from "grimoire-kolmafia";
 import { Priorities } from "../engine/priority";
 import { CombatStrategy, dartMacro } from "../engine/combat";
-import { cosmicBowlingBallReady, tryEnsureLucky } from "../lib";
+import { canLevelGoose, cosmicBowlingBallReady, tryEnsureLucky, tryLevelGoose } from "../lib";
 import { tryPlayApriling } from "../engine/resources";
 
 function manualChoice(whichchoice: number, option: number) {
@@ -429,17 +428,11 @@ const Bowling: Task[] = [
       if (!bowlingBallsGathered()) {
         if (have($item`bowling ball`))
           putCloset($item`bowling ball`, itemAmount($item`bowling ball`));
+        if (get("gooseDronesRemaining") < 1) tryLevelGoose(6);
       } else {
         if (closetAmount($item`bowling ball`) > 0)
           takeCloset($item`bowling ball`, closetAmount($item`bowling ball`));
       }
-      if (
-        get("gooseDronesRemaining") < 1 &&
-        myFamiliar() === $familiar`Grey Goose` &&
-        familiarWeight($familiar`Grey Goose`) < 6 &&
-        have($item`Ghost Dog Chow`)
-      )
-        use($item`Ghost Dog Chow`);
     },
     do: $location`The Hidden Bowling Alley`,
     combat: new CombatStrategy()
@@ -537,26 +530,12 @@ export const HiddenQuest: Quest = {
       completed: () => step("questL11Worship") === 999,
       do: $location`A Massive Ziggurat`,
       prepare: () => {
-        if (
-          myFamiliar() === $familiar`Grey Goose` &&
-          familiarWeight($familiar`Grey Goose`) < 7 &&
-          have($item`Ghost Dog Chow`)
-        )
-          use($item`Ghost Dog Chow`);
         // try again to get to level 7 if needed (since the battery is the *second* dupable drop)
-        if (
-          myFamiliar() === $familiar`Grey Goose` &&
-          familiarWeight($familiar`Grey Goose`) < 7 &&
-          have($item`Ghost Dog Chow`)
-        )
-          use($item`Ghost Dog Chow`);
+        tryLevelGoose(7);
       },
       priority: () => {
         if ($location`A Massive Ziggurat`.turnsSpent < 3) return Priorities.None;
-        if (!have($familiar`Grey Goose`)) return Priorities.None;
-        if (familiarWeight($familiar`Grey Goose`) >= 7) return Priorities.GoodGoose;
-        if (!have($item`Ghost Dog Chow`)) return Priorities.BadGoose;
-        return Priorities.None;
+        return canLevelGoose(7);
       },
       outfit: () => {
         if ($location`A Massive Ziggurat`.turnsSpent < 3)

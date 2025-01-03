@@ -2,15 +2,12 @@ import {
   changeMcd,
   cliExecute,
   currentMcd,
-  familiarWeight,
   Item,
   myBasestat,
   myClass,
-  myFamiliar,
   myMp,
   myTurncount,
   numericModifier,
-  use,
   visitUrl,
 } from "kolmafia";
 import {
@@ -39,9 +36,11 @@ import { OutfitSpec, step } from "grimoire-kolmafia";
 import { CombatStrategy } from "../engine/combat";
 import {
   atLevel,
+  canLevelGoose,
   haveFlorest,
   haveLoathingIdolMicrophone,
   levelingStartCompleted,
+  tryLevelGoose,
   YouRobot,
 } from "../lib";
 import { Priorities } from "../engine/priority";
@@ -409,27 +408,12 @@ export const CryptQuest: Quest = {
     {
       name: "Bonerdagon",
       after: ["Start", "Alcove Boss", "Cranny Boss", "Niche Boss", "Nook Boss"],
-      priority: () => {
-        if (!have($familiar`Grey Goose`) || have($item`Ghost Dog Chow`)) return Priorities.None;
-        if (familiarWeight($familiar`Grey Goose`) < 6) return Priorities.BadGoose;
-        return Priorities.GoodGoose;
-      },
+      priority: () => canLevelGoose(7),
       ready: () => flyersDone() || fastFlyerPossible(),
       completed: () => step("questL07Cyrptic") >= 1,
       prepare: () => {
-        if (
-          myFamiliar() === $familiar`Grey Goose` &&
-          familiarWeight($familiar`Grey Goose`) < 7 &&
-          have($item`Ghost Dog Chow`)
-        )
-          use($item`Ghost Dog Chow`);
         // Try to get to level 7 to sneak a second drone here (for the goblin king)
-        if (
-          myFamiliar() === $familiar`Grey Goose` &&
-          familiarWeight($familiar`Grey Goose`) < 7 &&
-          have($item`Ghost Dog Chow`)
-        )
-          use($item`Ghost Dog Chow`);
+        tryLevelGoose(7);
       },
       do: $location`Haert of the Cyrpt`,
       outfit: { familiar: $familiar`Grey Goose` },

@@ -28,7 +28,7 @@ import { Quest } from "../engine/task";
 import { step } from "grimoire-kolmafia";
 import { Priorities } from "../engine/priority";
 import { CombatStrategy } from "../engine/combat";
-import { atLevel, YouRobot } from "../lib";
+import { atLevel, canLevelGoose, tryLevelGoose, YouRobot } from "../lib";
 import { councilSafe } from "./level12";
 import { summonStrategy } from "./summons";
 import { coldPlanner } from "../engine/outfit";
@@ -82,14 +82,7 @@ export const McLargeHugeQuest: Quest = {
         Counter.get("Spooky VHS Tape Monster") === 0 ||
         get("spookyVHSTapeMonster") !== $monster`dairy goat`,
       completed: () => itemAmount($item`goat cheese`) >= 3 || step("questL08Trapper") >= 2,
-      prepare: () => {
-        if (
-          myFamiliar() === $familiar`Grey Goose` &&
-          familiarWeight($familiar`Grey Goose`) < 6 &&
-          have($item`Ghost Dog Chow`)
-        )
-          use($item`Ghost Dog Chow`);
-      },
+      prepare: () => tryLevelGoose(6),
       do: $location`The Goatlet`,
       outfit: {
         modifier: "item, food drop",
@@ -209,22 +202,14 @@ export const McLargeHugeQuest: Quest = {
       completed: () => step("questL08Trapper") >= 5,
       priority: () => {
         if ($location`Mist-Shrouded Peak`.turnsSpent < 3) return Priorities.None;
-        if (!have($familiar`Grey Goose`)) return Priorities.None;
-        if (familiarWeight($familiar`Grey Goose`) >= 6) return Priorities.GoodGoose;
-        if (!have($item`Ghost Dog Chow`)) return Priorities.BadGoose;
-        return Priorities.None;
+        return canLevelGoose(6);
       },
       ready: () => coldPlanner.maximumPossible(true) >= 5,
       prepare: () => {
         if (numericModifier("cold resistance") < 5) ensureEffect($effect`Red Door Syndrome`);
         if (numericModifier("cold resistance") < 5)
           throw `Unable to ensure cold res for The Icy Peak`;
-        if (
-          myFamiliar() === $familiar`Grey Goose` &&
-          familiarWeight($familiar`Grey Goose`) < 6 &&
-          have($item`Ghost Dog Chow`)
-        )
-          use($item`Ghost Dog Chow`);
+        tryLevelGoose(6);
       },
       do: $location`Mist-Shrouded Peak`,
       outfit: () => {

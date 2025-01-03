@@ -1,11 +1,9 @@
 import {
   create,
-  familiarWeight,
   haveEquipped,
   Item,
   itemAmount,
   myDaycount,
-  myFamiliar,
   myHash,
   myMaxhp,
   restoreHp,
@@ -35,7 +33,7 @@ import { OutfitSpec, step } from "grimoire-kolmafia";
 import { CombatStrategy, killMacro } from "../engine/combat";
 import { ensureWithMPSwaps, fillHp } from "../engine/moods";
 import { globalStateCache } from "../engine/state";
-import { tryEnsureLucky, tuneSnapper, YouRobot } from "../lib";
+import { canLevelGoose, tryEnsureLucky, tryLevelGoose, tuneSnapper, YouRobot } from "../lib";
 import { Priorities } from "../engine/priority";
 import { tryPlayApriling } from "../engine/resources";
 
@@ -552,26 +550,10 @@ export const PalindomeQuest: Quest = {
     {
       name: "Boss",
       after: ["Open Alarm"],
-      priority: () => {
-        if (!have($familiar`Grey Goose`)) return Priorities.None;
-        if (familiarWeight($familiar`Grey Goose`) >= 7) return Priorities.GoodGoose;
-        if (!have($item`Ghost Dog Chow`)) return Priorities.BadGoose;
-        return Priorities.None;
-      },
+      priority: () => canLevelGoose(7),
       completed: () => step("questL11Palindome") === 999,
       prepare: () => {
-        if (
-          myFamiliar() === $familiar`Grey Goose` &&
-          familiarWeight($familiar`Grey Goose`) < 7 &&
-          have($item`Ghost Dog Chow`)
-        )
-          use($item`Ghost Dog Chow`);
-        if (
-          myFamiliar() === $familiar`Grey Goose` &&
-          familiarWeight($familiar`Grey Goose`) < 7 &&
-          have($item`Ghost Dog Chow`)
-        )
-          use($item`Ghost Dog Chow`);
+        tryLevelGoose(7);
       },
       do: (): void => {
         visitUrl("place.php?whichplace=palindome&action=pal_drlabel");

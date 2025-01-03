@@ -2,6 +2,7 @@ import { Guards, step } from "grimoire-kolmafia";
 import {
   appearanceRates,
   cliExecute,
+  familiarWeight,
   Item,
   Location,
   Monster,
@@ -30,6 +31,7 @@ import {
   $skill,
   $slot,
   $stat,
+  AprilingBandHelmet,
   AugustScepter,
   get,
   getTodaysHolidayWanderers,
@@ -37,6 +39,8 @@ import {
   Snapper,
 } from "libram";
 import { makeValue, ValueFunctions } from "garbo-lib";
+import { Priority } from "./engine/task";
+import { Priorities } from "./engine/priority";
 
 export function debug(message: string, color?: string): void {
   if (color) {
@@ -323,4 +327,23 @@ export function isChronoWorthIt(): boolean {
   return (
     currentEnergy >= YouRobot.expectedChronolithCost() && futureAdventures + 9 > currentAdventures
   );
+}
+
+export function canLevelGoose(goal = 6): Priority {
+  if (!have($familiar`Grey Goose`)) return Priorities.None;
+  if (familiarWeight($familiar`Grey Goose`) >= goal) return Priorities.GoodGoose;
+  if (!have($item`Ghost Dog Chow`)) return Priorities.BadGoose;
+  return Priorities.None;
+}
+
+export function tryLevelGoose(goal = 6): void {
+  if (myFamiliar() !== $familiar`Grey Goose`) return;
+  while (familiarWeight($familiar`Grey Goose`) < goal && have($item`Ghost Dog Chow`))
+    use($item`Ghost Dog Chow`);
+  if (
+    familiarWeight($familiar`Grey Goose`) < goal &&
+    have($item`Apriling band piccolo`) &&
+    $item`Apriling band piccolo`.dailyusesleft > 0
+  )
+    AprilingBandHelmet.play($item`Apriling band piccolo`, true);
 }

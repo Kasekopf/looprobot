@@ -25,6 +25,7 @@ import {
   myDaycount,
   myFury,
   myHp,
+  myLevel,
   myMaxhp,
   myMeat,
   myPrimestat,
@@ -930,12 +931,13 @@ export const MiscQuest: Quest = {
     },
     {
       name: "Apriling Piccolo",
-      after: [],
+      after: ["Leveling/Acquire Mouthwash", "Leveling/Mouthwash"],
       priority: () => Priorities.Free,
       ready: () =>
         have($item`Apriling band piccolo`) &&
         familiarWeight($familiar`Grey Goose`) < 19 &&
-        YouRobot.canUseFamiliar(),
+        YouRobot.canUseFamiliar() &&
+        myLevel() < 13, // only if we need it for leveling after mouthwash
       completed: () =>
         !AprilingBandHelmet.have() || $item`Apriling band piccolo`.dailyusesleft === 0,
       do: () => AprilingBandHelmet.play($item`Apriling band piccolo`, true),

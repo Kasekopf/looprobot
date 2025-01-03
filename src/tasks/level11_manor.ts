@@ -2,10 +2,8 @@ import {
   changeMcd,
   create,
   currentMcd,
-  familiarWeight,
   haveEquipped,
   Item,
-  myFamiliar,
   myLevel,
   numericModifier,
   use,
@@ -33,7 +31,7 @@ import { Modes, OutfitSpec, step } from "grimoire-kolmafia";
 import { CombatStrategy, killMacro } from "../engine/combat";
 import { Priorities } from "../engine/priority";
 import { forceNCPossible, tryForceNC, tryPlayApriling } from "../engine/resources";
-import { haveLoathingIdolMicrophone, YouRobot } from "../lib";
+import { canLevelGoose, haveLoathingIdolMicrophone, tryLevelGoose, YouRobot } from "../lib";
 import { globalStateCache } from "../engine/state";
 import { fillHp } from "../engine/moods";
 
@@ -484,26 +482,12 @@ export const ManorQuest: Quest = {
       name: "Boss",
       after: ["Blow Wall"],
       priority: () => {
-        if (!have($familiar`Grey Goose`)) return Priorities.None;
-        if (familiarWeight($familiar`Grey Goose`) >= 7) return Priorities.GoodGoose;
-        if (!have($item`Ghost Dog Chow`)) return Priorities.BadGoose;
-        return Priorities.None;
+        return canLevelGoose(7);
       },
       completed: () => step("questL11Manor") >= 999,
       outfit: { familiar: $familiar`Grey Goose`, equip: $items`grey down vest, teacher's pen` },
       prepare: () => {
-        if (
-          myFamiliar() === $familiar`Grey Goose` &&
-          familiarWeight($familiar`Grey Goose`) < 7 &&
-          have($item`Ghost Dog Chow`)
-        )
-          use($item`Ghost Dog Chow`);
-        if (
-          myFamiliar() === $familiar`Grey Goose` &&
-          familiarWeight($familiar`Grey Goose`) < 7 &&
-          have($item`Ghost Dog Chow`)
-        )
-          use($item`Ghost Dog Chow`);
+        tryLevelGoose(7);
       },
       do: () => visitUrl("place.php?whichplace=manor4&action=manor4_chamberboss"),
       combat: new CombatStrategy()
