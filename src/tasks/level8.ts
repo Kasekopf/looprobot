@@ -182,7 +182,6 @@ export const McLargeHugeQuest: Quest = {
       after: ["Trapper Return", "Extreme Snowboard"],
       completed: () => step("questL08Trapper") >= 3,
       ready: () => {
-        if (coldPlanner.maximumPossible(true) < 5) return false;
         if (haveHugeLarge()) return YouRobot.canUse($slot`offhand`);
         else return YouRobot.canUse($slot`hat`);
       },
@@ -194,7 +193,18 @@ export const McLargeHugeQuest: Quest = {
       do: (): void => {
         visitUrl("place.php?whichplace=mclargehuge&action=cloudypeak");
       },
-      outfit: () => coldPlanner.outfitFor(5),
+      outfit: () => {
+        if (haveHugeLarge())
+          return {
+            // eslint-disable-next-line libram/verify-constants
+            equip: $items`McHugeLarge left pole, McHugeLarge right pole, McHugeLarge left ski, McHugeLarge right ski`,
+            modifier: "-combat",
+          };
+        return {
+          equip: $items`eXtreme mittens, snowboarder pants, eXtreme scarf`,
+          modifier: "-combat",
+        };
+      },
       limit: { tries: 1 },
       freeaction: true,
     },
