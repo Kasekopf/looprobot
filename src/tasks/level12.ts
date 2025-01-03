@@ -1032,7 +1032,7 @@ function getWarQuestHippy(): Quest {
               .trySkill($skill`Extract Jelly`)
               .trySkill($skill`Assert your Authority`)
           ),
-        limit: { tries: 10 },
+        limit: { tries: 20 },
       },
       ...lighthouseTasks(["Open Lighthouse"]),
       {
@@ -1158,6 +1158,7 @@ function dimesForGarters(): void {
 }
 
 export function warPhaseOneDone() {
-  if (args.minor.hippy) return $location`Sonofa Beach`.turnsSpent !== 0;
-  return !have($item`rock band flyers`) && get("sidequestArenaCompleted") === "none";
+  if ($location`Sonofa Beach`.turnsSpent === 0) return false;
+  if (args.minor.hippy) return true;
+  return have($item`rock band flyers`) || get("sidequestArenaCompleted") !== "none";
 }

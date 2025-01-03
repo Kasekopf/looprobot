@@ -334,7 +334,7 @@ function scrapBufferCompleted(): boolean {
   if (!YouRobot.canUse($slot`off-hand`)) scrapNeeded += 15;
 
   // We only need scrap to switch to a hat (and back) 3 times.
-  if (step("questL10Garbage") < 20 || warPhaseOneDone()) scrapNeeded += 20;
+  if (step("questL10Garbage") < 20 || !warPhaseOneDone()) scrapNeeded += 20;
   if (step("questL12War") < 999) scrapNeeded += 20;
 
   if (YouRobot.canUse($slot`hat`)) scrapNeeded -= 15; // we may be in the middle of a phase
