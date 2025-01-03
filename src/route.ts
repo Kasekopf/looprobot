@@ -66,7 +66,6 @@ export const routing: string[] = [
 
   // Prepare for first hat phase
   "Giant/Basement Finish",
-  "McLargeHuge/Peak", // Get Eagle beast banish
   "Giant/Ground",
   "Summon/War Frat 151st Infantryman",
   "Summon/War Hippy Elite Fire Spinner", // If args.minor.hippy
@@ -94,8 +93,6 @@ export const routing: string[] = [
 
   "Giant/Finish",
   "Palindome/Talisman",
-  "Palindome/Palindome Dudes", // Use Eagle beast banish
-  "Palindome/Open Alarm", // Get boss ready for goose
 
   "Macguffin/Compass", // Unlock desert for ultrahydrated use
   // The following 3 tasks should always stay in this order
@@ -104,6 +101,9 @@ export const routing: string[] = [
   "Macguffin/Desert",
 
   // First -combat group
+  "McLargeHuge/Peak", // Get Eagle beast banish
+  "Palindome/Palindome Dudes", // Use Eagle beast banish
+  "Palindome/Open Alarm", // Get boss ready for goose
   "Mosquito/Burn Delay",
   "Hidden City/Forest Coin", // First to get meat
   "Hidden City/Forest Map",
