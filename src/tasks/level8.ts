@@ -160,7 +160,7 @@ export const McLargeHugeQuest: Quest = {
         if (haveHugeLarge())
           return {
             // eslint-disable-next-line libram/verify-constants
-            equip: $items`McHugeLarge left pole, McHugeLarge right pole, McHugeLarge left ski, McHugeLarge right ski`,
+            equip: $items`McHugeLarge left pole, McHugeLarge right pole, McHugeLarge left ski, McHugeLarge right ski, McHugeLarge duffel bag`,
             modifier: "-combat",
           };
         return {
@@ -185,7 +185,7 @@ export const McLargeHugeQuest: Quest = {
         if (haveHugeLarge())
           return {
             // eslint-disable-next-line libram/verify-constants
-            equip: $items`McHugeLarge left pole, McHugeLarge right pole, McHugeLarge left ski, McHugeLarge right ski`,
+            equip: $items`McHugeLarge left pole, McHugeLarge right pole, McHugeLarge left ski, McHugeLarge right ski, McHugeLarge duffel bag`,
             modifier: "-combat",
           };
         return {
@@ -290,6 +290,8 @@ function haveHugeLarge() {
     // eslint-disable-next-line libram/verify-constants
     have($item`McHugeLarge left ski`) &&
     // eslint-disable-next-line libram/verify-constants
-    have($item`McHugeLarge right ski`)
+    have($item`McHugeLarge right ski`) &&
+    // eslint-disable-next-line libram/verify-constants
+    have($item`McHugeLarge duffel bag`)
   );
 }
