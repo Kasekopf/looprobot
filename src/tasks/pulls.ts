@@ -14,18 +14,7 @@ import {
   toInt,
   visitUrl,
 } from "kolmafia";
-import {
-  $effect,
-  $familiar,
-  $item,
-  $items,
-  $monster,
-  $skill,
-  byStat,
-  get,
-  have,
-  set,
-} from "libram";
+import { $effect, $familiar, $item, $items, $skill, byStat, get, have, set } from "libram";
 import { args, toTempPref } from "../args";
 import { Priorities } from "../engine/priority";
 import { Quest, Task } from "../engine/task";
@@ -34,7 +23,6 @@ import { Keys, keyStrategy } from "./keys";
 import { trainSetAvailable } from "./misc";
 import { yellowSubmarinePossible } from "../engine/outfit";
 import { atLevel, levelingStartCompleted, underStandard, YouRobot } from "../lib";
-import { summonStrategy } from "./summons";
 import { flyersDone } from "./level12";
 
 /**
@@ -255,30 +243,6 @@ export const pulls: PullSpec[] = [
       if (have($effect`Video... Games?`)) return undefined;
       return true;
     },
-  },
-  {
-    pull: $item`ninja rope`,
-    useful: () =>
-      step("questL08Trapper") < 3 &&
-      step("questL11Shen") > 3 &&
-      !summonStrategy.sourceReadyFor($monster`ninja snowman assassin`) &&
-      get("lastCopyableMonster") !== $monster`ninja snowman assassin`,
-  },
-  {
-    pull: $item`ninja carabiner`,
-    useful: () =>
-      step("questL08Trapper") < 3 &&
-      step("questL11Shen") > 3 &&
-      !summonStrategy.sourceReadyFor($monster`ninja snowman assassin`) &&
-      get("lastCopyableMonster") !== $monster`ninja snowman assassin`,
-  },
-  {
-    pull: $item`ninja crampons`,
-    useful: () =>
-      step("questL08Trapper") < 3 &&
-      step("questL11Shen") > 3 &&
-      !summonStrategy.sourceReadyFor($monster`ninja snowman assassin`) &&
-      get("lastCopyableMonster") !== $monster`ninja snowman assassin`,
   },
   {
     pull: $item`Flash Liquidizer Ultra Dousing Accessory`,

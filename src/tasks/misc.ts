@@ -841,7 +841,7 @@ export const MiscQuest: Quest = {
     },
     {
       name: "Horsery",
-      after: ["McLargeHuge/Ninja"],
+      after: ["McLargeHuge/Climb"],
       priority: () => Priorities.Free,
       ready: () => get("horseryAvailable"),
       completed: () => get("_horsery") === "dark horse",

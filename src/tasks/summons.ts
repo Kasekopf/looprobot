@@ -182,19 +182,6 @@ const summonTargets: SummonTarget[] = [
     outfit: { modifier: "item" },
     combat: new CombatStrategy().killItem(),
   },
-  {
-    target: $monster`ninja snowman assassin`,
-    after: ["McLargeHuge/Trapper Return", "Palindome/Cold Snake"],
-    completed: () =>
-      (have($item`ninja rope`) && have($item`ninja carabiner`) && have($item`ninja crampons`)) ||
-      get("lastCopyableMonster") === $monster`ninja snowman assassin` ||
-      step("questL08Trapper") >= 3,
-    outfit: {
-      equip: $items`June cleaver, Space Trip safety headphones, Jurassic Parka, unwrapped knock-off retro superhero cape`,
-      modes: { retrocape: ["heck", "hold"] },
-    },
-    combat: new CombatStrategy().kill(),
-  },
 ];
 
 type SummonSource = {
