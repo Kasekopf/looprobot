@@ -430,8 +430,8 @@ export function checkRequirements(): void {
     if (missing_optional > 0) print(`You are also missing ${missing_optional} optional things.`);
   } else {
     if (missing_optional > 0) {
-      print(
-        `You are missing ${missing_optional} optional things. This script may work, but it could do better.`
+      printHtml(
+        `You are missing ${missing_optional} optional things. This script may work if the optional things you <b>do</b> have are enough, but it could do better.`
       );
     } else {
       print(`You have everything! You are the shiniest star. This script should work great.`);

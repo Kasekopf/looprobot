@@ -82,7 +82,7 @@ Debug Options:
 
 ### Will this script work for me?
 
-Run `looprobot sim` to see "Is the script intended to work unmodified on my character?". A sample output is below, but it may be slightly out of date.
+Run `looprobot sim` to see "Is the script intended to work unmodified on my character?". Note that the required items are only enough so that the script does not crash; they are not necessarily sufficient to get a 1-day run. A sample output is below, but it may be slightly out of date.
 
 ```
 > looprobot sim
