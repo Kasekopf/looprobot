@@ -156,7 +156,7 @@ export const McLargeHugeQuest: Quest = {
     },
     {
       name: "Extreme Snowboard",
-      after: ["Extreme Outfit"],
+      after: ["Trapper Return", "Extreme Outfit"],
       ready: () => {
         if (haveHugeLarge()) return YouRobot.canUse($slot`offhand`);
         else return YouRobot.canUse($slot`hat`);
