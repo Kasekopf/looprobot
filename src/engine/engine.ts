@@ -584,7 +584,7 @@ export class Engine extends BaseEngine<CombatActions, ActiveTask> {
 
       // Use an NC forcer if one is available and another task needs it.
       const ncLocationBanlist = new Set<Location>(
-        $locations`The Enormous Greater-Than Sign, The Copperhead Club, The Black Forest`
+        $locations`The Enormous Greater-Than Sign, The Copperhead Club, The Black Forest, The Spooky Forest`
       );
       const ncTaskBanlist = new Set<string>(["Misc/Protonic Ghost", "War/Flyers Fast"]);
       const ncMonsterBanlist = $monsters`Batsnake, Frozen Solid Snake, ninja snowman assassin`;
