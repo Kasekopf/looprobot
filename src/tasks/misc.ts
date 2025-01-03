@@ -25,7 +25,6 @@ import {
   myDaycount,
   myFury,
   myHp,
-  myLevel,
   myMaxhp,
   myMeat,
   myPrimestat,
@@ -79,6 +78,7 @@ import { Keys, keyStrategy } from "./keys";
 import {
   atLevel,
   haveLoathingIdolMicrophone,
+  levelingStartCompleted,
   NO_ADVENTURE_SPENT,
   underStandard,
   YouRobot,
@@ -937,7 +937,7 @@ export const MiscQuest: Quest = {
         have($item`Apriling band piccolo`) &&
         familiarWeight($familiar`Grey Goose`) < 19 &&
         YouRobot.canUseFamiliar() &&
-        myLevel() < 13, // only if we need it for leveling after mouthwash
+        !levelingStartCompleted(), // only if we need it for leveling after mouthwash
       completed: () =>
         !AprilingBandHelmet.have() || $item`Apriling band piccolo`.dailyusesleft === 0,
       do: () => AprilingBandHelmet.play($item`Apriling band piccolo`, true),
