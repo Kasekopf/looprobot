@@ -265,7 +265,7 @@ export const RobotQuest: Quest = {
     },
     {
       name: "Unequip Hat Phase 2",
-      after: ["Equip Hat Phase 2", "War/Boss", "Knob/King"],
+      after: ["Equip Hat Phase 2", "War/Boss", "Knob/King", "McLargeHuge/Climb"],
       ready: () =>
         $location`Sonofa Beach`.turnsSpent >= 1 ||
         !AutumnAton.have() ||

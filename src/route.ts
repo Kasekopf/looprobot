@@ -63,7 +63,6 @@ export const routing: string[] = [
   "Palindome/Copperhead",
   "Palindome/Bat Snake",
   "Palindome/Cold Snake",
-  "McLargeHuge/Climb",
 
   // Prepare for first hat phase
   "Giant/Basement Finish",
