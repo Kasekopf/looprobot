@@ -205,7 +205,7 @@ export const McLargeHugeQuest: Quest = {
     },
     {
       name: "Peak",
-      after: ["Extreme Snowboard", "Climb"],
+      after: ["Climb"],
       completed: () => step("questL08Trapper") >= 5,
       priority: () => {
         if ($location`Mist-Shrouded Peak`.turnsSpent < 3) return Priorities.None;
