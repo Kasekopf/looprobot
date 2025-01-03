@@ -138,7 +138,7 @@ export const McLargeHugeQuest: Quest = {
           have($item`eXtreme scarf`)) ||
         step("questL08Trapper") >= 3,
       do: $location`The eXtreme Slope`,
-      outfit: { equip: $items`candy cane sword cane`, modifier: "item" },
+      outfit: { equip: $items`candy cane sword cane`, modifier: "item, -combat" },
       choices: () => {
         return {
           575:
