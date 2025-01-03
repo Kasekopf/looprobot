@@ -185,11 +185,6 @@ export const McLargeHugeQuest: Quest = {
         if (haveHugeLarge()) return YouRobot.canUse($slot`offhand`);
         else return YouRobot.canUse($slot`hat`);
       },
-      prepare: () => {
-        if (numericModifier("cold resistance") < 5) ensureEffect($effect`Red Door Syndrome`);
-        if (numericModifier("cold resistance") < 5)
-          throw `Unable to ensure cold res for The Icy Peak`;
-      },
       do: (): void => {
         visitUrl("place.php?whichplace=mclargehuge&action=cloudypeak");
       },
