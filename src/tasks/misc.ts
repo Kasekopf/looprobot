@@ -518,16 +518,30 @@ export const MiscQuest: Quest = {
     //   limit: { tries: 1 },
     // },
     {
-      name: "Boombox",
+      name: "Boombox Setup",
       after: [],
       priority: () => Priorities.Free,
       completed: () =>
         !have($item`SongBoom™ BoomBox`) ||
-        get("boomBoxSong") === "Total Eclipse of Your Meat" ||
+        ["Total Eclipse of Your Meat", "Food Vibrations"].includes(get("boomBoxSong")) ||
         get("_boomBoxSongsLeft") === 0,
-      do: () => cliExecute("boombox meat"),
+      do: () => cliExecute(`boombox ${args.minor.seasoning ? "food" : "meat"}`),
       freeaction: true,
       limit: { tries: 1 },
+    },
+    {
+      name: "Boombox Seasoning",
+      after: [],
+      priority: () => Priorities.Free,
+      ready: () => get("sidequestNunsCompleted") !== "none" || get("hippiesDefeated") < 192,
+      completed: () =>
+        !have($item`SongBoom™ BoomBox`) ||
+        get("boomBoxSong") === "Food Vibrations" ||
+        get("_boomBoxSongsLeft") === 0 ||
+        !args.minor.seasoning,
+      do: () => cliExecute("boombox food"),
+      freeaction: true,
+      limit: { tries: 2, unready: true },
     },
     {
       name: "Mayday",
