@@ -41597,7 +41597,7 @@ var BatQuest = {
     },
     after: [],
     ready: function() {
-      return have($item(_templateObject880 || (_templateObject880 = _taggedTemplateLiteral91(["bat wings"]))));
+      return have($item(_templateObject880 || (_templateObject880 = _taggedTemplateLiteral91(["bat wings"])))) && (0, import_kolmafia103.myAdventures)() >= 1;
     },
     completed: function() {
       return get("batWingsBatHoleEntrance", false);
@@ -41627,7 +41627,7 @@ var BatQuest = {
     },
     after: ["Bat Wings Sonar 1"],
     ready: function() {
-      return have($item(_templateObject7101 || (_templateObject7101 = _taggedTemplateLiteral91(["bat wings"]))));
+      return have($item(_templateObject7101 || (_templateObject7101 = _taggedTemplateLiteral91(["bat wings"])))) && (0, import_kolmafia103.myAdventures)() >= 1;
     },
     completed: function() {
       return get("batWingsGuanoJunction", false);
@@ -41657,7 +41657,7 @@ var BatQuest = {
     },
     after: ["Bat Wings Sonar 2"],
     ready: function() {
-      return have($item(_templateObject1348 || (_templateObject1348 = _taggedTemplateLiteral91(["bat wings"]))));
+      return have($item(_templateObject1348 || (_templateObject1348 = _taggedTemplateLiteral91(["bat wings"])))) && (0, import_kolmafia103.myAdventures)() >= 1;
     },
     completed: function() {
       return get("batWingsBatratBurrow", false);
@@ -41687,7 +41687,7 @@ var BatQuest = {
     },
     after: ["Bat Wings Sonar 3"],
     ready: function() {
-      return have($item(_templateObject1937 || (_templateObject1937 = _taggedTemplateLiteral91(["bat wings"]))));
+      return have($item(_templateObject1937 || (_templateObject1937 = _taggedTemplateLiteral91(["bat wings"])))) && (0, import_kolmafia103.myAdventures)() >= 1;
     },
     completed: function() {
       return get("batWingsBeanbatChamber", false);
@@ -49438,7 +49438,7 @@ function checkRequirements() {
 }
 
 // src/_git_commit.ts
-var lastCommitHash = "8f9ae42";
+var lastCommitHash = "ef2f8a4";
 
 // src/main.ts
 var _templateObject1190;
