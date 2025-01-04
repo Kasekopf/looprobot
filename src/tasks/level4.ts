@@ -1,4 +1,4 @@
-import { itemAmount, myDaycount, numericModifier, use, visitUrl } from "kolmafia";
+import { itemAmount, myAdventures, myDaycount, numericModifier, use, visitUrl } from "kolmafia";
 import {
   $effect,
   $familiar,
@@ -38,7 +38,7 @@ export const BatQuest: Quest = {
       name: "Bat Wings Sonar 1",
       priority: () => Priorities.Free,
       after: [],
-      ready: () => have($item`bat wings`),
+      ready: () => have($item`bat wings`) && myAdventures() >= 1,
       completed: () => get("batWingsBatHoleEntrance", false),
       do: $location`The Bat Hole Entrance`,
       prepare: () => {
@@ -56,7 +56,7 @@ export const BatQuest: Quest = {
       name: "Bat Wings Sonar 2",
       priority: () => Priorities.Free,
       after: ["Bat Wings Sonar 1"],
-      ready: () => have($item`bat wings`),
+      ready: () => have($item`bat wings`) && myAdventures() >= 1,
       completed: () => get("batWingsGuanoJunction", false),
       do: $location`Guano Junction`,
       prepare: () => {
@@ -74,7 +74,7 @@ export const BatQuest: Quest = {
       name: "Bat Wings Sonar 3",
       priority: () => Priorities.Free,
       after: ["Bat Wings Sonar 2"],
-      ready: () => have($item`bat wings`),
+      ready: () => have($item`bat wings`) && myAdventures() >= 1,
       completed: () => get("batWingsBatratBurrow", false),
       do: $location`The Batrat and Ratbat Burrow`,
       prepare: () => {
@@ -92,7 +92,7 @@ export const BatQuest: Quest = {
       name: "Bat Wings Bean",
       priority: () => Priorities.Free,
       after: ["Bat Wings Sonar 3"],
-      ready: () => have($item`bat wings`),
+      ready: () => have($item`bat wings`) && myAdventures() >= 1,
       completed: () => get("batWingsBeanbatChamber", false),
       do: $location`The Beanbat Chamber`,
       prepare: () => {
