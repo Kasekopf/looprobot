@@ -33,6 +33,7 @@ import { councilSafe } from "./level12";
 import { summonStrategy } from "./summons";
 import { coldPlanner } from "../engine/outfit";
 import { trainSetAvailable } from "./misc";
+import { tryForceNC, tryPlayApriling } from "../engine/resources";
 
 export const McLargeHugeQuest: Quest = {
   name: "McLargeHuge",
@@ -154,6 +155,12 @@ export const McLargeHugeQuest: Quest = {
         if (haveHugeLarge()) return YouRobot.canUse($slot`offhand`);
         else return YouRobot.canUse($slot`hat`);
       },
+      prepare: () => {
+        if (get("currentExtremity") >= 1) {
+          tryForceNC();
+          tryPlayApriling("-combat");
+        }
+      },
       completed: () => get("currentExtremity") >= 3 || step("questL08Trapper") >= 3,
       do: $location`The eXtreme Slope`,
       outfit: () => {
@@ -168,6 +175,7 @@ export const McLargeHugeQuest: Quest = {
           modifier: "-combat",
         };
       },
+      ncforce: () => get("currentExtremity") >= 1,
       limit: { soft: 30 },
     },
     {
