@@ -684,6 +684,21 @@ export const forceNCSources: ForceNCSorce[] = [
       .externalIf(!get("lovebugsUnlocked"), Macro.trySkill($skill`Sweat Flood`))
       .skill($skill`Launch spikolodon spikes`),
   },
+  {
+    name: "McHugeLarge",
+    // eslint-disable-next-line libram/verify-constants
+    available: () => have($item`McHugeLarge left ski`) && get("_mcHugeLargeAvalancheUses", 0) < 3,
+    equip: [
+      // eslint-disable-next-line libram/verify-constants
+      { equip: $items`McHugeLarge left ski, designer sweatpants` },
+      // eslint-disable-next-line libram/verify-constants
+      { equip: $items`McHugeLarge left ski` },
+    ],
+    do: Macro.trySkill($skill`Summon Love Gnats`)
+      .externalIf(!get("lovebugsUnlocked"), Macro.trySkill($skill`Sweat Flood`))
+      // eslint-disable-next-line libram/verify-constants
+      .skill($skill`McHugeLarge Avalanche`),
+  },
 ];
 
 export function forceNCPossible(): boolean {
