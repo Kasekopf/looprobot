@@ -28,7 +28,7 @@ const time_property = toTempPref("first_start");
 const svn_name = "Kasekopf-loop-casual-branches-release";
 
 export function main(command?: string): void {
-  sinceKolmafiaRevision(28108);
+  sinceKolmafiaRevision(28234);
 
   Args.fill(args, command);
   if (args.debug.settings) {
