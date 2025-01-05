@@ -35685,6 +35685,7 @@ var Engine2 = /* @__PURE__ */ function(_BaseEngine) {
       if ((0, import_kolmafia92.myAdventures)() <= args.debug.halt && (0, import_kolmafia92.myTurncount)() >= 1 && !task.ignorehalt)
         throw "Running out of adventures!";
       var postcondition = (_task$limit = task.limit) === null || _task$limit === void 0 || (_task$limit$guard = _task$limit.guard) === null || _task$limit$guard === void 0 ? void 0 : _task$limit$guard.call(_task$limit);
+      var avalancheUses = get("_mcHugeLargeAvalancheUses", 0);
       this.acquireItems(task);
       this.acquireEffects(task);
       var task_combat = (_task$combat$clone = (_task$combat = task.combat) === null || _task$combat === void 0 ? void 0 : _task$combat.clone()) !== null && _task$combat$clone !== void 0 ? _task$combat$clone : new CombatStrategy();
@@ -35715,6 +35716,9 @@ var Engine2 = /* @__PURE__ */ function(_BaseEngine) {
       this.post(task);
       this.markAttempt(task);
       this.checkLimits(task, postcondition);
+      if (get("_mcHugeLargeAvalancheUses", 0) > avalancheUses) {
+        _set("noncombatForcerActive", true);
+      }
       if (task.completed()) {
         debug("".concat(task.name, " completed!"), "blue");
       } else if (!((_task$ready = (_task$ready2 = task.ready) === null || _task$ready2 === void 0 ? void 0 : _task$ready2.call(task)) !== null && _task$ready !== void 0 ? _task$ready : true)) {
@@ -49470,7 +49474,7 @@ function checkRequirements() {
 }
 
 // src/_git_commit.ts
-var lastCommitHash = "5e99d58";
+var lastCommitHash = "b65e6d0";
 
 // src/main.ts
 var _templateObject1190;
@@ -49544,7 +49548,7 @@ var time_property = toTempPref("first_start");
 var svn_name = "Kasekopf-loop-casual-branches-release";
 function main(command) {
   var _args$debug$ignoretas, _args$debug$ignoretas2, _args$debug$completed, _args$debug$completed2;
-  sinceKolmafiaRevision(28108);
+  sinceKolmafiaRevision(28234);
   Args.fill(args, command);
   if (args.debug.settings) {
     debug(JSON.stringify(args));
