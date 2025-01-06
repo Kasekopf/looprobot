@@ -1147,13 +1147,16 @@ function dimesForGarters(): void {
 
     if ($coinmaster`Dimemaster`.availableTokens >= 2) cliExecute("make * filthy poultice");
   } else {
-    if (itemAmount($item`gauze garter`) >= 20) return;
     const to_sell = $items`pink clay bead, purple clay bead, green clay bead, communications windchimes, bullet-proof corduroys, round purple sunglasses, reinforced beaded headband`;
     for (const it of to_sell) {
       if (itemAmount(it) > 0) sell(it.buyer, itemAmount(it), it);
     }
 
-    if ($coinmaster`Quartersmaster`.availableTokens >= 2) cliExecute("make * gauze garter");
+    if(itemAmount($item`gauze garter`) < 20) {
+      if ($coinmaster`Quartersmaster`.availableTokens >= 2) cliExecute(`make * gauze garter`);
+    }
+    else if(args.minor.warProfiteering)
+      if($coinmaster`Quartersmaster`.availableTokens >= 5) cliExecute('make * commemorative war stein');
   }
 }
 
