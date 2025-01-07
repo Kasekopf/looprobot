@@ -66,6 +66,11 @@ export const pulls: PullSpec[] = [
     optional: true,
   },
   {
+    // eslint-disable-next-line libram/verify-constants
+    pull: $item`crepe paper parachute cape`,
+    optional: true,
+  },
+  {
     pull: $item`carnivorous potted plant`,
     optional: true,
   },

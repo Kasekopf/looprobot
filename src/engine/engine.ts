@@ -12,12 +12,14 @@ import {
   Item,
   Location,
   logprint,
+  Monster,
   myAdventures,
   myBasestat,
   myFamiliar,
   myFullness,
   myHp,
   myLevel,
+  myLocation,
   myMaxhp,
   myMeat,
   myPath,
@@ -849,6 +851,19 @@ export class Engine extends BaseEngine<CombatActions, ActiveTask> {
     const beaten_turns = haveEffect($effect`Beaten Up`);
     const start_advs = myAdventures();
 
+    if (
+      // eslint-disable-next-line libram/verify-constants
+      !have($effect`Everything Looks Beige`) &&
+      // eslint-disable-next-line libram/verify-constants
+      have($item`crepe paper parachute cape`) &&
+      task.do_parachute !== undefined &&
+      task.do instanceof Location &&
+      task.do === myLocation() // When not in combat, myLocation returns the last location
+    ) {
+      const doParachuteTask = task.do_parachute;
+      task.do = () => doParachute(doParachuteTask);
+    }
+
     super.do(task);
 
     // Crash if we unexpectedly lost the fight
@@ -971,6 +986,17 @@ function autosellJunk(): void {
     if (myMeat() >= 1000) return;
     if (have(item)) autosell(item, itemAmount(item));
   }
+}
+
+function doParachute(monster: Monster | (() => Monster)): boolean {
+  // Resolve the monster if it's a function
+  const resolvedMonster = typeof monster === "function" ? monster() : monster;
+
+  visitUrl("inventory.php?action=parachute&pwd");
+  runChoice(1, `pwd&monid=${resolvedMonster.id}`);
+
+  // eslint-disable-next-line libram/verify-constants
+  return have($effect`Everything Looks Beige`);
 }
 
 function resetBadOrb(): boolean {

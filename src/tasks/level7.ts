@@ -277,6 +277,7 @@ const Niche: Task[] = [
         return $monster`dirty old lihc`;
       else return $monster`none`;
     },
+    do_parachute: $monster`dirty old lihc`,
     limit: { turns: 37 },
   },
   {
