@@ -376,7 +376,6 @@ const Zepplin: Task[] = [
       }
       return { modifier: "item" };
     },
-    do_parachute: $monster`red butler`,
     limit: { soft: 13 },
   },
 ];
