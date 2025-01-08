@@ -87,6 +87,10 @@ export const args = Args.create(
         help: "Fight the war on behalf of the hippies, for factoids",
         default: false,
       }),
+      warProfiteering: Args.flag({
+        help: "Once we have 20 gauze garters, convert war items into items that autosell for meat",
+        default: false,
+      }),
     }),
     debug: Args.group("Debug Options", {
       actions: Args.number({
