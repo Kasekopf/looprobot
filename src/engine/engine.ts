@@ -857,6 +857,7 @@ export class Engine extends BaseEngine<CombatActions, ActiveTask> {
       // eslint-disable-next-line libram/verify-constants
       have($item`crepe paper parachute cape`) &&
       task.do_parachute !== undefined &&
+      task.do_parachute !== Monster.none &&
       task.do instanceof Location &&
       task.do === myLocation() // When not in combat, myLocation returns the last location
     ) {
