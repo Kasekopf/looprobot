@@ -1,0 +1,39 @@
+name: Build and lint looprobot
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+env:
+  # Default version of Node.js for jobs
+  node-version: "20"
+
+jobs:
+  test-script:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ env.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.node-version }}
+          cache: yarn
+      - run: yarn install --immutable --immutable-cache
+      - run: yarn build
+      - run: yarn check
+
+  lint-all:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ env.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.node-version }}
+          cache: yarn
+      - run: yarn install --immutable --immutable-cache
+      - run: yarn run lint
