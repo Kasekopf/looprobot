@@ -808,6 +808,7 @@ function getWarQuestFrat(): Quest {
       {
         name: "Phase 1",
         after: ["Flyers Start", "Junkyard End"],
+        ready: () => false,
         completed: () => warPhaseOneDone(),
         do: () => {
           // Use this task only for routing
@@ -1038,6 +1039,7 @@ function getWarQuestHippy(): Quest {
       {
         name: "Phase 1",
         after: ["Lighthouse"],
+        ready: () => false,
         completed: () => warPhaseOneDone(),
         do: () => {
           // Use this task only for routing
@@ -1152,11 +1154,11 @@ function dimesForGarters(): void {
       if (itemAmount(it) > 0) sell(it.buyer, itemAmount(it), it);
     }
 
-    if(itemAmount($item`gauze garter`) < 20) {
+    if (itemAmount($item`gauze garter`) < 20) {
       if ($coinmaster`Quartersmaster`.availableTokens >= 2) cliExecute(`make * gauze garter`);
-    }
-    else if(args.minor.warProfiteering)
-      if($coinmaster`Quartersmaster`.availableTokens >= 5) cliExecute('make * commemorative war stein');
+    } else if (args.minor.warProfiteering)
+      if ($coinmaster`Quartersmaster`.availableTokens >= 5)
+        cliExecute("make * commemorative war stein");
   }
 }
 

@@ -163,7 +163,8 @@ const standardFamiliars: ValueFamiliar[] = [
   {
     familiar: $familiar`Peace Turkey`,
     value: () =>
-      garboAverageValue(...$items`peace shooter, whirled peas, piece of cake`) * (.24 + Math.sqrt(familiarWeight($familiar`Peace Turkey`))),
+      garboAverageValue(...$items`peace shooter, whirled peas, piece of cake`) *
+      (0.24 + Math.sqrt(familiarWeight($familiar`Peace Turkey`))),
   },
 ];
 
