@@ -288,7 +288,7 @@ const Niche: Task[] = [
       else return $monster`none`;
     },
     do_parachute: () => {
-      return get("rwbMonsterCount") > 0 && (!have($effect`Everything Looks Red, White and Blue`) || !have($familiar`Patriotic Eagle`)) ? Monster.none :  $monster`dirty old lihc`
+      return get("rwbMonsterCount") > 0 || (!have($effect`Everything Looks Red, White and Blue`) && have($familiar`Patriotic Eagle`)) ? Monster.none :  $monster`dirty old lihc`
     },
     limit: { turns: 37 },
   },

@@ -5,7 +5,6 @@ import {
   familiarWeight,
   Item,
   itemAmount,
-  Monster,
   myAscensions,
   myHash,
   myMeat,
@@ -228,9 +227,6 @@ const Apartment: Task[] = [
         equip: $items`miniature crystal ball, unwrapped knock-off retro superhero cape`,
         modes: { retrocape: ["heck", "hold"] },
       };
-    },
-    do_parachute: () => {
-      return have($effect`Twice-Cursed`) && $location`The Hidden Apartment Building`.turnsSpent === 8 ? $monster`pygmy shaman` : Monster.none;
     },
     choices: { 780: 1 },
     limit: { soft: 9 },
