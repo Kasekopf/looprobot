@@ -243,14 +243,18 @@ const Niche: Task[] = [
         }
         if (get("rwbMonsterCount") > 1 || get("cyrptNicheEvilness") <= 16)
           return { score: 0.1, reason: "Kill RWB monster" };
-        if (get("rwbMonsterCount") === 0 &&
+        if (
+          get("rwbMonsterCount") === 0 &&
           get("cyrptNicheEvilness") >= 3 &&
           myLocation() === $location`The Defiled Niche` &&
           // eslint-disable-next-line libram/verify-constants
-          !(have($effect`Everything Looks Beige`) &&
-          // eslint-disable-next-line libram/verify-constants
-          have($item`crepe paper parachute cape`)))
-            return { score: 3.1, reason: "Parachute an extra DOL"};
+          !(
+            have($effect`Everything Looks Beige`) &&
+            // eslint-disable-next-line libram/verify-constants
+            have($item`crepe paper parachute cape`)
+          )
+        )
+          return { score: 3.1, reason: "Parachute an extra DOL" };
         if (have($effect`Everything Looks Red, White and Blue`))
           return { score: -80, reason: "Wait to launch RWB" };
       }
@@ -288,7 +292,10 @@ const Niche: Task[] = [
       else return $monster`none`;
     },
     do_parachute: () => {
-      return get("rwbMonsterCount") > 0 || (!have($effect`Everything Looks Red, White and Blue`) && have($familiar`Patriotic Eagle`)) ? Monster.none :  $monster`dirty old lihc`
+      return get("rwbMonsterCount") > 0 ||
+        (!have($effect`Everything Looks Red, White and Blue`) && have($familiar`Patriotic Eagle`))
+        ? Monster.none
+        : $monster`dirty old lihc`;
     },
     limit: { turns: 37 },
   },
