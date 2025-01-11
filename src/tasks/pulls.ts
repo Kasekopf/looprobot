@@ -300,6 +300,10 @@ export const pulls: PullSpec[] = [
     optional: true,
     useful: () => step("questL11Ron") < 1 || get("zeppelinProtestors") < 80,
   },
+  {
+    pull: $item`Clara's bell`,
+    optional: true,
+  },
 ];
 
 class Pull {

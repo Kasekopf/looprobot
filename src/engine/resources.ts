@@ -19,6 +19,7 @@ import {
   retrieveItem,
   Skill,
   totalTurnsPlayed,
+  use,
   useSkill,
 } from "kolmafia";
 import {
@@ -686,17 +687,13 @@ export const forceNCSources: ForceNCSorce[] = [
   },
   {
     name: "McHugeLarge",
-    // eslint-disable-next-line libram/verify-constants
     available: () => have($item`McHugeLarge left ski`) && get("_mcHugeLargeAvalancheUses", 0) < 3,
     equip: [
-      // eslint-disable-next-line libram/verify-constants
       { equip: $items`McHugeLarge left ski, designer sweatpants` },
-      // eslint-disable-next-line libram/verify-constants
       { equip: $items`McHugeLarge left ski` },
     ],
     do: Macro.trySkill($skill`Summon Love Gnats`)
       .externalIf(!get("lovebugsUnlocked"), Macro.trySkill($skill`Sweat Flood`))
-      // eslint-disable-next-line libram/verify-constants
       .skill($skill`McHugeLarge Avalanche`),
   },
 ];
@@ -723,6 +720,10 @@ export const noncombatForceNCSources: ForceNCSource[] = [
   {
     available: () => CinchoDeMayo.currentCinch() >= 60,
     do: () => useSkill($skill`Cincho: Fiesta Exit`),
+  },
+  {
+    available: () => have($item`Clara's bell`) && get("_claraBellUsed"),
+    do: () => use($item`Clara's bell`),
   },
 ];
 
