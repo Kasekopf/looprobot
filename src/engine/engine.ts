@@ -337,7 +337,6 @@ export class Engine extends BaseEngine<CombatActions, ActiveTask> {
     // Copied from grimoire, to remove the extra printout
     // Determine the proper postcondition for after the task executes.
     const postcondition = task.limit?.guard?.();
-    const avalancheUses = get("_mcHugeLargeAvalancheUses", 0);
 
     // Acquire any items and effects first, possibly for later execution steps.
     this.acquireItems(task);
@@ -369,11 +368,6 @@ export class Engine extends BaseEngine<CombatActions, ActiveTask> {
     this.markAttempt(task);
     this.checkLimits(task, postcondition);
     // End copy
-
-    // Workaround for api.php bug
-    if (get("_mcHugeLargeAvalancheUses", 0) > avalancheUses) {
-      set("noncombatForcerActive", true);
-    }
 
     if (task.completed()) {
       debug(`${task.name} completed!`, "blue");
