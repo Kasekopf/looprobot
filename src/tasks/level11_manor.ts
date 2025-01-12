@@ -237,6 +237,7 @@ const Manor2: Task[] = [
         $monsters`animated mahogany nightstand, animated rustic nightstand, Wardröb nightstand, elegant animated nightstand`
       )
       .ignore($monster`tumbleweed`),
+    parachute: $monster`animated ornate nightstand`,
     limit: { soft: 10 },
   },
   {
@@ -452,6 +453,7 @@ const ManorBasement: Task[] = [
       })
       .kill($monster`monstrous boiler`)
       .banish($monsters`coaltergeist, steam elemental`),
+    parachute: $monster`monstrous boiler`,
     limit: { soft: 10 },
   },
   {

@@ -471,6 +471,7 @@ const Bowling: Task[] = [
       }
       return result;
     },
+    parachute: $monster`pygmy bowler`,
     ignore_banishes: () => bowlingBallsGathered(),
     choices: { 788: 1 },
     limit: { soft: 25 },

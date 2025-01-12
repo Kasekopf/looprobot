@@ -188,6 +188,10 @@ export const pulls: PullSpec[] = [
   { pull: $item`muculent machete` },
   { pull: $item`Space Trip safety headphones` },
   {
+    pull: $item`crepe paper parachute cape`,
+    optional: true,
+  },
+  {
     pull: $item`book of matches`,
     useful: () =>
       !(

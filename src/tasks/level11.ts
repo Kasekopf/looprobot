@@ -201,6 +201,7 @@ const Desert: Task[] = [
     do: $location`The Oasis`,
     combat: new CombatStrategy().killItem($monster`blur`),
     outfit: { modifier: "item", avoid: $items`broken champagne bottle` },
+    parachute: $monster`blur`,
     limit: { soft: 15 },
     post: (): void => {
       if (!visitUrl("place.php?whichplace=desertbeach").includes("action=db_gnasir")) return;
