@@ -345,7 +345,6 @@ export function equipDefaults(outfit: Outfit, noFightingFamiliars: boolean): voi
   if (outfit.skipDefaults) return;
 
   if (modifier.includes("-combat")) {
-    // eslint-disable-next-line libram/verify-constants
     outfit.equip($familiar`Peace Turkey`);
     outfit.equip($familiar`Disgeist`);
   } // low priority
