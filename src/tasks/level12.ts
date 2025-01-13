@@ -202,6 +202,10 @@ function lighthouseTasks(after: string[]): Task[] {
       orbtargets: () => undefined,
       expectbeatenup: () => get("lastEncounter") === "Zerg Rush",
       choices: { 1387: 2 },
+      parachute: () => {
+        if (AutumnAton.have()) return undefined;
+        return $monster`lobsterfrogman`;
+      },
       limit: {
         tries: 20,
         guard: Guards.create(
@@ -232,6 +236,10 @@ function lighthouseTasks(after: string[]): Task[] {
       combat: new CombatStrategy().kill($monster`lobsterfrogman`),
       orbtargets: () => undefined,
       expectbeatenup: () => get("lastEncounter") === "Zerg Rush",
+      parachute: () => {
+        if (AutumnAton.have()) return undefined;
+        return $monster`lobsterfrogman`;
+      },
       limit: { soft: 40 },
     },
     {

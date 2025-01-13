@@ -332,6 +332,15 @@ export const KeysQuest: Quest = {
       outfit: { modifier: "item", avoid: $items`broken champagne bottle` },
       combat: new CombatStrategy().kill($monster`Astronomer`).killItem(),
       limit: { soft: 20 },
+      parachute: () => {
+        if (
+          !have($item`star chart`) &&
+          itemAmount($item`star`) >= 8 &&
+          itemAmount($item`line`) >= 7
+        )
+          return $monster`Astronomer`;
+        return undefined;
+      },
       orbtargets: () => (!have($item`star chart`) ? [$monster`Astronomer`] : []),
     },
     {
