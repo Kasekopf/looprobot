@@ -480,7 +480,13 @@ const Bowling: Task[] = [
       }
       return result;
     },
-    parachute: $monster`pygmy bowler`,
+    parachute: () => {
+      if (bowlingBallsGathered()) return undefined;
+      // Since the parachute is out of zone,
+      // we wouldn't be able to get the cosmic bowling ball progress
+      if (cosmicBowlingBallReady() && get("hiddenBowlingAlleyProgress") < 2) return undefined;
+      return $monster`pygmy bowler`;
+    },
     ignore_banishes: () => bowlingBallsGathered(),
     choices: { 788: 1 },
     limit: { soft: 25 },
