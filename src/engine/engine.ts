@@ -431,6 +431,9 @@ export class Engine extends BaseEngine<CombatActions, ActiveTask> {
     // Equip initial equipment
     equipInitial(outfit, (orbUsefulFromGoodOrb || orbUsefulFromPotential) ?? false);
 
+    // Force the June cleaver if we really want it
+    if (task.active_priority?.has(Priorities.GoodCleaver)) outfit.equip($item`June cleaver`);
+
     // Prepare combat macro
     if (combat.getDefaultAction() === undefined) combat.action("ignore");
 

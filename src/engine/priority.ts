@@ -3,14 +3,23 @@
  */
 
 import { getCounter, haveEffect, Location, Monster } from "kolmafia";
-import { $effect, $item, $location, get, getTodaysHolidayWanderers, have, undelay } from "libram";
+import {
+  $effect,
+  $item,
+  $location,
+  $slot,
+  get,
+  getTodaysHolidayWanderers,
+  have,
+  undelay,
+} from "libram";
 import { CombatStrategy } from "./combat";
 import { moodCompatible } from "./moods";
 import { Priority, Task } from "./task";
 import { globalStateCache } from "./state";
 import { forceItemSources, forceNCPossible, yellowRaySources } from "./resources";
 import { getModifiersFrom } from "./outfit";
-import { cosmicBowlingBallReady } from "../lib";
+import { cosmicBowlingBallReady, YouRobot } from "../lib";
 import { step } from "grimoire-kolmafia";
 
 export class Priorities {
@@ -32,6 +41,7 @@ export class Priorities {
   static SpringShoes: Priority = { score: 11, reason: "Use spring shoes" };
   static Start: Priority = { score: 10, reason: "Initial tasks" };
   static GoodYR: Priority = { score: 10, reason: "Yellow ray" };
+  static GoodCleaver: Priority = { score: 5, reason: "Cleaver is ready" };
   static GoodAutumnaton: Priority = { score: 4, reason: "Setup Autumnaton" };
   static GoodCamel: Priority = { score: 3, reason: "Melodramedary is ready" };
   static MinorEffect: Priority = { score: 2, reason: "Useful minor effect" };
@@ -193,6 +203,25 @@ export class Prioritization {
         result.priorities.add(Priorities.SpringShoes);
     }
 
+    // Consider using the June cleaver noncombat to prepare the right
+    // lastAdv zone, for the parachute
+    const parachuteTarget = undelay(task.parachute);
+    if (
+      parachuteTarget &&
+      have($item`crepe paper parachute cape`) &&
+      !have($effect`Everything looks Beige`) &&
+      have($item`June cleaver`) &&
+      get("_juneCleaverFightsLeft") === 0 &&
+      YouRobot.canUse($slot`weapon`) &&
+      // Needing the Saber to force items is more important
+      (!task.combat?.can("forceItems") ||
+        !have($item`Fourth of May Cosplay Saber`) ||
+        get("_saberForceUses") >= 5) &&
+      // Getting through the billiards room is more important
+      (!have($effect`Video... Games?`) || step("questM20Necklace") >= 3)
+    ) {
+      result.priorities.add(Priorities.GoodCleaver);
+    }
     return result;
   }
 
