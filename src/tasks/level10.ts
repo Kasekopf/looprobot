@@ -63,6 +63,7 @@ export const GiantQuest: Quest = {
         .kill($monster`screambat`)
         .kill()
         .forceItems($monsters`magical fruit bat, musical fruit bat, beanbat`),
+      parachute: $monster`beanbat`,
       limit: { soft: 10 },
     },
     {
@@ -79,6 +80,7 @@ export const GiantQuest: Quest = {
         .kill($monster`screambat`)
         .banish($monsters`magical fruit bat, musical fruit bat`)
         .killItem($monster`beanbat`),
+      parachute: $monster`beanbat`,
       limit: { soft: 10 },
     },
     {

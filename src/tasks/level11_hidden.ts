@@ -23,6 +23,7 @@ import {
   $monster,
   $monsters,
   $skill,
+  AugustScepter,
   get,
   have,
   Macro,
@@ -117,6 +118,14 @@ const Temple: Task[] = [
       )
       .macro(new Macro().trySkill($skill`Emit Matter Duplicating Drones`), $monster`Baa'baa'bu'ran`)
       .killItem([$monster`baa-relief sheep`, $monster`Baa'baa'bu'ran`]),
+    parachute: () => {
+      if (have($effect`Lucky!`)) return undefined;
+      if (have($item`11-leaf clover`)) return undefined;
+      if (AugustScepter.canCast(2)) return undefined;
+      if (have($item`Eight Days a Week Pill Keeper`) && !get("_freePillKeeperUsed"))
+        return undefined;
+      return $monster`baa-relief sheep`;
+    },
     choices: { 579: 2, 580: 1, 581: 3, 582: 1 },
     limit: { soft: 20 },
   },
