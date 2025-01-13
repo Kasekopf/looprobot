@@ -500,7 +500,11 @@ export const DigitalQuest: Quest = {
       ready: () => get("8BitColor", "black") === "green",
       do: $location`Hero's Field`,
       post: () => {
-        if (haveFlorest() && FloristFriar.Rutabeggar.available()) {
+        if (
+          numericModifier("Item Drop") < 400 &&
+          haveFlorest() &&
+          FloristFriar.Rutabeggar.available()
+        ) {
           FloristFriar.Rutabeggar.plant();
         }
       },
