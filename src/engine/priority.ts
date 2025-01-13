@@ -2,7 +2,7 @@
  * Temporary priorities that override the routing.
  */
 
-import { getCounter, haveEffect, Location, Monster } from "kolmafia";
+import { getCounter, haveEffect, Location, Monster, myLocation } from "kolmafia";
 import {
   $effect,
   $item,
@@ -45,6 +45,7 @@ export class Priorities {
   static GoodAutumnaton: Priority = { score: 4, reason: "Setup Autumnaton" };
   static GoodCamel: Priority = { score: 3, reason: "Melodramedary is ready" };
   static MinorEffect: Priority = { score: 2, reason: "Useful minor effect" };
+  static GoodLocation: Priority = { score: 1.5, reason: "Last location is useful" };
   static GoodGoose: Priority = { score: 1, reason: "Goose is ready" };
   static GoodBanish3: Priority = { score: 0.7, reason: "3+ banishes committed" };
   static GoodBanish2: Priority = { score: 0.6, reason: "2 banishes committed" };
@@ -203,24 +204,30 @@ export class Prioritization {
         result.priorities.add(Priorities.SpringShoes);
     }
 
-    // Consider using the June cleaver noncombat to prepare the right
-    // lastAdv zone, for the parachute
+    // Prioritize the parachute
     const parachuteTarget = undelay(task.parachute);
     if (
       parachuteTarget &&
       have($item`crepe paper parachute cape`) &&
       !have($effect`Everything looks Beige`) &&
-      have($item`June cleaver`) &&
-      get("_juneCleaverFightsLeft") === 0 &&
-      YouRobot.canUse($slot`weapon`) &&
-      // Needing the Saber to force items is more important
-      (!task.combat?.can("forceItems") ||
-        !have($item`Fourth of May Cosplay Saber`) ||
-        get("_saberForceUses") >= 5) &&
       // Getting through the billiards room is more important
       (!have($effect`Video... Games?`) || step("questM20Necklace") >= 3)
     ) {
-      result.priorities.add(Priorities.GoodCleaver);
+      // Consider using the June cleaver noncombat to prepare the right zone
+      if (
+        have($item`June cleaver`) &&
+        get("_juneCleaverFightsLeft") === 0 &&
+        YouRobot.canUse($slot`weapon`) &&
+        // Needing the Saber to force items is more important
+        (!task.combat?.can("forceItems") ||
+          !have($item`Fourth of May Cosplay Saber`) ||
+          get("_saberForceUses") >= 5)
+      )
+        result.priorities.add(Priorities.GoodCleaver);
+
+      // Prefer parachute if the last location is set correctly
+      if (task.do instanceof Location && task.do === myLocation())
+        result.priorities.add(Priorities.GoodLocation);
     }
     return result;
   }
